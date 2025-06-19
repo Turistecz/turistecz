@@ -1,59 +1,78 @@
 # Turistecz
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.11.
+Este proyecto ha sido creado con [Angular CLI](https://github.com/angular/angular-cli) version 19.2.11.
 
-## Development server
+## Descripcion:
 
-To start a local development server, run:
+Aplicación web destinada al turismo inclusivo en Zaragoza. 
+Indica y clasifica características de monumentos y servicios en función de las necesidades de los usuarios. 
+Además, propone recorridos culturales adaptados. 
+El framework utilizado es Angular.
+
+
+## Comandos de acceso y actualización:
+
+## Clonar el repositorio:
+
+```bash
+git clone https://github.com/Turistecz/turistecz.git 
+```
+
+## Instalación del node modules:
+
+```bash
+npm install
+```
+
+Para comprobar la instalación:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Cuando el servidor esté en funcionamiento, puedes acceder al navegador a través `http://localhost:4200/`. La aplicación se actualizará automáticamente en el servidor cuando el código se modifique.
 
-## Code scaffolding
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Ramas
 
-```bash
-ng generate component component-name
+### Para comprobar la rama actual:
+
+``` bash
+git branch
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Para crear una nueva rama y acceder a ella:
 
-```bash
-ng generate --help
+``` bash
+git checkout -b "nombreDeLaRama"
 ```
 
-## Building
+## Commit
 
-To build the project run:
+### Preparar ficheros:
 
-```bash
-ng build
+``` bash
+git add .
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Hacer commit:
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+``` bash
+git commit -m "tituloDelCommit"
 ```
 
-## Running end-to-end tests
+## Descarga de rama main antes de 'push':
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+``` bash
+git pull origin main
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Subir la rama actualizada:
 
-## Additional Resources
+``` bash
+git push origin "nombreDeLaRama"
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Último paso:
+
+Enviar solicitud (pull request) en GitHub.
