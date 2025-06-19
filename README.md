@@ -3,6 +3,7 @@
 Este proyecto ha sido creado con [Angular CLI](https://github.com/angular/angular-cli) version 19.2.11.
 
 ## Descripcion:
+
 Aplicación web destinada al turismo inclusivo en Zaragoza. 
 Indica y clasifica características de monumentos y servicios en función de las necesidades de los usuarios. 
 Además, propone recorridos culturales adaptados. 
@@ -57,7 +58,7 @@ git add .
 ### Hacer commit:
 
 ``` bash
-git commit "tituloDelCommit"
+git commit -m "tituloDelCommit"
 ```
 
 ## Descarga de rama main antes de 'push':
@@ -72,4 +73,6 @@ git pull origin main
 git push origin "nombreDeLaRama"
 ```
 
-## Enviar solicitud (pull request) en GitHub.
+## Último paso:
+
+Enviar solicitud (pull request) en GitHub.
