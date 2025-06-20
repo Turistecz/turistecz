@@ -1,0 +1,32 @@
+#imagenHome{
+    display: block;
+    
+   width: 100vw;
+  height: 90vh;
+  background-color: lightblue;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;  
+ 
+  justify-content: center;
+  color: white;
+  
+}
+
+#titleHome{
+    font-size: 100px;
+}
+#subtitleHome{
+    font-size: 60px;
+}
+#sloganHome{
+    font-size: 30px;
+}
+#textHome{
+    text-align: center;
+    font-family: 'inclusive'sans-serif;
+    font-weight: bold;
+}
