@@ -26,6 +26,7 @@
 }
 
 #cardPlace:hover .overlay-content {
+    cursor: pointer;
     opacity: 1;
 }
 .card-title{
