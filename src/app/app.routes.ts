@@ -10,6 +10,13 @@ export const routes: Routes = [
 
 
     },   
+    {
+        path: 'monuments', 
+        loadComponent: () =>
+                import('./monument-list/monument-list.component').then(m => m.MonumentListComponent)
+
+
+    },   
 
     
 ];
