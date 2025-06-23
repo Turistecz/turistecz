@@ -14,9 +14,9 @@
     color: #2A8BEA;
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
     font-weight:700;
-    font-size: 35px;
+    font-size: 3rem;
     text-align: center;
-    padding-top: 10px;
+    padding-top: 1rem;
 }
 
 /* faldon con opacidad para texto */
@@ -25,7 +25,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    bottom: 30;
+    bottom: 32rem;
     left: 0;
     padding: 1.5rem;
 }
