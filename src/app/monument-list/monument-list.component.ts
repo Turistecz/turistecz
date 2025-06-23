@@ -9,7 +9,7 @@ import { firstValueFrom } from 'rxjs';
   selector: 'app-monument-list',
   imports: [CommonModule, MonumentComponent],
   templateUrl: './monument-list.component.html',
-  styleUrls: ['./monument-list.component.css']  // corregido de styleUrl a styleUrls
+  styleUrls: ['./monument-list.component.css']  
 })
 export class MonumentListComponent implements OnInit {
 
@@ -20,12 +20,13 @@ export class MonumentListComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
+  // wait for the loadMonuments to end, then call filterMonuments
   async ngOnInit() {
     await this.loadMonuments();
-    this.mostrar();
+    this.filterMonuments();
   }
 
-  // Función que devuelve promesa
+  // Function to wait for api to be read
   async loadMonuments(): Promise<void> {
     try {
       const datos = await firstValueFrom(this.http.get<MonumentResponse>(
@@ -39,7 +40,7 @@ export class MonumentListComponent implements OnInit {
   
   }
 
-
+// function to add scores to monuments to filter them
   scoreMonument(m: MonumentItem) {
     let score = 0;
     const title = m.title ? m.title.toLowerCase() : '';
@@ -69,14 +70,14 @@ export class MonumentListComponent implements OnInit {
     return score;
   }
 
-  mostrar(): void {
+  // filter monuments based on their score
+  filterMonuments(): void {
     this.filtrados = this.monuments
       .map(m => ({m, score: this.scoreMonument(m)}))
       .filter(x => x.score >= 4)
       .sort((a,b) => b.score - a.score)
       .map(x => x.m);
 
-    console.log(this.filtrados);
   }
 
 }
