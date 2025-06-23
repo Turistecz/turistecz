@@ -1,7 +1,5 @@
-<button (click)="mostrar()">Prueba</button>
 
-
-<div *ngFor="let monument of monuments;">
+<!-- show monuments -->
+<div *ngFor="let monument of filtrados;">
         <app-monument [data]="monument"></app-monument>
 </div>
-

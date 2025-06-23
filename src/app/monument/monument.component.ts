@@ -10,6 +10,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class MonumentComponent implements OnInit {
 
+  // access data from parent 
   @Input() data = {
     id: -1,
     title: "",
@@ -22,6 +23,7 @@ export class MonumentComponent implements OnInit {
     uri: ""
   };
 
+  // remove html tags <> from text
   removeHTMLTags(text: string): string {
     if (text !== undefined){
       return text.replace(/<[^>]*>/g, '').trim();
@@ -31,9 +33,12 @@ export class MonumentComponent implements OnInit {
     }
   };
 
+  // call the function on start
   ngOnInit() {
     this.data.description = this.removeHTMLTags(this.data.description);
     this.data.price = this.removeHTMLTags(this.data.price);
+    this.data.horario = this.removeHTMLTags(this.data.horario);
+
   };
 
 
