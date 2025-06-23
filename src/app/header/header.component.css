@@ -1,4 +1,21 @@
 .font-div{
     font-family:'Inclusive', sans-serif;
-    font-size: 19px;
+    font-size: 30px;
 }
+
+
+  .search-responsive {
+    width: 100%;
+    max-width: 250px; 
+  }
+  #login {
+    max-width: 100px; 
+    height: auto;
+    cursor: pointer;
+  }
+  #nopoint {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
