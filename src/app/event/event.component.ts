@@ -15,4 +15,18 @@ export class EventComponent {
     description: "",
     category: ""
   };
+//
+  removeHTMLTags(text: string): string {
+    if (text !== undefined){
+      return text.replace(/<[^>]*>/g, '').trim();
+    }
+    else{
+      return "";
+    }
+  };
+
+  ngOnInit() {
+    this.data.description = this.removeHTMLTags(this.data.description);
+    
+  };
 }

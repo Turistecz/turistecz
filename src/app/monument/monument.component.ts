@@ -34,6 +34,8 @@ export class MonumentComponent implements OnInit {
   ngOnInit() {
     this.data.description = this.removeHTMLTags(this.data.description);
     this.data.price = this.removeHTMLTags(this.data.price);
+    this.data.horario = this.removeHTMLTags(this.data.horario);
+
   };
 
 
