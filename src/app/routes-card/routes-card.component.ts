@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { imagenRoutes } from './routes-card.model';
 
 
 @Component({
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './routes-card.component.css'
 })
 export class RoutesCardComponent {
+  /*@Input() nameRoutes:string='';*/
 
+@Input() routesName: imagenRoutes=
+   {name:'',
+   src:''}
 }

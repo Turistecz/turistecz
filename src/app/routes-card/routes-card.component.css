@@ -1,14 +1,15 @@
 @import '@fontsource-variable/baloo-bhaijaan-2'; /* IMPORTANTE! PARA UTILIZAR UN FONT DIFERENTE, IMPORTAR */
 
-.card-bg-image {
-      background-image: url('https://images.pexels.com/photos/11091818/pexels-photo-11091818.jpeg');
-      background-size: cover;
-      background-position: center; 
-      height: 40rem;
-       /*width:25rem; */
-      position: relative;
+.container{
+    width: 100%;
+    display: flex;
 }
 
+img{
+    max-width: 100%;
+    
+    
+}
 
 .card-title {
     color: #2A8BEA;
@@ -22,10 +23,11 @@
 /* faldon con opacidad para texto */
 .card-bg-overlay {
     background-color: rgba(241, 228, 228, 0.75); 
-    position: absolute;
+    position: relative;
     top: 0;
     right: 0;
     bottom: 32rem;
     left: 0;
     padding: 1.5rem;
 }
+
