@@ -1,10 +1,31 @@
-/* h3 {
-    font-family: 'baloo' sans-serif;
-    font-weight: bold;
+@import '@fontsource-variable/baloo-bhaijaan-2'; /* IMPORTANTE! PARA UTILIZAR UN FONT DIFERENTE, IMPORTAR */
+
+.card-bg-image {
+      background-image: url('https://images.pexels.com/photos/11091818/pexels-photo-11091818.jpeg');
+      background-size: cover;
+      background-position: center; 
+      height: 40rem;
+       /*width:25rem; */
+      position: relative;
+}
+
+
+.card-title {
     color: #2A8BEA;
-    background-color: beige;
-    padding: 15px;
-    background-size: cover;
-} */
+    font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+    font-weight:700;
+    font-size: 35px;
+    text-align: center;
+    padding-top: 10px;
+}
 
-
+/* faldon con opacidad para texto */
+.card-bg-overlay {
+    background-color: rgba(241, 228, 228, 0.75); 
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 30;
+    left: 0;
+    padding: 1.5rem;
+}
