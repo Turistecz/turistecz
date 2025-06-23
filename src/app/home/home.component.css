@@ -1,9 +1,9 @@
 #imagenHome{
     display: block;
     
-   width: 100vw;
+   width: 99.5w;
   height: 90vh;
-  background-color: lightblue;
+  background-image: url(../../../public/pilar_home.jpg);
 
   background-size: cover;
   background-position: center;
