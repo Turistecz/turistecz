@@ -12,14 +12,14 @@ export class MonumentComponent implements OnInit {
 
   @Input() data = {
     id: -1,
-    title: " ",
-    description: " ",
-    address: " ",
-    horario: " ",
-    phone: " ",
-    price: " ",
-    image: " ",
-    uri: " "
+    title: "",
+    description: "",
+    address: "",
+    horario: "",
+    phone: "",
+    price: "",
+    image: "",
+    uri: ""
   };
 
   removeHTMLTags(text: string): string {
