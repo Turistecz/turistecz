@@ -1,9 +1,15 @@
 
-<h2>Rutas</h2> 
-
-  <div class="cardRoutes">
-    <div class="cardito col-12 col-md-4" *ngFor="let route of routesName">
+<div class="imagen-bg-routes"> 
+    <div class="cardRoutes">
+    <h2>Rutas</h2>
+    <div class="cardito col-12 col-md-4 " *ngFor="let route of routesName">
       <app-routes-card [routesName]="route"> </app-routes-card>
     </div>
+     <div class="div-btn-routes ">
+      <button type="button" class=" btn-routes btn btn-primary">Saber más</button>  
+     </div>
 </div>
+</div>
+
+
 
