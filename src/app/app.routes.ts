@@ -11,19 +11,24 @@ export const routes: Routes = [
 
 
     },   
-        {
-        path: 'sitios/:id', 
-        loadComponent: () =>
+       
+    {
+        path: 'sitios', 
+        children: [
+           { 
+            path: '',
+            loadComponent: () =>
+                import('./monument-list/monument-list.component').then(m => m.MonumentListComponent)
+           },
+           {
+            path: ':id', 
+            loadComponent: () =>
                 import('./monument/monument.component').then(m => m.MonumentComponent)
 
 
-    }, 
-    {
-        path: 'sitios', 
-        loadComponent: () =>
-                import('./monument-list/monument-list.component').then(m => m.MonumentListComponent)
-
-
+            }
+        ]
+    
     },   
     {
         path: 'eventos', 
@@ -39,7 +44,7 @@ export const routes: Routes = [
                 import('./map/map.component').then(m => m.MapComponent)
 
 
-    },   
+    },
     
     
 ];
