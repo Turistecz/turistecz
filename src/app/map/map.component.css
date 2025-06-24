@@ -1,0 +1,6 @@
+#map {
+  height: 400px;      /* Puedes ajustar esto al tamaño deseado */
+  width: 100%;
+  margin: 0 auto;
+  z-index: 0;
+}
