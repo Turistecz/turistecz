@@ -13,8 +13,6 @@
    display: block;
    justify-content: space-between; 
    margin-inline: 4rem; 
-   /* background-image:  url('/routesImage/routes_bg.png');
-   padding: 4rem; */
    position: relative;
 }
 
@@ -23,7 +21,6 @@
     align-content: center;
     padding-bottom: 1rem;
 }
-
 
 
 h2{
@@ -36,13 +33,11 @@ h2{
     padding-bottom: 1rem;
 }
  
-.btn-routes {
-    
+.btn-routes {   
     background: linear-gradient( #184591, #2A8BEA);
     font-family: "inclusive", system-ui;
     font-weight: 500;
-    margin-top: 3rem;
-   
+    margin-top: 3rem;   
 }  
 
 .div-btn-routes {
@@ -53,5 +48,4 @@ h2{
 
 .btn-routes:hover {
   transform: scale(1.05);
- 
 }
