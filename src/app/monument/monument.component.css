@@ -1,0 +1,16 @@
+#imagen-intro{
+   max-width: 90%;
+}
+#horario{
+    display: flex;
+  flex-direction: column;  
+  justify-content: center;
+ background-color: rgb(216, 240, 252);
+ height: fit-content;
+ padding: 20px;
+ margin-top: 135px;
+
+}
+#horarioP{
+    font-size: x-large;
+}
