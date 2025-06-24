@@ -1,14 +1,12 @@
 @import '@fontsource-variable/baloo-bhaijaan-2'; /* IMPORTANTE! PARA UTILIZAR UN FONT DIFERENTE, IMPORTAR */
 
-.container{
+.container-routes{
     width: 100%;
     display: flex;
     position: relative; 
-  
-
 }
 
-.card {
+.card-r {
     border-radius: 1.5rem;
 }
 
@@ -18,7 +16,7 @@ img{
     border-radius: 1.5rem;
 }
 
-.card-title {
+.card-title-r {
     color: #2A8BEA;
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
     font-weight:700;
@@ -39,6 +37,7 @@ img{
     border-top-right-radius: 1.5rem;
 }
 
-.container:hover{
+.container-routes:hover{
     transform:scale(1.09);
+    transition: transform 0.2s ease-in-out;
 }
