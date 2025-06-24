@@ -9,6 +9,7 @@
  height: fit-content;
  padding: 20px;
  margin-top: 135px;
+ 
 
 }
 #horarioP{
@@ -17,20 +18,39 @@
 }
 
 #descripcion{
-    margin-left: 15px;
+    
     font-size: large;
 }
 #descripcion p{
     text-align: justify;
 }
 
+#access{    
+   
+    background-color: rgb(185, 245, 185);
+    height: fit-content;
+     padding: 20px;
+    
+    
+    /*padding: 20px;
+    margin-top: 135px;*/
+}
+
+
+
+
 .iconos_sitio {
   display: flex;
   align-items: center;  /* Centra verticalmente */
   gap: 0.5rem;          /* Espacio entre imagen y texto */
   margin-bottom: 0.5rem; /* Espacio entre filas */
+    text-align: center;
 }
 
 .iconos_sitio p {
   margin: 0; /* Elimina márgenes por defecto del párrafo */
+}
+
+#mapa{
+    max-width: 100%;
 }

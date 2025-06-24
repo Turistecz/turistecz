@@ -13,7 +13,7 @@
     <div class="row pt-4">
         <div class="col-7"><img src="pilar_desde_arriba.jpg" alt="imagen de la Basílica del Pilar desde arriba" id="imagen-intro">
 </div>
-        <div class="col-1"></div>        
+               
         <div id="horario"class="col-4">
             <h2>Horario</h2>
             <p id="horarioP">{{data.horario}}</p></div>
@@ -23,14 +23,16 @@
     
     <div class="row pt-5">
         
-        <div id="descripcion" class="col-6">
+        <div id="descripcion" class="col-7">
             <h2>Descripción</h2>
             <br>
             <p>{{data.description}}</p> 
         </div>
         <div class="col-1"></div>
 
-        <div id="access" class="col-4">
+      
+
+        <div id="access" class="col-3">
             <h2>Accesibilidad</h2>
             <br>
             <div class="iconos_sitio">
@@ -80,9 +82,16 @@
             <a href="{{data.uri}}"><p> {{data.uri}} </p></a>
         </div>
     </div>
-    
-
-
+  
+    <br>
+    <div class="row pt-3">
+        <div class="col-8">
+        <h2>Localización</h2>
+        <br>
+        <img id="mapa" src="mapa-zaragoza.jpg">
+        </div>
+        
+    </div>
 
 
 </div>
