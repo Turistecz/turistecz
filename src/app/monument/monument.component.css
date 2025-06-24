@@ -13,4 +13,24 @@
 }
 #horarioP{
     font-size: x-large;
+    text-align: justify;
+}
+
+#descripcion{
+    margin-left: 15px;
+    font-size: large;
+}
+#descripcion p{
+    text-align: justify;
+}
+
+.iconos_sitio {
+  display: flex;
+  align-items: center;  /* Centra verticalmente */
+  gap: 0.5rem;          /* Espacio entre imagen y texto */
+  margin-bottom: 0.5rem; /* Espacio entre filas */
+}
+
+.iconos_sitio p {
+  margin: 0; /* Elimina márgenes por defecto del párrafo */
 }
