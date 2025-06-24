@@ -7,18 +7,31 @@ export const routes: Routes = [
         path: '', 
         loadComponent: () =>
                 import('./home/home.component').then(m => m.HomeComponent)
+    
 
 
     },   
+       
     {
-        path: 'monuments', 
-        loadComponent: () =>
+        path: 'sitios', 
+        children: [
+           { 
+            path: '',
+            loadComponent: () =>
                 import('./monument-list/monument-list.component').then(m => m.MonumentListComponent)
+           },
+           {
+            path: ':id', 
+            loadComponent: () =>
+                import('./monument/monument.component').then(m => m.MonumentComponent)
 
 
+            }
+        ]
+    
     },   
     {
-        path: 'events', 
+        path: 'eventos', 
         loadComponent: () =>
                 import('./event-list/event-list.component').then(m => m.EventListComponent)
 
@@ -31,7 +44,7 @@ export const routes: Routes = [
                 import('./map/map.component').then(m => m.MapComponent)
 
 
-    },   
+    },
     
     
 ];
