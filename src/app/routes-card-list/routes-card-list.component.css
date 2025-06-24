@@ -1,0 +1,57 @@
+@import '@fontsource-variable/baloo-bhaijaan-2';
+
+.imagen-bg-routes {
+    background-image: url('/routesImage/bg-imagen.png');
+    position: relative;
+    display: flex;
+    background-size:cover;
+    padding-top: 4rem;
+    padding-bottom:  10rem;
+}
+
+.cardRoutes{
+   display: block;
+   justify-content: space-between; 
+   margin-inline: 4rem; 
+   /* background-image:  url('/routesImage/routes_bg.png');
+   padding: 4rem; */
+   position: relative;
+}
+
+.cardito{
+    display: inline-block;
+    align-content: center;
+    padding-bottom: 1rem;
+}
+
+
+
+h2{
+   color: #184591;
+    font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+    font-weight:700;
+    font-size: 4rem;
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+ 
+.btn-routes {
+    
+    background: linear-gradient( #184591, #2A8BEA);
+    font-family: "inclusive", system-ui;
+    font-weight: 500;
+    margin-top: 3rem;
+   
+}  
+
+.div-btn-routes {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.btn-routes:hover {
+  transform: scale(1.05);
+ 
+}
