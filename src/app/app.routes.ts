@@ -23,6 +23,15 @@ export const routes: Routes = [
                 import('./event-list/event-list.component').then(m => m.EventListComponent)
 
 
+    }, 
+    
+    {
+        path: 'maps', 
+        loadComponent: () =>
+                import('./map/map.component').then(m => m.MapComponent)
+
+
     },   
+    
     
 ];
