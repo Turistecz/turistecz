@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit} from '@angular/core';
 import * as L from 'leaflet';
 import proj4 from 'proj4';
 
@@ -8,17 +8,19 @@ import proj4 from 'proj4';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements AfterViewInit{
   private map: any;
 
   // wait for map to load
   ngAfterViewInit(): void {
     this.initMap();
+    
   }
+
 
   // function to initialize the map, set the location point
   private initMap(): void {
-    const coords = this.convertCoords(676764.33, 4614005.34);
+    const coords = this.convertCoords(676641.359, 4613843.186);
     const latlng: L.LatLngExpression = [coords[1], coords[0]];
  // [lat, lon]
 
