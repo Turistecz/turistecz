@@ -3,11 +3,20 @@
 .container{
     width: 100%;
     display: flex;
+    position: relative; 
+  
+
+}
+
+.card {
+    border-radius: 1.5rem;
 }
 
 img{
     max-width: 100%;
-    
+    object-fit: cover;
+     border-radius: 1.5rem;
+
     
 }
 
@@ -15,19 +24,18 @@ img{
     color: #2A8BEA;
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
     font-weight:700;
-    font-size: 3rem;
+    /* font-size: 3rem; */
     text-align: center;
     padding-top: 1rem;
 }
 
 /* faldon con opacidad para texto */
 .card-bg-overlay {
-    background-color: rgba(241, 228, 228, 0.75); 
-    position: relative;
+    background-color: rgba(255, 255, 255, 0.65); 
+    position: absolute;
     top: 0;
     right: 0;
-    bottom: 32rem;
     left: 0;
-    padding: 1.5rem;
+    padding: 0.9rem;
 }
 

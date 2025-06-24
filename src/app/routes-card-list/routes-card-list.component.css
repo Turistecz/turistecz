@@ -2,18 +2,17 @@
 
 .cardRoutes{
    display: block;
-   justify-content: space-between;
-   margin-inline: 9rem;
-   
-  
+   justify-content: space-between; 
+   margin-inline: 4rem; 
       
 }
 
 .cardito{
     display: inline-block;
     align-content: center;
-    padding-bottom: 10px;
-      
+    padding-bottom: 1rem;
+   
+  
 }
 
 h2{
