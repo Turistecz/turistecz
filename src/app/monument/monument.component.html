@@ -11,10 +11,10 @@
 
 
     <div class="row pt-4">
-        <div class="col-7"><img src="pilar_desde_arriba.jpg" alt="imagen de la Basílica del Pilar desde arriba" id="imagen-intro">
+        <div class="col-12 col-md-7"><img src="pilar_desde_arriba.jpg" alt="imagen de la Basílica del Pilar desde arriba" id="imagen-intro">
 </div>
                
-        <div id="horario"class="col-4">
+        <div id="horario"class="col-12 col-md-4">
             <h2>Horario</h2>
             <p id="horarioP">{{data.horario}}</p></div>
         
@@ -23,7 +23,7 @@
     
     <div class="row pt-5">
         
-        <div id="descripcion" class="col-7">
+        <div id="descripcion" class="col-12 col-md-7">
             <h2>Descripción</h2>
             <br>
             <p>{{data.description}}</p> 
@@ -32,7 +32,7 @@
 
       
 
-        <div id="access" class="col-3">
+        <div id="access" class="col-12 col-md-3">
             <h2>Accesibilidad</h2>
             <br>
             <div class="iconos_sitio">
@@ -66,7 +66,7 @@
         </div>
        
     <div  class="row pt-3">
-        <div class="col-6"> 
+        <div class="col-12 col-md-6"> 
             <div *ngIf="data?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
             <h2> Contacto </h2>
             <p>{{data.phone}}</p>
@@ -85,7 +85,7 @@
   
     <br>
     <div class="row pt-3">
-        <div class="col-8">
+        <div class="col-12 col-md-8">
         <h2>Localización</h2>
         <br>
         <img id="mapa" src="mapa-zaragoza.jpg">
