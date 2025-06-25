@@ -77,7 +77,9 @@ export class MonumentListComponent implements OnInit {
       .filter(x => x.score >= 4)
       .sort((a,b) => b.score - a.score)
       .map(x => x.m);
-
+      console.log(this.filtrados); //Para ver la lista ordenada de los monumentos
   }
 
+
+   
 }
