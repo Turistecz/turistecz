@@ -1,5 +1,6 @@
 #imagen-intro{
    max-width: 90%;
+   border-radius: 25px;
 }
 #horario{
     display: flex;
@@ -36,7 +37,10 @@
     margin-top: 135px;*/
 }
 
-
+#imageDetail{
+    
+    border-radius: 25px;
+}
 
 
 .iconos_sitio {
