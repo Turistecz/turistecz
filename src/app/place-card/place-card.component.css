@@ -1,9 +1,7 @@
 
 
 #cardPlace {
-    width: 480px;
-    height: 650px;
-    margin-left: 200px;
+   
     border-radius: 25px;
     overflow: hidden;
     position: relative;
@@ -32,4 +30,7 @@
 .card-title{
 text-align: center;
 font-size: 100px;
+}
+#containerCard{
+    display: flex;
 }
