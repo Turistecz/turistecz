@@ -66,6 +66,9 @@ export class MonumentListComponent implements OnInit {
     if (title.includes('carmen')) score += 5;
     if (title.includes('agustina')) score += 5;
     if (title.includes('congresos')) score -= 10;
+    if (title.includes('museo goya')) score -= 10;
+    if (title.includes('museo goya - colección ibercaja')) score += 10;
+    if (title.includes('torreón y muralla de los sitios')) score -= 10;
 
     return score;
   }

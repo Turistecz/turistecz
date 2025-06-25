@@ -16,7 +16,7 @@
                
         <div id="horario"class="col-12 col-md-4">
             <h2>Horario</h2>
-            <p id="horarioP">{{data.horario}}</p></div>
+            <p id="horarioP">{{cleanHorario}}</p></div>
         
     </div>
 
@@ -26,7 +26,7 @@
         <div id="descripcion" class="col-12 col-md-7">
             <h2>Descripción</h2>
             <br>
-            <p>{{data.description}}</p> 
+            <p>{{cleanDescription}}</p> 
         </div>
         <div class="col-1"></div>
 
@@ -76,7 +76,7 @@
             <p>{{data.address}}</p>
             <br>
             <h2> Precio </h2>
-            <p>{{data.price}}</p>
+            <p>{{cleanPrice}}</p>
             <br>
             <h2> Enlaces de interés </h2>
             <a href="{{data.uri}}"><p> {{data.uri}} </p></a>
