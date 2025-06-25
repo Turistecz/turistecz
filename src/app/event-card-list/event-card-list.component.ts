@@ -10,6 +10,6 @@ import { CommonModule } from '@angular/common';
 })
 export class EventCardListComponent {
 
-events = [];
+events = [1 , 2, 3, 4];
 
 }

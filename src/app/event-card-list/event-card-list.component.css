@@ -1,0 +1,26 @@
+@import '@fontsource-variable/baloo-bhaijaan-2';
+
+h2{
+    color: #184591;
+    font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+    font-weight: bold;
+    font-size: 4rem;
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+.main-card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.event-card-list {
+    display: inline-block;
+   justify-content: space-between; 
+   position: relative;
+   margin-inline: 1rem;
+ 
+} 
+

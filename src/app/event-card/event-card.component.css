@@ -6,6 +6,7 @@
     font-family: 'inclusive', sans-serif;
     /* box-shadow: 0 4px 12px rgba(0,0,0,0.15);  */
     margin: 2px auto;
+    display: flex;
 }
 
 .inside-text {
