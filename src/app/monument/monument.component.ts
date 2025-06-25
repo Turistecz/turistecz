@@ -24,14 +24,29 @@ export class MonumentComponent implements OnInit {
   };
 
   // remove html tags <> from text
-  removeHTMLTags(text: string): string {
+  /*removeHTMLTags(text: string): string {
     if (text !== undefined){
       return text.replace(/<[^>]*>/g, '').trim();
     }
     else{
       return "";
     }
-  };
+  };*/
+   removeHTMLTags(text: string): string {
+    return text ? text.replace(/<[^>]*>/g, '').trim() : "";
+  }
+
+  get cleanHorario(): string {
+    return this.removeHTMLTags(this.data.horario);
+  }
+
+  get cleanDescription(): string {
+    return this.removeHTMLTags(this.data.description);
+  }
+
+  get cleanPrice(): string {
+    return this.removeHTMLTags(this.data.price);
+  }
 
   // call the function on start
   ngOnInit() {
