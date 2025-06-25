@@ -54,3 +54,7 @@
 #mapa{
     max-width: 100%;
 }
+
+#textPrice{
+    text-align: justify;
+}
