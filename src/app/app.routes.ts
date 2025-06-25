@@ -45,6 +45,10 @@ export const routes: Routes = [
 
 
     },
-    
+    {
+        path: 'event-card', 
+        loadComponent: () =>
+                import('./event-card-list/event-card-list.component').then(m => m.EventCardListComponent)
+    }, 
     
 ];
