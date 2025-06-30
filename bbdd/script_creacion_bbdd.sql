@@ -110,7 +110,7 @@ INSERT INTO sitio (
 -- Inserción de datos en imagen_sitio
 INSERT INTO imagen_sitio (id, nombre, url, copy, id_sitio) VALUES
 (1, 'Basílica del Pilar', 'images/images_sitios/1_Pilar.jpg', '“Zaragoza” por Gregorio Puga Bailón, CC BY 2.0', 1),
-(2, 'Palacio de la Aljafería', 'images/images_sitios/2_aljaferia.jpg', '"Aljafería Palace, Zaragoza” por Aleksandr Zykov, CC BY-SA 2.0', 1),
+(2, 'Palacio de la Aljafería', 'images/images_sitios/2_aljaferia.jpg', '"Aljafería Palace, Zaragoza” por Aleksandr Zykov, CC BY-SA 2.0', 20),
 (3, 'Catedral del Salvador o de La Seo', 'images/images_sitios/3_laSeo.jpg', '“La Seo” por Xiquinho Silva, CC BY 2.0', 2),
 (4, 'Museo de Zaragoza', 'images/images_sitios/4_museoZaragoza.jpg', '“Museo de Zaragoza” por santiago lopez-pastor, CC BY-ND 2.0', 10),
 (5, 'Museo Goya', 'images/images_sitios/5_MuseoGoya.jpg', '“Casa_de_los_Pardo-Museo_Camon_Aznar”  de Escarlati (Multi-license with GFDL and Creative Commons CC-BY 2.5)', 11),
