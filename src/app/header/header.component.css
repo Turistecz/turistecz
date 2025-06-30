@@ -1,24 +1,35 @@
-/* #menu{
-    font-family:'Inclusive', sans-serif;
-    font-size: 30px;
-    background-color: white;
+#menu {
+  font-family: 'Inclusive', sans-serif;
+  font-size: 25px;
+  background-color: white;
+}
+
+#logo {
+  margin-right: 30px;
+}
+
+.nav-center {
+  display: flex;
+  gap: 7rem;
+  flex-wrap: wrap;
+}
+
+.search-responsive {
+  width: 100%;
+  max-width: 300px;
+  margin-left: 10px;
 }
 
 
+@media (max-width: 992px) {
+  .nav-center {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0rem;
+    padding-left: 2rem;
+  }
+
   .search-responsive {
     width: 100%;
-    max-width: 250px; 
   }
-  #login {
-    max-width: 100px; 
-    height: auto;
-    cursor: pointer;
-  }
-  #nopoint {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
- */
-
-
+}
