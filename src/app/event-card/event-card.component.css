@@ -1,0 +1,63 @@
+.ticket-vertical {
+    background-color: #2a8dfb; /* Azul vibrante */ 
+    position: relative;
+    font-family: 'inclusive', sans-serif; 
+    display: flex;
+    flex-direction: column;
+}
+
+.inside-text {
+    height: 28rem;  
+    padding: 1.5rem;
+    position: relative;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+}
+
+.inside-text h2{
+    font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: #ffffff;
+
+    @media (max-width: 430px){
+        font-size: 2rem;
+        
+    } 
+}
+
+.inside-text p{
+    font-size: 1.2rem;
+    color: #ffffff;
+    font-family: "inclusive", sans-serif;
+
+    @media (max-width: 430px){
+        font-size: 1.3rem;
+    } 
+}
+
+/* Muescas superior e inferior */
+.ticket-vertical::before,
+.ticket-vertical::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5rem; /*ajustar la altura del espacio de los troqueles*/
+    left: 0px; /*ajustar el comiezo de los troqueles*/
+    background-repeat: repeat-x;
+    background-size: 5rem 6rem; /* espaciado y altura region visible*/
+    background-position: center;
+    background-image: radial-gradient(circle at center, white 1.3rem, transparent 1.4rem);
+}
+
+.ticket-vertical::before{
+    top: 0;
+    transform: translateY(-50%);
+}
+
+.ticket-vertical::after {
+    bottom: 0;
+    transform: translateY(50%);
+}
