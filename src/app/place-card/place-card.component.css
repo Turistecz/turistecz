@@ -1,15 +1,28 @@
-
+#tituloSitiosHome{
+        color: #184591;
+    font-family: "Baloo Bhaijaan 2 Variable", system-ui;
+    font-weight: 700;
+    font-size: 4rem;
+    text-align: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
 
 #cardPlace {
    
     border-radius: 25px;
     overflow: hidden;
     position: relative;
+    height: 100%;
+    width: 100%;
+    min-height: 300px;
+    max-width: 100%;
 }
 
 .card-img {
     height: 100%;
     object-fit: cover;
+ 
 }
 
 .overlay-content {
@@ -28,8 +41,8 @@
     opacity: 1;
 }
 .card-title{
-text-align: center;
-font-size: 100px;
+    text-align: center;
+    font-size: 100px;
 }
 #containerCard{
     display: flex;
