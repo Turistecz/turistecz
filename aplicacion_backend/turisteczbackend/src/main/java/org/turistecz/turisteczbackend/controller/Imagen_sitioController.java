@@ -14,6 +14,7 @@ public class Imagen_sitioController {
 	@Autowired	   
     private Imagen_sitioService imagen_sitioService;
     
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/imagen_sitios")
     public List<Imagen_sitio> listar() {
         return imagen_sitioService.buscarTodosImagen_sitios();

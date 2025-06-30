@@ -3,6 +3,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "TuristeczbackendApplication",
+      "request": "launch",
+      "mainClass": "org.turistecz.turisteczbackend.TuristeczbackendApplication",
+      "projectName": "turisteczbackend"
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",
