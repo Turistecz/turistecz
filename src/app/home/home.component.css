@@ -18,15 +18,18 @@
 
 #titleHome{
     font-size: 100px;
+    font-family: "Baloo Bhaijaan 2 Variable", system-ui;
 }
 #subtitleHome{
     font-size: 60px;
+    font-family: "Baloo Bhaijaan 2 Variable", system-ui;
 }
 #sloganHome{
     font-size: 30px;
 }
 #textHome{
     text-align: center;
-    font-family: 'inclusive'sans-serif;
     font-weight: bold;
 }
+
+
