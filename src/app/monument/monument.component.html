@@ -68,6 +68,8 @@
        
     <div  class="row pt-3">
         <div class="col-12 col-md-6"> 
+             <a class="btn btn-primary" href="{{data.uri}}" role="button">Más información</a>
+             <br><br><br>
             <div *ngIf="data?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
             <h2> Contacto </h2>
             <p>{{data.phone}}</p>
@@ -79,9 +81,9 @@
             <h2> Precio </h2>
             <p id="textPrice">{{cleanPrice}}</p>
             <br>
-            <h2> Enlaces de interés </h2>
-            <!--hay que poner un ngFor para que cada-->
-           <a class="btn btn-primary" href="{{data.uri}}" role="button">Más información</a>
+           <!-- <h2> Enlaces de interés </h2>
+            hay que poner un ngFor para que cada-->
+          
            
         </div>
     </div>

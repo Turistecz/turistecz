@@ -14,16 +14,19 @@ public class SitioController {
 	@Autowired	   
     private SitioService sitioService;
     
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/sitios")
     public List<Sitio> listar() {
         return sitioService.buscarTodosSitios();
     }
     
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/sitiosComoEste")
     public List<Sitio> listarComoNombre(@RequestParam String nombre) {
         return sitioService.buscarTodosSitiosDeNombreParecido(nombre);
     }
     
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/sitios/crear")
     public String crearSitio(@RequestParam String nombre) {
     	Sitio s = new Sitio();
