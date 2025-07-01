@@ -3,12 +3,12 @@ import { imagenRoutes } from './routes-card.model';
 
 
 @Component({
-  selector: 'app-routes-card',
+  selector: 'app-page-routes-card',
   imports: [],
-  templateUrl: './routes-card.component.html',
-  styleUrl: './routes-card.component.css'
+  templateUrl: './page-routes-card.component.html',
+  styleUrl: './page-routes-card.component.css'
 })
-export class RoutesCardComponent {
+export class pageRoutesCardComponent {
   /*@Input() nameRoutes:string='';*/
 
 @Input() routesName: imagenRoutes=

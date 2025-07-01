@@ -1,20 +1,17 @@
-#imagenHome{
+ #imagenHome{
   display: block;
-    
   width: 99.5w;
   height: 90vh;
   background-image: url(../../../public/pilar_home.jpg);
-
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;  
- 
   justify-content: center;
   color: white;
   
-}
+} 
 
 #titleHome{
     font-size: 100px;
@@ -32,4 +29,44 @@
     font-weight: bold;
 }
 
+
+@media screen and (min-width: 300px) {
+#titleHome{
+    font-size: 70px;
+    font-family: "Baloo Bhaijaan 2 Variable", system-ui;
+     position: relative; 
+    top: -150px; 
+}
+#subtitleHome{
+    font-size: 30px;
+    font-family: "Baloo Bhaijaan 2 Variable", system-ui;
+      position: relative; 
+    top: -160px; 
+}
+#sloganHome{
+    font-size: 20px;
+      position: relative; 
+    top: -180px; 
+}
+}
+
+@media screen and (min-width: 992px) {
+#titleHome{
+    font-size: 100px;
+    font-family: "Baloo Bhaijaan 2 Variable", system-ui;
+     position: relative; 
+    top: -150px; 
+}
+#subtitleHome{
+    font-size: 45px;
+    font-family: "Baloo Bhaijaan 2 Variable", system-ui;
+      position: relative; 
+    top: -160px; 
+}
+#sloganHome{
+    font-size: 25px;
+      position: relative; 
+    top: -180px; 
+}
+}
 
