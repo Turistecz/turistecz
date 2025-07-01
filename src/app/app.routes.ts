@@ -18,7 +18,7 @@ export const routes: Routes = [
            { 
             path: '',
             loadComponent: () =>
-                import('./monument-list/monument-list.component').then(m => m.MonumentListComponent)
+                import('./place-card-list/place-card-list.component').then(m => m.PlaceCardListComponent)
            },
            {
             path: ':id', 
