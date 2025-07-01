@@ -47,7 +47,7 @@
     height: 5rem; /*ajustar la altura del espacio de los troqueles*/
     left: 0px; /*ajustar el comiezo de los troqueles*/
     background-repeat: repeat-x;
-    background-size: 5rem 6rem; /* espaciado y altura region visible*/
+    background-size: 5.4rem 6rem; /* espaciado y altura region visible*/
     background-position: center;
     background-image: radial-gradient(circle at center, white 1.3rem, transparent 1.4rem);
 }
