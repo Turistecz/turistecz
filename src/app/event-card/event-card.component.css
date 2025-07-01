@@ -1,9 +1,17 @@
 .ticket-vertical {
-    background-color: #2a8dfb; /* Azul vibrante */ 
+   /* background-color: #2a8dfb;  Azul vibrante */ 
     position: relative;
     font-family: 'inclusive', sans-serif; 
     display: flex;
     flex-direction: column;
+}
+
+.bg-color1{
+  background-color: #2a8dfb;
+}
+
+.bg-color2{
+  background-color: #2630be;
 }
 
 .inside-text {

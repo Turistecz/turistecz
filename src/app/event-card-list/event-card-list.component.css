@@ -1,5 +1,8 @@
 @import '@fontsource-variable/baloo-bhaijaan-2';
 
+
+
+
 h2{
   color: #184591;
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
@@ -14,6 +17,7 @@ h2{
   flex-wrap: wrap;
   justify-content: center;
   margin-inline: 2rem;
+  /* margin: 0rem 10rem 0rem 10rem ; */
 }
 
 .event-card-list {

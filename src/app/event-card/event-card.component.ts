@@ -1,12 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-event-card',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './event-card.component.html',
   styleUrl: './event-card.component.css'
 })
 export class EventCardComponent {
+
 
   // access data from parent 
   @Input() data = {
@@ -14,6 +17,9 @@ export class EventCardComponent {
     description: ""
     
   };
+
+  @Input() bg: boolean = false;
+  
 
   // remove html tags <> from text
   removeHTMLTags(text: string): string {
@@ -31,13 +37,14 @@ export class EventCardComponent {
     
   };
 
+  getOtherColor(){
+     return {
+          'bg-color1': this.bg,
+          'bg-color2': !this.bg
 
-
-  getDifferentColor(){
-    const colors = ['#f0f8ff','#2a8dfb'];
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
+    }
   }
 }
+
 
 

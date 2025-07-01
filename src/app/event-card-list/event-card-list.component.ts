@@ -14,6 +14,8 @@ export class EventCardListComponent {
 
 constructor(private http: HttpClient) {}
     events: EventItem[] = [];
+    
+    bg: boolean = false;
 
   ngOnInit() {
     this.http.get<EventResponse>(
@@ -24,5 +26,16 @@ constructor(private http: HttpClient) {}
     
   }
 
+  getDifferentColor(){
+    if (this.bg==true){
+       this.bg=false;
+     } else {
+       this.bg=true;
+     }
+     return this.bg;   
+  }
 
 }
+
+
+
