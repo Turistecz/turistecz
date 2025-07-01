@@ -14,4 +14,5 @@ export class RoutesCardComponent {
 @Input() routesName: imagenRoutes=
    {name:'',
    src:''}
-}
+    
+  }

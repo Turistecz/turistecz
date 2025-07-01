@@ -1,3 +1,4 @@
+import { pageRoutesComponent } from './page-routes/page-routes.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [   
@@ -49,6 +50,12 @@ export const routes: Routes = [
         path: 'event-card', 
         loadComponent: () =>
                 import('./event-card-list/event-card-list.component').then(m => m.EventCardListComponent)
+    }, 
+
+    {
+        path: 'rutas', 
+        loadComponent: () =>
+                import('./page-routes/page-routes.component').then(m => m.pageRoutesComponent)
     }, 
     
 ];
