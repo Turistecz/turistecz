@@ -6,9 +6,17 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+//Este tipo de clases representan a una entidad del modelo de datos. 
+//Se corresponden con alguna tabla de la BBDD, de nombre homonimo
 @Entity
 public class Sitio {
 
+    //Los atributos de la clase se corresponden con los campos (columnas)
+    //del mismo nombre en la BBDD. Mediante las diferentes anotaciones le
+    //damos informacion a Java sobre esas columnas. Algunas no son imprescindibles, 
+    //pero sirven para darle un nivel mas de comprobaciones a la aplicacion. Por 
+    //ejemplo, aqui le indicamos que el campo id es autogenerado en la BBDD, o que 
+    //el string que le pasen para el nombre no puede exceder de 255 caracteres
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -94,6 +102,15 @@ public class Sitio {
     @Column
     private Boolean visitas_grupales;
   
+    //Este atributo es especial. No se corresponde exactamente con un campo de la 
+    //tabla, sino que le decimos que un "sitio" de la tabla esta relacionado con una o 
+    //varias Imagen_sitio(de la tabla correspondiente). Con la anotacion @OneToMany le 
+    //indicamos la cardinalidad de la relacion que hay entre esta tabla y aquella con la 
+    //que esta relacionada. Con el atributo "fetch = FetchType.LAZY" le indicamos que, 
+    //cuando saque de la BBDD la informacion de esta clase, no es necesario que se traiga 
+    //la informacion de las entidades asociadas (las Imagen_sitio correspondientes), para 
+    //evitar relaciones circulares. Con la anotacion @JsonManagedReference le estamos 
+    //diciendo que esta entidad es la que esta en el lado de "One" de la relacion (OneToMany)
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sitio", cascade = CascadeType.ALL)
     private List<Imagen_sitio> imagenes;
