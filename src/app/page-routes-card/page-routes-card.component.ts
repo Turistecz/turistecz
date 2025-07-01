@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { imagenRoutes } from './routes-card.model';
+
 
 @Component({
   selector: 'app-page-routes-card',
@@ -6,6 +8,11 @@ import { Component } from '@angular/core';
   templateUrl: './page-routes-card.component.html',
   styleUrl: './page-routes-card.component.css'
 })
-export class PageRoutesCardComponent {
+export class pageRoutesCardComponent {
+  /*@Input() nameRoutes:string='';*/
 
-}
+@Input() routesName: imagenRoutes=
+   {name:'',
+   src:''}
+    
+  }

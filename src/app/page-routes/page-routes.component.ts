@@ -1,12 +1,12 @@
 // import { routes } from './../app.routes';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RoutesCardComponent } from '../routes-card/routes-card.component';
+import { pageRoutesCardComponent } from '../page-routes-card/page-routes-card.component';
 import { imagenRoutes } from '../routes-card/routes-card.model';
 
 @Component({
   selector: 'app-page-routes',
-  imports: [CommonModule,RoutesCardComponent],
+  imports: [CommonModule,pageRoutesCardComponent,],
   templateUrl: './page-routes.component.html',
   styleUrl: './page-routes.component.css'
 })
