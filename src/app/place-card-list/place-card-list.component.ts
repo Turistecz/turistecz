@@ -3,12 +3,14 @@ import { Component } from '@angular/core';
 import { cardsHome, cardsHomeResponse } from '../place-card/place-card.model';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { RouterModule } from '@angular/router';
+
 
 
 
 @Component({
   selector: 'app-place-card-list',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './place-card-list.component.html',
   styleUrl: './place-card-list.component.css'
 })
