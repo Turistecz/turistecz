@@ -3,14 +3,16 @@ import { cardsHome, cardsHomeResponse } from './place-card.model';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-place-card',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './place-card.component.html',
   styleUrl: './place-card.component.css'
 })
 export class PlaceCardComponent implements OnInit {
+
 constructor(private http: HttpClient) {}
 async ngOnInit(): Promise<void> {
   await this.loadImages();
@@ -26,10 +28,11 @@ cards: cardsHome[]=[];
     ));
 
     // Recorremos cada sitio, y si tiene imágenes, las añadimos
-    this.cards = datos.flatMap(sitio =>
+    this.cards = datos.flatMap(sitio =>      
       sitio.imagenes.map((img: any) => ({
         nombre: img.nombre,
-        url: img.url
+        url: img.url,
+        id: img.id
       }))
     );
     
