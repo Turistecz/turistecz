@@ -31,13 +31,7 @@ export const routes: Routes = [
         ]
     
     },   
-    {
-        path: 'eventos', 
-        loadComponent: () =>
-                import('./event-list/event-list.component').then(m => m.EventListComponent)
-
-
-    }, 
+    
     
     {
         path: 'maps', 
@@ -47,7 +41,7 @@ export const routes: Routes = [
 
     },
     {
-        path: 'event-card', 
+        path: 'eventos', 
         loadComponent: () =>
                 import('./event-card-list/event-card-list.component').then(m => m.EventCardListComponent)
     }, 
