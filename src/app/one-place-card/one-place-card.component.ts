@@ -1,27 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { cardsHome, cardsHomeResponse } from './place-card.model';
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { Component, Input } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { cardsHome } from '../place-card/place-card.model';
+import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { OnePlaceCardComponent } from '../one-place-card/one-place-card.component';
 
 @Component({
-  selector: 'app-place-card',
-  imports: [CommonModule, RouterModule,OnePlaceCardComponent],
-  templateUrl: './place-card.component.html',
-  styleUrl: './place-card.component.css'
+  selector: 'app-one-place-card',
+  imports: [RouterModule],
+  templateUrl: './one-place-card.component.html',
+  styleUrl: './one-place-card.component.css'
 })
-export class PlaceCardComponent implements OnInit {
-
-constructor(private http: HttpClient) {}
+export class OnePlaceCardComponent {
+  
+  constructor(private http: HttpClient) {}
 async ngOnInit(): Promise<void> {
   await this.loadImages();
 }
 
 cards: cardsHome[]=[];
 
-
+  @Input() data!: {
+    id: number;
+    nombre: string;
+    url: string;
+  }
 
  async loadImages(): Promise<void> {
   try {
@@ -45,3 +47,5 @@ cards: cardsHome[]=[];
   }
 }
 }
+
+
