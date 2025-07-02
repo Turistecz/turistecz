@@ -7,7 +7,7 @@ import { EventComponent } from '../event/event.component';
 
 @Component({
   selector: 'app-event-list',
-  imports: [CommonModule, EventComponent],
+  imports: [CommonModule],
   templateUrl: './event-list.component.html',
   styleUrl: './event-list.component.css'
 })

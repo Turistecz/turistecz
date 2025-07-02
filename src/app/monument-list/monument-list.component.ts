@@ -4,6 +4,7 @@ import { MonumentItem, MonumentResponse } from '../monument-list/monument.model'
 import { CommonModule } from '@angular/common';
 import { MonumentComponent } from '../monument/monument.component';
 import { firstValueFrom } from 'rxjs';
+import { ApiConnectService } from '../api-connect.service';
 
 @Component({
   selector: 'app-monument-list',
@@ -18,7 +19,7 @@ export class MonumentListComponent implements OnInit {
   keyWords = ['goya','augusto','alfonso','batallador','pignatelli','palacio','basílica','catedral','monasterio','iglesia','museo'];
   place = ['plaza del pilar','plaza de los sitios','recinto expo','parque grande','coso','avenida césar augusto'];
 
-  constructor(private http: HttpClient) {}
+  constructor(private apiConnectService: ApiConnectService) {}
 
   // wait for the loadMonuments to end, then call filterMonuments
   async ngOnInit() {
@@ -29,9 +30,7 @@ export class MonumentListComponent implements OnInit {
   // Function to wait for api to be read
   async loadMonuments(): Promise<void> {
     try {
-      const datos = await firstValueFrom(this.http.get<MonumentResponse>(
-        'https://www.zaragoza.es/sede/servicio/monumento?rf=html&srsname=utm30n&start=0&rows=500&distance=500&locale=es'
-      ));
+      const datos = await firstValueFrom(this.apiConnectService.getMonuments());
       this.monuments = datos.result;
     
     } catch (error) {
