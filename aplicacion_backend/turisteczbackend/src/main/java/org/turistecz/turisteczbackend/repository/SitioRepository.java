@@ -25,8 +25,17 @@ public interface SitioRepository extends JpaRepository<Sitio, Integer> {
 	//No es necesario usarla en este caso, porque le estamos asociando directamente 
 	//la consulta SQL que queremos que se ejecute cuando le llamemos. Este metodo
 	//devolvera una lista con todos los sitios cuyo nombre se parezca al que le 
-	//estamos pasando como parametro
+	//estamos pasando como parametro. En este caso no estoy usando SQL "puro", sino 
+	//JPQL, la version propia de SQL que tiene JPA (y que funciona bien con la 
+	//conversion directa de clases que hace Hibernate, otro framework de Java que tiene 
+	//incorporado Spring) 
 	@Query("SELECT s FROM Sitio s WHERE s.nombre LIKE %:nombre%")
     List<Sitio> encontrarSitiosQueSeLlamenParecido(@Param("nombre") String nombre);
+
+	//Este es otro metodo "personalizado". Este metodo devolvera el Sitio al que esta
+	//asociada la Imagen_sitio cuyo id le estamos pasando como parametro. En este caso 
+	//si que estoy usando SQL "puro", usando la anotacion "@nativeQuery")
+	@Query(value = "SELECT * FROM SITIO s WHERE s.id = (SELECT id_sitio FROM IMAGEN_SITIO WHERE id = :id)", nativeQuery = true)
+    Sitio encontrarSitioCorrespondienteALaImagen(@Param("id") String id);
 	
 }

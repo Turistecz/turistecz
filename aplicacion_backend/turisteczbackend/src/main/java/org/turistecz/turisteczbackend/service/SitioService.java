@@ -54,5 +54,12 @@ public class SitioService {
 	public List<Sitio> buscarTodosSitiosDeNombreParecido(String nombre) {
 	    return repositorioSitio.encontrarSitiosQueSeLlamenParecido(nombre);
 	}
+
+	//En este caso, este metodo no incorpora ninguna operacion intermedia, solamente llama 
+	//al correspondiente metodo de la clase Repository que toca y devuelve su resultado. 
+	//El metodo al que se llama si que esta especificado en esa clase Repository.
+	public Sitio buscarSitioCorrespondienteALaImagen(String id) {
+	    return repositorioSitio.encontrarSitioCorrespondienteALaImagen(id);
+	}
 	  
 }
