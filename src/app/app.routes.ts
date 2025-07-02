@@ -46,6 +46,12 @@ export const routes: Routes = [
                 import('./event-card-list/event-card-list.component').then(m => m.EventCardListComponent)
     }, 
 
+        {
+        path: 'events', 
+        loadComponent: () =>
+                import('./event-list/event-list.component').then(m => m.EventListComponent)
+    }, 
+
     {
         path: 'rutas', 
         loadComponent: () =>

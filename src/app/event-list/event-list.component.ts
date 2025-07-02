@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { EventItem, EventResponse } from './event-list.model';
 import { HttpClient } from '@angular/common/http';
+import { ApiConnectService } from '../api-connect.service';
 import { EventComponent } from '../event/event.component';
 
 @Component({
@@ -11,14 +12,12 @@ import { EventComponent } from '../event/event.component';
   styleUrl: './event-list.component.css'
 })
 export class EventListComponent {
-
-  constructor(private http: HttpClient) {}
+  
+  constructor(private apiConnectService: ApiConnectService) {}
     events: EventItem[] = [];
 
   ngOnInit() {
-    this.http.get<EventResponse>(
-      'https://www.zaragoza.es/sede/servicio/puntos-interes?rf=html&srsname=utm30n&start=0&rows=50&distance=500'
-    ).subscribe(datos => {
+    this.apiConnectService.getEvents().subscribe(datos => {
       this.events = datos.result;
     });
     
