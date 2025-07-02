@@ -20,7 +20,7 @@ async ngOnInit(): Promise<void> {
 cards: cardsHome[]=[];
 
   @Input() data!: {
-    id: number;
+    id: string;
     nombre: string;
     url: string;
   }
