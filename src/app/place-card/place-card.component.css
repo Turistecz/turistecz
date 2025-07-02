@@ -1,7 +1,7 @@
 @import '@fontsource-variable/baloo-bhaijaan-2';
 
 #tituloSitiosHome{
-        color: #184591;
+    color: #184591;
     font-family: "Baloo Bhaijaan 2 Variable", system-ui;
     font-weight: 700;
     font-size: 4rem;
@@ -25,7 +25,6 @@
 .card-img {
     height: 100%;
     object-fit: cover;
- 
 }
 
 .overlay-content {
@@ -49,7 +48,5 @@
     font-family: "Baloo Bhaijaan 2 variable", system-ui;
     color:#112f64
 }
-#containerCard{
-    display: flex;
-    margin-bottom: 7%;
-}
+
+
