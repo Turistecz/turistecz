@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MonumentComponent } from '../monument/monument.component';
 import { firstValueFrom } from 'rxjs';
 import { ApiConnectService } from '../api-connect.service';
+import { MonumentServiceService } from '../services/monument-service.service';
 
 @Component({
   selector: 'app-monument-list',
@@ -19,19 +20,20 @@ export class MonumentListComponent implements OnInit {
   keyWords = ['goya','augusto','alfonso','batallador','pignatelli','palacio','basílica','catedral','monasterio','iglesia','museo'];
   place = ['plaza del pilar','plaza de los sitios','recinto expo','parque grande','coso','avenida césar augusto'];
 
-  constructor(private apiConnectService: ApiConnectService) {}
+  constructor(private apiConnectService: ApiConnectService, private monumentServiceService: MonumentServiceService) {}
 
   // wait for the loadMonuments to end, then call filterMonuments
   async ngOnInit() {
     await this.loadMonuments();
-    this.filterMonuments();
+    this.monumentServiceService.filterMonuments();
+    this.monumentServiceService.getMonumentById(1);
   }
 
   // Function to wait for api to be read
   async loadMonuments(): Promise<void> {
     try {
       const datos = await firstValueFrom(this.apiConnectService.getMonuments());
-      this.monuments = datos.result;
+      this.monumentServiceService.monuments = datos.result;
     
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
@@ -82,6 +84,9 @@ export class MonumentListComponent implements OnInit {
       console.log(this.filtrados); //Para ver la lista ordenada de los monumentos
   }
 
+  // getMonument(): MonumentItem{
+  //   return this.monumentServiceService.getMonumentById(1);
+  // }
 
    
 }
