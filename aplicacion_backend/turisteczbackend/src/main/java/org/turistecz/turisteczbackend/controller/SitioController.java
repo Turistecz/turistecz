@@ -101,5 +101,25 @@ public class SitioController {
         Sitio insertado = sitioService.insertarSitio(s);
         return "Ha sido creado el sitio " + insertado.getNombre() + " con id = " + insertado.getId();
     }
+
+    //Este es uno de los endpoints publicados por este Controller. Se encontraria en la URL
+    //"http://localhost:8080/api/sitioCorrespondienteALaImagen", y al ser accedido llamaria 
+    //al metodo "buscarSitioCorrespondienteALaImagen" del correspondiente Service y devolveria 
+    //su resultado. En el caso de este endpoint, queremos que devuelva el sitios al que esta 
+    //asociada la imagen cuyo id le estamos pasando. Es lo que se dice con la anotacion 
+    //"@RequestParam", le indicamos que tiene que venir en la url un parametro llamado "id" 
+    //con la informacion correspondiente. Asi que en este caso, al llamar al endpoint habria 
+    //que escribir algo como lo siguiente:
+    //"http://localhost:8080/api/sitioCorrespondienteALaImagen?id=6" (esto devolveria el sitios 
+    //al que esta asociada la imagen cuyo id es 6. 
+    //Con la anotacion "@CrossOrigin" le estamos diciendo que acepte las peticiones que le 
+    //vengan desde ahi (es la direccion donde esta publicado el frontend).
+    //Como estamos usando la anotacion "@GetMapping", las peticiones que vengan al endpoint 
+    //tendran que ser de tipo GET.
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/sitioCorrespondienteALaImagen")
+    public Sitio mostrarSitioCorrespondienteALaImagen(@RequestParam String id) {
+        return sitioService.buscarSitioCorrespondienteALaImagen(id);
+    }
     
 }
