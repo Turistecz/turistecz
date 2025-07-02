@@ -6,7 +6,7 @@
     <div *ngFor="let cardHome of cards" class="col-12 col-md-3">
          <a 
         [routerLink]="['/sitios', cardHome.id]" 
-        class="text-decoration-none text-reset">
+        class="text-decoration-none text-reset">  
       <div class="card text-white " id="cardPlace">
         <img [src]="cardHome.url" class="card-img" [alt]="cardHome.nombre">
         <div class="card-img-overlay overlay-content">

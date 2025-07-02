@@ -33,7 +33,8 @@ cards: cardsHome[]=[];
     this.cards = datos.flatMap(sitio =>
       sitio.imagenes.map((img: any) => ({
         nombre: img.nombre,
-        url: img.url
+        url: img.url,
+        id: img.id
       }))
     );
     
