@@ -14,7 +14,8 @@ export class EventCardComponent {
   // access data from parent 
   @Input() data = {
     title: "",
-    description: ""
+    description: "",
+    link:""
     
   };
 
@@ -31,17 +32,26 @@ export class EventCardComponent {
     }
   };
 
+  changetoUpperCase(text: string): string {
+    if (text !== undefined){
+      return text.toUpperCase();
+    }
+    else{
+      return "";
+    }
+  }
+
+
   // call the function on start
   ngOnInit() {
     this.data.description = this.removeHTMLTags(this.data.description);
-    
+    this.data.title = this.changetoUpperCase(this.data.title);
   };
 
   getOtherColor(){
      return {
           'bg-color1': this.bg,
           'bg-color2': !this.bg
-
     }
   }
 }

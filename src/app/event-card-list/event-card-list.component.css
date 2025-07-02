@@ -1,28 +1,30 @@
 @import '@fontsource-variable/baloo-bhaijaan-2';
 
-
-
-
 h2{
   color: #184591;
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
   font-weight: bold;
   font-size: 4rem;
   text-align: center;
+  padding-top: 2rem;
   padding-bottom: 1rem;
 }
 
 .main-card{
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  margin-inline: 2rem;
-  /* margin: 0rem 10rem 0rem 10rem ; */
+  margin-inline: 15%;
+
+  @media (max-width: 1224px ) {
+    margin-inline: 2.5%;
+  }
+  @media (max-width: 430px) {
+    margin-inline:5%;
+  }
 }
 
 .event-card-list {
   display: inline-block;
-  justify-content: center;
   padding-bottom: 0.6rem;
 }
 
