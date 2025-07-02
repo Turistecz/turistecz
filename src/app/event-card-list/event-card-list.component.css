@@ -1,5 +1,14 @@
 @import '@fontsource-variable/baloo-bhaijaan-2';
 
+.breadcrumb-events{
+  margin-left: 5rem;
+  margin-top: 1rem;
+  font-family: 'inclusive', sans-serif;
+  font-weight: bold;
+}
+
+
+
 h2{
   color: #184591;
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
@@ -25,6 +34,6 @@ h2{
 
 .event-card-list {
   display: inline-block;
-  padding-bottom: 0.6rem;
+  padding-bottom: 1rem;
 }
 
