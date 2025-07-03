@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { cardsHome, cardsHomeResponse } from '../place-card/place-card.model';
 import { MonumentItem } from '../monument-list/monument.model';
+import { ApiConnectService } from '../api-connect.service';
 
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { inject } from '@angular/core';
@@ -18,7 +19,9 @@ import { inject } from '@angular/core';
 export class MonumentComponent implements OnInit {
    private route = inject(ActivatedRoute);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private apiConnectService: ApiConnectService) {}
+
+  monuments: MonumentItem[] = [];
 
   //cards: cardsHome[] = [];
   monumento: MonumentItem = {
@@ -39,11 +42,23 @@ export class MonumentComponent implements OnInit {
   }]
   };
 
+    @Input() data = {
+    id: -1,
+    title: "",
+    description: "",
+    address: "",
+    horario: "",
+    phone: "",
+    price: "",
+    image: "",
+    uri: ""
+  };
+
   async loadImages(): Promise<void> {
      const variableNumero = this.route.snapshot.paramMap.get('id'); 
     try {
       const datos = await firstValueFrom(this.http.get<any>(
-        'http://localhost:8080/api/sitioCorrespondienteALaImagen?id=${variableNumero}'
+        `http://localhost:8080/api/sitioCorrespondienteALaImagen?id=${variableNumero}`
       ));
 
       this.monumento = datos;
@@ -55,17 +70,17 @@ export class MonumentComponent implements OnInit {
     }
   }
 
-  @Input() data = {
-    id: -1,
-    title: "",
-    description: "",
-    address: "",
-    horario: "",
-    phone: "",
-    price: "",
-    image: "",
-    uri: ""
-  };
+    async loadMonuments(): Promise<void> {
+    try {
+      const datos = await firstValueFrom(this.apiConnectService.getMonuments());
+      //this.monumentServiceService.monuments = datos.result;
+      this.monuments = datos.result;
+    
+    } catch (error) {
+      console.error('Error al cargar monumentos:', error);
+    }
+  
+  }
 
   removeHTMLTags(text: string): string {
     return text ? text.replace(/<[^>]*>/g, '').trim() : "";
@@ -86,6 +101,9 @@ export class MonumentComponent implements OnInit {
   // Un solo ngOnInit combinando las dos tareas
   async ngOnInit(): Promise<void> {
     await this.loadImages();
+    await this.loadMonuments();
+
+    console.log(this.monuments);
 
     this.data.description = this.removeHTMLTags(this.data.description);
     this.data.price = this.removeHTMLTags(this.data.price);
