@@ -38,11 +38,12 @@ export const routes: Routes = [
                 import('./monument-list/monument-list.component').then(m => m.MonumentListComponent)
     }, 
 
-        {
-        path: 'events', 
+    {
+        path: 'eventos', 
         loadComponent: () =>
-                import('./event-list/event-list.component').then(m => m.EventListComponent)
-    }, 
+                import('./event-card-list/event-card-list.component').then(m => m.EventCardListComponent)
+    },
+    
     {
         path: 'rutas', 
         loadComponent: () =>
