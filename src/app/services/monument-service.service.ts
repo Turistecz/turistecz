@@ -58,20 +58,19 @@ export class MonumentServiceService {
       
   }
 
-
   getMonuments(): Observable<MonumentResponse> {
     return this.http.get<MonumentResponse>('https://www.zaragoza.es/sede/servicio/monumento?rf=html&srsname=utm30n&start=0&rows=500&distance=500&locale=es');
   }
 
-  getMonumentById(id: number) {
-    for (let monument of this.monuments){
-      if (monument.id == id){
-        console.log(monument);
-        return monument;
-      }
-    }
-    return undefined;
-  }
+  // getMonumentById(id: number) {
+  //   for (let monument of this.monuments){
+  //     if (monument.id == id){
+  //       console.log(monument);
+  //       return monument;
+  //     }
+  //   }
+  //   return this.monuments[0];
+  // }
 
 
  //obtener los sitios filtrados, obtener todos los sitios, obtener por id, obtener por nombre, obtener filtrados por score, añadir x puntos a x elemento

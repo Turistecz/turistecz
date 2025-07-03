@@ -25,15 +25,15 @@ export class MonumentListComponent implements OnInit {
   // wait for the loadMonuments to end, then call filterMonuments
   async ngOnInit() {
     await this.loadMonuments();
-    this.monumentServiceService.filterMonuments();
-    this.monumentServiceService.getMonumentById(1);
+    this.filterMonuments();
   }
 
   // Function to wait for api to be read
   async loadMonuments(): Promise<void> {
     try {
       const datos = await firstValueFrom(this.apiConnectService.getMonuments());
-      this.monumentServiceService.monuments = datos.result;
+      //this.monumentServiceService.monuments = datos.result;
+      this.monuments = datos.result;
     
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
