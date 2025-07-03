@@ -27,6 +27,7 @@
 #textHome{
     text-align: center;
     font-weight: bold;
+    
 }
 
 
@@ -35,18 +36,18 @@
     font-size: 70px;
     font-family: "Baloo Bhaijaan 2 Variable", system-ui;
      position: relative; 
-    top: -150px; 
+    top: -200px; 
 }
 #subtitleHome{
     font-size: 30px;
     font-family: "Baloo Bhaijaan 2 Variable", system-ui;
       position: relative; 
-    top: -160px; 
+    top: -220px; 
 }
 #sloganHome{
     font-size: 20px;
       position: relative; 
-    top: -180px; 
+    top: -245px; 
 }
 }
 
@@ -55,18 +56,18 @@
     font-size: 100px;
     font-family: "Baloo Bhaijaan 2 Variable", system-ui;
      position: relative; 
-    top: -150px; 
+    top: -45px; 
 }
 #subtitleHome{
     font-size: 45px;
     font-family: "Baloo Bhaijaan 2 Variable", system-ui;
       position: relative; 
-    top: -160px; 
+    top: -80px; 
 }
 #sloganHome{
     font-size: 25px;
       position: relative; 
-    top: -180px; 
+    top: -95px; 
 }
 }
 
