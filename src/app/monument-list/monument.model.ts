@@ -8,6 +8,12 @@ export interface MonumentItem {
   price: string;
   image: string;
   uri: string;
+  imagenes: [{
+    url: string,
+    nombre: string,
+    copy: string,
+    id: number
+  }]
 }
 
 export interface MonumentResponse {

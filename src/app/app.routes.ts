@@ -8,9 +8,6 @@ export const routes: Routes = [
         path: '', 
         loadComponent: () =>
                 import('./home/home.component').then(m => m.HomeComponent)
-    
-
-
     },   
        
     {
@@ -25,33 +22,27 @@ export const routes: Routes = [
             path: ':id', 
             loadComponent: () =>
                 import('./monument/monument.component').then(m => m.MonumentComponent)
-
-
             }
         ]
     
     },   
-    {
-        path: 'eventos', 
-        loadComponent: () =>
-                import('./event-list/event-list.component').then(m => m.EventListComponent)
-
-
-    }, 
-    
+      
     {
         path: 'maps', 
         loadComponent: () =>
                 import('./map/map.component').then(m => m.MapComponent)
-
-
     },
     {
-        path: 'event-card', 
+        path: 'monuments', 
         loadComponent: () =>
-                import('./event-card-list/event-card-list.component').then(m => m.EventCardListComponent)
+                import('./monument-list/monument-list.component').then(m => m.MonumentListComponent)
     }, 
 
+        {
+        path: 'events', 
+        loadComponent: () =>
+                import('./event-list/event-list.component').then(m => m.EventListComponent)
+    }, 
     {
         path: 'rutas', 
         loadComponent: () =>

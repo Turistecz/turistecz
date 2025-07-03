@@ -11,8 +11,7 @@
 }
 
 #cardPlace {
-   
-   border-radius: 25px;
+    border-radius: 25px;
     overflow: hidden;
     position: relative;
     width: 100%;
@@ -21,14 +20,11 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 2rem;
-    
-
 }
 
 .card-img {
     height: 100%;
     object-fit: cover;
- 
 }
 
 .overlay-content {
@@ -54,10 +50,8 @@
     font-family: "Baloo Bhaijaan 2 variable", system-ui;
     color:#112f64
 }
-#containerCard{
 
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    padding: 1rem;
-  
+.containerCard{
+    row-gap: 20px;
 }
+

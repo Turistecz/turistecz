@@ -3,12 +3,15 @@ import { Component } from '@angular/core';
 import { cardsHome, cardsHomeResponse } from '../place-card/place-card.model';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { RouterModule } from '@angular/router';
+import { OnePlaceCardComponent } from "../one-place-card/one-place-card.component";
+
 
 
 
 @Component({
   selector: 'app-place-card-list',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule, OnePlaceCardComponent],
   templateUrl: './place-card-list.component.html',
   styleUrl: './place-card-list.component.css'
 })
@@ -31,7 +34,8 @@ cards: cardsHome[]=[];
     this.cards = datos.flatMap(sitio =>
       sitio.imagenes.map((img: any) => ({
         nombre: img.nombre,
-        url: img.url
+        url: img.url,
+        id: img.id
       }))
     );
     

@@ -1,47 +1,21 @@
-import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { MonumentItem, MonumentResponse } from '../monument-list/monument.model';
-import { CommonModule } from '@angular/common';
-import { MonumentComponent } from '../monument/monument.component';
-import { firstValueFrom } from 'rxjs';
-import { ApiConnectService } from '../api-connect.service';
-import { MonumentServiceService } from '../services/monument-service.service';
+import { Observable } from 'rxjs';
 
-@Component({
-  selector: 'app-monument-list',
-  imports: [CommonModule, MonumentComponent],
-  templateUrl: './monument-list.component.html',
-  styleUrls: ['./monument-list.component.css']  
+@Injectable({
+  providedIn: 'root'
 })
-export class MonumentListComponent implements OnInit {
+export class MonumentServiceService {
+
+  constructor(private http: HttpClient) { }
 
   monuments: MonumentItem[] = [];
   filtrados: MonumentItem[] = [];
   keyWords = ['goya','augusto','alfonso','batallador','pignatelli','palacio','basílica','catedral','monasterio','iglesia','museo'];
   place = ['plaza del pilar','plaza de los sitios','recinto expo','parque grande','coso','avenida césar augusto'];
 
-  constructor(private apiConnectService: ApiConnectService, private monumentServiceService: MonumentServiceService) {}
-
-  // wait for the loadMonuments to end, then call filterMonuments
-  async ngOnInit() {
-    await this.loadMonuments();
-    this.monumentServiceService.filterMonuments();
-    this.monumentServiceService.getMonumentById(1);
-  }
-
-  // Function to wait for api to be read
-  async loadMonuments(): Promise<void> {
-    try {
-      const datos = await firstValueFrom(this.apiConnectService.getMonuments());
-      this.monumentServiceService.monuments = datos.result;
-    
-    } catch (error) {
-      console.error('Error al cargar monumentos:', error);
-    }
-  
-  }
-
-// function to add scores to monuments to filter them
+  // function to add scores to monuments to filter them
   scoreMonument(m: MonumentItem) {
     let score = 0;
     const title = m.title ? m.title.toLowerCase() : '';
@@ -81,12 +55,27 @@ export class MonumentListComponent implements OnInit {
       .filter(x => x.score >= 4)
       .sort((a,b) => b.score - a.score)
       .map(x => x.m);
-      console.log(this.filtrados); //Para ver la lista ordenada de los monumentos
+      
   }
 
-  // getMonument(): MonumentItem{
-  //   return this.monumentServiceService.getMonumentById(1);
-  // }
 
-   
+  getMonuments(): Observable<MonumentResponse> {
+    return this.http.get<MonumentResponse>('https://www.zaragoza.es/sede/servicio/monumento?rf=html&srsname=utm30n&start=0&rows=500&distance=500&locale=es');
+  }
+
+  getMonumentById(id: number) {
+    for (let monument of this.monuments){
+      if (monument.id == id){
+        console.log(monument);
+        return monument;
+      }
+    }
+    return undefined;
+  }
+
+
+ //obtener los sitios filtrados, obtener todos los sitios, obtener por id, obtener por nombre, obtener filtrados por score, añadir x puntos a x elemento
+ //array private y luego funciones get para acceder a los elementos
+
+
 }

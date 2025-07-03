@@ -4,7 +4,7 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="http://localhost:4200/">Home</a></li>
     <li class="breadcrumb-item"><a href="http://localhost:4200/sitios">Sitios</a></li>
-    <li class="breadcrumb-item active" aria-current="page">parámetro sitio</li>
+    <li class="breadcrumb-item active" aria-current="page">{{data.title}}</li>
   </ol>
 </nav>
 <h1>{{data.title}}</h1>
@@ -12,7 +12,7 @@
 
     <div class="row pt-4">
         <div  class="col-12 col-md-7">
-            <img src="images/images_sitios/1_Pilar.jpg" alt="imagen de la Basílica del Pilar desde arriba" id="imagen-intro">
+            <img [src]="monumento.imagenes[0].url" id="imagen-intro">
         </div>
                
         <div id="horario"class="col-12 col-md-4">

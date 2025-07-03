@@ -11,7 +11,6 @@
 }
 
 #cardPlace {
-   
     border-radius: 25px;
     overflow: hidden;
     position: relative;
@@ -19,7 +18,7 @@
     width: 100%;
     min-height: 500px;
     max-width: 100%;
-    
+    aspect-ratio: 7 / 12; 
 }
 
 .card-img {
@@ -48,5 +47,7 @@
     font-family: "Baloo Bhaijaan 2 variable", system-ui;
     color:#112f64
 }
-
-
+#containerCard{
+    display: flex;
+    margin-bottom: 7%;
+}
