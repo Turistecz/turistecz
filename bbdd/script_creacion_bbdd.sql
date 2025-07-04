@@ -75,6 +75,14 @@ CREATE TABLE caracteristicas_ruta (
     FOREIGN KEY (id_caracteristica) REFERENCES caracteristica(id)
 );
 
+CREATE TABLE usuarios(
+    id INT AUTO_INCREMENT,
+    nombre VARCHAR(255),
+    apellido VARCHAR(255),
+    email VARCHAR(255),
+    contrasena VARCHAR(255)
+)
+
 -- Inserción de datos en sitio
 INSERT INTO sitio (
         nombre, latitud, longitud, direccion, horario_visita, telefono, enlace_web,
