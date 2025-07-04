@@ -53,8 +53,22 @@
     color:#112f64
 }
 
+
 .containerCard{
     row-gap: 20px;
     
 }
+@media (max-width: 767px) {
+  .card-img {
+    max-width: 70%;
+    margin: 0 auto; 
+  }
 
+  #tituloSitiosHome {
+    font-size: 2.5rem;
+  }
+
+  .card-title {
+    font-size: 150%;
+  }
+}
