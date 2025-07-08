@@ -4,10 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { cardsHome, cardsHomeResponse } from '../place-card/place-card.model';
 import { MonumentItem } from '../monument-list/monument.model';
-import { ApiConnectService } from '../api-connect.service';
-
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { inject } from '@angular/core';
+import { MonumentServiceService } from '../services/monument-service.service';
 
 @Component({
   selector: 'app-monument',
@@ -19,9 +18,29 @@ import { inject } from '@angular/core';
 export class MonumentComponent implements OnInit {
    private route = inject(ActivatedRoute);
 
-  constructor(private http: HttpClient, private apiConnectService: ApiConnectService) {}
+  constructor(private http: HttpClient, private apiConnectService: MonumentServiceService) {}
 
   monuments: MonumentItem[] = [];
+  monumentsFiltered: MonumentItem[] = [
+    {
+      id: 0,
+      title: "",
+      description: "",
+      address: "",
+      horario: "",
+      phone: "",
+      price: "",
+      image: "",
+      uri: "",
+      imagenes: [{
+        url: "",
+        nombre: "",
+        copy: "",
+        id: 0
+    }]
+  },
+ ];
+  monumentNumber: number = 0;
 
   //cards: cardsHome[] = [];
   monumento: MonumentItem = {
@@ -34,12 +53,14 @@ export class MonumentComponent implements OnInit {
   price: "",
   image: "",
   uri: "",
-  imagenes: [{
-    url: "",
-    nombre: "",
-    copy: "",
-    id: 0
-  }]
+  imagenes: [
+    {
+      url: "",
+      nombre: "",
+      copy: "",
+      id: 0
+    }
+  ]
   };
 
     @Input() data = {
@@ -63,8 +84,6 @@ export class MonumentComponent implements OnInit {
 
       this.monumento = datos;
 
-      console.log(this.monumento);
-      console.log(this.monumento.imagenes);
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
     }
@@ -75,6 +94,7 @@ export class MonumentComponent implements OnInit {
       const datos = await firstValueFrom(this.apiConnectService.getMonuments());
       //this.monumentServiceService.monuments = datos.result;
       this.monuments = datos.result;
+      this.monumentsFiltered = this.apiConnectService.filterMonuments(this.monuments);
     
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
@@ -87,15 +107,19 @@ export class MonumentComponent implements OnInit {
   }
 
   get cleanHorario(): string {
-    return this.removeHTMLTags(this.data.horario);
+    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].horario);
   }
 
   get cleanDescription(): string {
-    return this.removeHTMLTags(this.data.description);
+    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].description);
   }
 
   get cleanPrice(): string {
-    return this.removeHTMLTags(this.data.price);
+    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].price);
+  }
+
+    get img(): string {
+    return this.monumento.imagenes[this.monumentNumber].url;
   }
 
   // Un solo ngOnInit combinando las dos tareas
@@ -103,10 +127,11 @@ export class MonumentComponent implements OnInit {
     await this.loadImages();
     await this.loadMonuments();
 
-    console.log(this.monuments);
+    this.monumentNumber = Number(this.route.snapshot.paramMap.get('id'));
+    this.monumentNumber--;
 
-    this.data.description = this.removeHTMLTags(this.data.description);
-    this.data.price = this.removeHTMLTags(this.data.price);
-    this.data.horario = this.removeHTMLTags(this.data.horario);
+    console.log(this.monumentNumber);
+    console.log(this.monumentsFiltered);
+
   }
 }
