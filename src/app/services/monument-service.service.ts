@@ -49,12 +49,13 @@ export class MonumentServiceService {
   }
 
   // filter monuments based on their score
-  filterMonuments(): void {
-    this.filtrados = this.monuments
+  filterMonuments(monumentArray: MonumentItem[]): MonumentItem[] {
+    this.filtrados = monumentArray
       .map(m => ({m, score: this.scoreMonument(m)}))
       .filter(x => x.score >= 4)
       .sort((a,b) => b.score - a.score)
       .map(x => x.m);
+    return this.filtrados;
       
   }
 

@@ -15,7 +15,7 @@
             <img [src]="monumento.imagenes[0].url" id="imagen-intro">
         </div>
                
-        <div id="horario"class="col-12 col-md-4">
+        <div *ngIf="monumentsFiltered[monumentNumber]?.horario" id="horario"class="col-12 col-md-4">
             <h2>Horario</h2>
             <p id="horarioP">{{cleanHorario}}</p></div>
         
@@ -70,17 +70,19 @@
         <div class="col-12 col-md-6"> 
              <a class="btn btn-primary" href="{{data.uri}}" role="button">Más información</a>
              <br><br><br>
-            <div *ngIf="data?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
-            <h2> Contacto </h2>
-            <p>{{data.phone}}</p>
+            <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
+                <h2> Contacto </h2>
+                <p>{{monumentsFiltered[monumentNumber].phone}}</p>
+                <br>
             </div>
-            <br>
             <h2> Dirección </h2>
-            <p>{{data.address}}</p>
+            <p>{{monumentsFiltered[monumentNumber].address}}</p>
             <br>
-            <h2> Precio </h2>
-            <p id="textPrice">{{cleanPrice}}</p>
-            <br>
+            <div *ngIf="monumentsFiltered[monumentNumber]?.price">
+                <h2> Precio </h2>
+                <p id="textPrice">{{cleanPrice}}</p>
+                <br>
+            </div>
            <!-- <h2> Enlaces de interés </h2>
             hay que poner un ngFor para que cada-->
           
