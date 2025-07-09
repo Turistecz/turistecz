@@ -23,6 +23,7 @@ export class MonumentComponent implements OnInit {
   monumentNumber: number = -1;
   monuments: MonumentItem[] = [];
   monumentsFiltered: MonumentItem[] = [];
+  monumentsFiltered2: MonumentItem[] = [];
 
   //cards: cardsHome[] = [];
   monumento: MonumentItem = {
@@ -65,6 +66,7 @@ export class MonumentComponent implements OnInit {
       //this.monumentServiceService.monuments = datos.result;
       this.monuments = datos.result;
       this.monumentsFiltered = this.apiConnectService.filterMonuments(this.monuments);
+      //this.monumentsFiltered2 = this.apiConnectService.filterTopMonuments(this.monuments);
     
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
@@ -100,7 +102,7 @@ export class MonumentComponent implements OnInit {
     this.monumentNumber = Number(this.route.snapshot.paramMap.get('id'));
     this.monumentNumber--;
 
-    
+    console.log(this.monumentsFiltered);
 
   }
 }
