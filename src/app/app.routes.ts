@@ -1,4 +1,3 @@
-import { Path } from 'leaflet';
 import { pageRoutesComponent } from './page-routes/page-routes.component';
 import { Routes } from '@angular/router';
 
@@ -50,6 +49,5 @@ export const routes: Routes = [
         loadComponent: () =>
                 import('./page-routes/page-routes.component').then(m => m.pageRoutesComponent)
     }, 
-    
     
 ];
