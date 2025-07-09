@@ -52,7 +52,7 @@ CREATE TABLE ruta (
   duracion varchar(255) DEFAULT NULL,
   imagen_destacada varchar(255) DEFAULT NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 
 -- Tabla sitios_ruta
 CREATE TABLE sitios_ruta (
@@ -77,6 +77,16 @@ CREATE TABLE caracteristicas_ruta (
     PRIMARY KEY (id_ruta, id_caracteristica),
     FOREIGN KEY (id_ruta) REFERENCES ruta(id),
     FOREIGN KEY (id_caracteristica) REFERENCES caracteristica(id)
+);
+
+CREATE TABLE usuario(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255),
+    apellido VARCHAR(255),
+    email VARCHAR(255),
+    contrasena VARCHAR(255),
+    activo BOOLEAN,
+    fecha_creacion DATE
 );
 
 -- Inserción de datos en sitio
@@ -167,3 +177,8 @@ INSERT INTO caracteristicas_ruta (id_ruta, id_caracteristica) VALUES
 (2, 2),
 (3, 1),
 (3, 3);
+
+INSERT INTO usuario (nombre, apellido, email, contrasena, activo, fecha_creacion) VALUES 
+('Alvaro', 'Samcho', 'asfswgew@gmail.com', 'contrasena', true, CURRENT_DATE),
+('Alvaro', 'sdgsdgsd', 'sdhshshs@gmail.com', 'contrasenaa', true, current_date),
+('Alvaro', 'gsdgdsgsgds', 'hrhsrhsrd@gmail.com', 'contraseena', true, current_date)

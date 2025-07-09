@@ -15,8 +15,8 @@ import org.turistecz.turisteczbackend.repository.SitioRepository;
 public class SitioService {
 	
 	//Esta es la clase de tipo Repository asociada que vamos a usar. Podria haber varias
-	//de estas. Con la anotacion @Autowired se inyectan las dependencias necesarias para 
-	//que este campo funcione, como constructores o getters/setters
+	//de estas. Con la anotacion @Autowired se inyectan las dependcias necesarias para 
+	//que este camenpo funcione, como constructores o getters/setters
 	@Autowired
 	SitioRepository repositorioSitio;
 	

@@ -49,3 +49,8 @@ h2{
 .btn-routes:hover {
   transform: scale(1.05);
 }
+@media (max-width: 767px){
+    .cardRoutes{
+        margin: unset;
+    }
+}
