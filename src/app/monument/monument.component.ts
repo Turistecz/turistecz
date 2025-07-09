@@ -20,27 +20,10 @@ export class MonumentComponent implements OnInit {
 
   constructor(private http: HttpClient, private apiConnectService: MonumentServiceService) {}
 
+  monumentNumber: number = -1;
   monuments: MonumentItem[] = [];
-  monumentsFiltered: MonumentItem[] = [
-    {
-      id: 0,
-      title: "",
-      description: "",
-      address: "",
-      horario: "",
-      phone: "",
-      price: "",
-      image: "",
-      uri: "",
-      imagenes: [{
-        url: "",
-        nombre: "",
-        copy: "",
-        id: 0
-    }]
-  },
- ];
-  monumentNumber: number = 0;
+  monumentsFiltered: MonumentItem[] = [];
+  monumentsFiltered2: MonumentItem[] = [];
 
   //cards: cardsHome[] = [];
   monumento: MonumentItem = {
@@ -63,18 +46,6 @@ export class MonumentComponent implements OnInit {
   ]
   };
 
-    @Input() data = {
-    id: -1,
-    title: "",
-    description: "",
-    address: "",
-    horario: "",
-    phone: "",
-    price: "",
-    image: "",
-    uri: ""
-  };
-
   async loadImages(): Promise<void> {
      const variableNumero = this.route.snapshot.paramMap.get('id'); 
     try {
@@ -95,6 +66,7 @@ export class MonumentComponent implements OnInit {
       //this.monumentServiceService.monuments = datos.result;
       this.monuments = datos.result;
       this.monumentsFiltered = this.apiConnectService.filterMonuments(this.monuments);
+      //this.monumentsFiltered2 = this.apiConnectService.filterTopMonuments(this.monuments);
     
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
@@ -118,7 +90,7 @@ export class MonumentComponent implements OnInit {
     return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].price);
   }
 
-    get img(): string {
+  get img(): string {
     return this.monumento.imagenes[this.monumentNumber].url;
   }
 
@@ -130,7 +102,6 @@ export class MonumentComponent implements OnInit {
     this.monumentNumber = Number(this.route.snapshot.paramMap.get('id'));
     this.monumentNumber--;
 
-    console.log(this.monumentNumber);
     console.log(this.monumentsFiltered);
 
   }
