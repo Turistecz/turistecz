@@ -9,7 +9,7 @@ import { MonumentServiceService } from '../services/monument-service.service';
 
 @Component({
   selector: 'app-monument-list',
-  imports: [CommonModule, MonumentComponent],
+  imports: [CommonModule],
   templateUrl: './monument-list.component.html',
   styleUrls: ['./monument-list.component.css']  
 })

@@ -63,18 +63,33 @@ export class MonumentServiceService {
     return this.http.get<MonumentResponse>('https://www.zaragoza.es/sede/servicio/monumento?rf=html&srsname=utm30n&start=0&rows=500&distance=500&locale=es');
   }
 
-  // getMonumentById(id: number) {
-  //   for (let monument of this.monuments){
-  //     if (monument.id == id){
-  //       console.log(monument);
-  //       return monument;
-  //     }
-  //   }
-  //   return this.monuments[0];
-  // }
+  //monumentArray param needs to be array monuments in monument.component
+  getMonumentById(id: number, monumentArray: MonumentItem[]) {
+    for (let monument of monumentArray){
+      if (monument.id == id){
+        return monument;
+      }
+    }
+    return monumentArray[0];
+  }
+
+  //title param needs to be the exact same, but can be with lower or upper case
+  //monumentArray param needs to be array monuments in monument.component
+  getMonumentByName(title: string, monumentArray: MonumentItem[]) {
+    for (let monument of monumentArray){
+      if (monument.title.toLowerCase() == title){
+        return monument;
+      }
+    }
+    return monumentArray[0];
+  }
+
+  getFilteredMonuments(){
+    return this.filtrados;
+  }
 
 
- //obtener los sitios filtrados, obtener todos los sitios, obtener por id, obtener por nombre, obtener filtrados por score, añadir x puntos a x elemento
+ //  añadir x puntos a x elemento
  //array private y luego funciones get para acceder a los elementos
 
 
