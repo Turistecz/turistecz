@@ -52,7 +52,7 @@ CREATE TABLE ruta (
   duracion varchar(255) DEFAULT NULL,
   imagen_destacada varchar(255) DEFAULT NULL,
   PRIMARY KEY (id)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) 
 
 -- Tabla sitios_ruta
 CREATE TABLE sitios_ruta (
