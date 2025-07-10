@@ -14,17 +14,18 @@
     border-radius: 25px;
     overflow: hidden;
     position: relative;
-    height: 100%;
-    width: 100%;
+    max-height: 100%;
     min-height: 500px;
-    max-width: 100%;
+    min-width: 250px;
     aspect-ratio: 7 / 12; 
+    
 }
 
 .card-img {
     height: 100%;
     object-fit: cover;
-}
+}    
+
 
 .overlay-content {
     background-color: rgba(255, 255, 255, 0.7); /* blanco medio opaco */
@@ -48,6 +49,8 @@
     color:#112f64
 }
 #containerCard{
-    display: flex;
+    display: grid;
     margin-bottom: 7%;
+    padding: 1rem;
+    
 }

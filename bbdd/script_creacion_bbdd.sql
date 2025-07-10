@@ -78,6 +78,16 @@ CREATE TABLE caracteristicas_ruta (
     FOREIGN KEY (id_ruta) REFERENCES ruta(id),
     FOREIGN KEY (id_caracteristica) REFERENCES caracteristica(id)
 );
+CREATE TABLE usuario(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255),
+    apellido VARCHAR(255),
+    email VARCHAR(255),
+    contrasena VARCHAR(255),
+    activo BOOLEAN,
+    fecha_creacion DATE
+);
+
 
 -- Inserción de datos en sitio
 INSERT INTO sitio (
@@ -167,3 +177,8 @@ INSERT INTO caracteristicas_ruta (id_ruta, id_caracteristica) VALUES
 (2, 2),
 (3, 1),
 (3, 3);
+
+INSERT INTO usuario (nombre, apellido, email, contrasena, activo, fecha_creacion) VALUES 
+('Alvaro', 'Samcho', 'asfswgew@gmail.com', 'contrasena', true, CURRENT_DATE),
+('Alvaro', 'sdgsdgsd', 'sdhshshs@gmail.com', 'contrasenaa', true, current_date),
+('Alvaro', 'gsdgdsgsgds', 'hrhsrhsrd@gmail.com', 'contraseena', true, current_date)
