@@ -17,6 +17,11 @@
     position: relative;
     height: 100%;
     width: 100%;
+    height: auto;
+    aspect-ratio: 7 / 12;  
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
     min-height: 500px;
     max-width: 100%;
     
@@ -25,6 +30,8 @@
 .card-img {
     height: 100%;
     object-fit: cover;
+    max-width: 70% !important;
+    
 }
 
 .overlay-content {
@@ -47,6 +54,29 @@
     font-size: 200%;
     font-family: "Baloo Bhaijaan 2 variable", system-ui;
     color:#112f64
+}
+
+
+.containerCard{
+    row-gap: 20px;
+    
+}
+
+
+@media (max-width: 767px) {
+  .card-img {
+    max-width: 70%;
+    margin: 0 auto; 
+  }
+
+  #tituloSitiosHome {
+    font-size: 2.5rem;
+  }
+
+  .card-title {
+    font-size: 150%;
+  }
+ 
 }
 
 

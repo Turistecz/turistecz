@@ -9,6 +9,14 @@
     padding-bottom: 1rem;
     margin-top: 2rem;
 }
+.containerCard {
+  row-gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* responsive layout */
+  gap: 20px;
+ 
+  padding: 1rem;
+}
 
 #cardPlace {
     border-radius: 25px;
@@ -53,5 +61,19 @@
 
 .containerCard{
     row-gap: 20px;
+}
+.grid-item {
+  width: 100%;
+  object-fit: cover;
+}
+
+.row{
+  row-gap: 20px;
+}
+
+@media (max-width: 767px) {
+  #tituloSitiosHome {
+    font-size: 2.5rem;
+  }
 }
 
