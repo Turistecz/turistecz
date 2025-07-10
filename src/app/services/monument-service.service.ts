@@ -15,9 +15,11 @@ export class MonumentServiceService {
   keyWords = ['goya','augusto','alfonso','batallador','pignatelli','palacio','basílica','catedral','monasterio','iglesia','museo'];
   place = ['plaza del pilar','plaza de los sitios','recinto expo','parque grande','coso','avenida césar augusto'];
 
-  topMonuments: string[] = ['basílica de nuestra señora del pilar', 'palacio de la aljafería', 'Catedral del Salvador o La Seo y Museo de Tapices', 'Museo de Zaragoza: Secciones de Antigüedad  y Bellas Artes', 
-    
-  ];
+  topMonuments: string[] = ['basílica de nuestra señora del pilar', 'palacio de la aljafería', 'Catedral del Salvador o La Seo y Museo de Tapices', 'Puente de Piedra', 
+    'Puerta del Carmen', 'Monumento a los Sitios', 'Monumento a Agustina de Aragon', 'Torreon de la Zuda', 'Murallas romanas', 'Mercado Central', 
+    'Museo de Zaragoza: Secciones de Antiguedad y Bellas Artes', 'Museo Goya - Coleccion Ibercaja', 'Parque Grande Jose Antonio Labordeta', 'Monumento a Goya', 
+    'Escultura El Alma del Ebro', 'Estatua del Emperador Augusto', 'Palacio de los Condes de Morata o Luna', 'Museo Provincial de Zaragoza: Seccion de Etnologi­a y Ceramica.', 
+    'Palacio de los Condes de Sastago', 'Casa de los Sitios' ];
   filteredMonuments: MonumentItem[] = [];
   orderFilteredMonuments: MonumentItem[] = [];
  
@@ -148,7 +150,6 @@ export class MonumentServiceService {
       .filter((m): m is MonumentItem => !!m); // elimina nulls
   }
 
- //  añadir x puntos a x elemento
  //array private y luego funciones get para acceder a los elementos
 
 
