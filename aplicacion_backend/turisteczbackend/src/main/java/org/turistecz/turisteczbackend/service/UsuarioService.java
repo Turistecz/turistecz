@@ -10,12 +10,9 @@ import org.turistecz.turisteczbackend.repository.UsuarioRepository;
 
 @Service
 public class UsuarioService {
+
     @Autowired
     UsuarioRepository repositorioUsuario;
-
-    public UsuarioService(UsuarioRepository repositorioUsuario) {
-        this.repositorioUsuario = repositorioUsuario;
-    }
     
     //En este caso, este metodo no incorpora ninguna operacion intermedia, solamente llama 
 	//al correspondiente metodo de la clase Repository que toca y devuelve su resultado. 
@@ -25,10 +22,8 @@ public class UsuarioService {
 	    return repositorioUsuario.findAll();
 	}
    
-    private UsuarioRepository usuarioRepository;
-
-    public String encontrarNombrePorId(int id) {
-        return usuarioRepository.encontrarNombrePorId(id);
+    public String encontrarNombrePorId(String id) {
+        return repositorioUsuario.encontrarNombrePorId(id);
     }
 
 
