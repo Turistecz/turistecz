@@ -52,7 +52,7 @@ CREATE TABLE ruta (
   duracion varchar(255) DEFAULT NULL,
   imagen_destacada varchar(255) DEFAULT NULL,
   PRIMARY KEY (id)
-) 
+);
 
 -- Tabla sitios_ruta
 CREATE TABLE sitios_ruta (
@@ -104,6 +104,7 @@ INSERT INTO sitio (
 ('Puente de piedra', 675119.216, 4613775.429, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE),
 ('Puerta del Carmen', 675907.557, 4613058.914, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE),
 ('Monumento a los Sitios', 676594.097, 4612963.79, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE),
+/*Cambiar nombre de Agustina a "Monumento a Agustina Zaragoza y a las Heroínas"*/
 ('Monumento a Agustina de Aragon', 675773.971, 4613909.76, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE),
 ('Torreon de la Zuda', 676383.363, 4613919.495, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE),
 ('Murallas romanas', 676374.405, 4613870.392, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE),
@@ -115,14 +116,17 @@ INSERT INTO sitio (
 ('Escultura El Alma del Ebro', 674331.942, 4615143.408, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE),
 ('Estatua del Emperador Augusto', 676335.746, 4613833.112, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE),
 ('Palacio de los Condes de Morata o Luna', 676219.034, 4613530.502, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE),
+/*quitar*/
 ('Museo Provincial de Zaragoza: Seccion de Etnologi­a y Ceramica.', 675064.152, 4611561.368, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE),
 ('Palacio de los Condes de Sastago', 676356.294, 4613383.558, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE),
 ('Casa de los Sitios', 677161.977, 4613254.312, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE),
+-- poner el segundo en esta tabla
 ('Palacio de la Aljafería', 675130.806, 4613775.045, NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE);
 
 
 -- Inserción de datos en imagen_sitio
 INSERT INTO imagen_sitio (id, nombre, url, copy, id_sitio) VALUES
+-- ordenar segun la tabla anterior para que coincidan los ids en la ruta/link
 (1, 'Basílica del Pilar', 'images/images_sitios/1_Pilar.jpg', '“Zaragoza” por Gregorio Puga Bailón, CC BY 2.0', 1),
 (2, 'Palacio de la Aljafería', 'images/images_sitios/2_aljaferia.jpg', '"Aljafería Palace, Zaragoza” por Aleksandr Zykov, CC BY-SA 2.0', 20),
 (3, 'Catedral del Salvador o de La Seo', 'images/images_sitios/3_laSeo.jpg', '“La Seo” por Xiquinho Silva, CC BY 2.0', 2),
@@ -134,7 +138,7 @@ INSERT INTO imagen_sitio (id, nombre, url, copy, id_sitio) VALUES
 (9, 'Murallas', 'images/images_sitios/10_murallas.jpg', '"Murallas romanas de Zaragoza" Escarlati , CC BY 3.0', 8),
 (10, 'Puente de Piedra', 'images/images_sitios/11_puentePiedra.jpg', '“Puente de Piedra” por Rab Lawrence, CC BY 2.0', 3),
 (11, 'Monumento a los Sitios', 'images/images_sitios/12_monumentoSitios.jpg', 'FRANCIS RAHER, CC BY 2.0,"Monumento a Los Sitios-Zaragoza"', 5),
-(12, 'Monumento a Agustina', 'images/images_sitios/13_monumentoAgustina.jpg', 'FRANCIS RAHER, CC BY 2.0, https://commons.wikimedia.org/w/index.php?curid=44296527', 6),
+(12, 'Monumento a Agustina de Aragon', 'images/images_sitios/13_monumentoAgustina.jpg', 'FRANCIS RAHER, CC BY 2.0, https://commons.wikimedia.org/w/index.php?curid=44296527', 6),
 (13, 'Estatua Emperador Augusto', 'images/images_sitios/14_EstatuaEmperadorAugusto.jpg', 'Estatua de César Augusto en Zaragoza, Ajzh2074, CC BY 4.0', 15),
 (14, 'Torreón de La Zuda', 'images/images_sitios/15_TorreonLaZuda.jpg', '“Torreón de la Zuda (Zaragoza)” por santiago lopez-pastor, CC BY-ND 2.0', 7),
 (15, 'Mercado Central', 'images/images_sitios/16_MercadoCentral.jpg', '', 9),
@@ -181,4 +185,4 @@ INSERT INTO caracteristicas_ruta (id_ruta, id_caracteristica) VALUES
 INSERT INTO usuario (nombre, apellido, email, contrasena, activo, fecha_creacion) VALUES 
 ('Alvaro', 'Samcho', 'asfswgew@gmail.com', 'contrasena', true, CURRENT_DATE),
 ('Alvaro', 'sdgsdgsd', 'sdhshshs@gmail.com', 'contrasenaa', true, current_date),
-('Alvaro', 'gsdgdsgsgds', 'hrhsrhsrd@gmail.com', 'contraseena', true, current_date)
+('Alvaro', 'gsdgdsgsgds', 'hrhsrhsrd@gmail.com', 'contraseena', true, current_date);
