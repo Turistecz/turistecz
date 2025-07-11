@@ -7,11 +7,12 @@ import { MonumentItem } from '../monument-list/monument.model';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { inject } from '@angular/core';
 import { MonumentServiceService } from '../services/monument-service.service';
+import { MapComponent } from "../map/map.component";
 
 @Component({
   selector: 'app-monument',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, MapComponent],
   templateUrl: './monument.component.html',
   styleUrl: './monument.component.css'
 })
@@ -27,24 +28,30 @@ export class MonumentComponent implements OnInit {
 
   //cards: cardsHome[] = [];
   monumento: MonumentItem = {
-     id: 0,
-  title: "",
-  description: "",
-  address: "",
-  horario: "",
-  phone: "",
-  price: "",
-  image: "",
-  uri: "",
-  imagenes: [
-    {
-      url: "",
-      nombre: "",
-      copy: "",
-      id: 0
-    }
-  ]
+    id: 0,
+    title: "",
+    description: "",
+    address: "",
+    horario: "",
+    phone: "",
+    price: "",
+    image: "",
+    uri: "",
+    imagenes: [
+      {
+        url: "",
+        nombre: "",
+        copy: "",
+        id: 0
+      }
+    ]
   };
+
+  coords = {
+    latitud: 0,
+    longitud: 0
+  };
+
 
   async loadImages(): Promise<void> {
      const variableNumero = this.route.snapshot.paramMap.get('id'); 
@@ -54,6 +61,7 @@ export class MonumentComponent implements OnInit {
       ));
 
       this.monumento = datos;
+      this.coords = datos;
 
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
@@ -65,8 +73,8 @@ export class MonumentComponent implements OnInit {
       const datos = await firstValueFrom(this.apiConnectService.getMonuments());
       //this.monumentServiceService.monuments = datos.result;
       this.monuments = datos.result;
-      this.monumentsFiltered = this.apiConnectService.filterMonuments(this.monuments);
-      //this.monumentsFiltered2 = this.apiConnectService.filterTopMonuments(this.monuments);
+      //this.monumentsFiltered = this.apiConnectService.filterMonuments(this.monuments);
+      this.monumentsFiltered = this.apiConnectService.filterTopMonuments(this.monuments);
     
     } catch (error) {
       console.error('Error al cargar monumentos:', error);

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit} from '@angular/core';
+import { Component, AfterViewInit, Input, input} from '@angular/core';
 import * as L from 'leaflet';
 import proj4 from 'proj4';
 
@@ -11,6 +11,13 @@ import proj4 from 'proj4';
 export class MapComponent implements AfterViewInit{
   private map: any;
 
+  @Input() data = {
+    latitud: 0,
+    longitud: 0
+  };
+
+  name = input("");
+
   // wait for map to load
   ngAfterViewInit(): void {
     this.initMap();
@@ -20,11 +27,11 @@ export class MapComponent implements AfterViewInit{
 
   // function to initialize the map, set the location point
   private initMap(): void {
-    const coords = this.convertCoords(676641.359, 4613843.186);
+    const coords = this.convertCoords(this.data.latitud, this.data.longitud);
     const latlng: L.LatLngExpression = [coords[1], coords[0]];
  // [lat, lon]
 
-    this.map = L.map('map').setView(latlng, 13); // Zaragoza
+    this.map = L.map('map').setView(latlng, 15); // Zaragoza
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -32,7 +39,7 @@ export class MapComponent implements AfterViewInit{
     }).addTo(this.map);
 
     L.marker(latlng).addTo(this.map)
-      .bindPopup('Zaragoza')
+      .bindPopup(this.name)
       .openPopup();
   }
   

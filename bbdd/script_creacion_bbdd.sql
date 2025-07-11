@@ -134,7 +134,7 @@ INSERT INTO imagen_sitio (id, nombre, url, copy, id_sitio) VALUES
 (9, 'Murallas', 'images/images_sitios/10_murallas.jpg', '"Murallas romanas de Zaragoza" Escarlati , CC BY 3.0', 8),
 (10, 'Puente de Piedra', 'images/images_sitios/11_puentePiedra.jpg', '“Puente de Piedra” por Rab Lawrence, CC BY 2.0', 3),
 (11, 'Monumento a los Sitios', 'images/images_sitios/12_monumentoSitios.jpg', 'FRANCIS RAHER, CC BY 2.0,"Monumento a Los Sitios-Zaragoza"', 5),
-(12, 'Monumento a Agustina', 'images/images_sitios/13_monumentoAgustina.jpg', 'FRANCIS RAHER, CC BY 2.0, https://commons.wikimedia.org/w/index.php?curid=44296527', 6),
+(12, 'Monumento a Agustina de Aragon', 'images/images_sitios/13_monumentoAgustina.jpg', 'FRANCIS RAHER, CC BY 2.0, https://commons.wikimedia.org/w/index.php?curid=44296527', 6),
 (13, 'Estatua Emperador Augusto', 'images/images_sitios/14_EstatuaEmperadorAugusto.jpg', 'Estatua de César Augusto en Zaragoza, Ajzh2074, CC BY 4.0', 15),
 (14, 'Torreón de La Zuda', 'images/images_sitios/15_TorreonLaZuda.jpg', '“Torreón de la Zuda (Zaragoza)” por santiago lopez-pastor, CC BY-ND 2.0', 7),
 (15, 'Mercado Central', 'images/images_sitios/16_MercadoCentral.jpg', '', 9),

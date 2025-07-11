@@ -18,7 +18,7 @@ export class MonumentServiceService {
   topMonuments: string[] = ['basílica de nuestra señora del pilar', 'palacio de la aljafería', 'Catedral del Salvador o La Seo y Museo de Tapices', 'Puente de Piedra', 
     'Puerta del Carmen', 'Monumento a los Sitios', 'Monumento a Agustina de Aragon', 'Torreon de la Zuda', 'Murallas romanas', 'Mercado Central', 
     'Museo de Zaragoza: Secciones de Antiguedad y Bellas Artes', 'Museo Goya - Coleccion Ibercaja', 'Parque Grande Jose Antonio Labordeta', 'Monumento a Goya', 
-    'Escultura El Alma del Ebro', 'Estatua del Emperador Augusto', 'Palacio de los Condes de Morata o Luna', 'Museo Provincial de Zaragoza: Seccion de Etnologi­a y Ceramica.', 
+    'Escultura El Alma del Ebro', 'Estatua del Emperador Augusto', 'Palacio de los Condes de Morata o Luna', 'Museo Provincial de Zaragoza: Seccion de Etnologi­a y Ceramica', 
     'Palacio de los Condes de Sastago', 'Casa de los Sitios' ];
   filteredMonuments: MonumentItem[] = [];
   orderFilteredMonuments: MonumentItem[] = [];
@@ -92,42 +92,6 @@ export class MonumentServiceService {
     return monumentArray[0];
   }
 
-  // // filters monuments by array of string names
-  // filterMonuments(monumentArray: MonumentItem[]){
-  //   // for (let x of this.topMonuments){
-  //   //   for (let m of monumentArray){
-  //   //     const title = m.title ? m.title.toLowerCase() : '';
-  //   //     if (title.includes(x)){
-  //   //        this.filteredMonuments.push(m);
-  //   //      }
-  //   //   }
-  //   // }
-  //   for (let m of monumentArray){
-  //     const title = m.title ? m.title.toLowerCase() : '';
-  //     for (let x of this.topMonuments){
-  //       if (title.includes(x)){
-  //         this.filteredMonuments.push(m);
-  //       }
-  //     }
-  //   }
-
-  //   for (let x of this.topMonuments){
-  //     for (let m of this.filteredMonuments){
-  //       const title = m.title ? m.title.toLowerCase() : '';
-  //       if (title.includes(x)){
-  //         this.orderFilteredMonuments.push(m);
-  //       }
-  //     }
-  //   }
-
-  //   return this.orderFilteredMonuments;
-  // }
-
-  // // get the array of filtered monuments
-  // getFilteredMonuments(){
-  //   return this.orderFilteredMonuments;
-  // }
-
   normalize(text: string): string {
     return text
       .toLowerCase()
@@ -151,6 +115,7 @@ export class MonumentServiceService {
   }
 
  //array private y luego funciones get para acceder a los elementos
-
+//añadirmetodo split para añadir monumentos al array en una posicion especifica cuando queramos
+//añadir metodo para modificar posicion de un determinado monumento
 
 }
