@@ -110,8 +110,5 @@ export class MonumentComponent implements OnInit {
     this.monumentNumber = Number(this.route.snapshot.paramMap.get('id'));
     this.monumentNumber--;
 
-    console.log(this.monuments);
-    console.log(this.monumentsFiltered);
-
   }
 }
