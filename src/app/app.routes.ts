@@ -49,11 +49,5 @@ export const routes: Routes = [
         loadComponent: () =>
                 import('./page-routes/page-routes.component').then(m => m.pageRoutesComponent)
     }, 
-
-     {
-        path: 'login', 
-        loadComponent: () =>
-                import('./login-form/login-form.component').then(m => m.LoginFormComponent)
-    },   
     
 ];
