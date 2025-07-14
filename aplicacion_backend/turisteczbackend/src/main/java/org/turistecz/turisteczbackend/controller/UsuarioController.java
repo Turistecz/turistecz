@@ -33,29 +33,6 @@ public class UsuarioController {
         return nombre != null ? ResponseEntity.ok(nombre)
                               : ResponseEntity.notFound().build();
 
-  }
-@PostMapping
-    @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<?> login(@RequestBody Usuario datosLogin) {
-        Usuario usuario = usuarioService.validarCredenciales(
-            datosLogin.getEmail(),
-            datosLogin.getContrasena()
-        );
-
-        if (usuario != null) {
-            // Evitar devolver la contraseña
-            Usuario respuesta = new Usuario();
-            respuesta.setId(usuario.getId());
-            respuesta.setNombre(usuario.getNombre());
-            respuesta.setApellido(usuario.getApellido());
-            respuesta.setEmail(usuario.getEmail());
-            respuesta.setActivo(usuario.getActivo());
-            respuesta.setFecha_creacion(usuario.getFecha_creacion());
-            return ResponseEntity.ok(respuesta);
-        } else {
-            return ResponseEntity.status(401).body("Credenciales inválidas");
-        }
-    }
 }
 
-
+}
