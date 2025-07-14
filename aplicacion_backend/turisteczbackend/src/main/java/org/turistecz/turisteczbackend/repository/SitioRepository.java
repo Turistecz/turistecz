@@ -29,6 +29,8 @@ public interface SitioRepository extends JpaRepository<Sitio, Integer> {
 	//JPQL, la version propia de SQL que tiene JPA (y que funciona bien con la 
 	//conversion directa de clases que hace Hibernate, otro framework de Java que tiene 
 	//incorporado Spring) 
+
+	//"s" = all, one for each.
 	@Query("SELECT s FROM Sitio s WHERE s.nombre LIKE %:nombre%")
     List<Sitio> encontrarSitiosQueSeLlamenParecido(@Param("nombre") String nombre);
 
