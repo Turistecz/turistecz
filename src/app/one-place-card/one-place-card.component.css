@@ -54,3 +54,30 @@
     padding: 1rem;
     
 }
+
+@media (max-width: 768px) {
+  #cardPlace .overlay-content {
+    opacity: 1;
+  }
+  #cardPlace {
+    width: 80%;
+    min-height: 300px;
+    margin: 1.5rem auto;
+    aspect-ratio: 3 / 4;
+  }
+
+  /* Ajustar tamaño del título */
+  .card-title {
+    font-size: 220%;
+  }
+
+  /* Hacer que el contenedor acomode las cards verticalmente y centradas */
+  #containerCard {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 sola columna en móvil */
+    gap: 3rem;
+    padding: 1rem;
+    place-items: center; /* centra las cards horizontalmente */
+  }
+
+  }
