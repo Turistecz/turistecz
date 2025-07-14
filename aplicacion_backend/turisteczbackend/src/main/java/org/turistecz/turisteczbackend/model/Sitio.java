@@ -127,6 +127,11 @@ public class Sitio {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sitio", cascade = CascadeType.ALL)
     private List<Imagen_sitio> imagenes;
 
+    // Relacion uno a muchos sitio con sitiosRuta
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id.sitio", cascade = CascadeType.ALL)
+    private List<Sitios_Ruta> sitios_ruta;
+
     // Getters y Setters    
     public int getId() {
         return id;
@@ -332,7 +337,7 @@ public class Sitio {
       this.visitas_grupales = visitas_grupales;
     }
 
-    public Boolean getpPrking_adaptador() {
+    public Boolean getParking_adaptado() {
       return parking_adaptado;
     }
 
@@ -383,5 +388,9 @@ public class Sitio {
     public List<Imagen_sitio> getImagenes() {
       return imagenes;
     }
-    
+
+    public List<Sitios_Ruta> getSitios_ruta() {
+      return sitios_ruta;
+    }
+
 }
