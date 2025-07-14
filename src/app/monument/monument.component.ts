@@ -24,7 +24,6 @@ export class MonumentComponent implements OnInit {
   monumentNumber: number = -1;
   monuments: MonumentItem[] = [];
   monumentsFiltered: MonumentItem[] = [];
-  monumentsFiltered2: MonumentItem[] = [];
 
   //cards: cardsHome[] = [];
   monumento: MonumentItem = {
