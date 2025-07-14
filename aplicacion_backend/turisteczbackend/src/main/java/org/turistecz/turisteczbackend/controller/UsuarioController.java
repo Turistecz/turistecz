@@ -37,7 +37,7 @@ public class UsuarioController {
   }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping ("/login/singin")   
+    @PostMapping ("/login/signin")   
     public ResponseEntity<?> login(@RequestBody Usuario datosLogin) {
         Usuario usuario = usuarioService.validarCredenciales(
             datosLogin.getEmail(),
