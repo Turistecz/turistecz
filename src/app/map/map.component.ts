@@ -31,7 +31,7 @@ export class MapComponent implements AfterViewInit{
     const latlng: L.LatLngExpression = [coords[1], coords[0]];
  // [lat, lon]
 
-    this.map = L.map('map').setView(latlng, 15); // Zaragoza
+    this.map = L.map('map').setView(latlng, 16); // Zaragoza
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
