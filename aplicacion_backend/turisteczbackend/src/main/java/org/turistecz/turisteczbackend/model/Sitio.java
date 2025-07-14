@@ -55,19 +55,16 @@ public class Sitio {
     private Boolean escaleras_mecanicas;
 
     @Column
-    private Boolean visitable;
+    private Boolean acceso_perros_guias;
 
     @Column
-    private Boolean acceso_perros_guias;
+    private Boolean acceso_perros_asistencia;
 
     @Column
     private Boolean servicios;
 
     @Column
     private Boolean servicios_adaptados;
-
-    @Column
-    private Boolean escalones;
 
     @Column
     private Boolean braille;
@@ -82,10 +79,7 @@ public class Sitio {
     private Boolean ayudas_visuales;
 
     @Column
-    private Boolean servicios_hombres_cambiador;
-
-    @Column
-    private Boolean servicios_mujeres_cambiador;
+    private Boolean cambiador;
 
     @Column
     private Boolean sala_lactancia;
@@ -101,6 +95,24 @@ public class Sitio {
 
     @Column
     private Boolean visitas_grupales;
+
+    @Column
+    private Boolean parking_adaptado;
+
+    @Column
+    private Boolean bancos;
+
+    @Column
+    private Boolean mostrador_adaptado;
+
+    @Column
+    private Boolean ayuda_movilidad;
+
+    @Column
+    private Boolean lenguaje_simple;
+
+    @Column
+    private Boolean sin_barreras_arquitectonicas;
   
     //Este atributo es especial. No se corresponde exactamente con un campo de la 
     //tabla, sino que le decimos que un "sitio" de la tabla esta relacionado con una o 
@@ -207,21 +219,21 @@ public class Sitio {
     public void setEscaleras_mecanicas(Boolean escaleras_mecanicas) {
       this.escaleras_mecanicas = escaleras_mecanicas;
     }
-
-    public Boolean getVisitable() {
-      return visitable;
-    }
-
-    public void setVisitable(Boolean visitable) {
-      this.visitable = visitable;
-    }
-
+  
     public Boolean getAcceso_perros_guias() {
       return acceso_perros_guias;
     }
 
     public void setAcceso_perros_guias(Boolean acceso_perros_guias) {
       this.acceso_perros_guias = acceso_perros_guias;
+    }
+
+    public Boolean getAcceso_perros_asistencia() {
+      return acceso_perros_asistencia;
+    }
+
+    public void setAcceso_perros_asistencia(Boolean acceso_perros_asistencia) {
+      this.acceso_perros_asistencia = acceso_perros_asistencia;
     }
 
     public Boolean getServicios() {
@@ -238,14 +250,6 @@ public class Sitio {
 
     public void setServicios_adaptados(Boolean servicios_adaptados) {
       this.servicios_adaptados = servicios_adaptados;
-    }
-
-    public Boolean getEscalones() {
-      return escalones;
-    }
-
-    public void setEscalones(Boolean escalones) {
-      this.escalones = escalones;
     }
 
     public Boolean getBraille() {
@@ -280,22 +284,14 @@ public class Sitio {
       this.ayudas_visuales = ayudas_visuales;
     }
 
-    public Boolean getServicios_hombres_cambiador() {
-      return servicios_hombres_cambiador;
+    public Boolean getCambiador() {
+      return cambiador;
     }
 
-    public void setServicios_hombres_cambiador(Boolean servicios_hombres_cambiador) {
-      this.servicios_hombres_cambiador = servicios_hombres_cambiador;
+    public void setCambiador(Boolean cambiador) {
+      this.cambiador = cambiador;
     }
-
-    public Boolean getServicios_mujeres_cambiador() {
-      return servicios_mujeres_cambiador;
-    }
-
-    public void setServicios_mujeres_cambiador(Boolean servicios_mujeres_cambiador) {
-      this.servicios_mujeres_cambiador = servicios_mujeres_cambiador;
-    }
-
+    
     public Boolean getSala_lactancia() {
       return sala_lactancia;
     }
@@ -334,6 +330,54 @@ public class Sitio {
 
     public void setVisitas_grupales(Boolean visitas_grupales) {
       this.visitas_grupales = visitas_grupales;
+    }
+
+    public Boolean getpPrking_adaptador() {
+      return parking_adaptado;
+    }
+
+    public void setParking_adaptado(Boolean parking_adaptado) {
+      this.parking_adaptado = parking_adaptado;
+    }
+
+    public Boolean getBancos() {
+      return bancos;
+    }
+
+    public void setBancos(Boolean bancos) {
+      this.bancos = bancos;
+    }
+
+    public Boolean getMostrador_adaptado() {
+      return mostrador_adaptado;
+    }
+    
+    public void setMostrador_adaptado(Boolean mostrador_adaptado) {
+      this.mostrador_adaptado = mostrador_adaptado;
+    }
+
+    public Boolean getAyuda_movilidad() {
+      return ayuda_movilidad;
+    }
+
+    public void setAyuda_movilidad(Boolean ayuda_movilidad) {
+      this.ayuda_movilidad = ayuda_movilidad;
+    }
+
+    public Boolean getLenguaje_simple() {
+      return lenguaje_simple;
+    }
+
+    public void setLenguaje_simple(Boolean lenguaje_simple) {
+      this.lenguaje_simple = lenguaje_simple;
+    }
+
+    public Boolean getSin_barreras_arquitectonicas() {
+      return sin_barreras_arquitectonicas;
+    }
+
+    public void setSin_barreras_arquitectonicas(Boolean sin_barreras_arquitectonicas) {
+      this.sin_barreras_arquitectonicas = sin_barreras_arquitectonicas;
     }
 
     public List<Imagen_sitio> getImagenes() {
