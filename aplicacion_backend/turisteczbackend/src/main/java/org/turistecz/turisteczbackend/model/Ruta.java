@@ -38,24 +38,21 @@ public class Ruta {
     @Column(length = 255)
     private String subtitulo;
 
-
+    //Este atributo es especial. No se corresponde exactamente con un campo de la 
+    //tabla, sino que le decimos que una "ruta" de la tabla esta relacionado con uno o 
+    //varios Sitios_Ruta (de la tabla correspondiente). Con la anotacion @OneToMany le 
+    //indicamos la cardinalidad de la relacion que hay entre esta tabla y aquella con la 
+    //que esta relacionada. Con el atributo "fetch = FetchType.LAZY" le indicamos que, 
+    //cuando saque de la BBDD la informacion de esta clase, no es necesario que se traiga 
+    //de primeras la informacion de las entidades asociadas (los Sitios_Ruta correspondientes),  
+    //para agilizar la carga de datos. Con la anotacion @JsonManagedReference le estamos 
+    //diciendo que esta entidad es la importante de la relación, y que cuando tenga que 
+    //mostrar la información de la entidad en formato JSON debe mostrar un campo más que
+    //enseñe los "Sitios_Ruta" que están relacionados con esta Ruta 
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "id.ruta", cascade = CascadeType.ALL)
     private List<Sitios_Ruta> sitios_ruta;
 
-    //Este atributo es especial. No se corresponde exactamente con un campo de la 
-    //tabla, sino que le decimos que un "sitio" de la tabla esta relacionado con una o 
-    //varias Imagen_sitio(de la tabla correspondiente). Con la anotacion @OneToMany le 
-    //indicamos la cardinalidad de la relacion que hay entre esta tabla y aquella con la 
-    //que esta relacionada. Con el atributo "fetch = FetchType.LAZY" le indicamos que, 
-    //cuando saque de la BBDD la informacion de esta clase, no es necesario que se traiga 
-    //la informacion de las entidades asociadas (las Imagen_sitio correspondientes), para 
-    //evitar relaciones circulares. Con la anotacion @JsonManagedReference le estamos 
-    //diciendo que esta entidad es la que esta en el lado de "One" de la relacion (OneToMany)
-
-    // @JsonManagedReference
-    // @OneToMany(fetch = FetchType.LAZY, mappedBy = "sitio", cascade = CascadeType.ALL)
-    // private List<Imagen_sitio> imagenes;
 
     public List<Sitios_Ruta> getSitios_ruta() {
       return sitios_ruta;
