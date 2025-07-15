@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { cardsHome, cardsHomeResponse } from '../place-card/place-card.model';
-import { MonumentItem } from '../monument-list/monument.model';
+import { MonumentItem } from '../models/monument.model';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { inject } from '@angular/core';
 import { MonumentServiceService } from '../services/monument-service.service';

@@ -40,8 +40,7 @@ cards: cardsHome[]=[];
       }))
     );
     
-
-    console.log(this.cards);
+    
   } catch (error) {
     console.error('Error al cargar monumentos:', error);
   }

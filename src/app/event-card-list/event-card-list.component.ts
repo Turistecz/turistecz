@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { EventCardComponent } from '../event-card/event-card.component';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { EventItem, EventResponse } from './event-card.model';
+import { EventItem, EventResponse } from '../models/event-card.model';
 
 @Component({
   selector: 'app-event-card-list',

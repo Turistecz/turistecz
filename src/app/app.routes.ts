@@ -32,11 +32,6 @@ export const routes: Routes = [
         loadComponent: () =>
                 import('./map/map.component').then(m => m.MapComponent)
     },
-    {
-        path: 'monuments', 
-        loadComponent: () =>
-                import('./monument-list/monument-list.component').then(m => m.MonumentListComponent)
-    }, 
 
     {
         path: 'eventos', 

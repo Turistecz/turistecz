@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MonumentItem, MonumentResponse } from '../monument-list/monument.model';
+import { MonumentItem, MonumentResponse } from '../models/monument.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
