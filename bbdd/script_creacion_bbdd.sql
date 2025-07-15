@@ -96,6 +96,14 @@ CREATE TABLE usuario(
     fecha_creacion DATE
 );
 
+CREATE TABLE verification_token(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    token varchar(255),
+    usuario_id int FOREIGN KEY,
+    fecha_expiracion date
+);
+
+
 
 
 -- Inserción de datos en sitio
