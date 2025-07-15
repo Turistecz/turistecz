@@ -6,7 +6,7 @@ import { imagenRoutes } from '../models/routes-card.model';
 
 @Component({
   selector: 'app-page-routes',
-  imports: [CommonModule,pageRoutesCardComponent,],
+  imports: [CommonModule,pageRoutesCardComponent],
   templateUrl: './page-routes.component.html',
   styleUrl: './page-routes.component.css'
 })
