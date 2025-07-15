@@ -23,6 +23,7 @@ export class MonumentComponent implements OnInit {
   monumentNumber: number = -1;
   monuments: MonumentItem[] = [];
   monumentsFiltered: MonumentItem[] = [];
+  monumentsNames: string[] = [];
 
   //cards: cardsHome[] = [];
   monumento: MonumentItem = {
@@ -72,9 +73,12 @@ export class MonumentComponent implements OnInit {
       //this.monumentServiceService.monuments = datos.result;
       this.monuments = datos.result;
       //this.monumentsFiltered = this.apiConnectService.filterMonuments(this.monuments);
-      this.monumentsFiltered = this.apiConnectService.filterTopMonuments(this.monuments);
-      const x = this.apiConnectService.getMonumentsNames;
-      console.log(x);
+      this.apiConnectService.filterTopMonuments(this.monuments).subscribe(filtrados => {
+        this.monumentsFiltered = filtrados;
+        console.log('Monumentos filtrados:', this.monumentsFiltered);
+});
+
+      console.log(this.monumentsFiltered);
     
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
@@ -106,6 +110,9 @@ export class MonumentComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.loadImages();
     await this.loadMonuments();
+    this.apiConnectService.getMonumentsNames().subscribe(data => {
+      data.map(monumento => this.monumentsNames.push(monumento.nombre));
+    });  
 
     this.monumentNumber = Number(this.route.snapshot.paramMap.get('id'));
     this.monumentNumber--;

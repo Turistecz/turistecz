@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MonumentItem, MonumentResponse } from '../models/monument.model';
+import { map } from 'rxjs/operators';
 import { firstValueFrom, Observable } from 'rxjs';
 
 @Injectable({
@@ -18,6 +19,7 @@ export class MonumentServiceService {
     'Escultura El Alma del Ebro', 'Estatua del Emperador Augusto', 'Palacio de los Condes de Morata o Luna', 'Palacio de los Condes de Sastago', 'Casa de los Sitios' ];
 
   topMonumentsEmpty: string[] = [];
+  topMonumentsEmpty2: string[] = [];
 
     
   filteredMonuments: MonumentItem[] = [];
@@ -62,19 +64,60 @@ export class MonumentServiceService {
       .replace(/[^\w\s]/g, '') // elimina puntuación
       .trim();
   }
+filterTopMonuments(monumentArray: MonumentItem[]): Observable<MonumentItem[]> {
+  const normalize = (text: string): string => {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // elimina acentos, diéresis, tildes
+    .replace(/[’‘”“"']/g, '')        // elimina comillas tipográficas y simples
+    .replace(/[-‐‑‒–—―]/g, ' ')       // reemplaza guiones y rayas por espacio
+    .replace(/[^\w\s]/g, '')          // elimina otros signos de puntuación
+    .replace(/\s+/g, ' ')             // colapsa múltiples espacios
+    .trim();
+};
 
-  filterTopMonuments(monumentArray: MonumentItem[]) {
-    const map = new Map<string, MonumentItem>();
+  const mapTitles = new Map<string, MonumentItem>();
+  monumentArray.forEach(m => mapTitles.set(normalize(m.title), m));
 
-    monumentArray.forEach(m => {
-      const key = this.normalize(m.title);
-      map.set(key, m);
-    });
+  return this.getMonumentsNames().pipe(
+    map(data => {
+      const nombres = data
+        .filter(m => m && m.nombre)
+        .map(m => m.nombre);
 
-    return this.topMonuments
-      .map(name => map.get(this.normalize(name)))
-      .filter((m): m is MonumentItem => !!m); // elimina nulls
-  }
+      const filtrados = nombres
+        .map(nombre => mapTitles.get(normalize(nombre)))
+        .filter((m): m is MonumentItem => !!m);
+
+      return filtrados;
+    })
+  );
+}
+
+  // filterTopMonuments(monumentArray: MonumentItem[]) {
+  //   const map = new Map<string, MonumentItem>();
+
+  //   monumentArray.forEach(m => {
+  //     const key = this.normalize(m.title);
+  //     map.set(key, m);
+  //   });
+
+  //   console.log(map);
+
+  //   this.getMonumentsNames().subscribe(data => {
+  //     data.map(monumento => this.topMonumentsEmpty.push(monumento.nombre));
+  //   });  
+
+
+
+  //   console.log(this.topMonumentsEmpty);
+
+
+  //   return this.topMonumentsEmpty
+  //     .map(name => map.get(this.normalize(name)))
+  //     .filter((m): m is MonumentItem => !!m); // elimina nulls
+  // }
 
   
  //array private y luego funciones get para acceder a los elementos

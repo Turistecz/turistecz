@@ -27,9 +27,6 @@ monumentsNames: string[] = [];
 
 async ngOnInit(): Promise<void> {
   await this.loadImages();
-  this.apiConnectService.getMonumentsNames().subscribe(data => {
-      this.monumentsNames = data.map(monumento => monumento.nombre);
-    });  
 
 }
 
