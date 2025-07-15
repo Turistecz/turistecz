@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { OnePlaceCardComponent } from "../one-place-card/one-place-card.component";
+import { MonumentServiceService } from '../services/monument-service.service';
+import { MonumentItem } from '../models/monument.model';
 
 
 
@@ -16,13 +18,21 @@ import { OnePlaceCardComponent } from "../one-place-card/one-place-card.componen
   styleUrl: './place-card-list.component.css'
 })
 export class PlaceCardListComponent {
- constructor(private http: HttpClient) {}
-async ngOnInit(): Promise<void> {
-  await this.loadImages();
-}
+
+ constructor(private http: HttpClient, private apiConnectService: MonumentServiceService) {}
 
 cards: cardsHome[]=[];
+monuments: MonumentItem[] = [];
+monumentsNames: string[] = [];
 
+async ngOnInit(): Promise<void> {
+  await this.loadImages();
+  this.apiConnectService.getMonumentsNames().subscribe(data => {
+      this.monumentsNames = data.map(monumento => monumento.nombre);
+      console.log(this.monumentsNames); 
+    });  
+
+}
 
  async loadImages(): Promise<void> {
   try {
@@ -37,13 +47,16 @@ cards: cardsHome[]=[];
         url: img.url,
         id: img.id
       }))
-    );
-    
+    );    
+
+    console.log(this.cards);
+
 
   } catch (error) {
     console.error('Error al cargar monumentos:', error);
   }
 }
 
-  };
+
+};
 

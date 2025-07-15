@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { cardsHome, cardsHomeResponse } from '../place-card/place-card.model';
 import { MonumentItem } from '../models/monument.model';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { inject } from '@angular/core';
@@ -74,6 +73,8 @@ export class MonumentComponent implements OnInit {
       this.monuments = datos.result;
       //this.monumentsFiltered = this.apiConnectService.filterMonuments(this.monuments);
       this.monumentsFiltered = this.apiConnectService.filterTopMonuments(this.monuments);
+      const x = this.apiConnectService.getMonumentsNames;
+      console.log(x);
     
     } catch (error) {
       console.error('Error al cargar monumentos:', error);

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { cardsHome } from '../place-card/place-card.model';
 import { HttpClient } from '@angular/common/http';
@@ -14,7 +14,7 @@ export class OnePlaceCardComponent {
   
   constructor(private http: HttpClient) {}
 async ngOnInit(): Promise<void> {
-  await this.loadImages();
+  //await this.loadImages();
 }
 
 cards: cardsHome[]=[];
@@ -24,6 +24,8 @@ cards: cardsHome[]=[];
     nombre: string;
     url: string;
   }
+
+  name = input("");
 
  async loadImages(): Promise<void> {
   try {

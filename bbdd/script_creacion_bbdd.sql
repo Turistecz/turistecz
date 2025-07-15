@@ -242,7 +242,25 @@ INSERT INTO imagen_sitio (id, nombre, url, copy, id_sitio) VALUES
 (17, 'Palacio Condes de Morata', 'images/images_sitios/17_PalacioCondesMorata.jpg', '“Palacio de los Condes de Morata (1)” por santiago lopez-pastor, CC BY-ND 2.0', 17),
 (18, 'Museo Provincial de Etnografía', 'images/images_sitios/18_museoProvincialEtnografia.jpg', 'Willtron CC BY-SA 3.0', 18),
 (19, 'Palacio de los Condes de Sástago', 'images/images_sitios/19_palacioCondesSastago.jpg', 'Por ecelan - Self-published work by ecelan, CC BY 2.5, https://commons.wikimedia.org/w/index.php?curid=1093755', 19),
-(20, 'Casa de los Sitios', 'images/images_sitios/21_casaDeLosSitios.jpg', 'Por Ajzh2074 - Trabajo propio, CC BY-SA 3.0 es, https://commons.wikimedia.org/w/index.php?curid=21385817', 20);
+(20, 'Casa de los Sitios', 'images/images_sitios/21_casaDeLosSitios.jpg', 'Por Ajzh2074 - Trabajo propio, CC BY-SA 3.0 es, https://commons.wikimedia.org/w/index.php?curid=21385817', 20),
+(21, 'Museo del Foro de Caesaraugusta', NULL, NULL, 21),
+(22, 'Museo del Teatro de Caesaraugusta', NULL, NULL, 22),
+(23, 'Palacio de los Condes de Argillo. Museo Pablo Gargallo', NULL, NULL, 23),
+(24, 'Alma Mater Museum', NULL, NULL, 24),
+(25, 'La Lonja', NULL, NULL, 25),
+(26, 'CaixaForum Zaragoza', NULL, NULL, 26),
+(27, 'Patio de la Infanta', NULL, NULL, 27),
+(28, 'Centro de Historias de Zaragoza. Antiguo Convento de San Agustín', NULL, NULL, 28),
+(29, 'Iglesia de San Pablo', NULL, NULL, 29),
+(30, 'Iglesia Parroquial de Santa Maria Magdalena', NULL, NULL, 30),
+(31, 'Acuario de Zaragoza', NULL, NULL, 31),
+(32, 'Parque de Atracciones', NULL, NULL, 32),
+(33, 'Antiguo Convento de la Victoria. Museo del Fuego y de los Bomberos', NULL, NULL, 33),
+(34, 'Parque Metropolitano del Agua Luis Buñuel', NULL, NULL, 34),
+(35, 'Museo de Ciencias Naturales de la Universidad de Zaragoza', NULL, NULL, 35),
+(36, 'Museo de las Termas Públicas de Caesaraugusta', NULL, NULL, 36),
+(37, 'Museo del Puerto Fluvial de Caesaraugusta', NULL, NULL, 37),
+(38, 'Canal Imperial de Aragón', NULL, NULL, 38);
 
 -- -- Insert data into ruta
 INSERT INTO ruta (nombre, descripcion, duracion, imagen_destacada, subtitulo) VALUES 
