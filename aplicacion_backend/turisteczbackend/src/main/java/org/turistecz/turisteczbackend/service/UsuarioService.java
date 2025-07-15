@@ -59,7 +59,7 @@ public class UsuarioService {
         VerificationToken token = verificationService.crearTokenParaUsuario(nuevoUsuario);
 
         // Enviar email con el enlace de verificación
-        String linkVerificacion = "http://localhost:8080/api/verificar?token=" + token.getToken();
+        String linkVerificacion = "http://localhost:8080/auth/verify?token=" + token.getToken();
         String cuerpo = "Hola " + usuario.getNombre() + ",\n\nGracias por registrarte en Turistecz. Por favor verifica tu cuenta haciendo clic en el siguiente enlace:\n\n"
                       + linkVerificacion + "\n\nEste enlace expirará en 24 horas.";
 
@@ -67,7 +67,7 @@ public class UsuarioService {
 
         return nuevoUsuario;
     }
-    
+
     public Usuario registrarUsuarioDesdeDto(UsuarioDto usuarioDto) {
         Usuario usuario = new Usuario();
         usuario.setNombre(usuarioDto.getNombre());
