@@ -1,9 +1,5 @@
 package org.turistecz.turisteczbackend.controller;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.turistecz.turisteczbackend.model.Sitios_Ruta;
-
-import org.turistecz.turisteczbackend.service.Sitios_RutaService;
 
 
 
@@ -14,7 +10,7 @@ import org.turistecz.turisteczbackend.service.Sitios_RutaService;
 @RestController
 @RequestMapping("/api")
 public class Sitios_RutaController {
-
+    /* 
     @Autowired	   
     private Sitios_RutaService sitios_rutaService;
 
@@ -25,5 +21,5 @@ public class Sitios_RutaController {
     public Sitios_Ruta mostrarSitiosRutaPorID(@RequestParam Integer id_sitio, @RequestParam Integer id_ruta ) {
         return sitios_rutaService.buscarNombrePorId(id_sitio, id_ruta);
     }
-    
+    */
 }

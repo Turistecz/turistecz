@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RoutesCardComponent } from '../routes-card/routes-card.component';
-import { imagenRoutes } from '../routes-card/routes-card.model';
+import { imagenRoutes } from '../models/routes-card.model';
 
 @Component({
   selector: 'app-routes-card-list',

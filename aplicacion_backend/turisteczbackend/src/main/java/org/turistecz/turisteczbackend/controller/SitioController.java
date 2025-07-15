@@ -122,7 +122,7 @@ public class SitioController {
         return sitioService.buscarSitioCorrespondienteALaImagen(id);
     }
 
-     @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/sitiosRuta")
     public List<Sitio> mostrarSitiosRuta(@RequestParam String id) {
         return sitioService.buscarSitiosRuta(id);
