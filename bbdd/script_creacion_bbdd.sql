@@ -99,7 +99,7 @@ CREATE TABLE usuario(
 CREATE TABLE verification_token(
     id int AUTO_INCREMENT PRIMARY KEY,
     token varchar(255),
-    usuario_id int FOREIGN KEY,
+    FOREIGN KEY(usuario_id) REFERENCES usuario(id),
     fecha_expiracion date
 );
 
