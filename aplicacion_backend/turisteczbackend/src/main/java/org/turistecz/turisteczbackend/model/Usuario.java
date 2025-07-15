@@ -21,8 +21,8 @@ public class Usuario {
     @Column(length = 255)
     private String contrasena;
 
-    @Column()
-    private Boolean activo;
+    @Column(nullable = false)
+    private Boolean activo = false;
 
     @Column()
     private LocalDate fecha_creacion;
