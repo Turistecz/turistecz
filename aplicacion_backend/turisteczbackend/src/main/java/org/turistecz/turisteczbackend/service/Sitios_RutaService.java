@@ -2,7 +2,6 @@ package org.turistecz.turisteczbackend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.turistecz.turisteczbackend.model.Sitios_Ruta;
 import org.turistecz.turisteczbackend.repository.Sitios_RutaRepository;
 
 
@@ -21,8 +20,8 @@ public class Sitios_RutaService {
 	//     return repositorioRuta.findAll();
 	// }
 
-    public Sitios_Ruta buscarNombrePorId(Integer id_sitio, Integer id_ruta) {
-        return repositorioSitios_Ruta.encontrarNombrePorIdSitioIdRuta(id_sitio, id_ruta);
-    }
+    // public Sitios_Ruta buscarNombrePorId(Integer id_sitio, Integer id_ruta) {
+    //     return repositorioSitios_Ruta.encontrarNombrePorIdSitioIdRuta(id_sitio, id_ruta);
+    // }
 
 }
