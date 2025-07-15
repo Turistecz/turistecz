@@ -10,67 +10,82 @@ import { EventItem, EventResponse } from './event-card.model';
   standalone: true,
   templateUrl: './event-card-list.component.html',
   styleUrl: './event-card-list.component.css',
-  imports: [CommonModule, FormsModule, EventCardComponent]
+  imports: [CommonModule, FormsModule, EventCardComponent],
 })
 export class EventCardListComponent {
   events: EventItem[] = [];
   sortedEvents: EventItem[] = [];
-  sortOption: string = 'alpha';
+  searchText: string = '';
+  sortOption: string = 'upcoming';
+
+  apiBaseUrl: string = 'https://www.zaragoza.es/sede/servicio/puntos-interes?rf=html&srsname=utm30n&start=0&rows=500&distance=500';
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get<EventResponse>(
-      'https://www.zaragoza.es/sede/servicio/puntos-interes?rf=html&srsname=utm30n&start=0&rows=50&distance=500'
-    ).subscribe((datos) => {
-      this.events = datos.result;
+    this.loadEvents();
+  }
+
+  loadEvents() {
+    this.http.get<EventResponse>(this.apiBaseUrl).subscribe((datos) => {
+      this.events = datos?.result ?? [];
       this.sortEvents();
     });
   }
 
-  // 🔠 Normaliza títulos para orden alfabético correcto
-  normalize(text: string): string {
-    return text
-      .trim()
-      .toLowerCase()
-      .replace(/['"«»“”‘’]/g, '')
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '');
-  }
-
-  // 📅 Extrae la primera fecha en formato dd-mm-yyyy o dd/mm/yyyy del texto
   extractDateFromText(text: string): number {
     const regex = /(\d{2})[-\/](\d{2})[-\/](\d{4})/;
     const match = text.match(regex);
     if (match) {
       const [_, day, month, year] = match;
-      const dateStr = `${year}-${month}-${day}`; // formato ISO
+      const dateStr = `${year}-${month}-${day}`;
       return new Date(dateStr).getTime();
     }
-    return Infinity; // si no hay fecha válida, poner al final
+    return Infinity;
   }
 
-  // 🔃 Ordena los eventos según la opción seleccionada
-  sortEvents(): void {
-    this.sortedEvents = [...this.events];
+  sortEvents() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-    if (this.sortOption === 'alpha') {
-      this.sortedEvents.sort((a, b) =>
-        this.normalize(a.title).localeCompare(this.normalize(b.title), 'es', { sensitivity: 'base' })
+    let filtered = this.events
+      .map(event => ({
+        ...event,
+        eventTime: this.extractDateFromText(event.description ?? '')
+      }))
+      .filter(event => event.eventTime >= today.getTime());
+
+    // aplicar búsqueda si hay texto
+    if (this.searchText.trim()) {
+      const search = this.normalize(this.searchText);
+      filtered = filtered.filter(event =>
+        this.normalize(event.title).includes(search) ||
+        this.normalize(event.description ?? '').includes(search)
       );
-    } else if (this.sortOption === 'date') {
-      this.sortedEvents.sort((a, b) => {
-        const timeA = this.extractDateFromText(a.description ?? '');
-        const timeB = this.extractDateFromText(b.description ?? '');
-        return timeA - timeB;
-      });
     }
+
+    // orden
+    if (this.sortOption === 'upcoming') {
+      this.sortedEvents = filtered.sort((a, b) => a.eventTime - b.eventTime);
+    } else {
+      this.sortedEvents = filtered.sort((a, b) => b.eventTime - a.eventTime);
+    }
+  }
+
+  searchEvents() {
+    this.sortEvents(); // ya aplica búsqueda y orden
+  }
+
+  normalize(text: string): string {
+    return text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-zA-ZáéíóúñÑ ]/g, '')
+      .trim();
   }
 
   getDifferentColor(): boolean {
     return Math.random() >= 0.5;
   }
 }
-
-
-

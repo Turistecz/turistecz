@@ -2,13 +2,14 @@ export interface EventItem {
   title: string;
   description: string;
   link: string;
-  category?: string; // opcional, si en el futuro decides asignarla manual o dinámicamente
+  tema?: string;
   fechas?: {
-    startDate: string;
-    endDate: string;
+    startDate?: string;
+    endDate?: string;
   };
 }
 
 export interface EventResponse {
   result: EventItem[];
 }
+
