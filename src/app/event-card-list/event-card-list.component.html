@@ -1,16 +1,37 @@
 <div class="breadcrumb-events">
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Eventos</li>
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Eventos</li>
     </ol>
-    </nav>
+  </nav>
 </div>
 
-<h2>Eventos</h2>
-
-<div class="main-card row  main-card">
-    <div class="event-card-list col-12 col-md-6 col-lg-4" *ngFor= "let event of events"> 
-        <app-event-card [data]="event" [bg]="getDifferentColor()"></app-event-card>
-    </div> 
+<!-- ORDENAR + TÍTULO -->
+<div class="d-flex align-items-center justify-content-between flex-wrap px-4">
+  <div class="mb-3 d-flex align-items-center">
+    <label for="sortSelect" class="form-label me-2 fw-bold">Ordenar por:</label>
+    <select
+      id="sortSelect"
+      class="form-select"
+      style="width: 200px;"
+      [(ngModel)]="sortOption"
+      (change)="sortEvents()"
+    >
+      <option value="alpha">Alfabéticamente</option>
+      <option value="date">Cronológicamente</option>
+    </select>
+  </div>
+  <h2 class="fw-bold mb-3 text-center flex-grow-1">Eventos</h2>
 </div>
+
+<!-- TARJETAS ORDENADAS -->
+<div class="main-card row">
+  <div
+    class="event-card-list col-12 col-md-6 col-lg-4"
+    *ngFor="let event of sortedEvents; let i = index"
+  >
+    <app-event-card [data]="event" [bg]="i % 2 === 0"></app-event-card>
+  </div>
+</div>
+
