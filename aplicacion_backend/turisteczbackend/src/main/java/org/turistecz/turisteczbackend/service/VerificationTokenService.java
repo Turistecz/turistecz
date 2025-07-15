@@ -25,7 +25,7 @@ public class VerificationTokenService {
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setToken(token);
         verificationToken.setUsuario(usuario);
-        verificationToken.setFecha_expiracion(LocalDateTime.now().plusHours(24));
+        verificationToken.setFecha_expiracion(LocalDateTime.now().plusHours(48));
 
         return tokenRepository.save(verificationToken);
     }
