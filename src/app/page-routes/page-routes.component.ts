@@ -2,7 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { pageRoutesCardComponent } from '../page-routes-card/page-routes-card.component';
-import { imagenRoutes } from '../routes-card/routes-card.model';
+import { imagenRoutes } from '../models/routes-card.model';
 
 @Component({
   selector: 'app-page-routes',
