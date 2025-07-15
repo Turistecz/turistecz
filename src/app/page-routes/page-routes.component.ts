@@ -15,21 +15,27 @@ export class pageRoutesComponent {
    routesName: imagenRoutes[]=[
     {
       name:'Familia',
+      subtitle: 'wiii',
       src:'routesImage/family.jpeg'},
 
       {name: 'Silenciosa',
+      subtitle: 'wiii',
       src:'routesImage/silenciosa.jpg'},
 
       {name:'Recomendada',
+        subtitle: 'wiii',
       src:'routesImage/recomendada.jpg'},
          
       {name:'Familia',
+        subtitle: 'wiii',
       src:'routesImage/family.jpeg'},
 
       {name: 'Silenciosa',
+        subtitle: 'wiii',
       src:'routesImage/silenciosa.jpg'},
 
       {name:'Recomendada',
+        subtitle: 'wiii',
       src:'routesImage/recomendada.jpg'}
         
     ];
