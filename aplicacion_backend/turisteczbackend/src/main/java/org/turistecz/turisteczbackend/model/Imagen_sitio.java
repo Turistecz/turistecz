@@ -36,10 +36,12 @@ public class Imagen_sitio {
     //cardinalidad de la relacion que hay entre esta tabla y aquella con la que esta 
     //relacionada a traves del atributo que mencionamos ("id_sitio"). Con el atributo 
     //"fetch = FetchType.LAZY" le indicamos que, cuando saque de la BBDD la informacion 
-    //de esta clase, no es necesario que se traiga la informacion de la entidad asociada
-    //(el Sitio), para evitar relaciones circulares. Con la anotacion @JsonBackReference 
-    //le estamos diciendo que esta entidad es la que esta en el lado de "Many" de la 
-    //relacion (ManyToOne)
+    //de esta clase, no es necesario que se traiga de primeras la informacion de las 
+    //entidades asociadas (el Sitio correspondiente), para agilizar la carga de datos. 
+    //Con la anotacion @JsonBackReference le estamos diciendo que cuando tenga que 
+    //mostrar la información de la entidad en formato JSON no debe mostrar ningún campo 
+    //con la información del Sitio al que está asociada esta Imagen_Sitio, para evitar
+    //una relación circular
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_sitio", nullable = false)

@@ -120,12 +120,29 @@ public class Sitio {
     //indicamos la cardinalidad de la relacion que hay entre esta tabla y aquella con la 
     //que esta relacionada. Con el atributo "fetch = FetchType.LAZY" le indicamos que, 
     //cuando saque de la BBDD la informacion de esta clase, no es necesario que se traiga 
-    //la informacion de las entidades asociadas (las Imagen_sitio correspondientes), para 
-    //evitar relaciones circulares. Con la anotacion @JsonManagedReference le estamos 
-    //diciendo que esta entidad es la que esta en el lado de "One" de la relacion (OneToMany)
+    //de primeras la informacion de las entidades asociadas (las Imagen_Sitio correspondientes),  
+    //para agilizar la carga de datos.  Con la anotacion @JsonManagedReference le estamos 
+    //diciendo que esta entidad es la importante de la relación, y que cuando tenga que 
+    //mostrar la información de la entidad en formato JSON debe mostrar un campo más que
+    //enseñe las "Imagen_Sitio" que están relacionados con este Sitio  
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sitio", cascade = CascadeType.ALL)
     private List<Imagen_sitio> imagenes;
+
+    //Este atributo es especial. No se corresponde exactamente con un campo de la 
+    //tabla, sino que le decimos que un "sitio" de la tabla esta relacionado con uno o 
+    //varios Sitios_Ruta(de la tabla correspondiente). Con la anotacion @OneToMany le 
+    //indicamos la cardinalidad de la relacion que hay entre esta tabla y aquella con la 
+    //que esta relacionada. Con el atributo "fetch = FetchType.LAZY" le indicamos que, 
+    //cuando saque de la BBDD la informacion de esta clase, no es necesario que se traiga 
+    //de primeras la informacion de las entidades asociadas (las Imagen_Sitio correspondientes),  
+    //para agilizar la carga de datos.  Con la anotacion @JsonManagedReference le estamos 
+    //diciendo que esta entidad es la importante de la relación, y que cuando tenga que 
+    //mostrar la información de la entidad en formato JSON debe mostrar un campo más que
+    //enseñe los "Sitios_Ruta" que están relacionados con este Sitio 
+    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id.sitio", cascade = CascadeType.ALL)
+    private List<Sitios_Ruta> sitios_ruta;
 
     // Getters y Setters    
     public int getId() {
@@ -332,7 +349,7 @@ public class Sitio {
       this.visitas_grupales = visitas_grupales;
     }
 
-    public Boolean getpPrking_adaptador() {
+    public Boolean getParking_adaptado() {
       return parking_adaptado;
     }
 
@@ -383,5 +400,9 @@ public class Sitio {
     public List<Imagen_sitio> getImagenes() {
       return imagenes;
     }
-    
+
+    public List<Sitios_Ruta> getSitios_ruta() {
+      return sitios_ruta;
+    }
+
 }

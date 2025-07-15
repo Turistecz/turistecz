@@ -66,18 +66,16 @@
     aspect-ratio: 3 / 4;
   }
 
-  /* Ajustar tamaño del título */
   .card-title {
     font-size: 220%;
   }
 
-  /* Hacer que el contenedor acomode las cards verticalmente y centradas */
   #containerCard {
     display: grid;
-    grid-template-columns: 1fr; /* 1 sola columna en móvil */
+    grid-template-columns: 1fr; 
     gap: 3rem;
     padding: 1rem;
-    place-items: center; /* centra las cards horizontalmente */
+    place-items: center; 
   }
 
   }

@@ -7,10 +7,10 @@
     <li class="breadcrumb-item active" aria-current="page">{{monumentsFiltered[monumentNumber].title}}</li>
   </ol>
 </nav>
-<h1>{{monumentsFiltered[monumentNumber].title}}</h1>
+<h1 class="title-pag">{{monumentsFiltered[monumentNumber].title}}</h1>
 
 
-    <div class="row pt-4">
+    <div class="row pt-4 row">
         <div  class="col-12 col-md-7">
             <img [src]="monumento.imagenes[0].url" id="imagen-intro">
         </div>
@@ -22,12 +22,12 @@
     </div>
 
     
-    <div class="row pt-5">
+    <div class="row pt-5 row">
         
         <div id="descripcion" class="col-12 col-md-7">
             <h2>Descripción</h2>
-            <br>
-            <p>{{cleanDescription}}</p> 
+        
+            <p id="text-description">{{cleanDescription}}</p> 
         </div>
         <div class="col-1"></div>
 
@@ -68,20 +68,22 @@
        
     <div  class="row pt-3">
         <div class="col-12 col-md-6"> 
-             <a class="btn btn-primary" href="{{monumentsFiltered[monumentNumber].uri}}" role="button">Más información</a>
+             <a class="btn btn-primary" id="boton-info" href="{{monumentsFiltered[monumentNumber].uri}}" role="button">Más información</a>
              <br><br><br>
             <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
                 <h2> Contacto </h2>
                 <p>{{monumentsFiltered[monumentNumber].phone}}</p>
                 <br>
             </div>
-            <h2> Dirección </h2>
-            <p>{{monumentsFiltered[monumentNumber].address}}</p>
+            <div class="direccion">
+                <h2> Dirección </h2>
+                <p>{{monumentsFiltered[monumentNumber].address}}</p>
+            </div>
             <br>
             <div *ngIf="monumentsFiltered[monumentNumber]?.price">
-                <h2> Precio </h2>
+                <h2 class="precio"> Precio </h2>
                 <p id="textPrice">{{cleanPrice}}</p>
-                <br>
+               
             </div>
            <!-- <h2> Enlaces de interés </h2>
             hay que poner un ngFor para que cada-->
@@ -90,10 +92,10 @@
         </div>
     </div>
   
-    <br>
+   
     <div class="row pt-3">
-        <div class="col-12 col-md-8">
-        <h2>Localización</h2>
+        <div class="local col-12 col-md-8">
+        <h2 >Localización</h2>
         <br>
         <app-map [data]="coords" [name]="monumentsFiltered[monumentNumber].title"></app-map>
         </div>
