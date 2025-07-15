@@ -1,19 +1,23 @@
 @import '@fontsource-variable/baloo-bhaijaan-2';
 
-.imagen-bg-routes {
+/* .imagen-bg-routes {
     background-image: url('/routesImage/bg-imagen.png');
     position: relative;
     display: flex;
     background-size:cover;
     padding-top: 4rem;
     padding-bottom:  10rem;
-}
+    
+} */
 
 .cardRoutes{
    display: block;
    justify-content: space-between; 
-   margin-inline: 4rem; 
+   margin-inline: 14rem; 
    position: relative;
+   margin-top: 6rem;
+   
+   
 }
 
 .cardito{
