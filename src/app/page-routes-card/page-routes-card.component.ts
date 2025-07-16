@@ -1,14 +1,11 @@
 import { Component, inject, Input } from '@angular/core';
 import { imagenRoutes } from '../models/routes-card.model';
-<<<<<<< HEAD
 import { CommonModule } from '@angular/common';
 import { RoutesCardComponent } from '../routes-card/routes-card.component';
-=======
 import { RoutesService } from '../services/routes.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
->>>>>>> 517978125af9058bd40d5dc58413b653abad2232
 
 
 @Component({
@@ -18,13 +15,10 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './page-routes-card.component.css'
 })
 export class pageRoutesCardComponent {
-<<<<<<< HEAD
-=======
 
   private route = inject(ActivatedRoute);
 
   constructor(private http: HttpClient,private routeService: RoutesService) {}
->>>>>>> 517978125af9058bd40d5dc58413b653abad2232
 
 @Input() routesName: imagenRoutes=
    {name:'',
