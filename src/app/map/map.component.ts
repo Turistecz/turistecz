@@ -1,6 +1,9 @@
-import { Component, AfterViewInit, Input, input} from '@angular/core';
+import { Component, AfterViewInit, Input, input, OnInit} from '@angular/core';
 import * as L from 'leaflet';
 import proj4 from 'proj4';
+import { MapService } from '../services/map.service';
+import { BiziItem } from '../models/map.model';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -8,8 +11,13 @@ import proj4 from 'proj4';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit{
+export class MapComponent implements AfterViewInit, OnInit{
+
+  constructor(private apiMapService: MapService) {}
+
   private map: any;
+
+  bizis: BiziItem[] = [];
 
   @Input() data = {
     latitud: 0,
@@ -21,7 +29,13 @@ export class MapComponent implements AfterViewInit{
   // wait for map to load
   ngAfterViewInit(): void {
     this.initMap();
-    
+
+  };
+
+  async ngOnInit(): Promise<void> {
+    await this.loadBizis();
+
+    console.log(this.bizis);
   }
 
 
@@ -53,6 +67,18 @@ export class MapComponent implements AfterViewInit{
 
 
     return latLon; // [longitud, latitud]
+  }
+
+  
+  async loadBizis(): Promise<void> {
+    try {
+      const datos = await firstValueFrom(this.apiMapService.getBizis());
+      this.bizis = datos.result;
+    
+    } catch (error) {
+      console.error('Error al cargar monumentos:', error);
+    }
+  
   }
 
 }
