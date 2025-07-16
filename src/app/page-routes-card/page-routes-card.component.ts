@@ -1,5 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
-import { imagenRoutes} from './routes-card.model';
+import { imagenRoutes } from '../models/routes-card.model';
 import { RoutesService } from '../services/routes.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -18,11 +18,12 @@ export class pageRoutesCardComponent {
 
   constructor(private http: HttpClient,private routeService: RoutesService) {}
 
-  @Input() routesName: imagenRoutes=
-    {name:'',
-    src:''}
-  
-    /* Carga todas las rutas mapeadas (filtradas) por nombre, descripcion y duracion.*/
+@Input() routesName: imagenRoutes=
+   {name:'',
+    subtitle: '',
+   src:''}
+    
+  /* Carga todas las rutas mapeadas (filtradas) por nombre, descripcion y duracion.*/
     /* Si quieres mostrar mas campos, añadelos en datos: {}*/
     async loadAllRoutes(): Promise<any> {
       try {
@@ -84,3 +85,4 @@ export class pageRoutesCardComponent {
   }
   
 }
+

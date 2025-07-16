@@ -2,7 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { pageRoutesCardComponent } from '../page-routes-card/page-routes-card.component';
-import { imagenRoutes } from '../routes-card/routes-card.model';
+import { imagenRoutes } from '../models/routes-card.model';
 import { RoutesService } from '../services/routes.service';
 
 @Component({
@@ -18,21 +18,27 @@ export class pageRoutesComponent {
    routesName: imagenRoutes[]=[
     {
       name:'Familia',
+      subtitle: 'wiii',
       src:'routesImage/family.jpeg'},
 
       {name: 'Silenciosa',
+      subtitle: 'wiii',
       src:'routesImage/silenciosa.jpg'},
 
       {name:'Recomendada',
+        subtitle: 'wiii',
       src:'routesImage/recomendada.jpg'},
          
       {name:'Familia',
+        subtitle: 'wiii',
       src:'routesImage/family.jpeg'},
 
       {name: 'Silenciosa',
+        subtitle: 'wiii',
       src:'routesImage/silenciosa.jpg'},
 
       {name:'Recomendada',
+        subtitle: 'wiii',
       src:'routesImage/recomendada.jpg'}
  
     ];

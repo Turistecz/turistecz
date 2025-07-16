@@ -1,6 +1,8 @@
 package org.turistecz.turisteczbackend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+//import org.springframework.data.jpa.repository.Query;
+//import org.springframework.data.repository.query.Param;
 import org.turistecz.turisteczbackend.model.Sitios_Ruta;
 
 import jakarta.persistence.EmbeddedId;

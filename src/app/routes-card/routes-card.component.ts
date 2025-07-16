@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { imagenRoutes } from './routes-card.model';
+import { imagenRoutes } from '../models/routes-card.model';
 
 
 @Component({
@@ -13,6 +13,7 @@ export class RoutesCardComponent {
 
 @Input() routesName: imagenRoutes=
    {name:'',
-   src:''}
+    subtitle: '',
+    src:''}
     
   }
