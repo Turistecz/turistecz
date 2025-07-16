@@ -37,3 +37,14 @@ h2{
   padding-bottom: 1rem;
 }
 
+#buscador {
+  margin-inline: 5rem;
+}
+
+#ordenar {
+  margin-left: 7rem;
+}
+
+#filterOption {
+  width: 200px;
+}

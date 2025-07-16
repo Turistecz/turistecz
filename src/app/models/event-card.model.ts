@@ -1,9 +1,12 @@
 export interface EventItem {
-  id: string;
   title: string;
-  link: string;
   description: string;
-  category: string;
+  link: string;
+  tema?: string; 
+  fechas?: {
+    startDate?: string;
+    endDate?: string;
+  };
 }
 
 export interface EventResponse {

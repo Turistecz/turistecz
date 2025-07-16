@@ -96,6 +96,15 @@ CREATE TABLE usuario(
     fecha_creacion DATE
 );
 
+CREATE TABLE verification_token(
+    id int AUTO_INCREMENT PRIMARY KEY,
+    token varchar(255),
+    usuario_id int,
+    FOREIGN KEY(usuario_id) references usuario(id),
+    fecha_expiracion date
+);
+
+
 
 
 -- Inserción de datos en sitio
@@ -118,7 +127,7 @@ FALSE, NULL, FALSE,	FALSE, TRUE, TRUE, TRUE, NULL, NULL, NULL, NULL, NULL, NULL)
 (3, 'Catedral del Salvador o La Seo y Museo de Tapices', 676885.553, 4613613.895,
 NULL, NULL, NULL, NULL, NULL, TRUE, TRUE, FALSE, FALSE, NULL, TRUE, TRUE, TRUE, FALSE, FALSE, FALSE, NULL,
 FALSE, FALSE, TRUE, TRUE, TRUE, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 'Puente de Piedra', 675119.216, 4613775.429,
+(4, 'Puente de Piedra', 676905.595, 4613895.914,
 NULL,NULL,NULL,NULL,NULL,TRUE,TRUE,FALSE,FALSE,NULL,TRUE,TRUE,TRUE,FALSE,FALSE,FALSE,NULL,FALSE,FALSE,TRUE,TRUE,
 TRUE,NULL,NULL,	NULL,NULL,NULL,NULL),
 (5, 'Puerta del Carmen', 675907.557, 4613058.914,
@@ -202,23 +211,23 @@ NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 (31, 'Acuario de Zaragoza',	674937.596,	4615178.821,	
 NULL,NULL,NULL,NULL,TRUE,TRUE,NULL,	NULL,TRUE,TRUE,TRUE,TRUE,NULL,	NULL,	NULL,	
 TRUE,NULL,NULL,NULL,NULL,NULL,NULL,TRUE,NULL,NULL,NULL,NULL,NULL),
-(32, 'Parque de Atracciones', 674929.317,	4609976.512,	
-NULL,NULL,NULL,NULL,TRUE,NULL,NULL,NULL,NULL,NULL,TRUE,TRUE,NULL,NULL,NULL,
-NULL,NULL,NULL,NULL,NULL,NULL,NULL,TRUE,NULL,NULL,NULL,NULL,NULL),
-(33, 'Antiguo Convento de la Victoria. Museo del Fuego y de los Bomberos',675987.540, 4613460.272	,
+-- (32, 'Parque de Atracciones', 674929.317,	4609976.512,	
+-- NULL,NULL,NULL,NULL,TRUE,NULL,NULL,NULL,NULL,NULL,TRUE,TRUE,NULL,NULL,NULL,
+-- NULL,NULL,NULL,NULL,NULL,NULL,NULL,TRUE,NULL,NULL,NULL,NULL,NULL),
+(32, 'Antiguo Convento de la Victoria. Museo del Fuego y de los Bomberos',675987.540, 4613460.272	,
 NULL,NULL,NULL,NULL,TRUE,TRUE,NULL,NULL,TRUE,TRUE,TRUE,NULL,NULL,NULL,NULL,	
 NULL,NULL,NULL,NULL,NULL,NULL,TRUE,NULL,NULL,NULL,NULL,TRUE, TRUE),
-(34, 'Parque Metropolitano del Agua Luis Buñuel',674469.478, 4615526.593	,
+(33, 'Parque Metropolitano del Agua Luis Buñuel',674469.478, 4615526.593	,
 NULL,NULL,NULL,NULL,TRUE,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL, NULL, NULL,	
 NULL,NULL,NULL,NULL,NULL,NULL,TRUE,NULL,NULL,NULL,NULL,TRUE),
-(35, 'Museo de Ciencias Naturales de la Universidad de Zaragoza',675984.774, 4612798.395	,
+(34, 'Museo de Ciencias Naturales de la Universidad de Zaragoza',675984.774, 4612798.395	,
 NULL, NULL, NULL, NULL, TRUE, NULL ,NULL ,NULL, NULL, NULL, NULL, NULL, NULL, NULL, TRUE,	
 NULL, NULL, NULL, NULL,TRUE,TRUE, TRUE, NULL, NULL, NULL, TRUE, NULL, NULL),
-(36, 'Museo de las Termas Públicas de Caesaraugusta',676769.806,4613469.059,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
+(35, 'Museo de las Termas Públicas de Caesaraugusta',676769.806,4613469.059,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
 NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-(37, 'Museo del Puerto Fluvial de Caesaraugusta',676951.659,4613680.185,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,	NULL,	NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
+(36, 'Museo del Puerto Fluvial de Caesaraugusta',676951.659,4613680.185,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,	NULL,	NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
 NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-(38, 'Canal Imperial de Aragón',676165.758,4611216.248,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,	NULL,	NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
+(37, 'Canal Imperial de Aragón',676165.758,4611216.248,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,	NULL,	NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,
 NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 -- Inserción de datos en imagen_sitio
@@ -242,7 +251,25 @@ INSERT INTO imagen_sitio (id, nombre, url, copy, id_sitio) VALUES
 (17, 'Palacio Condes de Morata', 'images/images_sitios/17_PalacioCondesMorata.jpg', '“Palacio de los Condes de Morata (1)” por santiago lopez-pastor, CC BY-ND 2.0', 17),
 (18, 'Museo Provincial de Etnografía', 'images/images_sitios/18_museoProvincialEtnografia.jpg', 'Willtron CC BY-SA 3.0', 18),
 (19, 'Palacio de los Condes de Sástago', 'images/images_sitios/19_palacioCondesSastago.jpg', 'Por ecelan - Self-published work by ecelan, CC BY 2.5, https://commons.wikimedia.org/w/index.php?curid=1093755', 19),
-(20, 'Casa de los Sitios', 'images/images_sitios/21_casaDeLosSitios.jpg', 'Por Ajzh2074 - Trabajo propio, CC BY-SA 3.0 es, https://commons.wikimedia.org/w/index.php?curid=21385817', 20);
+(20, 'Casa de los Sitios', 'images/images_sitios/21_casaDeLosSitios.jpg', 'Por Ajzh2074 - Trabajo propio, CC BY-SA 3.0 es, https://commons.wikimedia.org/w/index.php?curid=21385817', 20),
+(21, 'Museo del Foro de Caesaraugusta', NULL, NULL, 21),
+(22, 'Museo del Teatro de Caesaraugusta', NULL, NULL, 22),
+(23, 'Palacio de los Condes de Argillo. Museo Pablo Gargallo', NULL, NULL, 23),
+(24, 'Alma Mater Museum', NULL, NULL, 24),
+(25, 'La Lonja', NULL, NULL, 25),
+(26, 'CaixaForum Zaragoza', NULL, NULL, 26),
+(27, 'Patio de la Infanta', NULL, NULL, 27),
+(28, 'Centro de Historias de Zaragoza. Antiguo Convento de San Agustín', NULL, NULL, 28),
+(29, 'Iglesia de San Pablo', NULL, NULL, 29),
+(30, 'Iglesia Parroquial de Santa Maria Magdalena', NULL, NULL, 30),
+(31, 'Acuario de Zaragoza', NULL, NULL, 31),
+-- (32, 'Parque de Atracciones', NULL, NULL, 32),
+(32, 'Antiguo Convento de la Victoria. Museo del Fuego y de los Bomberos', NULL, NULL, 32),
+(33, 'Parque Metropolitano del Agua Luis Buñuel', NULL, NULL, 33),
+(34, 'Museo de Ciencias Naturales de la Universidad de Zaragoza', NULL, NULL, 34),
+(35, 'Museo de las Termas Públicas de Caesaraugusta', NULL, NULL, 35),
+(36, 'Museo del Puerto Fluvial de Caesaraugusta', NULL, NULL, 36),
+(37, 'Canal Imperial de Aragón', NULL, NULL, 37);
 
 -- -- Insert data into ruta
 INSERT INTO ruta (nombre, descripcion, duracion, imagen_destacada, subtitulo) VALUES 
@@ -264,8 +291,8 @@ INSERT INTO sitios_ruta (id_ruta, id_sitio, orden, texto) VALUES
 (2,22,1,"LA MEJOR ruta romana"),
 (2,21,2,"LA ruta romana"),
 (2,8,3,"LA MEJOR muralla"),
-(2,36,4,"LA MEJOR muralla"),
-(2,37,5,"LA MEJOR muralla"),
+(2,35,4,"LA MEJOR muralla"),
+(2,36,5,"LA MEJOR muralla"),
 
 -- RUTA HISTÓRICA
 (3,1,1,"LA MEJOR  HISTORIA"),
@@ -276,17 +303,17 @@ INSERT INTO sitios_ruta (id_ruta, id_sitio, orden, texto) VALUES
 
 -- RUTA AL AIRE LIBRE
 (4,12,1,"el mejor aire"),
-(4,34,2,"el mejor aire"),
-(4,38,3,"el mejor aire"),
+(4,33,2,"el mejor aire"),
+(4,37,3,"el mejor aire"),
 
 
 -- RUTA FAMILIAR
 
 (5,31,1,"LA MEJOR FAMILIA"),
 (5,12,2,"LA MEJOR FAMILIA"),
-(5,32,3,"LA MEJOR FAMILIA"),
-(5,33,4,"LA MEJOR FAMILIA"),
-(5,35,5,"LA MEJOR FAMILIA");
+(5,30,3,"LA MEJOR FAMILIA"),
+(5,32,4,"LA MEJOR FAMILIA"),
+(5,34,5,"LA MEJOR FAMILIA");
 
 
 INSERT INTO usuario (nombre, apellido, email, contrasena, activo, fecha_creacion) VALUES 

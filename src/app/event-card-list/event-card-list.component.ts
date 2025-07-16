@@ -1,35 +1,62 @@
 import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EventCardComponent } from '../event-card/event-card.component';
-import { EventItem, EventResponse } from './event-card.model';
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { EventItem, EventResponse } from '../models/event-card.model';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-event-card-list',
-  standalone: true,
   templateUrl: './event-card-list.component.html',
   styleUrl: './event-card-list.component.css',
-  imports: [CommonModule, FormsModule, EventCardComponent],
+  standalone: true,
+  imports: [CommonModule, FormsModule, EventCardComponent, RouterModule]
 })
 export class EventCardListComponent {
   events: EventItem[] = [];
   sortedEvents: EventItem[] = [];
   searchText: string = '';
-  sortOption: string = 'upcoming';
+  filterOption: 'month' | 'future' | 'alpha' = 'future';
+
+  // Categorías visibles
+  categoryOptions: string[] = [
+    'Actividades',
+    'Turismo',
+    'Agenda Juvenil',
+    'Recursos',
+    'Restaurantes',
+    'Alojamientos'
+  ];
+
+  // Palabras clave asociadas a cada categoría
+  categoryKeywords: { [key: string]: string[] } = {
+    'Actividades': ['actividad', 'evento', 'cultural', 'ocio'],
+    'Turismo': ['turismo', 'visita', 'guía', 'monumento', 'histórico'],
+    'Agenda Juvenil': ['juvenil', 'joven', 'jóvenes', 'zona joven'],
+    'Recursos': ['centro deportivo', 'centro', 'sala', 'biblioteca', 'escuela', 'oficina'],
+    'Restaurantes': ['restaurante', 'comida', 'gastronomía', 'cocina'],
+    'Alojamientos': ['alojamiento', 'hotel', 'hostal', 'pensión', 'dormir']
+  };
+
+  selectedCategoriesMap: { [key: string]: boolean } = {};
 
   apiBaseUrl: string = 'https://www.zaragoza.es/sede/servicio/puntos-interes?rf=html&srsname=utm30n&start=0&rows=500&distance=500';
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
+    // Inicializar todos los checkboxes como false
+    this.categoryOptions.forEach(cat => {
+      this.selectedCategoriesMap[cat] = false;
+    });
     this.loadEvents();
   }
 
   loadEvents() {
     this.http.get<EventResponse>(this.apiBaseUrl).subscribe((datos) => {
       this.events = datos?.result ?? [];
-      this.sortEvents();
+      this.applyFilters();
     });
   }
 
@@ -38,42 +65,9 @@ export class EventCardListComponent {
     const match = text.match(regex);
     if (match) {
       const [_, day, month, year] = match;
-      const dateStr = `${year}-${month}-${day}`;
-      return new Date(dateStr).getTime();
+      return new Date(`${year}-${month}-${day}`).getTime();
     }
     return Infinity;
-  }
-
-  sortEvents() {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    let filtered = this.events
-      .map(event => ({
-        ...event,
-        eventTime: this.extractDateFromText(event.description ?? '')
-      }))
-      .filter(event => event.eventTime >= today.getTime());
-
-    // aplicar búsqueda si hay texto
-    if (this.searchText.trim()) {
-      const search = this.normalize(this.searchText);
-      filtered = filtered.filter(event =>
-        this.normalize(event.title).includes(search) ||
-        this.normalize(event.description ?? '').includes(search)
-      );
-    }
-
-    // orden
-    if (this.sortOption === 'upcoming') {
-      this.sortedEvents = filtered.sort((a, b) => a.eventTime - b.eventTime);
-    } else {
-      this.sortedEvents = filtered.sort((a, b) => b.eventTime - a.eventTime);
-    }
-  }
-
-  searchEvents() {
-    this.sortEvents(); // ya aplica búsqueda y orden
   }
 
   normalize(text: string): string {
@@ -83,6 +77,78 @@ export class EventCardListComponent {
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/[^a-zA-ZáéíóúñÑ ]/g, '')
       .trim();
+  }
+
+  applyFilters() {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const currentMonth = today.getMonth();
+    const currentYear = today.getFullYear();
+
+    let filtered = this.events
+      .map(event => ({
+        ...event,
+        eventTime: this.extractDateFromText(event.description ?? '')
+      }))
+      .filter(event => event.eventTime >= today.getTime());
+
+    if (this.filterOption === 'month') {
+      filtered = filtered.filter(event => {
+        const date = new Date(event.eventTime);
+        return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+      });
+    }
+
+    if (this.filterOption === 'future') {
+      filtered.sort((a, b) => a.eventTime - b.eventTime);
+    } else if (this.filterOption === 'alpha') {
+      filtered.sort((a, b) =>
+        this.normalize(a.title).localeCompare(this.normalize(b.title), 'es', { sensitivity: 'base' })
+      );
+    }
+
+    const selectedCats = Object.keys(this.selectedCategoriesMap).filter(cat => this.selectedCategoriesMap[cat]);
+    if (selectedCats.length > 0) {
+      filtered = filtered.filter(event => {
+        const texto = (event.title + ' ' + (event.description ?? '')).toLowerCase();
+        return selectedCats.some(cat =>
+          this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
+        );
+      });
+    }
+
+    if (this.searchText.trim()) {
+      const search = this.normalize(this.searchText);
+      filtered = filtered.filter(event =>
+        this.normalize(event.title).includes(search) ||
+        this.normalize(event.description ?? '').includes(search)
+      );
+    }
+
+    this.sortedEvents = filtered;
+  }
+
+  toggleCategory(cat: string) {
+    this.selectedCategoriesMap[cat] = !this.selectedCategoriesMap[cat];
+    this.applyFilters();
+  }
+
+  onSearch() {
+    this.applyFilters();
+  }
+
+  setFilter(option: 'month' | 'future' | 'alpha') {
+    this.filterOption = option;
+    this.applyFilters();
+  }
+
+  resetFilters() {
+    this.searchText = '';
+    this.filterOption = 'future';
+    this.categoryOptions.forEach(cat => {
+      this.selectedCategoriesMap[cat] = false;
+    });
+    this.applyFilters();
   }
 
   getDifferentColor(): boolean {
