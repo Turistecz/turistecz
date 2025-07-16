@@ -1,24 +1,36 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-form',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './sign-form.component.html',
-  styleUrl: './sign-form.component.css'
+  styleUrls: ['./sign-form.component.css']
 })
 export class SignformComponent {
-   password: string = '';
+  password: string = '';
   confirmPassword: string = '';
 
-  onSubmit() {
+  // Validador personalizado de email con expresión regular
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  }
+
+  onSubmit(form: NgForm) {
+    const emailValue = form.value.email;
+
+    if (form.invalid || !this.isValidEmail(emailValue)) {
+      alert('Por favor completa todos los campos requeridos correctamente.');
+      return;
+    }
+
     if (this.password !== this.confirmPassword) {
       alert('Las contraseñas no coinciden.');
       return;
     }
 
-    // Aquí iría la lógica para enviar los datos al backend
     alert('Formulario válido. Enviando...');
   }
-  
 }
