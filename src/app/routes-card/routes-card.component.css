@@ -3,7 +3,7 @@
 
 
 .container-routes{
-    width: 90%; /* ocupa el 100% del .col-xx de Bootstrap */
+    width: 90%; 
     aspect-ratio: 4 / 2;
     display: grid;
     border-radius: 1.5rem;
@@ -16,8 +16,6 @@
     border-bottom-right-radius: 1.5rem;
     background-color: #113f6d;
 }
-
-
 
 img{
     

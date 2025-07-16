@@ -3,7 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { pageRoutesCardComponent } from '../page-routes-card/page-routes-card.component';
 import { imagenRoutes } from '../models/routes-card.model';
+<<<<<<< HEAD
 import { RoutesCardComponent } from '../routes-card/routes-card.component';
+=======
+import { RoutesService } from '../services/routes.service';
+>>>>>>> 517978125af9058bd40d5dc58413b653abad2232
 
 @Component({
   selector: 'app-page-routes',
@@ -12,6 +16,8 @@ import { RoutesCardComponent } from '../routes-card/routes-card.component';
   styleUrl: './page-routes.component.css'
 })
 export class pageRoutesComponent {
+
+    constructor(private routeService: RoutesService) {}
 
    routesName: imagenRoutes[]=[
     {
@@ -38,7 +44,7 @@ export class pageRoutesComponent {
       {name:'Recomendada',
         subtitle: 'wiii',
       src:'routesImage/recomendada.jpg'}
-        
+ 
     ];
 
 
