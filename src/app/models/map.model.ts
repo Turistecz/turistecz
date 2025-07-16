@@ -1,10 +1,23 @@
-export interface EventItem {
-  title: string;
-  description: string;
-  link: string;
+export interface BiziItem {
+  geometry: {
+    coordinates: [
+      lat: number,
+      long: number
+    ]
+  },
+  properties: {
+    id: number,
+    title: string,
+    estado: string,
+    address: string,
+    bicisDisponibles: number,
+    anclajesDisponibles: number,
+    description: string
+  }
  
 }
 
-export interface EventResponse {
-  result: EventItem[];
+export interface BiziResponse {
+  result: BiziItem[];
 }
+

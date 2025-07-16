@@ -67,7 +67,7 @@ export class MonumentComponent implements OnInit {
     }
   }
 
-    async loadMonuments(): Promise<void> {
+  async loadMonuments(): Promise<void> {
     try {
       const datos = await firstValueFrom(this.apiConnectService.getMonuments());
       //this.monumentServiceService.monuments = datos.result;
@@ -75,10 +75,7 @@ export class MonumentComponent implements OnInit {
       //this.monumentsFiltered = this.apiConnectService.filterMonuments(this.monuments);
       this.apiConnectService.filterTopMonuments(this.monuments).subscribe(filtrados => {
         this.monumentsFiltered = filtrados;
-        console.log('Monumentos filtrados:', this.monumentsFiltered);
-});
-
-      console.log(this.monumentsFiltered);
+      });
     
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
