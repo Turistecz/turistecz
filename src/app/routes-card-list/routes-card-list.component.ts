@@ -14,12 +14,15 @@ export class RoutesCardListComponent {
    routesName: imagenRoutes[]=[
     {
       name:'Familia',
+      subtitle: 'wiii',
       src:'routesImage/family.jpeg'},
 
-      {name: 'Silenciosa',
-      src:'routesImage/silenciosa.jpg'},
+      {name: 'Romana',
+      subtitle: 'wiii',
+      src:'images/images_sitios/14_EstatuaEmperadorAugusto.jpg'},
 
       {name:'Recomendada',
+      subtitle: 'wiii',
       src:'routesImage/recomendada.jpg'}
         
     ];

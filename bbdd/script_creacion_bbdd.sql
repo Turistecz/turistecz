@@ -99,8 +99,8 @@ CREATE TABLE usuario(
 CREATE TABLE verification_token(
     id int AUTO_INCREMENT PRIMARY KEY,
     token varchar(255),
-    usuario_id int,
-    FOREIGN KEY(usuario_id) references usuario(id),
+    usuario_id int, 
+    FOREIGN KEY(usuario_id) REFERENCES usuario(id),
     fecha_expiracion date
 );
 
@@ -311,8 +311,8 @@ INSERT INTO sitios_ruta (id_ruta, id_sitio, orden, texto) VALUES
 
 (5,31,1,"LA MEJOR FAMILIA"),
 (5,12,2,"LA MEJOR FAMILIA"),
-(5,30,3,"LA MEJOR FAMILIA"),
-(5,32,4,"LA MEJOR FAMILIA"),
+-- (5,30,3,"LA MEJOR FAMILIA"), ruta que tenia el parque de atracciones
+(5,32,4,"LA MEJOR FAMILIA"), 
 (5,34,5,"LA MEJOR FAMILIA");
 
 
