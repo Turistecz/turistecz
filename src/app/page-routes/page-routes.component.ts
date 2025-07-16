@@ -6,7 +6,7 @@ import { imagenRoutes } from '../models/routes-card.model';
 
 @Component({
   selector: 'app-page-routes',
-  imports: [CommonModule,pageRoutesCardComponent,],
+  imports: [CommonModule,pageRoutesCardComponent],
   templateUrl: './page-routes.component.html',
   styleUrl: './page-routes.component.css'
 })
@@ -15,21 +15,27 @@ export class pageRoutesComponent {
    routesName: imagenRoutes[]=[
     {
       name:'Familia',
+      subtitle: 'wiii',
       src:'routesImage/family.jpeg'},
 
       {name: 'Silenciosa',
+      subtitle: 'wiii',
       src:'routesImage/silenciosa.jpg'},
 
       {name:'Recomendada',
+        subtitle: 'wiii',
       src:'routesImage/recomendada.jpg'},
          
       {name:'Familia',
+        subtitle: 'wiii',
       src:'routesImage/family.jpeg'},
 
       {name: 'Silenciosa',
+        subtitle: 'wiii',
       src:'routesImage/silenciosa.jpg'},
 
       {name:'Recomendada',
+        subtitle: 'wiii',
       src:'routesImage/recomendada.jpg'}
         
     ];

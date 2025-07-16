@@ -13,6 +13,7 @@ export class pageRoutesCardComponent {
 
 @Input() routesName: imagenRoutes=
    {name:'',
+    subtitle: '',
    src:''}
     
   }
