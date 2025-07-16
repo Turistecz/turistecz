@@ -5,4 +5,12 @@ export interface imagenRoutes {
         
 }
 
+// export interface routes{  
+//     id:number,
+//     nombre:string,
+//     descripcion:string,
+// }
 
+// export interface RouteResponse{
+//     result: routes[];
+// }
