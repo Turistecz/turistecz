@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-sign-form',
@@ -48,7 +48,7 @@ export class SignformComponent {
     };
 
     
-    /*this.auth.registrarUsuario(usuario).subscribe({
+    this.auth.registrarUsuario(usuario).subscribe({
       next: (respuesta: string) => {
         alert(respuesta); // "Registro exitoso..."
         this.router.navigate(['/login']);
@@ -60,7 +60,7 @@ export class SignformComponent {
           alert('Ocurrió un error. Intenta de nuevo más tarde.');
         }
       }
-    });*/
+    });
   }
 }
 

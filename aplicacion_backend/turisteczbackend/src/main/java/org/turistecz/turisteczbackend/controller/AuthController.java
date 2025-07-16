@@ -9,6 +9,7 @@ import org.turistecz.turisteczbackend.service.UsuarioService;
 import org.turistecz.turisteczbackend.service.VerificationTokenService;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -17,7 +18,7 @@ public class AuthController {
 
     @Autowired
     private VerificationTokenService verificationTokenService;
-    @CrossOrigin(origins = "http://localhost:4200")
+  
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UsuarioDto usuarioDto) {
         if (usuarioService.existsByEmail(usuarioDto.getEmail())) {
