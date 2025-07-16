@@ -17,7 +17,7 @@ public class AuthController {
 
     @Autowired
     private VerificationTokenService verificationTokenService;
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UsuarioDto usuarioDto) {
         if (usuarioService.existsByEmail(usuarioDto.getEmail())) {

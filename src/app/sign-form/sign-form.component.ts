@@ -1,18 +1,27 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-sign-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './sign-form.component.html',
   styleUrls: ['./sign-form.component.css']
 })
 export class SignformComponent {
   password: string = '';
   confirmPassword: string = '';
+  auth: AuthService;
+  router: Router;
 
-  // Validador personalizado de email con expresión regular
+  constructor(authService: AuthService, rout: Router) {
+    this.auth = authService;
+    this.router = rout;
+  }
+
   isValidEmail(email: string): boolean {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
@@ -31,6 +40,27 @@ export class SignformComponent {
       return;
     }
 
-    alert('Formulario válido. Enviando...');
+    const usuario = {
+      nombre: form.value.nombre,
+      apellido: form.value.apellido,
+      email: form.value.email,
+      contrasena: this.password
+    };
+
+    
+    /*this.auth.registrarUsuario(usuario).subscribe({
+      next: (respuesta: string) => {
+        alert(respuesta); // "Registro exitoso..."
+        this.router.navigate(['/login']);
+      },
+      error: (error: any) => {
+        if (error.status === 400) {
+          alert(error.error); // "El email ya está registrado"
+        } else {
+          alert('Ocurrió un error. Intenta de nuevo más tarde.');
+        }
+      }
+    });*/
   }
 }
+
