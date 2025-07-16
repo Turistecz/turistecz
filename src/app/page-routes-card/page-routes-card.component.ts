@@ -1,5 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { imagenRoutes } from '../models/routes-card.model';
+import { CommonModule } from '@angular/common';
+import { RoutesCardComponent } from '../routes-card/routes-card.component';
 import { RoutesService } from '../services/routes.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
@@ -8,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-page-routes-card',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './page-routes-card.component.html',
   styleUrl: './page-routes-card.component.css'
 })
