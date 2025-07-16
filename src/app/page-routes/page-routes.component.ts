@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { pageRoutesCardComponent } from '../page-routes-card/page-routes-card.component';
 import { imagenRoutes } from '../models/routes-card.model';
+import { RoutesService } from '../services/routes.service';
 
 @Component({
   selector: 'app-page-routes',
@@ -11,6 +12,8 @@ import { imagenRoutes } from '../models/routes-card.model';
   styleUrl: './page-routes.component.css'
 })
 export class pageRoutesComponent {
+
+    constructor(private routeService: RoutesService) {}
 
    routesName: imagenRoutes[]=[
     {
@@ -37,7 +40,7 @@ export class pageRoutesComponent {
       {name:'Recomendada',
         subtitle: 'wiii',
       src:'routesImage/recomendada.jpg'}
-        
+ 
     ];
 
 
