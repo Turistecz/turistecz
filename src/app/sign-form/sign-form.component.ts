@@ -52,7 +52,7 @@ export class SignformComponent {
       next: (respuesta: string) => { // "Registro exitoso..."
         console.log(respuesta);
         alert(respuesta);
-        //this.router.navigate(['']);
+        
        
       },
       error: (error: any) => {
