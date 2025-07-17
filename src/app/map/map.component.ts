@@ -73,7 +73,6 @@ export class MapComponent implements AfterViewInit, OnInit{
   async loadBizis(): Promise<void> {
     try {
       const datos = await firstValueFrom(this.apiMapService.getBizis());
-      console.log(datos);
       this.bizis = datos.result;
     
     } catch (error) {
@@ -83,10 +82,16 @@ export class MapComponent implements AfterViewInit, OnInit{
   }
 
 private addBiziMarkers(): void {
-  console.log(this.bizis);
+  const biziIcon = L.icon({
+      iconUrl: 'media/bizi-icon.png',
+      iconSize: [30, 30],
+      iconAnchor: [12, 20],
+      popupAnchor: [1, -34],
+      // shadowUrl: 'media/marker-shadow.png',
+      shadowSize: [41, 41]
+    });
+
   this.bizis.forEach((bizi) => {
-    console.log(typeof(bizi));
-    console.log(bizi);
     const coords = bizi.geometry.coordinates;
     const props = bizi;
 
@@ -95,7 +100,7 @@ private addBiziMarkers(): void {
     const lat = coords[1];
     const lon = coords[0];
 
-    const marker = L.marker([lat, lon]).addTo(this.map);
+    const marker = L.marker([lat, lon],{ icon: biziIcon }).addTo(this.map);
 
     marker.bindPopup(`
       <strong>${props.title}</strong><br>
