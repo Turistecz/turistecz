@@ -15,17 +15,27 @@
    justify-content: space-between; 
    margin-inline: 14rem; 
    position: relative;
-   margin-top: 6rem;
-   
-   
+   margin-top: 1rem;
+   @media (max-width: 767px) {
+    display: block;
+    justify-content: center;
+    margin-inline: 0rem;
+    
+}
 }
 
 .cardito{
-    display: inline-block;
+    display: inline-block; 
     align-content: center;
     padding-bottom: 1rem;
-}
-
+    @media (max-width: 767px) {
+        padding-top: 1rem;
+        display: grid;
+        justify-content: center;
+        margin-inline: auto 1;
+        width:82%;
+    }
+    }
 
 h2{
    color: #184591;
@@ -52,4 +62,8 @@ h2{
 
 .btn-routes:hover {
   transform: scale(1.05);
+  @media (max-width: 767px){
+    transform: scale(1);
+  }
 }
+
