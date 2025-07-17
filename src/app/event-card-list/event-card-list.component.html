@@ -1,16 +1,54 @@
+<!-- MIGAS DE PAN -->
 <div class="breadcrumb-events">
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Eventos</li>
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Eventos</li>
     </ol>
-    </nav>
+  </nav>
 </div>
 
-<h2>Eventos</h2>
+<!-- TITULO -->
+<h2 class="fw-bold mb-3 text-center">Eventos</h2>
 
-<div class="main-card row  main-card">
-    <div class="event-card-list col-12 col-md-6 col-lg-4" *ngFor= "let event of events"> 
-        <app-event-card [data]="event" [bg]="getDifferentColor()"></app-event-card>
-    </div> 
+<div id="buscador">
+  <!-- FILA 1: Input + Botones -->
+  <div class="buscador-top">
+    <input type="text" class="form-control" placeholder="Nombre del evento..." [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
+    <button class="btn btn-secondary" (click)="onSearch()"><i class="bi bi-search"></i> Buscar</button>
+    <button class="btn btn-secondary" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+  </div>
+
+  <!-- FILA 2: Ordenar -->
+  <div class="buscador-ordenar">
+    <label for="filterOption">Ordenar:</label>
+    <select id="filterOption" class="form-select" [(ngModel)]="filterOption" (change)="applyFilters()">
+      <option value="future">Cronológicamente</option>
+      <option value="alpha">(A-Z)</option>
+      <option value="month">Solo mes actual</option>
+    </select>
+  </div>
+
+  <!-- FILA 3: Categorías -->
+  <div class="buscador-categorias">
+    <strong>Categorías:</strong>
+    <div class="form-check form-check-inline" *ngFor="let cat of categoryOptions">
+      <input class="form-check-input" type="checkbox" [checked]="selectedCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}" />
+      <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- CONTADOR -->
+<p class="text-muted text-center w-100"> Mostrando {{ sortedEvents.length }} eventos encontrados</p>
+<br>
+
+<!-- LISTADO DE EVENTOS -->
+<div class="main-card row">
+  <div
+    class="event-card-list col-12 col-md-6 col-lg-4" *ngFor="let event of sortedEvents; let i = index">
+    <app-event-card [data]="event" [bg]="i % 2 === 0"></app-event-card>
+  </div>
 </div>
