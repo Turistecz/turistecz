@@ -23,21 +23,39 @@ export class EventCardListComponent {
   categoryOptions: string[] = [
     'Actividades',
     'Turismo',
-    'Agenda Juvenil',
-    'Recursos',
-    'Restaurantes',
+    'Cultura',
+    'Ocio y entretenimiento',
+    'Gastronomia',
     'Alojamientos'
   ];
 
   // Palabras clave asociadas a cada categoria
-  categoryKeywords: { [key: string]: string[] } = {
-    'Actividades': ['actividad', 'evento', 'cultural', 'ocio'],
-    'Turismo': ['turismo', 'visita', 'guía', 'monumento', 'histórico'],
-    'Agenda Juvenil': ['juvenil', 'joven', 'jóvenes', 'zona joven'],
-    'Recursos': ['centro deportivo', 'centro', 'sala', 'biblioteca', 'escuela', 'oficina','colegio',],
-    'Restaurantes': ['restaurante', 'comida', 'gastronomía', 'cocina'],
-    'Alojamientos': ['alojamiento', 'hotel', 'hostal', 'pensión', 'dormir']
-  };
+ categoryKeywords: { [key: string]: string[] } = {
+  'Actividades': [
+    'actividad', 'evento', 'taller', 'zumba',
+    'charla', 'concurso', 'funcional', 'torneo'
+  ],
+  'Turismo': [
+    'turismo', 'visita', 'guía', 'monumento',
+    'histórico', 'museo', 'patrimonio', 'expo'
+  ],
+  'Cultura': [
+    'cultural', 'museo', 'teatro', 'exposición',
+    'concierto', 'arte', 'cine', 'festival'
+  ],
+  'Ocio y entretenimiento': [
+    'feria', 'show', 'tapeo', 'zumba',
+    'mercado', 'baile', 'juego', 'fiesta'
+  ],
+  'Gastronomia': [
+    'restaurante', 'comida', 'gastronomía', 'cocina',
+    'tapas', 'bar', 'menú', 'plato'
+  ],
+  'Alojamientos': [
+    'alojamiento', 'hotel', 'hostal', 'pensión',
+    'habitación', 'dormir', 'reserva', 'desayuno'
+  ]
+};
 
   selectedCategoriesMap: { [key: string]: boolean } = {};
 
