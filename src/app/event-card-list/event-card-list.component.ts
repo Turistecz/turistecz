@@ -19,7 +19,7 @@ export class EventCardListComponent {
   searchText: string = '';
   filterOption: 'month' | 'future' | 'alpha' = 'future';
 
-  // Categorías visibles
+  // Categorias visibles
   categoryOptions: string[] = [
     'Actividades',
     'Turismo',
@@ -29,12 +29,12 @@ export class EventCardListComponent {
     'Alojamientos'
   ];
 
-  // Palabras clave asociadas a cada categoría
+  // Palabras clave asociadas a cada categoria
   categoryKeywords: { [key: string]: string[] } = {
     'Actividades': ['actividad', 'evento', 'cultural', 'ocio'],
     'Turismo': ['turismo', 'visita', 'guía', 'monumento', 'histórico'],
     'Agenda Juvenil': ['juvenil', 'joven', 'jóvenes', 'zona joven'],
-    'Recursos': ['centro deportivo', 'centro', 'sala', 'biblioteca', 'escuela', 'oficina'],
+    'Recursos': ['centro deportivo', 'centro', 'sala', 'biblioteca', 'escuela', 'oficina','colegio',],
     'Restaurantes': ['restaurante', 'comida', 'gastronomía', 'cocina'],
     'Alojamientos': ['alojamiento', 'hotel', 'hostal', 'pensión', 'dormir']
   };
@@ -61,7 +61,7 @@ export class EventCardListComponent {
   }
 
   extractDateFromText(text: string): number {
-    const regex = /(\d{2})[-\/](\d{2})[-\/](\d{4})/;
+    const regex = /(\d{2})[-\/](\d{2})[-\/](\d{4})/; // regex patrones para manipular texto
     const match = text.match(regex);
     if (match) {
       const [_, day, month, year] = match;

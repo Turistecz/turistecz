@@ -11,36 +11,35 @@
 <!-- TITULO -->
 <h2 class="fw-bold mb-3 text-center">Eventos</h2>
 
-<!-- CONTROLES PRINCIPALES -->
-<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 px-4 mb-3">
-
-  <!-- BUSQUEDA -->
-  <div id="buscador" class="d-flex flex-grow-1 gap-2">
+<div id="buscador">
+  <!-- FILA 1: Input + Botones -->
+  <div class="buscador-top">
     <input type="text" class="form-control" placeholder="Nombre del evento..." [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
-    <button class="btn btn-secondary" (click)="onSearch()"><i class="bi bi-search"></i> Buscar </button>
-    <button class="btn btn-secondary" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> Reset </button>
+    <button class="btn btn-secondary" (click)="onSearch()"><i class="bi bi-search"></i> Buscar</button>
+    <button class="btn btn-secondary" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+  </div>
+
+  <!-- FILA 2: Ordenar -->
+  <div class="buscador-ordenar">
+    <label for="filterOption">Ordenar:</label>
+    <select id="filterOption" class="form-select" [(ngModel)]="filterOption" (change)="applyFilters()">
+      <option value="future">Cronológicamente</option>
+      <option value="alpha">(A-Z)</option>
+      <option value="month">Solo mes actual</option>
+    </select>
+  </div>
+
+  <!-- FILA 3: Categorías -->
+  <div class="buscador-categorias">
+    <strong>Categorías:</strong>
+    <div class="form-check form-check-inline" *ngFor="let cat of categoryOptions">
+      <input class="form-check-input" type="checkbox" [checked]="selectedCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}" />
+      <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
+    </div>
   </div>
 </div>
 
-<!-- SELECCION DE ORDEN -->
-<div id="ordenar" class="d-flex align-items-center gap-2">
-  <label for="filterOption" class="fw-bold mb-0">Ordenar:</label>
-  <select id="filterOption" class="form-select" [(ngModel)]="filterOption" (change)="applyFilters()" >
-    <option value="future">Cronológicamente</option>
-    <option value="alpha">Alfabéticamente (A-Z)</option>
-    <option value="month">Solo mes actual</option>
-  </select>
-</div>
 
-<!-- CATEGORÍAS -->
-<div class="d-flex align-items-center flex-wrap px-4 mb-3 gap-3">
-  <strong class="me-2">Categorías:</strong>
-  <div class="form-check form-check-inline" *ngFor="let cat of categoryOptions">
-    <input 
-      class="form-check-input" type="checkbox" [checked]="selectedCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}" />
-    <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
-  </div>
-</div>
 
 <!-- CONTADOR -->
 <p class="text-muted text-center w-100"> Mostrando {{ sortedEvents.length }} eventos encontrados</p>
