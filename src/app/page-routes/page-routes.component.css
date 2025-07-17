@@ -6,13 +6,12 @@
     display: flex;
     background-size:cover;
     padding-top: 4rem;
-    padding-bottom:  10rem;
 }
 
-.cardRoutes{
+.cardRoutes{ /*Esto tiene que ver con la distribucion*/
    display: block;
    justify-content: space-between; 
-   margin-inline: 4rem; 
+   margin-inline: 20rem; 
    position: relative;
    top:-50px
 }
@@ -36,18 +35,7 @@ h2{
     padding-bottom: 1rem;
 }
  
-.btn-routes {   
-    background: linear-gradient( #184591, #2A8BEA);
-    font-family: "inclusive", system-ui;
-    font-weight: 500;
-    margin-top: 3rem;   
-}  
 
-.div-btn-routes {
-    display: flex;
-    justify-content: center;
-    margin-top: 3rem;
-}
 
 .btn-routes:hover {
   transform: scale(1.05);
