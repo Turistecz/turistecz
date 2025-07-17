@@ -51,7 +51,8 @@ export class SignformComponent {
     this.auth.registrarUsuario(usuario).subscribe({
       next: (respuesta: string) => {
         alert(respuesta); // "Registro exitoso..."
-        this.router.navigate(['/login']);
+        this.router.navigate(['']);
+        alert('Registro exitoso, comprueba tu correo')
       },
       error: (error: any) => {
         if (error.status === 400) {

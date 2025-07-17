@@ -9,7 +9,6 @@ import org.turistecz.turisteczbackend.service.UsuarioService;
 import org.turistecz.turisteczbackend.service.VerificationTokenService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/auth")
 public class AuthController {
 
@@ -18,7 +17,7 @@ public class AuthController {
 
     @Autowired
     private VerificationTokenService verificationTokenService;
-  
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UsuarioDto usuarioDto) {
         if (usuarioService.existsByEmail(usuarioDto.getEmail())) {
@@ -29,7 +28,7 @@ public class AuthController {
        
         return ResponseEntity.ok("Registro exitoso. Revisa tu correo para activar tu cuenta.");
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/verify")
     public ResponseEntity<?> verificarCuenta(@RequestParam String token) {
         boolean resultado = verificationTokenService.verificarToken(token);
