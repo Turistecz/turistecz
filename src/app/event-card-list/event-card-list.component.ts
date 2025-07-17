@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
   selector: 'app-event-card-list',
   templateUrl: './event-card-list.component.html',
   styleUrl: './event-card-list.component.css',
-  standalone: true,
   imports: [CommonModule, FormsModule, EventCardComponent, RouterModule]
 })
 export class EventCardListComponent {
