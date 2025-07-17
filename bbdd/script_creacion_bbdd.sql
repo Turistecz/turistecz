@@ -285,7 +285,7 @@ INSERT INTO sitios_ruta (id_ruta, id_sitio, orden, texto) VALUES
 -- RUTA MUDEJAR
 (1,29,1,"LA MEJOR IGLESIA"),
 (1,2,2,"LA MEJOR IGLESIA"),
-(1,20,3,"LA MEJOR IGLESIA"),
+(1,3,3,"LA MEJOR IGLESIA"),
 (1,30,4,"LA MEJOR IGLESIA"),
 -- RUTA ROMANA
 (2,22,1,"LA MEJOR ruta romana"),

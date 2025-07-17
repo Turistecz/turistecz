@@ -21,26 +21,6 @@ export class pageRoutesComponent {
       name:'Familia',
       subtitle: 'wiii',
       src:'routesImage/family.jpeg'},
-
-      {name: 'Romana',
-      subtitle: 'wiii',
-      src:'images/images_sitios/14_EstatuaEmperadorAugusto.jpg'},
-
-      {name:'Recomendada',
-        subtitle: 'wiii',
-      src:'routesImage/recomendada.jpg'},
-         
-      {name:'Familia',
-        subtitle: 'wiii',
-      src:'routesImage/family.jpeg'},
-
-      {name: 'Romana',
-        subtitle: 'wiii',
-      src:'images/images_sitios/14_EstatuaEmperadorAugusto.jpg'},
-
-      {name:'Recomendada',
-        subtitle: 'wiii',
-      src:'routesImage/recomendada.jpg'}
  
     ];
 

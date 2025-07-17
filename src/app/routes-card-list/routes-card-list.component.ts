@@ -13,7 +13,7 @@ export class RoutesCardListComponent {
 
    routesName: imagenRoutes[]=[
     {
-      name:'Familia',
+      name:'Familiar',
       subtitle: 'wiii',
       src:'routesImage/family.jpeg'},
 
@@ -21,7 +21,7 @@ export class RoutesCardListComponent {
       subtitle: 'wiii',
       src:'images/images_sitios/14_EstatuaEmperadorAugusto.jpg'},
 
-      {name:'Recomendada',
+      {name:'Mudéjar',
       subtitle: 'wiii',
       src:'routesImage/recomendada.jpg'}
         
