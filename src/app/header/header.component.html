@@ -101,9 +101,19 @@
 
       <!-- Login + búsqueda -->
       <div class="d-flex align-items-center flex justify-content-center gap-2 mt-2 mt-lg-0 ms-lg-auto">
-         <a class="nav-link active" href="login">
-        <i title="Acceso/Login" class="bi bi-person-circle fs-2"></i>
-        </a>
+         <!-- Mostrar icono si NO está logueado -->
+        <div *ngIf="!loginService.estaLogueado(); else usuarioLogueado">
+          <a class="nav-link active" href="/login">
+            <i title="Acceso/Login" class="bi bi-person-circle fs-2"></i>
+          </a>
+        </div>
+
+        <!-- Mostrar nombre del usuario si está logueado -->
+        <ng-template #usuarioLogueado>
+          <span class="nav-link active fw-bold">
+            {{ loginService.getUsuario() }}
+          </span>
+        </ng-template>
         <div class="input-group search-responsive">
           <input type="text" class="form-control" placeholder="Buscar">
           <button class="btn btn-outline-secondary" type="button">

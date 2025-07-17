@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -21,9 +22,11 @@ export class LoginComponent {
       this.authService.login(this.email, this.password).subscribe({
         next: (usuario) => {
           console.log('Login exitoso:', usuario);
+          
           // Guarda en localStorage si quieres mantener sesión
           localStorage.setItem('usuario', JSON.stringify(usuario));
           this.router.navigate(['']); // Redirige a otra página
+         
         },
         error: (err) => {
           console.error('Error en login:', err);
