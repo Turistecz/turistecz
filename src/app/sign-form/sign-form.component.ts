@@ -49,15 +49,18 @@ export class SignformComponent {
 
     
     this.auth.registrarUsuario(usuario).subscribe({
-      next: (respuesta: string) => {
-        alert(respuesta); // "Registro exitoso..."
-        this.router.navigate(['']);
-        alert('Registro exitoso, comprueba tu correo')
+      next: (respuesta: string) => { // "Registro exitoso..."
+        console.log(respuesta);
+        alert(respuesta);
+        //this.router.navigate(['']);
+       
       },
       error: (error: any) => {
+        console.log("estoy aqui");
+        console.log(error);
         if (error.status === 400) {
           alert(error.error); // "El email ya está registrado"
-        } else {
+        } else if (error.status !== 200){
           alert('Ocurrió un error. Intenta de nuevo más tarde.');
         }
       }

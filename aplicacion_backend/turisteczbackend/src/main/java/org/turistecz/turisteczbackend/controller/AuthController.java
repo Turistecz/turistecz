@@ -22,7 +22,7 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@RequestBody UsuarioDto usuarioDto) {
         if (usuarioService.existsByEmail(usuarioDto.getEmail())) {
             return ResponseEntity.badRequest().body("El email ya está registrado");
-        }
+        } 
 
         usuarioService.crearUsuario(usuarioDto);
        
