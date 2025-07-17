@@ -1,19 +1,14 @@
 export interface BiziItem {
   geometry: {
-    coordinates: [
-      lat: number,
-      long: number
-    ]
+  coordinates: [number, number] // [lon, lat]
   },
-  properties: {
-    id: number,
-    title: string,
-    estado: string,
-    address: string,
-    bicisDisponibles: number,
-    anclajesDisponibles: number,
-    description: string
-  }
+  id: string,
+  title: string,
+  estado: string,
+  address: string,
+  bicisDisponibles: number,
+  anclajesDisponibles: number,
+  description: string
  
 }
 
