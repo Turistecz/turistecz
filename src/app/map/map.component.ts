@@ -28,6 +28,30 @@ export class MapComponent implements AfterViewInit, OnInit{
     shadowSize: [41, 41]
   });
 
+  busIcon = L.icon({
+    iconUrl: 'media/bus-icon.png',
+    iconSize: [30, 30],
+    iconAnchor: [12, 20],
+    popupAnchor: [1, -34],
+    // shadowUrl: 'media/marker-shadow.png',
+    shadowSize: [41, 41]
+  });
+  taxiIcon = L.icon({
+    iconUrl: 'media/taxi-icon.png',
+    iconSize: [30, 30],
+    iconAnchor: [12, 20],
+    popupAnchor: [1, -34],
+    // shadowUrl: 'media/marker-shadow.png',
+    shadowSize: [41, 41]
+  });
+  tramIcon = L.icon({
+    iconUrl: 'media/tram-icon.png',
+    iconSize: [30, 30],
+    iconAnchor: [12, 20],
+    popupAnchor: [1, -34],
+    // shadowUrl: 'media/marker-shadow.png',
+    shadowSize: [41, 41]
+  });
   markerX = L.marker([0,0]);
   markerGroup = new L.FeatureGroup();
   biziChecked: boolean = false;
