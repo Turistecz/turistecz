@@ -290,27 +290,27 @@ INSERT INTO sitios_ruta (id_ruta, id_sitio, orden, texto) VALUES
 -- RUTA ROMANA
 (2,22,1,"LA MEJOR ruta romana"),
 (2,21,2,"LA ruta romana"),
-(2,8,3,"LA MEJOR muralla"),
+(2,9,3,"LA MEJOR muralla"),
 (2,35,4,"LA MEJOR muralla"),
 (2,36,5,"LA MEJOR muralla"),
 
 -- RUTA HISTÓRICA
 (3,1,1,"LA MEJOR  HISTORIA"),
-(3,2,2,"LA MEJOR HISTORIA"),
-(3,3,3,"LA MEJOR HISTORIA"),
-(3,9,4,"LA MEJOR HISTORIA"),
+(3,3,2,"LA MEJOR HISTORIA"),
+(3,4,3,"LA MEJOR HISTORIA"),
+(3,10,4,"LA MEJOR HISTORIA"),
 (3,25,5,"LA MEJOR HISTORIA"),
 
 -- RUTA AL AIRE LIBRE
-(4,12,1,"el mejor aire"),
+(4,13,1,"el mejor aire"),
 (4,33,2,"el mejor aire"),
-(4,37,3,"el mejor aire"),
+(4,38,3,"el mejor aire"),
 
 
 -- RUTA FAMILIAR
 
 (5,31,1,"LA MEJOR FAMILIA"),
-(5,12,2,"LA MEJOR FAMILIA"),
+(5,13,2,"LA MEJOR FAMILIA"),
 -- (5,30,3,"LA MEJOR FAMILIA"), ruta que tenia el parque de atracciones
 (5,32,4,"LA MEJOR FAMILIA"), 
 (5,34,5,"LA MEJOR FAMILIA");
