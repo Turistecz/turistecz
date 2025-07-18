@@ -1,76 +1,3 @@
-
-<!--
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-     <img class="navbar-brand" src="turistecz_logo.png" width="250" >
-    
-   
-    <div class="collapse navbar-collapse font-div d-flex" id="navbarSupportedContent">
-      
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
-        
-        <li class="nav-item mx-4">
-          <a class="nav-link active" aria-current="page" href="#">Sitios</a>
-        </li>
-        <li class="nav-item mx-4">
-          <a class="nav-link active" aria-current="page" href="#">Eventos</a>
-        </li>
-        <li class="nav-item mx-4">
-          <a class="nav-link active" aria-current="page" href="#">Rutas</a>
-        </li>
-
-      </ul>
-      <div class="d-flex">
-        <ul id="nopoint">
-          <li class="nav-item mx-4">
-          <img class="nav-link active" id="login" aria-current="page" src="login-sinfondo.png" href="#">
-        </li>
-        </ul>
-        <form class="d-flex" role="search">
-        <input class="form-control me-2 search-responsive" type="search" placeholder="Buscar..." aria-label="Buscar" />
-
-        <button class="btn btn-outline-success" type="submit">Buscar</button>
-      </form>
-      </div>
-    </div>
-  </div>
-</nav>
--->
-
- <!-- <nav class="navbar navbar-expand-lg sticky-top" id="menu">
-  <div class="container px-0">
-    <img class="navbar-brand" src="turistecz_logo.png" width="250" id="logo">
-
-    <div id="menu" class="collapse navbar-collapse d-flex justify-content-around align-items-center flex-wrap " id="navbarSupportedContent">
-
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
-        <li class="nav-item mx-4">
-          <a class="nav-link active" aria-current="page" href="#">Sitios</a>
-        </li>
-        <li class="nav-item mx-4">
-          <a class="nav-link active" aria-current="page" href="#">Eventos</a>
-        </li>
-        <li class="nav-item mx-4">
-          <a class="nav-link active" aria-current="page" href="#">Rutas</a>
-        </li>
-      </ul>
-
-      <div class="d-flex align-items-center">
-        <ul id="nopoint" class="mb-0 me-3">
-          <li class="nav-item">
-            <img class="nav-link active" id="login" src="login-sinfondo.png" href="#">
-          </li>
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="bd-search d-flex align-items-center" type="search" placeholder=" Buscar" aria-label="Buscar" />
-
-        </form>
-      </div>
-
-    </div>
-  </div>
-</nav>  -->
-
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
   <div class="container-fluid" id="menu">
 
@@ -86,42 +13,39 @@
 
     <!-- Menú colapsable -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <!-- Menú de navegación -->
       <ul class="navbar-nav nav-center justify-content-start justify-content-lg-center w-100">
-        <li class="nav-item">
-          <a class="nav-link active" href="sitios">Sitios</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="eventos">Eventos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="rutas">Rutas</a>
-        </li>
+        <li class="nav-item"><a class="nav-link active" href="sitios">Sitios</a></li>
+        <li class="nav-item"><a class="nav-link active" href="eventos">Eventos</a></li>
+        <li class="nav-item"><a class="nav-link active" href="rutas">Rutas</a></li>
       </ul>
 
-      <!-- Login + búsqueda -->
-      <div class="d-flex align-items-center flex justify-content-center gap-2 mt-2 mt-lg-0 ms-lg-auto">
-         <!-- Mostrar icono si NO está logueado -->
-        <div *ngIf="!loginService.estaLogueado(); else usuarioLogueado">
-          <a class="nav-link active" href="/login">
+      <div class="d-flex align-items-center gap-2 ms-lg-auto mt-2 mt-lg-0">
+
+        <!-- No logueado -->
+        <div *ngIf="!logueado; else logueadoTemplate">
+          <a class="nav-link active" routerLink="/login">
             <i title="Acceso/Login" class="bi bi-person-circle fs-2"></i>
           </a>
         </div>
 
-        <!-- Mostrar nombre del usuario si está logueado -->
-        <ng-template #usuarioLogueado>
-          <span class="nav-link active fw-bold">
-            {{ loginService.getUsuario() }}
-          </span>
+        <!-- Logueado -->
+        <ng-template #logueadoTemplate>
+          <div class="d-flex align-items-center gap-2">
+            <span class="nav-link active fw-bold">{{ usuarioNombre }}</span>
+            <button class="btn btn-outline-danger btn-sm" (click)="onLogout()">
+              <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+          </div>
         </ng-template>
+
         <div class="input-group search-responsive">
           <input type="text" class="form-control" placeholder="Buscar">
           <button class="btn btn-outline-secondary" type="button">
             <i class="bi bi-search"></i>
           </button>
         </div>
+
       </div>
     </div>
-
   </div>
 </nav>

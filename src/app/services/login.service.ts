@@ -1,30 +1,41 @@
-// src/app/login.service.ts
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-    
-  private usuario: any = null;
+  private usuarioSubject = new BehaviorSubject<any | null>(null);
 
   constructor() {
     const guardado = localStorage.getItem('usuario');
     if (guardado) {
-      this.usuario = JSON.parse(guardado);
+      this.usuarioSubject.next(JSON.parse(guardado));
     }
   }
 
   setUsuario(usuario: any): void {
-    this.usuario = usuario;
+    this.usuarioSubject.next(usuario);
     localStorage.setItem('usuario', JSON.stringify(usuario));
+   
+  }
+
+  logout(): void {
+    this.usuarioSubject.next(null);
+    localStorage.removeItem('usuario');
   }
 
   getUsuario(): string {
-    return this.usuario?.nombre || '';
+    return this.usuarioSubject.value?.nombre || '';
   }
 
   estaLogueado(): boolean {
-    return !!this.usuario;
+    return !!this.usuarioSubject.value;
   }
+
+  // Esto permite a otros componentes suscribirse y reaccionar al cambio
+  getUsuarioObservable() {
+    return this.usuarioSubject.asObservable();
+  }
+  
 }
