@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, input, OnInit} from '@angular/core';
+import { Component, AfterViewInit, Input, input, OnInit, ElementRef, ViewChild} from '@angular/core';
 import * as L from 'leaflet';
 import proj4 from 'proj4';
 import { MapService } from '../services/map.service';
@@ -23,38 +23,35 @@ export class MapComponent implements AfterViewInit, OnInit{
     iconUrl: 'media/bizi-icon.png',
     iconSize: [30, 30],
     iconAnchor: [12, 20],
-    popupAnchor: [1, -34],
-    // shadowUrl: 'media/marker-shadow.png',
-    shadowSize: [41, 41]
+    popupAnchor: [3, -20],
   });
 
   busIcon = L.icon({
     iconUrl: 'media/bus-icon.png',
-    iconSize: [30, 30],
+    iconSize: [22, 32],
     iconAnchor: [12, 20],
-    popupAnchor: [1, -34],
-    // shadowUrl: 'media/marker-shadow.png',
-    shadowSize: [41, 41]
+    popupAnchor: [0, -20],
   });
+
   taxiIcon = L.icon({
     iconUrl: 'media/taxi-icon.png',
-    iconSize: [30, 30],
+    iconSize: [25, 30],
     iconAnchor: [12, 20],
-    popupAnchor: [1, -34],
-    // shadowUrl: 'media/marker-shadow.png',
-    shadowSize: [41, 41]
+    popupAnchor: [0, -20],
   });
+
   tramIcon = L.icon({
     iconUrl: 'media/tram-icon.png',
     iconSize: [30, 30],
     iconAnchor: [12, 20],
-    popupAnchor: [1, -34],
-    // shadowUrl: 'media/marker-shadow.png',
-    shadowSize: [41, 41]
+    popupAnchor: [0, -20],
   });
-  markerX = L.marker([0,0]);
-  markerGroup = new L.FeatureGroup();
-  biziChecked: boolean = false;
+
+  markerVar = L.marker([0,0]);
+  biziMarkerGroup = new L.FeatureGroup();
+  busMarkerGroup = new L.FeatureGroup();
+  tramMarkerGroup = new L.FeatureGroup();
+  taxiMarkerGroup = new L.FeatureGroup();
 
   @Input() data = {
     latitud: 0,
@@ -72,15 +69,12 @@ export class MapComponent implements AfterViewInit, OnInit{
  async ngOnInit(): Promise<void> {
   await this.loadBizis();
   this.createBiziMarkers();
-
 }
-
 
   // function to initialize the map, set the location point
   private initMap(): void {
     const coords = this.convertCoords(this.data.latitud, this.data.longitud);
-    const latlng: L.LatLngExpression = [coords[1], coords[0]];
- // [lat, lon]
+    const latlng: L.LatLngExpression = [coords[1], coords[0]]; // [lat, lon]
 
     this.map = L.map('map').setView(latlng, 16); // Zaragoza
 
@@ -102,11 +96,9 @@ export class MapComponent implements AfterViewInit, OnInit{
     const utmCoords: [number, number] = [easting, northing];
     const latLon: [number, number] = proj4("EPSG:32630", "WGS84", utmCoords);
 
-
     return latLon; // [longitud, latitud]
   }
 
-  
   async loadBizis(): Promise<void> {
     try {
       const datos = await firstValueFrom(this.apiMapService.getBizis());
@@ -115,17 +107,16 @@ export class MapComponent implements AfterViewInit, OnInit{
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
     }
-  
   }
 
+  
   // cambiar mapa jaw light y lo de los botones de leyenda (poner taxis buses y tranvia)
-public showHideBiziMarkers(): void {
-  if (this.biziChecked == false){
-    this.markerGroup.addTo(this.map);
-    this.biziChecked = true;
+public showHideMarkers(event: Event, group: L.FeatureGroup): void {
+  if ((event.target as HTMLInputElement).checked){
+    group.addLayer(this.markerVar);
+    group.addTo(this.map);
   } else {
-    this.biziChecked = false;
-    this.map.removeLayer(this.markerGroup);    
+    this.map.removeLayer(group);
   }
 }
 
@@ -149,10 +140,10 @@ private createBiziMarkers(): void {
     const lat = coords[1];
     const lon = coords[0];
 
-    this.markerX = L.marker([lat, lon],{ icon: this.biziIcon });//.addTo(this.map);
-    this.markerGroup.addLayer(this.markerX);
+    this.markerVar = L.marker([lat, lon],{ icon: this.biziIcon });//.addTo(this.map);
+    this.biziMarkerGroup.addLayer(this.markerVar);
 
-    this.markerX.bindPopup(`
+    this.markerVar.bindPopup(`
       <strong>${props.title}</strong><br>
       Estado: ${props.estado}<br>
       Bicis: ${props.bicisDisponibles}<br>
