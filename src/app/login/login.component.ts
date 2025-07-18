@@ -23,7 +23,7 @@ export class LoginComponent {
           console.log('Login exitoso:', usuario);
           // Guarda en localStorage si quieres mantener sesión
           localStorage.setItem('usuario', JSON.stringify(usuario));
-          this.router.navigate(['/sitios']); // Redirige a otra página
+          this.router.navigate(['']); // Redirige a otra página
         },
         error: (err) => {
           console.error('Error en login:', err);

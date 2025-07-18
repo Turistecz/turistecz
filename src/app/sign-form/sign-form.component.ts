@@ -1,24 +1,70 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-sign-form',
-  imports: [FormsModule],
+  standalone: true,
+  imports: [FormsModule, CommonModule],
   templateUrl: './sign-form.component.html',
-  styleUrl: './sign-form.component.css'
+  styleUrls: ['./sign-form.component.css']
 })
 export class SignformComponent {
-   password: string = '';
+  password: string = '';
   confirmPassword: string = '';
+  auth: AuthService;
+  router: Router;
 
-  onSubmit() {
+  constructor(authService: AuthService, rout: Router) {
+    this.auth = authService;
+    this.router = rout;
+  }
+
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  }
+
+  onSubmit(form: NgForm) {
+    const emailValue = form.value.email;
+
+    if (form.invalid || !this.isValidEmail(emailValue)) {
+      alert('Por favor completa todos los campos requeridos correctamente.');
+      return;
+    }
+
     if (this.password !== this.confirmPassword) {
       alert('Las contraseñas no coinciden.');
       return;
     }
 
-    // Aquí iría la lógica para enviar los datos al backend
-    alert('Formulario válido. Enviando...');
+    const usuario = {
+      nombre: form.value.nombre,
+      apellido: form.value.apellido,
+      email: form.value.email,
+      contrasena: this.password
+    };
+
+    
+    this.auth.registrarUsuario(usuario).subscribe({
+      next: (respuesta: string) => { // "Registro exitoso..."
+        console.log(respuesta);
+        alert(respuesta);
+        
+       
+      },
+      error: (error: any) => {
+        console.log("estoy aqui");
+        console.log(error);
+        if (error.status === 400) {
+          alert(error.error); // "El email ya está registrado"
+        } else if (error.status !== 200){
+          alert('Ocurrió un error. Intenta de nuevo más tarde.');
+        }
+      }
+    });
   }
-  
 }
+

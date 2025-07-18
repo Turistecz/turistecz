@@ -32,11 +32,11 @@ export class MapComponent implements AfterViewInit, OnInit{
 
   };
 
-  async ngOnInit(): Promise<void> {
-    await this.loadBizis();
+ async ngOnInit(): Promise<void> {
+  await this.loadBizis();
+  this.addBiziMarkers();
 
-    console.log(this.bizis);
-  }
+}
 
 
   // function to initialize the map, set the location point
@@ -80,5 +80,37 @@ export class MapComponent implements AfterViewInit, OnInit{
     }
   
   }
+
+private addBiziMarkers(): void {
+  const biziIcon = L.icon({
+      iconUrl: 'media/bizi-icon.png',
+      iconSize: [30, 30],
+      iconAnchor: [12, 20],
+      popupAnchor: [1, -34],
+      // shadowUrl: 'media/marker-shadow.png',
+      shadowSize: [41, 41]
+    });
+
+  this.bizis.forEach((bizi) => {
+    const coords = bizi.geometry.coordinates;
+    const props = bizi;
+
+    if (!coords || !props) return;
+
+    const lat = coords[1];
+    const lon = coords[0];
+
+    const marker = L.marker([lat, lon],{ icon: biziIcon }).addTo(this.map);
+
+    marker.bindPopup(`
+      <strong>${props.title}</strong><br>
+      Estado: ${props.estado}<br>
+      Bicis: ${props.bicisDisponibles}<br>
+      Anclajes: ${props.anclajesDisponibles}<br>
+      Dirección: ${props.address}
+    `);
+  });
+}
+
 
 }

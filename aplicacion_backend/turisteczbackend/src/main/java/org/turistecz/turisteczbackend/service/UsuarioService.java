@@ -44,7 +44,7 @@ public class UsuarioService {
         return null;
     }
 
-    public Usuario registrarUsuario(Usuario usuario) {
+    public void registrarUsuario(Usuario usuario) {
         // Encriptar contraseña
         String hash = passwordEncoder.encode(usuario.getContrasena());
         usuario.setContrasena(hash);
@@ -64,11 +64,9 @@ public class UsuarioService {
                       + linkVerificacion + "\n\nEste enlace expirará en 24 horas.";
 
         emailService.enviarEmail(usuario.getEmail(), "Verificación de cuenta", cuerpo);
-
-        return nuevoUsuario;
     }
 
-    public Usuario registrarUsuarioDesdeDto(UsuarioDto usuarioDto) {
+    public void registrarUsuarioDesdeDto(UsuarioDto usuarioDto) {
         Usuario usuario = new Usuario();
         usuario.setNombre(usuarioDto.getNombre());
         usuario.setApellido(usuarioDto.getApellido());
@@ -76,14 +74,14 @@ public class UsuarioService {
         usuario.setContrasena(usuarioDto.getContrasena());
         usuario.setFecha_creacion(LocalDate.now());
 
-        return registrarUsuario(usuario);
+        registrarUsuario(usuario);
     }
 
     public boolean existsByEmail(String email) {
         return repositorioUsuario.findByEmail(email) != null;
     }
 
-    public Usuario crearUsuario(UsuarioDto usuarioDto) {
+    public void crearUsuario(UsuarioDto usuarioDto) {
         Usuario usuario = new Usuario();
         usuario.setNombre(usuarioDto.getNombre());
         usuario.setApellido(usuarioDto.getApellido());
@@ -91,7 +89,7 @@ public class UsuarioService {
         usuario.setContrasena(usuarioDto.getContrasena());
         usuario.setFecha_creacion(LocalDate.now());
 
-        return registrarUsuario(usuario); // Este sí existe y hace todo (hash, token, email)
+        registrarUsuario(usuario);
     }
 }
 
