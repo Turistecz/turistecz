@@ -5,7 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f0f8ff; 
+  
 }
 
 .login-card {
@@ -16,4 +16,8 @@
   border-radius: 10px;
   padding: 20px;
   background-color: #ffffff;
+}
+
+.letra{
+  font-family: 'Inclusive', sans-serif;
 }
