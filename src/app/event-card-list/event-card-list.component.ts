@@ -23,9 +23,7 @@ export class EventCardListComponent {
     'Actividades',
     'Turismo',
     'Cultura',
-    'Ocio y entretenimiento',
-    'Gastronomia',
-    'Alojamientos'
+    'Ocio y entretenimiento'
   ];
 
   // Palabras clave asociadas a cada categoria
@@ -45,14 +43,6 @@ export class EventCardListComponent {
   'Ocio y entretenimiento': [
     'feria', 'show', 'tapeo', 'zumba',
     'mercado', 'baile', 'juego', 'fiesta'
-  ],
-  'Gastronomia': [
-    'restaurante', 'comida', 'gastronomía', 'cocina',
-    'tapas', 'bar', 'menú', 'plato'
-  ],
-  'Alojamientos': [
-    'alojamiento', 'hotel', 'hostal', 'pensión',
-    'habitación', 'dormir', 'reserva', 'desayuno'
   ]
 };
 
@@ -69,6 +59,9 @@ export class EventCardListComponent {
     });
     this.loadEvents();
   }
+
+ showCategories: boolean = false; //  
+
 
   loadEvents() {
     this.http.get<EventResponse>(this.apiBaseUrl).subscribe((datos) => {
