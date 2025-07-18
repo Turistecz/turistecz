@@ -23,7 +23,7 @@
 
         <!-- No logueado -->
         <div *ngIf="!logueado; else logueadoTemplate">
-          <a class="nav-link active" routerLink="/login">
+          <a class="nav-link active" href="/login">
             <i title="Acceso/Login" class="bi bi-person-circle fs-2"></i>
           </a>
         </div>
@@ -31,7 +31,7 @@
         <!-- Logueado -->
         <ng-template #logueadoTemplate>
           <div class="d-flex align-items-center gap-2">
-            <span class="nav-link active fw-bold">{{ usuarioNombre }}</span>
+            <span class="nav-link active fw-bold">Bienvenido {{ usuarioNombre }}</span>
             <button class="btn btn-outline-danger btn-sm" (click)="onLogout()">
               <i class="bi bi-box-arrow-right"></i> Logout
             </button>
