@@ -1,4 +1,8 @@
+ .imagen-bg-routes{
+    background-image: url('/routesImage/bg-imagen.png');
+    background-size:cover;
 
+}
 
 .login-container {
   display: flex;
