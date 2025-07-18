@@ -2,14 +2,14 @@
   display: block;
   width: 99.5w;
   height: 90vh;
-  background-image: url(../../../public/pilar_desde_arriba.jpg);
+  background-image: url(../../../public/pilar_home.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
   flex-direction: column;  
   justify-content: center;
-  color: rgb(15, 69, 131);
+  color: rgb(235, 238, 241);
 } 
 
 #titleHome{
