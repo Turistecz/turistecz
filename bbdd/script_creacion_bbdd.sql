@@ -249,7 +249,7 @@ INSERT INTO imagen_sitio (id, nombre, url, copy, id_sitio) VALUES
 (15, 'Escultura "Alma del Ebro"', 'images/images_sitios/9_esculturaAlmaDelEbro.jpg', '“Alma del Ebro” por Juanedc.com, CC BY 2.0', 15),
 (16, 'Estatua Emperador Augusto', 'images/images_sitios/14_EstatuaEmperadorAugusto.jpg', 'Estatua de César Augusto en Zaragoza, Ajzh2074, CC BY 4.0', 16),
 (17, 'Palacio Condes de Morata', 'images/images_sitios/17_PalacioCondesMorata.jpg', '“Palacio de los Condes de Morata (1)” por santiago lopez-pastor, CC BY-ND 2.0', 17),
-(18, 'Museo Provincial de Etnografía', 'images/images_sitios/18_museoProvincialEtnografia.jpg', 'Willtron CC BY-SA 3.0', 18),
+-- (18, 'Museo Provincial de Etnografía', 'images/images_sitios/18_museoProvincialEtnografia.jpg', 'Willtron CC BY-SA 3.0', 18),
 (19, 'Palacio de los Condes de Sástago', 'images/images_sitios/19_palacioCondesSastago.jpg', 'Por ecelan - Self-published work by ecelan, CC BY 2.5, https://commons.wikimedia.org/w/index.php?curid=1093755', 19),
 (20, 'Casa de los Sitios', 'images/images_sitios/21_casaDeLosSitios.jpg', 'Por Ajzh2074 - Trabajo propio, CC BY-SA 3.0 es, https://commons.wikimedia.org/w/index.php?curid=21385817', 20),
 (21, 'Museo del Foro de Caesaraugusta', NULL, NULL, 21),
