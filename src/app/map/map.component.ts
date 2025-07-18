@@ -19,6 +19,19 @@ export class MapComponent implements AfterViewInit, OnInit{
 
   bizis: BiziItem[] = [];
 
+  biziIcon = L.icon({
+    iconUrl: 'media/bizi-icon.png',
+    iconSize: [30, 30],
+    iconAnchor: [12, 20],
+    popupAnchor: [1, -34],
+    // shadowUrl: 'media/marker-shadow.png',
+    shadowSize: [41, 41]
+  });
+
+  markerX = L.marker([0,0]);
+  markerGroup = new L.FeatureGroup();
+  biziChecked: boolean = false;
+
   @Input() data = {
     latitud: 0,
     longitud: 0
@@ -34,7 +47,7 @@ export class MapComponent implements AfterViewInit, OnInit{
 
  async ngOnInit(): Promise<void> {
   await this.loadBizis();
-  this.addBiziMarkers();
+  this.createBiziMarkers();
 
 }
 
@@ -81,17 +94,29 @@ export class MapComponent implements AfterViewInit, OnInit{
   
   }
 
-private addBiziMarkers(): void {
-  const biziIcon = L.icon({
-      iconUrl: 'media/bizi-icon.png',
-      iconSize: [30, 30],
-      iconAnchor: [12, 20],
-      popupAnchor: [1, -34],
-      // shadowUrl: 'media/marker-shadow.png',
-      shadowSize: [41, 41]
-    });
+  // cambiar mapa jaw light y lo de los botones de leyenda (poner taxis buses y tranvia)
+public showHideBiziMarkers(): void {
+  if (this.biziChecked == false){
+    this.markerGroup.addTo(this.map);
+    this.biziChecked = true;
+  } else {
+    this.biziChecked = false;
+    this.map.removeLayer(this.markerGroup);    
+  }
+}
 
-  this.bizis.forEach((bizi) => {
+//hide & show markers on zoom
+// map.on('zoomend', function() {
+//     if (map.getZoom() <7){
+//             map.removeLayer(shelterMarkers);
+//     }
+//     else {
+//             map.addLayer(shelterMarkers);
+//         }
+// });
+
+private createBiziMarkers(): void {
+    this.bizis.forEach((bizi) => {
     const coords = bizi.geometry.coordinates;
     const props = bizi;
 
@@ -100,17 +125,18 @@ private addBiziMarkers(): void {
     const lat = coords[1];
     const lon = coords[0];
 
-    const marker = L.marker([lat, lon],{ icon: biziIcon }).addTo(this.map);
+    this.markerX = L.marker([lat, lon],{ icon: this.biziIcon });//.addTo(this.map);
+    this.markerGroup.addLayer(this.markerX);
 
-    marker.bindPopup(`
+    this.markerX.bindPopup(`
       <strong>${props.title}</strong><br>
       Estado: ${props.estado}<br>
       Bicis: ${props.bicisDisponibles}<br>
       Anclajes: ${props.anclajesDisponibles}<br>
       Dirección: ${props.address}
     `);
+
   });
 }
-
 
 }
