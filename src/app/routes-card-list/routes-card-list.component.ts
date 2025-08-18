@@ -13,17 +13,17 @@ export class RoutesCardListComponent {
 
    routesName: imagenRoutes[]=[
     {
-      name:'Familiar',
-      subtitle: 'wiii',
-      src:'images/rutas/portada_ruta_familiar.jpg'},
+      nombre:'Familiar',
+      subtitulo: 'wiii',
+      imagen_destacada:'images/rutas/portada_ruta_familiar.jpg'},
 
-      {name: 'Romana',
-      subtitle: 'wiii',
-      src:'images/rutas/portada_ruta_romana.jpg'},
+      {nombre: 'Romana',
+      subtitulo: 'wiii',
+      imagen_destacada:'images/rutas/portada_ruta_romana.jpg'},
 
-      {name:'Mudéjar',
-      subtitle: 'wiii',
-      src:'images/rutas/portada_ruta_mudejar.jpg'}
+      {nombre:'Mudéjar',
+      subtitulo: 'wiii',
+      imagen_destacada:'images/rutas/portada_ruta_mudejar.jpg'}
         
     ];
 

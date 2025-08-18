@@ -1,6 +1,8 @@
 package org.turistecz.turisteczbackend.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 //import org.springframework.data.jpa.repository.Query;
 //import org.springframework.data.repository.query.Param;
 import org.turistecz.turisteczbackend.model.Sitios_Ruta;
@@ -24,7 +26,7 @@ public interface Sitios_RutaRepository extends JpaRepository<Sitios_Ruta, Embedd
 	// Por el momento lo hemos descartado, porque lo vemos necesario.
 	// Si quereis usarlo, todo vuestro.
 
-	// @Query(value = "SELECT * FROM Sitios_Ruta sr WHERE sr.id_sitio = :id_sitio and sr.id_ruta = :id_ruta", nativeQuery = true)
-    // Sitios_Ruta encontrarNombrePorIdSitioIdRuta(@Param("id_sitio") Integer id_sitio, @Param("id_ruta") Integer id_ruta);
+	@Query(value = "SELECT * FROM Sitios_Ruta sr WHERE sr.id_sitio = :id_sitio and sr.id_ruta = :id_ruta", nativeQuery = true)
+    Sitios_Ruta encontrarNombrePorIdSitioIdRuta(@Param("id_sitio") Integer id_sitio, @Param("id_ruta") Integer id_ruta);
 
 }
