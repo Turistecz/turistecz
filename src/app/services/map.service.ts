@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BiziResponse, BusInfoResponse, BusStopResponse, TaxiStopResponse, TramStopResponse } from '../models/map.model';
+import { BiziResponse, BusInfoResponse, BusStopResponse, TaxiStopItem, TaxiStopResponse, TramStopResponse } from '../models/map.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class MapService {
 
   private url: string = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/";
+  private taxiStopsArray: TaxiStopItem[] = [];
 
   constructor(private http: HttpClient) { }
   
@@ -43,7 +44,7 @@ export class MapService {
 
   getTramsStation():Observable<TramStopResponse> {
     // dentro de properties, en destinos[] viene el tiempo de espera
-    const tram = "equipamiento/parada-tranvia";
+    const tram = "transporte-urbano/parada-tranvia";
     const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '500').set('distance', '500');
     const Headers = new HttpHeaders({
       Accept: 'application/geo+json', 
@@ -57,7 +58,9 @@ export class MapService {
     const Headers = new HttpHeaders({
       Accept: 'application/geo+json', 
     });
+    
     return this.http.get<TaxiStopResponse>(this.url+taxi,{params: Params, headers: Headers});
+    
   }
 
 }

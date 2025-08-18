@@ -132,7 +132,7 @@ async loadTaxiStops(): Promise<void> {
 async loadTramStops(): Promise<void> {
   try {
     const datos = await firstValueFrom(this.apiMapService.getTramsStation());
-    this.tramStops = datos.result;
+    this.tramStops = datos.features;
 
   } catch (error) {
     console.error('Error al cargar monumentos:', error);
@@ -142,7 +142,7 @@ async loadTramStops(): Promise<void> {
 async loadBusStops(): Promise<void> {
   try {
     const datos = await firstValueFrom(this.apiMapService.getBusesStation());
-    this.busStops = datos.result;
+    this.busStops = datos.features;
 
   } catch (error) {
     console.error('Error al cargar monumentos:', error);

@@ -67,7 +67,7 @@ export interface BiziResponse {
   features: BiziItem[];
 }
 export interface BusStopResponse {
-  result: BusStopItem[];
+  features: BusStopItem[];
 }
 export interface BusInfoResponse {
   result: BusInfoItem[];
@@ -76,5 +76,5 @@ export interface TaxiStopResponse {
   result: TaxiStopItem[];
 }
 export interface TramStopResponse {
-  result: TramStopItem[];
+  features: TramStopItem[];
 }
