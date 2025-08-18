@@ -1,8 +1,31 @@
 
 <div id="map"></div>
 <p>LEYENDA:</p>
-<img src="media/bizi-icon.png" style="width:30px;height:30px;" alt="ícono estación bizi"> Estación bizi
-<img src="media/marker-icon.png" style="width:20px;height:30px;" alt="ícono estás aquí"> Estás aquí
+<p>
+    <img src="media/marker-icon.png" style="width:20px;height:30px;" alt="ícono estás aquí"> 
+    Estás aquí
+</p>
+<p>
+    <img src="media/bizi-icon.png" style="width:30px;height:30px;" alt="ícono estación bizi"> 
+    Estación bizi
+    <input class="icon" #biziIconId type="checkbox" (change)="showHideMarkers($event, this.biziMarkerGroup)">
+</p>
+<p>
+    <img src="media/bus-icon.png" style="width:20px;height:30px;" alt="ícono parada bus"> 
+    Buses
+    <input class="icon" id="busIconId" type="checkbox" (change)="showHideMarkers($event, this.busMarkerGroup)">
+</p>
+<p>
+    <img src="media/taxi-icon.png" style="width:20px;height:30px;" alt="ícono parada taxi"> 
+    Taxis
+    <input class="icon" id="taxiIconId" type="checkbox" (change)="showHideMarkers($event, this.taxiMarkerGroup)">
+</p>
+<p>
+    <img src="media/tram-icon.png" style="width:20px;height:30px;" alt="ícono parada tranvía"> 
+    Tranvias
+    <input class="icon" id="tramIconId" type="checkbox" (change)="showHideMarkers($event, this.tramMarkerGroup)">
+</p>
+
 
 <!-- (img)icono = sitio(?)
 (img)bici = estacion bici 

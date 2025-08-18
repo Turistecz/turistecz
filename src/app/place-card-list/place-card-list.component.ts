@@ -8,15 +8,13 @@ import { OnePlaceCardComponent } from "../one-place-card/one-place-card.componen
 import { MonumentServiceService } from '../services/monument-service.service';
 import { MonumentItem } from '../models/monument.model';
 
-
-
-
 @Component({
   selector: 'app-place-card-list',
   imports: [CommonModule, RouterModule, OnePlaceCardComponent],
   templateUrl: './place-card-list.component.html',
   styleUrl: './place-card-list.component.css'
 })
+
 export class PlaceCardListComponent {
 
  constructor(private http: HttpClient, private apiConnectService: MonumentServiceService) {}

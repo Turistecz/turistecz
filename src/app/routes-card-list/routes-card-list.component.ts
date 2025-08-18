@@ -15,15 +15,15 @@ export class RoutesCardListComponent {
     {
       name:'Familiar',
       subtitle: 'wiii',
-      src:'routesImage/family.jpeg'},
+      src:'images/rutas/portada_ruta_familiar.jpg'},
 
       {name: 'Romana',
       subtitle: 'wiii',
-      src:'images/images_sitios/14_EstatuaEmperadorAugusto.jpg'},
+      src:'images/rutas/portada_ruta_romana.jpg'},
 
       {name:'Mudéjar',
       subtitle: 'wiii',
-      src:'routesImage/recomendada.jpg'}
+      src:'images/rutas/portada_ruta_mudejar.jpg'}
         
     ];
 

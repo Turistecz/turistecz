@@ -50,13 +50,11 @@ export class SignformComponent {
     
     this.auth.registrarUsuario(usuario).subscribe({
       next: (respuesta: string) => { // "Registro exitoso..."
-        console.log(respuesta);
         alert(respuesta);
         
        
       },
       error: (error: any) => {
-        console.log("estoy aqui");
         console.log(error);
         if (error.status === 400) {
           alert(error.error); // "El email ya está registrado"

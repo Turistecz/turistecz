@@ -7,8 +7,6 @@
   font-weight: bold;
 }
 
-
-
 h2{
   color: #184591;
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
@@ -19,25 +17,10 @@ h2{
   padding-bottom: 1rem;
 }
 
-.main-card{
-  display: flex;
-  flex-wrap: wrap;
-  margin-inline: 15%;
-
-  @media (max-width: 1224px ) {
-    margin-inline: 2.5%;
-  }
-  @media (max-width: 430px) {
-    margin-inline:5%;
-  }
-}
-
 .event-card-list {
   display: inline-block;
   padding-bottom: 1rem;
 }
-
- 
 #buscador {
   display: flex;
   flex-direction: column;
@@ -84,8 +67,39 @@ h2{
   font-size: 0.9rem;
 }
 
-.buscador-categorias strong {
-  font-weight: 600;
+#textShowEvents{
+  font-family: "inclusive", system-ui;
+}
+
+ .buscador-categorias-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.categorias-panel {
+  position: absolute;
+  z-index: 100;
+  background-color: white;
+  padding: 1rem;
+  border: 1px solid #184591;
+  border-radius: 0.5rem;
+}
+
+.categorias-panel .form-check {
+  margin-bottom: 0.5rem;
+} 
+
+.main-card{
+  display: flex;
+  flex-wrap: wrap;
+  margin-inline: 15%;
+
+  @media (max-width: 1224px ) {
+    margin-inline: 2.5%;
+  }
+  @media (max-width: 430px) {
+    margin-inline:5%;
+  }
 }
 
 /* RESPONSIVE: para pantallas pequeñas */
@@ -100,7 +114,6 @@ h2{
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
+    font-family: "inclusive", system-ui;
   }
 }
-
-
