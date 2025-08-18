@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { EventItem, EventResponse } from '../models/event-card.model';
 import { RouterModule } from '@angular/router';
 
+
 @Component({
   selector: 'app-event-card-list',
   templateUrl: './event-card-list.component.html',
@@ -164,4 +165,34 @@ export class EventCardListComponent {
   getDifferentColor(): boolean {
     return Math.random() >= 0.5;
   }
+
+  // barra de paginacion
+page: number = 1;     // pagina actual
+pageSize: number = 21;   // eventos por pagina
+
+get totalPages(): number {
+  return Math.ceil(this.sortedEvents.length / this.pageSize); 
+}
+
+// Devolver solo los 21 eventos de la pagina actual
+get pagedEvents(): EventItem[] {
+  const start = (this.page - 1) * this.pageSize;
+  return this.sortedEvents.slice(start, start + this.pageSize);
+}
+
+// Cambiar de pagina
+goToPage(num: number) {
+  if (num >= 1 && num <= this.totalPages) {
+    this.page = num;
+  }
+}
+
+nextPage() {
+  this.goToPage(this.page + 1);
+}
+
+prevPage() {
+  this.goToPage(this.page - 1);
+}
+
 }
