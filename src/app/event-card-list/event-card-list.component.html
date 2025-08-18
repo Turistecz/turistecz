@@ -51,30 +51,24 @@
   </div>
 </div>
 
-<!-- barra de paginacion -->
-<div class="paginacion text-center my-3">
-  <button class="btn btn-outline-secondary mx-1" (click)="goToPage(1)" [disabled]="page == 1">  Inicio </button>  
-  <button class="btn btn-outline-secondary mx-1"(click)="prevPage()" [disabled]="page == 1"> Anterior </button>   
-  <span class="mx-2"> Página {{ page }} de {{ totalPages }} </span>                                                  <!-- Texto con pagina actual -->
-  <button class="btn btn-outline-secondary mx-1" (click)="nextPage()" [disabled]="page === totalPages"> Siguiente </button>
-  <button class="btn btn-outline-secondary mx-1"  (click)="goToPage(totalPages)" [disabled]="page === totalPages"> Fin </button>
-</div>
-
-
-<nav aria-label="Page navigation">
-  <ul class="pagination">
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Primera">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
+<!-- BARRA DE PAGINACION -->
+<nav class="my-3">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="page == 1">
+      <button class="page-link" (click)="goToPage(1)" [disabled]="page === 1">&laquo;</button>
     </li>
-    <li class="page-item"><a class="page-link" href="#">1</a></li>
-    <li class="page-item"><a class="page-link" href="#">2</a></li>
-    <li class="page-item"><a class="page-link" href="#">3</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Última">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
+    <li class="page-item" [class.disabled]="page == 1">
+      <button class="page-link" (click)="prevPage()" [disabled]="page === 1">Anterior</button>
+    </li>
+    <li class="page-item" *ngFor="let p of pagesToShow" [class.active]="page === p">
+      <button class="page-link" (click)="goToPage(p)">{{ p }}</button>
+    </li>
+    <li class="page-item" [class.disabled]="page == totalPages">
+      <button class="page-link" (click)="nextPage()" [disabled]="page === totalPages">Siguiente</button>
+    </li>
+    <li class="page-item" [class.disabled]="page == totalPages">
+      <button class="page-link" (click)="goToPage(totalPages)" [disabled]="page === totalPages">&raquo;</button>
     </li>
   </ul>
 </nav>
+

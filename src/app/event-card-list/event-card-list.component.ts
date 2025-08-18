@@ -61,7 +61,7 @@ export class EventCardListComponent {
     this.loadEvents();
   }
 
- showCategories: boolean = false; //  
+ showCategories: boolean = false; 
 
 
   loadEvents() {
@@ -167,20 +167,18 @@ export class EventCardListComponent {
   }
 
   // barra de paginacion
-page: number = 1;     // pagina actual
-pageSize: number = 21;   // eventos por pagina
+  page: number = 1;
+  pageSize: number = 21;
 
 get totalPages(): number {
-  return Math.ceil(this.sortedEvents.length / this.pageSize); 
+  return Math.ceil(this.sortedEvents.length / this.pageSize);
 }
 
-// Devolver solo los 21 eventos de la pagina actual
 get pagedEvents(): EventItem[] {
   const start = (this.page - 1) * this.pageSize;
   return this.sortedEvents.slice(start, start + this.pageSize);
 }
 
-// Cambiar de pagina
 goToPage(num: number) {
   if (num >= 1 && num <= this.totalPages) {
     this.page = num;
@@ -195,4 +193,23 @@ prevPage() {
   this.goToPage(this.page - 1);
 }
 
+get pagesToShow(): number[] {
+  let pages: number[] = [];
+
+  let start = this.page - 2;
+  let end = this.page + 2;
+
+  if (start < 1) {
+    start = 1;
+  }
+  if (end > this.totalPages) {
+    end = this.totalPages;
+  }
+
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+
+  return pages;
+}
 }
