@@ -55,6 +55,18 @@
     color:#112f64
 }
 
+  .btn-sites {   
+    background: linear-gradient( #184591, #2A8BEA);
+    font-family: "inclusive", system-ui;
+    font-weight: 500;
+    margin-top: 3rem;   
+} 
+  .div-btn-sites {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
 
 .containerCard{
     row-gap: 20px;
@@ -75,7 +87,8 @@
   .card-title {
     font-size: 150%;
   }
- 
+
+}
  
 }
 
