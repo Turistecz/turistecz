@@ -17,13 +17,7 @@ export interface BusStopItem {
   coordinates: [number, number] // [lon, lat]
   },
   id: string,
-  title: string,
-  estado: string,
-  address: string,
-  bicisDisponibles: number,
-  anclajesDisponibles: number,
-  description: string
- 
+  title: string 
 }
 
 
@@ -33,11 +27,12 @@ export interface BusInfoItem {
   },
   id: string,
   title: string,
-  estado: string,
-  address: string,
-  bicisDisponibles: number,
-  anclajesDisponibles: number,
-  description: string
+  destinos: {
+    linea: string,
+    destino: string,
+    primero: string,
+    segundo: string
+  }
  
 }
 
@@ -46,13 +41,7 @@ export interface TaxiStopItem {
   coordinates: [number, number] // [lon, lat]
   },
   id: string,
-  title: string,
-  estado: string,
-  address: string,
-  bicisDisponibles: number,
-  anclajesDisponibles: number,
-  description: string
- 
+  title: string 
 }
 
 export interface TramStopItem {
@@ -61,6 +50,18 @@ export interface TramStopItem {
   },
   id: number,
   title: string, 
+  destinos: [
+    {
+      linea: string,
+      destino: string,
+      minutos: number
+    },
+    {
+      linea: string,
+      destino: string,
+      minutos: number
+    }
+  ]
 }
 
 export interface BiziResponse {
