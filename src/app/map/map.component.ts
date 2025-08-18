@@ -187,7 +187,7 @@ private createTramMarkers(): void {
 private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: string): void {
   array.forEach((elem) => {
   const coords = elem.geometry.coordinates;
-  const props = elem.properties;
+  const props = elem;
 
   if (!coords || !props) return;
 
@@ -197,31 +197,49 @@ private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: s
   this.markerVar = L.marker([lat, lon],{ icon: icon });//.addTo(this.map);
   group.addLayer(this.markerVar);
 
-  if (sort == "bizis"){
-    this.markerVar.bindPopup(`
-    <strong>${props.title}</strong><br>
-    Estado: ${props.estado}<br>
-    Bicis: ${props.bicisDisponibles}<br>
-    Anclajes: ${props.anclajesDisponibles}<br>
-    Dirección: ${props.address}
-  `);
+  switch (sort){
+    case "bizis":
+      this.markerVar.bindPopup(`
+        <strong>${props.properties.title}</strong><br>
+        Estado: ${props.properties.estado}<br>
+        Bicis: ${props.properties.bicisDisponibles}<br>
+        Anclajes: ${props.properties.anclajesDisponibles}<br>
+        Dirección: ${props.properties.address}
+      `);
+    break;
+
+    case "tram":
+      if (elem.properties.destinos){
+        this.markerVar.bindPopup(`
+          <strong>${props.properties.title}</strong><br>
+          Dirección: ${props.properties.destinos[0].destino} <br>
+          Tiempo de espera: ${props.properties.destinos[0].minutos} minutos, ${props.properties.destinos[1].minutos} minutos <br>
+        `);
+      }
+      else {
+        this.markerVar.bindPopup(`
+          <strong>${props.properties.title}</strong><br>
+          No hay información en estos momentos, <br> vuelva a intentarlo más tarde <br>
+        `);
+      }
+    break;
+
+    case "taxi":
+      this.markerVar.bindPopup(`
+        <strong>${props.title}</strong><br>
+      `);
+      break;
+
+    case "bus":
+      this.markerVar.bindPopup(`
+        <strong>${props.properties.title}</strong><br>
+      `);
+      break;
+
   }
 
-  if (sort == "tram"){
-    if (elem.properties.destinos){
-      this.markerVar.bindPopup(`
-      <strong>${props.title}</strong><br>
-      Dirección: ${props.destinos[0].destino} <br>
-      Tiempo de espera: ${props.destinos[0].minutos} minutos, ${props.destinos[1].minutos} minutos <br>
-    `);
-    }
-    else {
-      this.markerVar.bindPopup(`
-      <strong>${props.title}</strong><br>
-      No hay información en estos momentos, <br> vuelva a intentarlo más tarde <br>
-    `);
-    }
-  }
+
+
 
 });
 }
