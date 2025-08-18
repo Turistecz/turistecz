@@ -6,8 +6,8 @@ import { RoutesCardComponent } from '../routes-card/routes-card.component';
 import { RoutesService } from '../services/routes.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute} from '@angular/router';
-import { firstValueFrom } from 'rxjs';
-import { RouteResponse, RouteSites, RoutesPage } from '../models/routes.model';
+import { firstValueFrom, Observable } from 'rxjs';
+import { RouteSites, RoutesPage } from '../models/routes.model';
 
 
 
@@ -39,9 +39,6 @@ export class pageRoutesComponent {
 
   }
 
-  routeResponse: RouteResponse[] =[]
-
- 
    routesName: imagenRoutes[]=[
     {
       name:'Familia',
@@ -54,29 +51,20 @@ export class pageRoutesComponent {
 
   /* Carga todas las rutas mapeadas (filtradas) por nombre, descripcion y duracion.*/
   /* Si quieres mostrar mas campos, añadelos en datos: {}*/
-  // async loadAllRoutes(): Promise<any> {
-  //   try {
-  //     const datos = await firstValueFrom(this.routeService.getAllRoutes());
-  //     const allRoutes= datos.map((datos: { nombre: string; descripcion:string; duracion:string}) => {
-  //       return [datos.nombre,datos.descripcion, datos.duracion]
-  //     })
-  //   console.log(allRoutes)
-  //   } catch (error) {
-  //       console.error('Error al cargar Rutas:', error);
-  //   }   
-  // }  
-
 
   async loadAllRoutes(): Promise<any> {
     try {
-      const datos = await this.routeService.getAllRoutes();
-      console.log(datos)
+      const datos = await this.routeService.getAllRoutes().subscribe(
+        datos => {
+          console.log(datos)}
+        )
       return datos  
       }   
     catch (error) {
         console.error('Error al cargar Rutas:', error);
     }   
-  }  
+  } 
+
     
   /*Carga la ruta segun el id */
   /* El id se coloca en el oninit de abajo */
@@ -118,10 +106,10 @@ export class pageRoutesComponent {
   }
 
   async ngOnInit(): Promise<void> {
-  await this.loadAllRoutes(); // Muestra todas las rutas
-  // await this.loadRoutebyId("1"); // Muestra una ruta segun el id
-  // await this.loadRoutesbyName('Romana'); // Muestra una ruta segun el nombre
-   // await this.loadRoutesSite("1"); // Muestra todos los sitios de una ruta segun el id
+    await this.loadAllRoutes(); // Muestra todas las rutas
+    await this.loadRoutebyId("1"); // Muestra una ruta segun el id
+    await this.loadRoutesbyName('Romana'); // Muestra una ruta segun el nombre
+    await this.loadRoutesSite("1"); // Muestra todos los sitios de una ruta segun el id
   }
   
 }

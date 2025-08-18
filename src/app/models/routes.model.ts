@@ -15,7 +15,7 @@ export interface RouteSites{
     texto:string
 }
 
-export interface RouteResponse{
-    routeResponse: RoutesPage[]
-}
+// export interface RouteResponse{
+//     routeResponse: RoutesPage[]
+// }
 
