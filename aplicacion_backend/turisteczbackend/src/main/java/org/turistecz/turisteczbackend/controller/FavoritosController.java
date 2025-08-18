@@ -8,17 +8,17 @@ import org.turistecz.turisteczbackend.service.FavoritosService;
 import java.util.List;
 
 
-@RestController
-@RequestMapping("/api")
+// @RestController
+// @RequestMapping("/api")
 
-public class FavoritosController {
-    @Autowired
-    private FavoritosService favoritosService;
-     @CrossOrigin(origins ="http://localhost:4200")
-     @GetMapping("/mi-perfil")
-     public List<Favoritos>listar() {
-        return favoritosService.marcarComoFavorito();
-     }     
+// public class FavoritosController {
+//     @Autowired
+//     private FavoritosService favoritosService;
+//      @CrossOrigin(origins ="http://localhost:4200")
+//      @GetMapping("/mi-perfil")
+//      public List<Favoritos>listar() {
+//         return favoritosService.marcarComoFavorito();
+//      }     
 
 
-}
+// }

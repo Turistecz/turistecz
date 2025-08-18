@@ -1,25 +1,36 @@
 import { Component, Input } from '@angular/core';
-import { cardsHome } from '../place-card/place-card.model';
-import { HttpClient } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { FavoritosService } from '../services/favoritos.service'; // importa el servicio
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-one-place-card',
-  imports: [RouterModule],
+  standalone: true,
   templateUrl: './one-place-card.component.html',
-  styleUrl: './one-place-card.component.css'
+  styleUrls: ['./one-place-card.component.css'],
+  imports : [RouterModule]
+
 })
 export class OnePlaceCardComponent {
-  
-  constructor(private http: HttpClient) {}
-async ngOnInit(): Promise<void> {
-}
+
+  constructor(private favoritosService: FavoritosService) {}
 
   @Input() data!: {
-    id: string;
+    id: number;
     nombre: string;
     url: string;
+    esFavorito?: boolean; // propiedad extra para controlar estado
+  };
+
+  toggleFavorito(sitio: any) {
+    if (sitio.esFavorito) {
+      this.favoritosService.removeFavorito(sitio.id).subscribe(() => {
+        sitio.esFavorito = false;
+      });
+    } else {
+      this.favoritosService.addFavorito(sitio.id).subscribe(() => {
+        sitio.esFavorito = true;
+      });
+    }
   }
 }
-
 

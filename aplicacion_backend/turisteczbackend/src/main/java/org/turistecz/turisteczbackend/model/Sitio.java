@@ -127,7 +127,7 @@ public class Sitio {
     //mostrar la información de la entidad en formato JSON debe mostrar un campo más que
     //enseñe las "Imagen_Sitio" que están relacionados con este Sitio  
     @JsonManagedReference
-    @OneToMany @JsonBackReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sitio", cascade = CascadeType.ALL)
     private List<Imagen_sitio> imagenes;
 
     //Este atributo es especial. No se corresponde exactamente con un campo de la 

@@ -104,14 +104,14 @@ CREATE TABLE verification_token(
     fecha_expiracion date
 );
 
-CREATE TABLE favoritos(
-    id int primary key,
-    usuario_id int, 
-    FOREIGN KEY(usuario_id) REFERENCES usuario(id),
-    sitios_id int,
-    FOREIGN KEY(sitios_id) REFERENCES sitios(id),
-    
-)
+CREATE TABLE favoritos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id INT NOT NULL,
+    sitios_id INT NOT NULL,
+    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    CONSTRAINT fk_sitio FOREIGN KEY (sitios_id) REFERENCES sitio(id),
+    UNIQUE (usuario_id, sitios_id) -- evita duplicados
+);
 
 
 

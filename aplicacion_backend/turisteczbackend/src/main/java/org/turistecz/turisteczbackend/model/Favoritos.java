@@ -9,50 +9,41 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
-import java.util.List;
+
+
+
 
 @Entity
 public class Favoritos {
 
    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private int id;
 
-    @Column()
-    private int usuario_id;
+   @ManyToOne
+   @JoinColumn(name = "usuario_id", nullable = false)
+   private Usuario usuario;   
 
-    @Column()
-    private int sitios_id;
+   @ManyToOne
+   @JoinColumn(name = "sitios_id", nullable = false)
+   private Sitio sitio;       
 
+   
+   public int getId() { return id; }
+   public void setId(int id) { this.id = id; }
 
-     @JsonBackReference
-     @OneToMany(fetch = FetchType.LAZY, mappedBy = "id.favoritos", cascade = CascadeType.ALL)
-     private List<Favoritos> favoritos;
+   public Usuario getUsuario() 
+   { return usuario; }
+   public void setUsuario(Usuario usuario) 
+   { this.usuario = usuario; }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUsuario_id() {
-        return usuario_id;
-    }
-
-    public void setUsuario_id(int usuario_id) {
-        this.usuario_id = usuario_id;
-    }
-
-    public int getSitios_id() {
-        return sitios_id;
-    }
-
-    public void setSitios_id(int sitios_id) {
-        this.sitios_id = sitios_id;
-    }
-    
+   public Sitio getSitio() 
+   { return sitio; }
+   public void setSitio(Sitio sitio) 
+   { this.sitio = sitio; }
 }
+
+
