@@ -47,16 +47,8 @@ h2{
 .btn-routes {   
     background: linear-gradient( #184591, #2A8BEA);
     font-family: "inclusive", system-ui;
-    font-weight: 500;
-    margin-top: 3rem;   
+    font-weight: 500;   
 }  
-
-.div-btn-routes {
-    display: flex;
-    justify-content: center;
-    margin-top: 3rem;
-    margin-bottom: 2rem;
-}
 
 .btn-routes:hover {
   transform: scale(1.05);
