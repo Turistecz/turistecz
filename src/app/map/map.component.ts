@@ -169,25 +169,25 @@ public showHideMarkers(event: Event, group: L.FeatureGroup): void {
 // });
 
 private createBiziMarkers(): void {
-this.createMarkers(this.biziIcon, this.biziMarkerGroup, this.bizis);
+this.createMarkers(this.biziIcon, this.biziMarkerGroup, this.bizis, "bizis");
 };
 
 private createTaxiMarkers(): void {
-  this.createMarkers(this.taxiIcon, this.taxiMarkerGroup, this.taxiStops);
+  this.createMarkers(this.taxiIcon, this.taxiMarkerGroup, this.taxiStops, "taxi");
 };
 
 private createBusMarkers(): void {
-  this.createMarkers(this.busIcon, this.busMarkerGroup, this.busStops);
+  this.createMarkers(this.busIcon, this.busMarkerGroup, this.busStops, "bus");
 };
 
 private createTramMarkers(): void {
-  this.createMarkers(this.tramIcon, this.tramMarkerGroup, this.tramStops);
+  this.createMarkers(this.tramIcon, this.tramMarkerGroup, this.tramStops, "tram");
 };
 
-private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[]): void {
+private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: string): void {
   array.forEach((elem) => {
   const coords = elem.geometry.coordinates;
-  const props = elem;
+  const props = elem.properties;
 
   if (!coords || !props) return;
 
@@ -197,21 +197,31 @@ private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[]): void {
   this.markerVar = L.marker([lat, lon],{ icon: icon });//.addTo(this.map);
   group.addLayer(this.markerVar);
 
+  if (sort == "bizis"){
+    this.markerVar.bindPopup(`
+    <strong>${props.title}</strong><br>
+    Estado: ${props.estado}<br>
+    Bicis: ${props.bicisDisponibles}<br>
+    Anclajes: ${props.anclajesDisponibles}<br>
+    Dirección: ${props.address}
+  `);
+  }
 
-    //
-    // TAREAS
-    //
-  // mapa ancho 100% y grande, leyenda abajo y horizontal, check a al izq e icono a al derecha
-  // cambiar mapa jaw light y lo de los botones de leyenda (poner taxis buses y tranvia)
-
-  // como cada uno tiene x datos tendra que ser mas especifico, igual con ifs comprobando si el nombre del grupo tiene bizi o asi y poner cada pop up a cada grupo
-  // this.markerVar.bindPopup(`
-  //   <strong>${props.title}</strong><br>
-  //   Estado: ${props.estado}<br>
-  //   Bicis: ${props.bicisDisponibles}<br>
-  //   Anclajes: ${props.anclajesDisponibles}<br>
-  //   Dirección: ${props.address}
-  // `);
+  if (sort == "tram"){
+    if (elem.properties.destinos){
+      this.markerVar.bindPopup(`
+      <strong>${props.title}</strong><br>
+      Dirección: ${props.destinos[0].destino} <br>
+      Tiempo de espera: ${props.destinos[0].minutos} minutos, ${props.destinos[1].minutos} minutos <br>
+    `);
+    }
+    else {
+      this.markerVar.bindPopup(`
+      <strong>${props.title}</strong><br>
+      No hay información en estos momentos, <br> vuelva a intentarlo más tarde <br>
+    `);
+    }
+  }
 
 });
 }
