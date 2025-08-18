@@ -104,6 +104,14 @@ CREATE TABLE verification_token(
     fecha_expiracion date
 );
 
+CREATE TABLE favoritos(
+    id int primary key,
+    usuario_id int, 
+    FOREIGN KEY(usuario_id) REFERENCES usuario(id),
+    sitios_id int,
+    FOREIGN KEY(sitios_id) REFERENCES sitios(id),
+    
+)
 
 
 
@@ -338,3 +346,4 @@ INSERT INTO caracteristica (nombre) VALUES
 (2, 2),
 (3, 1),
 (3, 3);
+
