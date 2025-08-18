@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { cardsHome, cardsHomeResponse } from './place-card.model';
+import { cardsHome } from './place-card.model';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';

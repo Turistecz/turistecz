@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, throwError, of, tap } from 'rxjs';
+import { RoutesPage } from '../models/routes.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,15 +13,21 @@ export class RoutesService {
   private routesLikeByNameURL = 'http://localhost:8080/api/rutasParecidas?nombre=';
   private routeSitesURL = 'http://localhost:8080/api/sitiosRuta?id='
 
+  routesCache: RoutesPage[] = [];
+  
+
+  routesFilter: RoutesPage[]=[];
+
   constructor(private http: HttpClient) { }
 
   /* Mostrar todas las rutas*/
-
-  getAllRoutes():Observable<any>{
-    return this.http.get(this.routesURL)
-    .pipe(
-      catchError(this.handleError)
-    );
+  getAllRoutes():Observable<RoutesPage[]>{
+    if (this.routesCache.length > 0) {
+      return of(this.routesCache);
+    } 
+    else{
+     return this.http.get<RoutesPage[]>(this.routesURL)
+    }
   }
 
   /*Buscar Rutas por Id*/
