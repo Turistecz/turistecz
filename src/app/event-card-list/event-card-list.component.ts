@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-event-card-list',
   templateUrl: './event-card-list.component.html',
   styleUrl: './event-card-list.component.css',
-  imports: [CommonModule, FormsModule, EventCardComponent, RouterModule]
+  imports: [CommonModule, FormsModule, EventCardComponent, RouterModule,]
 })
 export class EventCardListComponent {
   events: EventItem[] = [];
@@ -182,6 +182,7 @@ get pagedEvents(): EventItem[] {
 goToPage(num: number) {
   if (num >= 1 && num <= this.totalPages) {
     this.page = num;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
 
