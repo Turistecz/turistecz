@@ -112,7 +112,8 @@ convertCoords(easting: number, northing: number): [number, number] {
 async loadBizis(): Promise<void> {
   try {
     const datos = await firstValueFrom(this.apiMapService.getBizis());
-    this.bizis = datos.result;
+    console.log(datos)
+    this.bizis = datos.features;
   
   } catch (error) {
     console.error('Error al cargar las paradas de bici:', error);

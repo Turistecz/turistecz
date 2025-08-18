@@ -64,7 +64,7 @@ export interface TramStopItem {
 }
 
 export interface BiziResponse {
-  result: BiziItem[];
+  features: BiziItem[];
 }
 export interface BusStopResponse {
   result: BusStopItem[];

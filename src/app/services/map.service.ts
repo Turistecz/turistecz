@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BiziResponse, BusInfoResponse, BusStopResponse, TaxiStopResponse, TramStopResponse } from '../models/map.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,9 +9,18 @@ import { Observable } from 'rxjs';
 export class MapService {
 
   constructor(private http: HttpClient) { }
+  
 
   getBizis():Observable<BiziResponse> {
-    return this.http.get<BiziResponse>('https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/estacion-bicicleta?rf=html&srsname=wgs84&start=0&rows=200&distance=500');
+    //return this.http.get<BiziResponse>('https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/estacion-bicicleta?rf=html&srsname=wgs84&start=0&rows=200&distance=500');
+    const url = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/";
+    const bizi = "estacion-bicicleta";
+    const biziParams = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '200').set('distance', '500');
+    const biziHeaders = new HttpHeaders({
+      Accept: 'application/geo+json', 
+    });
+
+    return this.http.get<BiziResponse>(url+bizi,{params: biziParams, headers: biziHeaders});
   }
 
   getBusesStation():Observable<BusStopResponse> {
