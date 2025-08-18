@@ -32,14 +32,13 @@ export class MapService {
     return this.http.get<BusStopResponse>(this.url+bus,{params: Params, headers: Headers});
   }
 
-  getBusesInfo():Observable<BusInfoResponse> {
-    //   const bus = "transporte-urbano/poste-autobus";
-    // const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '500').set('distance', '500');
-    // const Headers = new HttpHeaders({
-    //   Accept: 'application/geo+json', 
-    // });
-    // tuzsa-387 tendra que ser variable que venga de la api anterior, es el id
-    return this.http.get<BusInfoResponse>('https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/poste-autobus/tuzsa-387?rf=html&srsname=wgs84');
+  getBusesInfo(id: string):Observable<BusInfoResponse> {
+    const bus = "transporte-urbano/poste-autobus/";
+    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84');
+    const Headers = new HttpHeaders({
+       Accept: 'application/geo+json', 
+    });
+    return this.http.get<BusInfoResponse>(this.url+bus+id,{params: Params, headers: Headers});
   }
 
   getTramsStation():Observable<TramStopResponse> {
