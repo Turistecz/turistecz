@@ -112,7 +112,6 @@ convertCoords(easting: number, northing: number): [number, number] {
 async loadBizis(): Promise<void> {
   try {
     const datos = await firstValueFrom(this.apiMapService.getBizis());
-    console.log(datos)
     this.bizis = datos.features;
   
   } catch (error) {
