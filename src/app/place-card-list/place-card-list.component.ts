@@ -7,10 +7,12 @@ import { RouterModule } from '@angular/router';
 import { OnePlaceCardComponent } from "../one-place-card/one-place-card.component";
 import { MonumentServiceService } from '../services/monument-service.service';
 import { MonumentItem } from '../models/monument.model';
+import { FilterComponent } from '../filter/filter.component';
+
 
 @Component({
   selector: 'app-place-card-list',
-  imports: [CommonModule, RouterModule, OnePlaceCardComponent],
+  imports: [CommonModule, RouterModule, OnePlaceCardComponent, FilterComponent],
   templateUrl: './place-card-list.component.html',
   styleUrl: './place-card-list.component.css'
 })

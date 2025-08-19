@@ -1,0 +1,44 @@
+<p>Filtros</p>
+
+<div id="buscador" class="d-inline-block p-4 mx-3">
+      <!-- FILA 1: Input + Botones -->
+      <div class="buscador-top d-inline-block">
+        <input type="text" class="form-control m-2 my-0" placeholder="Buscar por nombre" [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
+        <button class="btn btn-secondary m-2" (click)="onSearch()"><i class="bi bi-search"></i> Buscar</button>
+        <button class="btn btn-secondary" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+      </div>
+
+      <!-- FILA 2: Ordenar -->
+      <div class="buscador-ordenar m-2">
+        <label for="filterOption">Ordenar:</label>
+        <select id="filterOption" class="form-select my-2" [(ngModel)]="filterOption" (change)="applyFilters()">
+          <option value="future">Cronológicamente</option>
+          <option value="alpha">(A-Z)</option>
+          <option value="month">Solo mes actual</option>
+        </select>
+      </div>
+
+    <!-- FILA 3: Categorías con menú desplegable -->
+    <!-- <div class=" m-2" (mouseenter)="showCategories = true" (mouseleave)="showCategories = false">
+      <button class="btn btn-outline-secondary dropdown-toggle my-2" type="button">Categorías</button>
+      <div class="categorias-panel" *ngIf="showCategories">
+        <div class="form-check" *ngFor="let cat of categoryOptions">
+         <input class="form-check-input" type="checkbox" [checked]="selectedCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}" /> 
+          <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
+        </div>
+      </div>
+    </div>  -->
+  <div class="form-check ">
+    <p>Categorías</p>
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+    <label class="form-check-label" for="flexCheckDefault">
+      Default checkbox
+    </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+    <label class="form-check-label" for="flexCheckChecked">
+      Checked checkbox
+    </label>
+  </div>
+</div>
