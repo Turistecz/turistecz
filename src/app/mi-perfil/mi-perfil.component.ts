@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { LoginService } from '../services/login.service';
+
 
 @Component({
   selector: 'app-mi-perfil',
@@ -7,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './mi-perfil.component.css'
 })
 export class MiPerfilComponent {
-
+  constructor ( private LoginService : LoginService ){
+    this.LoginService.getUsuario
+  }
+  
+  
 }

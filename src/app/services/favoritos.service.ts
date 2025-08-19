@@ -4,19 +4,25 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FavoritosService {
-  private apiUrl = 'http://localhost:8080/api/favoritos';
+  private apiUrl = 'http://localhost:8080/favorite'; 
 
   constructor(private http: HttpClient) {}
 
   getFavoritos(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+      return this.http.get<any[]>(`${this.apiUrl}/add-favorite`);
   }
 
-  addFavorito(sitioId: number): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/${sitioId}`, {});
+  addFavorito(usuarioId: number, sitioId: number): Observable<any> {
+    console.log(usuarioId);
+    console.log(sitioId);
+    // tu backend espera un objeto Favoritos en el body
+    return this.http.post<{usuario: number, sitio: number}>(`${this.apiUrl}/add-favorite`, {
+      usuario_id: usuarioId ,
+      sitio_id: sitioId
+    });
   }
 
-  removeFavorito(sitioId: number): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/${sitioId}`);
+  removeFavorito(favoritoId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${favoritoId}`);
   }
 }
