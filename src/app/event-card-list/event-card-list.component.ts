@@ -20,7 +20,7 @@ export class EventCardListComponent {
   filterOption: 'month' | 'future' | 'alpha' = 'future';
 
   //Categorias visibles
-  categoryOptions: string[] = [
+  categoriesEvents: string[] = [
     'Actividades',
     'Turismo',
     'Cultura',
@@ -55,7 +55,7 @@ export class EventCardListComponent {
 
   ngOnInit() {
     // Inicializar todos los checkboxes como false
-    this.categoryOptions.forEach(cat => {
+    this.categoriesEvents.forEach(cat => {
       this.selectedCategoriesMap[cat] = false;
     });
     this.loadEvents();
@@ -156,7 +156,7 @@ export class EventCardListComponent {
   resetFilters() {
     this.searchText = '';
     this.filterOption = 'future';
-    this.categoryOptions.forEach(cat => {
+    this.categoriesEvents.forEach(cat => {
       this.selectedCategoriesMap[cat] = false;
     });
     this.applyFilters();

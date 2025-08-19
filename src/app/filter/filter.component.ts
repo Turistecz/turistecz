@@ -19,13 +19,15 @@ export class FilterComponent {
   searchText: string = '';
   filterOption: 'month' | 'future' | 'alpha' = 'future';
 
+  @Input() categories: string[] = [];
+
   // Categorias visibles
-  categoryOptions: string[] = [
-    'Actividades',
-    'Turismo',
-    'Cultura',
-    'Ocio y entretenimiento'
-  ];
+  // categoryOptions: string[] = [
+  //   'Actividades',
+  //   'Turismo',
+  //   'Cultura',
+  //   'Ocio y entretenimiento'
+  // ];
 
   // Palabras clave asociadas a cada categoria
  categoryKeywords: { [key: string]: string[] } = {
@@ -55,7 +57,7 @@ export class FilterComponent {
 
   ngOnInit() {
     // Inicializar todos los checkboxes como false
-    this.categoryOptions.forEach(cat => {
+    this.categories.forEach(cat => {
       this.selectedCategoriesMap[cat] = false;
     });
     this.loadEvents();
@@ -156,7 +158,7 @@ export class FilterComponent {
   resetFilters() {
     this.searchText = '';
     this.filterOption = 'future';
-    this.categoryOptions.forEach(cat => {
+    this.categories.forEach(cat => {
       this.selectedCategoriesMap[cat] = false;
     });
     this.applyFilters();
