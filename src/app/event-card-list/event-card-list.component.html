@@ -9,7 +9,7 @@
 </div>
 <!-- TITULO -->
 <h2 class="fw-bold mb-3 text-center">Eventos</h2>
-<app-filter [categories]="categoriesEvents"></app-filter>
+<app-filter [events]="events" [categories]="categoriesEvents" [categoryKeywords]="categoryEventsKeywords" (filteredEvents)="updateEvents($event)"></app-filter>
   <!-- <div id="buscador">
          FILA 1: Input + Botones 
         <div class="buscador-top">
