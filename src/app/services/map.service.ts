@@ -15,7 +15,7 @@ export class MapService {
   
   getBizis():Observable<BiziResponse> {
     const bizi = "estacion-bicicleta";
-    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '200').set('distance', '500');
+    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '500').set('distance', '500');
     const Headers = new HttpHeaders({
       Accept: 'application/geo+json', 
     });
@@ -25,7 +25,7 @@ export class MapService {
 
   getBusesStation():Observable<BusStopResponse> {
      const bus = "transporte-urbano/poste-autobus";
-    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '500').set('distance', '500');
+    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '600').set('distance', '600');
     const Headers = new HttpHeaders({
       Accept: 'application/geo+json', 
     });

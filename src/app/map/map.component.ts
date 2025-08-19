@@ -52,7 +52,6 @@ export class MapComponent implements AfterViewInit, OnInit{
     popupAnchor: [0, -20],
   });
 
-  markerVar = L.marker([0,0]);
   biziMarkerGroup = new L.FeatureGroup();
   busMarkerGroup = new L.FeatureGroup();
   tramMarkerGroup = new L.FeatureGroup();
@@ -70,20 +69,20 @@ export class MapComponent implements AfterViewInit, OnInit{
     this.initMap();
   };
 
- async ngOnInit(): Promise<void> {
-  await this.getUserCoords();
-  await this.loadBizis();
-  await this.loadTaxiStops();
-  await this.loadTramStops();
-  await this.loadBusStops();
-  this.makeLocationMarkers();
-  
-  //queda la de bus info
-  this.createBiziMarkers();
-  this.createTaxiMarkers();
-  this.createBusMarkers();
-  this.createTramMarkers();
-}
+  async ngOnInit(): Promise<void> {
+    await this.getUserCoords();
+    await this.loadBizis();
+    await this.loadTaxiStops();
+    await this.loadBusStops();
+    await this.loadTramStops();
+    this.makeLocationMarkers();
+    
+    //TODO: queda la de bus info
+    this.createBiziMarkers();
+    this.createBusMarkers();
+    this.createTaxiMarkers();
+    this.createTramMarkers();
+  }
 
 // function to initialize the map, set the location point
 private initMap(): void {
@@ -178,14 +177,13 @@ async loadBusStops(): Promise<void> {
 
 public showHideMarkers(event: Event, group: L.FeatureGroup): void {
   if ((event.target as HTMLInputElement).checked){
-    group.addLayer(this.markerVar);
     group.addTo(this.map);
   } else {
     this.map.removeLayer(group);
   }
 }
 
-//hide & show markers on zoom
+//TODO: hide & show markers on zoom
 // map.on('zoomend', function() {
 //     if (map.getZoom() <7){
 //             map.removeLayer(shelterMarkers);
@@ -213,62 +211,58 @@ private createTramMarkers(): void {
 
 private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: string): void {
   array.forEach((elem) => {
-  const coords = elem.geometry.coordinates;
-  const props = elem;
+    const coords = elem.geometry.coordinates;
+    const props = elem;
 
-  if (!coords || !props) return;
+    if (!coords || !props) return;
 
-  const lat = coords[1];
-  const lon = coords[0];
+    const lat = coords[1];
+    const lon = coords[0];
 
-  this.markerVar = L.marker([lat, lon],{ icon: icon });//.addTo(this.map);
-  group.addLayer(this.markerVar);
+    const markerVar = L.marker([lat, lon],{ icon: icon });//.addTo(this.map);
+    group.addLayer(markerVar);
 
-  switch (sort){
-    case "bizis":
-      this.markerVar.bindPopup(`
-        <strong>${props.properties.title}</strong><br>
-        Estado: ${props.properties.estado}<br>
-        Bicis: ${props.properties.bicisDisponibles}<br>
-        Anclajes: ${props.properties.anclajesDisponibles}<br>
-        Dirección: ${props.properties.address}
-      `);
-    break;
-
-    case "tram":
-      if (elem.properties.destinos){
-        this.markerVar.bindPopup(`
+    switch (sort){
+      case "bizis":
+        markerVar.bindPopup(`
           <strong>${props.properties.title}</strong><br>
-          Dirección: ${props.properties.destinos[0].destino} <br>
-          Tiempo de espera: ${props.properties.destinos[0].minutos} minutos, ${props.properties.destinos[1].minutos} minutos <br>
+          Estado: ${props.properties.estado}<br>
+          Bicis: ${props.properties.bicisDisponibles}<br>
+          Anclajes: ${props.properties.anclajesDisponibles}<br>
+          Dirección: ${props.properties.address}
         `);
-      }
-      else {
-        this.markerVar.bindPopup(`
-          <strong>${props.properties.title}</strong><br>
-          No hay información en estos momentos, <br> vuelva a intentarlo más tarde <br>
-        `);
-      }
-    break;
-
-    case "taxi":
-      this.markerVar.bindPopup(`
-        <strong>${props.title}</strong><br>
-      `);
       break;
 
-    case "bus":
-      this.markerVar.bindPopup(`
-        <strong>${props.properties.title}</strong><br>
-      `);
+      case "tram":
+        if (elem.properties.destinos){
+          markerVar.bindPopup(`
+            <strong>${props.properties.title}</strong><br>
+            Dirección: ${props.properties.destinos[0].destino} <br>
+            Tiempo de espera: ${props.properties.destinos[0].minutos} minutos, ${props.properties.destinos[1].minutos} minutos <br>
+          `);
+        }
+        else {
+          markerVar.bindPopup(`
+            <strong>${props.properties.title}</strong><br>
+            No hay información en estos momentos, <br> vuelva a intentarlo más tarde <br>
+          `);
+        }
       break;
 
-  }
+      case "taxi":
+        markerVar.bindPopup(`
+          <strong>${props.title}</strong><br>
+        `);
+        break;
 
-
-
-
-});
+      case "bus":
+        markerVar.bindPopup(`
+          <strong>${props.properties.title}</strong><br>
+        `);
+        break;
+    }
+    
+  });
 }
 
 }
