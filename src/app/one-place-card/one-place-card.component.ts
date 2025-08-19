@@ -23,14 +23,14 @@ export class OnePlaceCardComponent {
     esFavorito?: boolean; // propiedad extra para controlar estado
   };
 
-  toggleFavorito(sitio: any) {
+  toggleFavorito(usuario: any,sitio: any) {
     //const usuarioId = " ";
     if (sitio.esFavorito) {
       this.favoritosService.removeFavorito(sitio.id).subscribe(() => {
         sitio.esFavorito = false;
       });
     } else {
-      this.favoritosService.addFavorito(4, 1).subscribe(() => {
+      this.favoritosService.addFavorito(usuario.id, sitio.id).subscribe(() => {
         
         sitio.esFavorito = true;
       });
