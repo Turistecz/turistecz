@@ -6,11 +6,12 @@ import { HttpClient } from '@angular/common/http';
 import { EventItem, EventResponse } from '../models/event-card.model';
 import { RouterModule } from '@angular/router';
 
+
 @Component({
   selector: 'app-event-card-list',
   templateUrl: './event-card-list.component.html',
   styleUrl: './event-card-list.component.css',
-  imports: [CommonModule, FormsModule, EventCardComponent, RouterModule]
+  imports: [CommonModule, FormsModule, EventCardComponent, RouterModule,]
 })
 export class EventCardListComponent {
   events: EventItem[] = [];
@@ -60,7 +61,7 @@ export class EventCardListComponent {
     this.loadEvents();
   }
 
- showCategories: boolean = false; //  
+ showCategories: boolean = false; 
 
 
   loadEvents() {
@@ -164,4 +165,52 @@ export class EventCardListComponent {
   getDifferentColor(): boolean {
     return Math.random() >= 0.5;
   }
+
+  // barra de paginacion
+  page: number = 1;
+  pageSize: number = 21;
+
+get totalPages(): number {
+  return Math.ceil(this.sortedEvents.length / this.pageSize);
+}
+
+get pagedEvents(): EventItem[] {
+  const start = (this.page - 1) * this.pageSize;
+  return this.sortedEvents.slice(start, start + this.pageSize);
+}
+
+goToPage(num: number) {
+  if (num >= 1 && num <= this.totalPages) {
+    this.page = num;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+nextPage() {
+  this.goToPage(this.page + 1);
+}
+
+prevPage() {
+  this.goToPage(this.page - 1);
+}
+
+get pagesToShow(): number[] {
+  let pages: number[] = [];
+
+  let start = this.page - 2;
+  let end = this.page + 2;
+
+  if (start < 1) {
+    start = 1;
+  }
+  if (end > this.totalPages) {
+    end = this.totalPages;
+  }
+
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+
+  return pages;
+}
 }
