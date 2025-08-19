@@ -13,8 +13,6 @@ export class FavoritosService {
   }
 
   addFavorito(usuarioId: number, sitioId: number): Observable<any> {
-    console.log(usuarioId);
-    console.log(sitioId);
     // tu backend espera un objeto Favoritos en el body
     return this.http.post<{usuario: number, sitio: number}>(`${this.apiUrl}/add-favorite`, {
       usuario_id: usuarioId ,
