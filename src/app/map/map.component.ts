@@ -15,7 +15,9 @@ export class MapComponent implements AfterViewInit, OnInit{
 
   constructor(private apiMapService: MapService) {}
 
-  private map: any;
+  private map: any
+
+  userLatLong: [number, number] = [0, 0];
 
   bizis: BiziItem[] = [];
   taxiStops: TaxiStopItem[] = [];
@@ -66,14 +68,16 @@ export class MapComponent implements AfterViewInit, OnInit{
   // wait for map to load
   ngAfterViewInit(): void {
     this.initMap();
-
   };
 
  async ngOnInit(): Promise<void> {
+  await this.getUserCoords();
   await this.loadBizis();
   await this.loadTaxiStops();
   await this.loadTramStops();
   await this.loadBusStops();
+  this.makeLocationMarkers();
+  
   //queda la de bus info
   this.createBiziMarkers();
   this.createTaxiMarkers();
@@ -85,19 +89,42 @@ export class MapComponent implements AfterViewInit, OnInit{
 private initMap(): void {
   const coords = this.convertCoords(this.data.latitud, this.data.longitud);
   const latlng: L.LatLngExpression = [coords[1], coords[0]]; // [lat, lon]
-
-  this.map = L.map('map').setView(latlng, 16); // Zaragoza
+  
+  this.map = L.map('map').setView(latlng, 15); // Zaragoza
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '© OpenStreetMap'
   }).addTo(this.map);
 
-  L.marker(latlng).addTo(this.map)
-    .bindPopup(this.name)
-    .openPopup();
 }
-  
+
+ getUserCoords(){
+  navigator.geolocation.getCurrentPosition(position => 
+    {
+      this.userLatLong = [position.coords.latitude, position.coords.longitude];
+    });
+  }
+
+// creates markers for user and monument location and adjusts the map view to fit both
+makeLocationMarkers(){
+  const coords = this.convertCoords(this.data.latitud, this.data.longitud);
+  const latlng: L.LatLngExpression = [coords[1], coords[0]]; // [lat, lon]
+
+  let userMarker = L.marker(this.userLatLong).addTo(this.map)
+  .bindPopup("Estás aquí", {autoClose: false})
+  .openPopup();
+
+  let monumentMarker = L.marker(latlng).addTo(this.map)
+  .bindPopup(this.name, {autoClose: false})
+  .openPopup();
+
+  let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
+
+  this.map.fitBounds(markers.getBounds());
+
+}
+
 
 // Definir UTM zona 30N
 convertCoords(easting: number, northing: number): [number, number] {
