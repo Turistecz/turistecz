@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BiziResponse, BusInfoResponse, BusStopResponse, TaxiStopResponse, TramStopResponse } from '../models/map.model';
-import { HttpClient } from '@angular/common/http';
+import { BiziResponse, BusInfoResponse, BusStopResponse, TaxiStopItem, TaxiStopResponse, TramStopResponse } from '../models/map.model';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,28 +8,58 @@ import { Observable } from 'rxjs';
 })
 export class MapService {
 
-  constructor(private http: HttpClient) { }
+  private url: string = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/";
+  private taxiStopsArray: TaxiStopItem[] = [];
 
+  constructor(private http: HttpClient) { }
+  
   getBizis():Observable<BiziResponse> {
-    return this.http.get<BiziResponse>('https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/estacion-bicicleta?rf=html&srsname=wgs84&start=0&rows=200&distance=500');
+    const bizi = "estacion-bicicleta";
+    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '200').set('distance', '500');
+    const Headers = new HttpHeaders({
+      Accept: 'application/geo+json', 
+    });
+
+    return this.http.get<BiziResponse>(this.url+bizi,{params: Params, headers: Headers});
   }
 
   getBusesStation():Observable<BusStopResponse> {
-    return this.http.get<BusStopResponse>('https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/poste-autobus?rf=html&srsname=wgs84&start=0&rows=500&distance=500');
+     const bus = "transporte-urbano/poste-autobus";
+    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '500').set('distance', '500');
+    const Headers = new HttpHeaders({
+      Accept: 'application/geo+json', 
+    });
+    return this.http.get<BusStopResponse>(this.url+bus,{params: Params, headers: Headers});
   }
 
-  getBusesInfo():Observable<BusInfoResponse> {
-    // tuzsa-387 tendra que ser variable que venga de la api anterior, es el id
-    return this.http.get<BusInfoResponse>('https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/poste-autobus/tuzsa-387?rf=html&srsname=wgs84');
+  getBusesInfo(id: string):Observable<BusInfoResponse> {
+    const bus = "transporte-urbano/poste-autobus/";
+    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84');
+    const Headers = new HttpHeaders({
+       Accept: 'application/geo+json', 
+    });
+    return this.http.get<BusInfoResponse>(this.url+bus+id,{params: Params, headers: Headers});
   }
 
   getTramsStation():Observable<TramStopResponse> {
     // dentro de properties, en destinos[] viene el tiempo de espera
-    return this.http.get<TramStopResponse>('https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/transporte-urbano/parada-tranvia?rf=html&srsname=wgs84&start=0&rows=50&distance=50');
+    const tram = "transporte-urbano/parada-tranvia";
+    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '500').set('distance', '500');
+    const Headers = new HttpHeaders({
+      Accept: 'application/geo+json', 
+    });
+    return this.http.get<TramStopResponse>(this.url+tram,{params: Params, headers: Headers});
   }
 
   getTaxisStops():Observable<TaxiStopResponse> {
-    return this.http.get<TaxiStopResponse>('https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/equipamiento/parada-taxi?rf=html&srsname=wgs84&start=0&rows=500&distance=500');
+    const taxi = "equipamiento/parada-taxi";
+    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '500').set('distance', '500');
+    const Headers = new HttpHeaders({
+      Accept: 'application/geo+json', 
+    });
+    
+    return this.http.get<TaxiStopResponse>(this.url+taxi,{params: Params, headers: Headers});
+    
   }
 
 }

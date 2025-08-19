@@ -112,7 +112,7 @@ convertCoords(easting: number, northing: number): [number, number] {
 async loadBizis(): Promise<void> {
   try {
     const datos = await firstValueFrom(this.apiMapService.getBizis());
-    this.bizis = datos.result;
+    this.bizis = datos.features;
   
   } catch (error) {
     console.error('Error al cargar las paradas de bici:', error);
@@ -132,7 +132,7 @@ async loadTaxiStops(): Promise<void> {
 async loadTramStops(): Promise<void> {
   try {
     const datos = await firstValueFrom(this.apiMapService.getTramsStation());
-    this.tramStops = datos.result;
+    this.tramStops = datos.features;
 
   } catch (error) {
     console.error('Error al cargar monumentos:', error);
@@ -142,7 +142,7 @@ async loadTramStops(): Promise<void> {
 async loadBusStops(): Promise<void> {
   try {
     const datos = await firstValueFrom(this.apiMapService.getBusesStation());
-    this.busStops = datos.result;
+    this.busStops = datos.features;
 
   } catch (error) {
     console.error('Error al cargar monumentos:', error);
@@ -169,22 +169,22 @@ public showHideMarkers(event: Event, group: L.FeatureGroup): void {
 // });
 
 private createBiziMarkers(): void {
-this.createMarkers(this.biziIcon, this.biziMarkerGroup, this.bizis);
+this.createMarkers(this.biziIcon, this.biziMarkerGroup, this.bizis, "bizis");
 };
 
 private createTaxiMarkers(): void {
-  this.createMarkers(this.taxiIcon, this.taxiMarkerGroup, this.taxiStops);
+  this.createMarkers(this.taxiIcon, this.taxiMarkerGroup, this.taxiStops, "taxi");
 };
 
 private createBusMarkers(): void {
-  this.createMarkers(this.busIcon, this.busMarkerGroup, this.busStops);
+  this.createMarkers(this.busIcon, this.busMarkerGroup, this.busStops, "bus");
 };
 
 private createTramMarkers(): void {
-  this.createMarkers(this.tramIcon, this.tramMarkerGroup, this.tramStops);
+  this.createMarkers(this.tramIcon, this.tramMarkerGroup, this.tramStops, "tram");
 };
 
-private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[]): void {
+private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: string): void {
   array.forEach((elem) => {
   const coords = elem.geometry.coordinates;
   const props = elem;
@@ -197,21 +197,49 @@ private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[]): void {
   this.markerVar = L.marker([lat, lon],{ icon: icon });//.addTo(this.map);
   group.addLayer(this.markerVar);
 
+  switch (sort){
+    case "bizis":
+      this.markerVar.bindPopup(`
+        <strong>${props.properties.title}</strong><br>
+        Estado: ${props.properties.estado}<br>
+        Bicis: ${props.properties.bicisDisponibles}<br>
+        Anclajes: ${props.properties.anclajesDisponibles}<br>
+        Dirección: ${props.properties.address}
+      `);
+    break;
 
-    //
-    // TAREAS
-    //
-  // mapa ancho 100% y grande, leyenda abajo y horizontal, check a al izq e icono a al derecha
-  // cambiar mapa jaw light y lo de los botones de leyenda (poner taxis buses y tranvia)
+    case "tram":
+      if (elem.properties.destinos){
+        this.markerVar.bindPopup(`
+          <strong>${props.properties.title}</strong><br>
+          Dirección: ${props.properties.destinos[0].destino} <br>
+          Tiempo de espera: ${props.properties.destinos[0].minutos} minutos, ${props.properties.destinos[1].minutos} minutos <br>
+        `);
+      }
+      else {
+        this.markerVar.bindPopup(`
+          <strong>${props.properties.title}</strong><br>
+          No hay información en estos momentos, <br> vuelva a intentarlo más tarde <br>
+        `);
+      }
+    break;
 
-  // como cada uno tiene x datos tendra que ser mas especifico, igual con ifs comprobando si el nombre del grupo tiene bizi o asi y poner cada pop up a cada grupo
-  // this.markerVar.bindPopup(`
-  //   <strong>${props.title}</strong><br>
-  //   Estado: ${props.estado}<br>
-  //   Bicis: ${props.bicisDisponibles}<br>
-  //   Anclajes: ${props.anclajesDisponibles}<br>
-  //   Dirección: ${props.address}
-  // `);
+    case "taxi":
+      this.markerVar.bindPopup(`
+        <strong>${props.title}</strong><br>
+      `);
+      break;
+
+    case "bus":
+      this.markerVar.bindPopup(`
+        <strong>${props.properties.title}</strong><br>
+      `);
+      break;
+
+  }
+
+
+
 
 });
 }
