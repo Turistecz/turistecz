@@ -32,12 +32,9 @@ export class pageRoutesComponent {
 
   async loadAllRoutes(): Promise<any> {
     try {
-      console.log('Aqui ha entrado')
       const datos = await this.routeService.getAllRoutes().subscribe(
         datos => {
-          console.log('Datos recibidos:', datos);
           this.routesName = datos // Aqui cargamos los datos de rutas como viene en la interface de RoutesPage[]
-
           }
         )
       return datos  
@@ -52,7 +49,6 @@ export class pageRoutesComponent {
   async loadRoutebyId(id: string): Promise<any> {
     try {
       const datos = await firstValueFrom(this.routeService.getRouteById(id));
-      console.log('Ruta recibida:', datos);
       return datos;
     } catch (error) {
       console.error('Error al cargar ruta por ID:', error);
@@ -65,7 +61,6 @@ export class pageRoutesComponent {
   async loadRoutesbyName(name: string): Promise<any> {
     try {
       const datos = await firstValueFrom(this.routeService.routesLikeByName(name));
-      console.log('Ruta recibida:', datos);
       return datos;
     } catch (error) {
       console.error('Error al cargar ruta por ID:', error);
@@ -78,7 +73,6 @@ export class pageRoutesComponent {
   async loadRoutesSite(id: string): Promise<any> {
     try {
       const datos = await firstValueFrom(this.routeService.getRouteSites(id));
-      console.log('Ruta recibida:', datos);
       return datos;
     } catch (error) {
       console.error('Error al cargar ruta por ID:', error);
@@ -89,8 +83,8 @@ export class pageRoutesComponent {
   async ngOnInit(): Promise<void> {
     await this.loadAllRoutes(); // Muestra todas las rutas
     await this.loadRoutebyId("1");  // Muestra una ruta segun el id
-     await this.loadRoutesbyName('Romana'); // Muestra una ruta segun el nombre
-     await this.loadRoutesSite("1");  // Muestra todos los sitios de una ruta segun el id
+    await this.loadRoutesbyName('Romana'); // Muestra una ruta segun el nombre
+    await this.loadRoutesSite("1");  // Muestra todos los sitios de una ruta segun el id
   }
 
 }
