@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input} from '@angular/core';
+import { Component, EventEmitter, Input, Output, output} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EventItem, EventResponse } from '../models/event-card.model';
 import { HttpClient } from '@angular/common/http';
 import { EventCardListComponent } from '../event-card-list/event-card-list.component';
+import { Events } from 'leaflet';
 
 @Component({
   selector: 'app-filter',
@@ -14,12 +15,16 @@ import { EventCardListComponent } from '../event-card-list/event-card-list.compo
 })
 export class FilterComponent {
 
-  events: EventItem[] = [];
   sortedEvents: EventItem[] = [];
   searchText: string = '';
   filterOption: 'month' | 'future' | 'alpha' = 'future';
 
+  @Input() events: EventItem[] = [];
   @Input() categories: string[] = [];
+  @Input() categoryKeywords: { [key: string]: string[] } = {};
+  @Output() filteredEvents = new EventEmitter<any>(); //falta poner Sitios[]
+
+  
 
   // Categorias visibles
   // categoryOptions: string[] = [
@@ -30,24 +35,24 @@ export class FilterComponent {
   // ];
 
   // Palabras clave asociadas a cada categoria
- categoryKeywords: { [key: string]: string[] } = {
-  'Actividades': [
-    'actividad', 'evento', 'taller', 'zumba',
-    'charla', 'concurso', 'funcional', 'torneo'
-  ],
-  'Turismo': [
-    'turismo', 'visita', 'guía', 'monumento',
-    'histórico', 'museo', 'patrimonio', 'expo'
-  ],
-  'Cultura': [
-    'cultural', 'museo', 'teatro', 'exposición',
-    'concierto', 'arte', 'cine', 'festival'
-  ],
-  'Ocio y entretenimiento': [
-    'feria', 'show', 'tapeo', 'zumba',
-    'mercado', 'baile', 'juego', 'fiesta'
-  ]
-};
+//  categoryKeywords: { [key: string]: string[] } = {
+//   'Actividades': [
+//     'actividad', 'evento', 'taller', 'zumba',
+//     'charla', 'concurso', 'funcional', 'torneo'
+//   ],
+//   'Turismo': [
+//     'turismo', 'visita', 'guía', 'monumento',
+//     'histórico', 'museo', 'patrimonio', 'expo'
+//   ],
+//   'Cultura': [
+//     'cultural', 'museo', 'teatro', 'exposición',
+//     'concierto', 'arte', 'cine', 'festival'
+//   ],
+//   'Ocio y entretenimiento': [
+//     'feria', 'show', 'tapeo', 'zumba',
+//     'mercado', 'baile', 'juego', 'fiesta'
+//   ]
+// };
 
   selectedCategoriesMap: { [key: string]: boolean } = {};
 
@@ -60,18 +65,13 @@ export class FilterComponent {
     this.categories.forEach(cat => {
       this.selectedCategoriesMap[cat] = false;
     });
-    this.loadEvents();
+    this.applyFilters();
   }
 
  showCategories: boolean = false; //  
 
 
-  loadEvents() {
-    this.http.get<EventResponse>(this.apiBaseUrl).subscribe((datos) => {
-      this.events = datos?.result ?? [];
-      this.applyFilters();
-    });
-  }
+  
 
   extractDateFromText(text: string): number {
     const regex = /(\d{2})[-\/](\d{2})[-\/](\d{4})/; // regex patrones para manipular texto
@@ -120,12 +120,12 @@ export class FilterComponent {
       );
     }
 
-    const selectedCats = Object.keys(this.selectedCategoriesMap).filter(cat => this.selectedCategoriesMap[cat]);
-    if (selectedCats.length > 0) {
+    const selectedCategories = Object.keys(this.selectedCategoriesMap).filter(cat => this.selectedCategoriesMap[cat]);
+    if (selectedCategories.length > 0) {
       filtered = filtered.filter(event => {
         const texto = (event.title + ' ' + (event.description ?? '')).toLowerCase();
-        return selectedCats.some(cat =>
-          this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
+        return selectedCategories.some(cat =>
+        this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
         );
       });
     }
@@ -138,7 +138,7 @@ export class FilterComponent {
       );
     }
 
-    this.sortedEvents = filtered;
+    this.filteredEvents.emit(filtered);
   }
 
   toggleCategory(cat: string) {

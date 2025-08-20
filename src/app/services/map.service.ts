@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BiziResponse, BusInfoResponse, BusStopResponse, TaxiStopItem, TaxiStopResponse, TramStopResponse } from '../models/map.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import L from 'leaflet';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,12 @@ import { Observable } from 'rxjs';
 export class MapService {
 
   private url: string = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/";
-  private taxiStopsArray: TaxiStopItem[] = [];
 
   constructor(private http: HttpClient) { }
   
   getBizis():Observable<BiziResponse> {
     const bizi = "estacion-bicicleta";
-    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '200').set('distance', '500');
+    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '500').set('distance', '500');
     const Headers = new HttpHeaders({
       Accept: 'application/geo+json', 
     });
@@ -25,7 +25,7 @@ export class MapService {
 
   getBusesStation():Observable<BusStopResponse> {
      const bus = "transporte-urbano/poste-autobus";
-    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '500').set('distance', '500');
+    const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('start', '0').set('rows', '600').set('distance', '600');
     const Headers = new HttpHeaders({
       Accept: 'application/geo+json', 
     });
@@ -62,4 +62,17 @@ export class MapService {
     
   }
 
+  getMap(){
+    let lat = 0;
+    let long = 0;
+
+    navigator.geolocation.getCurrentPosition(function(position) {
+      lat = position.coords.latitude;
+      long = position.coords.longitude;
+
+    })
+
+
+    return [lat,long]
+  }
 }
