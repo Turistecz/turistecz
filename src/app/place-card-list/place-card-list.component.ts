@@ -22,12 +22,13 @@ export class PlaceCardListComponent {
  constructor(private http: HttpClient, private apiConnectService: MonumentServiceService) {}
 
 cards: cardsHome[]=[];
+sortedCards: cardsHome[]=[];
 monuments: MonumentItem[] = [];
 monumentsNames: string[] = [];
 
 categoriesSites: string[] = [
     'Museos/Exposiciones',
-    'Esculturas',
+    'Monumentos/Esculturas',
     'Zonas verdes',
     'Arquitectura',
     'Arte mudéjar',
@@ -45,18 +46,18 @@ categoriesSites: string[] = [
     'puerta', 'estatua', 'monumento', 'murallas',
     'escultura'
   ],
-  'Zonas Verdes': [
+  'Zonas verdes': [
     'parque', 'canal'
   ],
   'Arquitectura': [
     'basilica', 'iglesia', 'palacio', 'casa',
     'catedral', 'puente', 'zuda', 'mercado'
   ],
-  'Arte Mudéjar': [
-    'aljaferia', 'seo', 'pablo', 'magdalena'
+  'Arte mudéjar': [
+    'aljaferia', 'la seo', 'san pablo', 'magdalena'
   ],
   'Arte romano':[
-    'murallas', 'caesaragusta',
+    'murallas', 'caesaraugusta',
   ]
 };
 
@@ -80,12 +81,19 @@ async ngOnInit(): Promise<void> {
       }))
     );    
 
+    this.sortedCards = this.cards;
+
 
   } catch (error) {
     console.error('Error al cargar monumentos:', error);
   }
 }
 
+  updatePlaces(filteredPlaces: cardsHome[]){
+    console.log("eventos filtrados");
+    console.log(filteredPlaces);
+    this.sortedCards = filteredPlaces;
+  }
 
 };
 

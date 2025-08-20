@@ -24,66 +24,35 @@ export class FilterComponent {
   @Input() places: cardsHome[] = [];
   @Input() categories: string[] = [];
   @Input() categoryKeywords: { [key: string]: string[] } = {};
-  @Output() filteredEvents = new EventEmitter<any>(); //falta poner Sitios[]
+  @Output() filteredEvents = new EventEmitter<any[]>(); 
+  @Output() filteredCards = new EventEmitter<any[]>();
 
- 
-
-   
-  // Categorias visibles
-  // categoryOptions: string[] = [
-  //   'Actividades',
-  //   'Turismo',
-  //   'Cultura',
-  //   'Ocio y entretenimiento'
-  // ];
-
-  // Palabras clave asociadas a cada categoria
-//  categoryKeywords: { [key: string]: string[] } = {
-//   'Actividades': [
-//     'actividad', 'evento', 'taller', 'zumba',
-//     'charla', 'concurso', 'funcional', 'torneo'
-//   ],
-//   'Turismo': [
-//     'turismo', 'visita', 'guía', 'monumento',
-//     'histórico', 'museo', 'patrimonio', 'expo'
-//   ],
-//   'Cultura': [
-//     'cultural', 'museo', 'teatro', 'exposición',
-//     'concierto', 'arte', 'cine', 'festival'
-//   ],
-//   'Ocio y entretenimiento': [
-//     'feria', 'show', 'tapeo', 'zumba',
-//     'mercado', 'baile', 'juego', 'fiesta'
-//   ]
-// };
-
-  selectedCategoriesMap: { [key: string]: boolean } = {};
-
-  apiBaseUrl: string = 'https://www.zaragoza.es/sede/servicio/puntos-interes?rf=html&srsname=utm30n&start=0&rows=500&distance=500';
+  selectedEventsCategoriesMap: { [key: string]: boolean } = {};
+  selectedPlacesCategoriesMap: { [key: string]: boolean } = {};
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     // Inicializar todos los checkboxes como false
     this.categories.forEach(cat => {
-      this.selectedCategoriesMap[cat] = false;
+      this.selectedEventsCategoriesMap[cat] = false;
+      this.selectedPlacesCategoriesMap[cat] = false;
     });
-    this.applyFilters();
+    this.applyEventFilters();
+    this.applyPlaceFilters();
   
   }
     //Para que los eventos se carguen al inicio de la página. Antes no funcionaba porque se ejecutaba primero 
     // el Filter y events[] quedaba vacío.
-    
    ngOnChanges(changes: SimpleChanges) {
       if (changes['events'] && changes['events'].currentValue) {
-        this.applyFilters();
+        this.applyEventFilters();
       }
+      if (changes['places'] && changes ['places'].currentValue)
+        this.applyPlaceFilters();
     }
 
  showCategories: boolean = false; //  
-
-
-  
 
   extractDateFromText(text: string): number {
     const regex = /(\d{2})[-\/](\d{2})[-\/](\d{4})/; // regex patrones para manipular texto
@@ -104,7 +73,7 @@ export class FilterComponent {
       .trim();
   }
 
-  applyFilters() {
+  applyEventFilters() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const currentMonth = today.getMonth();
@@ -132,11 +101,11 @@ export class FilterComponent {
       );
     }
 
-    const selectedCategories = Object.keys(this.selectedCategoriesMap).filter(cat => this.selectedCategoriesMap[cat]);
-    if (selectedCategories.length > 0) {
+    const selectedEventsCategories = Object.keys(this.selectedEventsCategoriesMap).filter(cat => this.selectedEventsCategoriesMap[cat]);
+    if (selectedEventsCategories.length > 0) {
       filtered = filtered.filter(event => {
         const texto = (event.title + ' ' + (event.description ?? '')).toLowerCase();
-        return selectedCategories.some(cat =>
+        return selectedEventsCategories.some(cat =>
         this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
         );
       });
@@ -153,27 +122,59 @@ export class FilterComponent {
     this.filteredEvents.emit(filtered);
   }
 
+  applyPlaceFilters(){
+      
+    let filteredPlaces = this.places;
+
+    const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap).filter(cat => this.selectedPlacesCategoriesMap[cat]);
+    if (selectedPlacesCategories.length > 0) {
+      filteredPlaces = filteredPlaces.filter(place => {
+        const texto = place.nombre.toLowerCase();
+        console.log(selectedPlacesCategories);
+        return selectedPlacesCategories.some(cat =>
+          this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
+        );
+      });
+    }
+
+    if (this.searchText.trim()) {
+      const search = this.normalize(this.searchText);
+      filteredPlaces = filteredPlaces.filter(place =>
+        this.normalize(place.nombre).includes(search)
+      );
+    }
+
+    this.filteredCards.emit(filteredPlaces);
+};
+
+  
   toggleCategory(cat: string) {
-    this.selectedCategoriesMap[cat] = !this.selectedCategoriesMap[cat];
-    this.applyFilters();
+    this.selectedEventsCategoriesMap[cat] = !this.selectedEventsCategoriesMap[cat];
+    this.selectedPlacesCategoriesMap[cat] = !this.selectedPlacesCategoriesMap[cat];
+    this.applyEventFilters();
+    this.applyPlaceFilters();
   }
 
   onSearch() {
-    this.applyFilters();
+    this.applyEventFilters();
+    this.applyPlaceFilters();
   }
 
   setFilter(option: 'month' | 'future' | 'alpha') {
     this.filterOption = option;
-    this.applyFilters();
+    this.applyEventFilters();
+    this.applyPlaceFilters();
   }
 
   resetFilters() {
     this.searchText = '';
     this.filterOption = 'future';
     this.categories.forEach(cat => {
-      this.selectedCategoriesMap[cat] = false;
+      this.selectedEventsCategoriesMap[cat] = false;
+      this.selectedPlacesCategoriesMap[cat] = false;
     });
-    this.applyFilters();
+    this.applyEventFilters();
+    this.applyPlaceFilters();
   }
 
   // getDifferentColor(): boolean {
