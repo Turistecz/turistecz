@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { imagenRoutes } from '../models/routes-card.model';
+import { routeDetails } from '../models/details-routes';
 
 @Component({
   selector: 'app-front-detail-card',
@@ -8,4 +10,12 @@ import { Component } from '@angular/core';
 })
 export class FrontDetailCardComponent {
 
+@Input() oneRoute: routeDetails =
+   {
+    id:0,
+    imagen_destacada: '',
+    nombre:'',
+    descripcion: '',
+  } 
+  
 }
