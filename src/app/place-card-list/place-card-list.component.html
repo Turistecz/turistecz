@@ -2,7 +2,7 @@
 <div class="container">
   <div class="row">
     <div class="col-3">
-      <app-filter></app-filter>
+      <app-filter [places] = "cards" [categories]="categoriesSites" [categoryKeywords]="categorySitesKeywords"></app-filter>
     </div>
     <div class="containerCard">
       <div *ngFor="let cardHome of cards" class="col- col-md-3">

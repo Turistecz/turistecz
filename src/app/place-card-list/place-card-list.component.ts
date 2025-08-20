@@ -25,6 +25,41 @@ cards: cardsHome[]=[];
 monuments: MonumentItem[] = [];
 monumentsNames: string[] = [];
 
+categoriesSites: string[] = [
+    'Museos/Exposiciones',
+    'Esculturas',
+    'Zonas verdes',
+    'Arquitectura',
+    'Arte mudéjar',
+    'Arte romano',
+
+  ];
+
+  // Palabras clave asociadas a cada categoria
+ categorySitesKeywords: { [key: string]: string[] } = {
+  'Museos/Exposiciones': [
+    'museo',  'museum', 'lonja',
+    'caixaforum', 'infanta', 'historias', 'acuario'
+  ],
+  'Monumentos/Esculturas': [
+    'puerta', 'estatua', 'monumento', 'murallas',
+    'escultura'
+  ],
+  'Zonas Verdes': [
+    'parque', 'canal'
+  ],
+  'Arquitectura': [
+    'basilica', 'iglesia', 'palacio', 'casa',
+    'catedral', 'puente', 'zuda', 'mercado'
+  ],
+  'Arte Mudéjar': [
+    'aljaferia', 'seo', 'pablo', 'magdalena'
+  ],
+  'Arte romano':[
+    'murallas', 'caesaragusta',
+  ]
+};
+
 async ngOnInit(): Promise<void> {
   await this.loadImages();
 

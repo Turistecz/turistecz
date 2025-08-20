@@ -6,6 +6,7 @@ import { EventItem, EventResponse } from '../models/event-card.model';
 import { HttpClient } from '@angular/common/http';
 import { EventCardListComponent } from '../event-card-list/event-card-list.component';
 import { Events } from 'leaflet';
+import { cardsHome } from '../place-card/place-card.model';
 
 @Component({
   selector: 'app-filter',
@@ -20,10 +21,12 @@ export class FilterComponent {
   filterOption: 'month' | 'future' | 'alpha' = 'future';
 
   @Input() events: EventItem[] = [];
+  @Input() places: cardsHome[] = [];
   @Input() categories: string[] = [];
   @Input() categoryKeywords: { [key: string]: string[] } = {};
   @Output() filteredEvents = new EventEmitter<any>(); //falta poner Sitios[]
 
+ 
 
    
   // Categorias visibles
