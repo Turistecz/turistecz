@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, Input, input, OnInit, ElementRef, ViewChild} from '@angular/core';
 import * as L from 'leaflet';
+import 'leaflet-routing-machine';
 import proj4 from 'proj4';
 import { MapService } from '../services/map.service';
 import { BiziItem, BusStopItem, TaxiStopItem, TramStopItem } from '../models/map.model';
@@ -95,7 +96,6 @@ private initMap(): void {
     maxZoom: 19,
     attribution: '© OpenStreetMap'
   }).addTo(this.map);
-
 }
 
  getUserCoords(){
@@ -117,6 +117,14 @@ makeLocationMarkers(){
   let monumentMarker = L.marker(latlng).addTo(this.map)
   .bindPopup(this.name, {autoClose: false})
   .openPopup();
+
+    L.Routing.control({
+    waypoints: [
+        L.latLng(this.userLatLong),
+        L.latLng(latlng)
+    ],
+    routeWhileDragging: true
+}).addTo(this.map);
 
   let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
 
