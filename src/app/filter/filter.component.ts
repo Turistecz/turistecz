@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, output} from '@angular/core';
+import { Component, EventEmitter, Input, Output, output, SimpleChanges} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EventItem, EventResponse } from '../models/event-card.model';
@@ -24,8 +24,8 @@ export class FilterComponent {
   @Input() categoryKeywords: { [key: string]: string[] } = {};
   @Output() filteredEvents = new EventEmitter<any>(); //falta poner Sitios[]
 
-  
 
+   
   // Categorias visibles
   // categoryOptions: string[] = [
   //   'Actividades',
@@ -66,7 +66,16 @@ export class FilterComponent {
       this.selectedCategoriesMap[cat] = false;
     });
     this.applyFilters();
+  
   }
+    //Para que los eventos se carguen al inicio de la página. Antes no funcionaba porque se ejecutaba primero 
+    // el Filter y events[] quedaba vacío.
+    
+   ngOnChanges(changes: SimpleChanges) {
+      if (changes['events'] && changes['events'].currentValue) {
+        this.applyFilters();
+      }
+    }
 
  showCategories: boolean = false; //  
 
