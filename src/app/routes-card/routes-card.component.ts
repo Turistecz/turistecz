@@ -11,9 +11,12 @@ import { imagenRoutes } from '../models/routes-card.model';
 export class RoutesCardComponent {
   /*@Input() nameRoutes:string='';*/
 
-@Input() routesName: imagenRoutes=
-   {name:'',
-    subtitle: '',
-    src:''}
+@Input() routesName: imagenRoutes =
+   {
+    imagen_destacada: '',
+    nombre:'',
+    subtitulo: '',
+    
+  }
     
   }

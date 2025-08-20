@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MonumentItem, MonumentResponse } from '../models/monument.model';
 import { map } from 'rxjs/operators';
@@ -27,7 +27,12 @@ export class MonumentServiceService {
 
 
   getMonuments(): Observable<MonumentResponse> {
-    return this.http.get<MonumentResponse>('https://www.zaragoza.es/sede/servicio/monumento?rf=html&srsname=utm30n&start=0&rows=500&distance=500&locale=es');
+     const monument = "https://www.zaragoza.es/sede/servicio/monumento";
+    const Params = new HttpParams().set('rf', 'html').set('srsname', 'utm30n').set('start', '0').set('rows', '500').set('distance', '500').set('locale', 'es');
+    const Headers = new HttpHeaders({
+      Accept: 'application/solr-results+json', 
+    });
+    return this.http.get<MonumentResponse>(monument,{params: Params, headers: Headers});
   }
 
   getMonumentsNames(): Observable<any[]> {

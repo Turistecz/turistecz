@@ -1,9 +1,10 @@
 export interface cardsHome {
   nombre: string;
   url: string;
-  id: number;
-  esFavorito? : boolean;
+  id: string;
 }
+
+
 
 export interface cardsHomeResponse {
   id: string;

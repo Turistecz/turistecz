@@ -1,8 +1,9 @@
 export interface imagenRoutes {
-     
-    name:string;
-    subtitle: string;
-    src: string;
+    
+    imagen_destacada: string;
+    nombre:string;
+    subtitulo: string;
+    
         
 }
 
