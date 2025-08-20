@@ -238,8 +238,6 @@ get pagesToShow(): number[] {
 }
 
   updateEvents(filteredEvents: EventItem[]){
-    console.log("eventos filtrados");
-    console.log(filteredEvents);
     this.sortedEvents = filteredEvents;
   }
 }

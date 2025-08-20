@@ -39,6 +39,7 @@ export class SignformComponent {
       alert('Las contraseñas no coinciden.');
       return;
     }
+    
 
     const usuario = {
       nombre: form.value.nombre,
@@ -64,5 +65,6 @@ export class SignformComponent {
       }
     });
   }
+  
 }
 
