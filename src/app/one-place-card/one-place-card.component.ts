@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FavoritosService } from '../services/favoritos.service'; // importa el servicio
-import { Router, RouterModule } from '@angular/router';
+import { Data, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { LoginService } from '../services/login.service';
 
@@ -23,18 +23,33 @@ export class OnePlaceCardComponent {
     esFavorito?: boolean; // propiedad extra para controlar estado
   };
 
-  toggleFavorito(usuario: any,sitio: any) {
-    //const usuarioId = " ";
-    if (sitio.esFavorito) {
-      this.favoritosService.removeFavorito(sitio.id).subscribe(() => {
-        sitio.esFavorito = false;
-      });
-    } else {
-      this.favoritosService.addFavorito(usuario.id, sitio.id).subscribe(() => {
-        
-        sitio.esFavorito = true;
-      });
-    }
+  toggleFavorito(sitio: any) {
+  let usuario: any = localStorage.getItem('usuario');
+  if (usuario) {
+    usuario = JSON.parse(usuario);
+  } else {
+    console.error('No hay usuario logueado');
+    return;
+  }
+
+  if (sitio.esFavorito) {
+    this.favoritosService.removeFavorito(usuario.id, sitio.id).subscribe(() => {
+      sitio.esFavorito = false;
+    });
+  } else {
+    this.favoritosService.addFavorito(usuario.id, sitio.id).subscribe(() => {
+      sitio.esFavorito = true;
+    });
   }
 }
+
+
+    comprobarFavorito(idusuario: number, idsitio: number) {
+    this.favoritosService.comprobarFavorito(idusuario, idsitio)
+      .subscribe((res: boolean) => {
+        this.data.esFavorito = !!res; 
+      });
+}
+}
+
 

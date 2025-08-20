@@ -10,7 +10,6 @@ import org.turistecz.turisteczbackend.model.Usuario;
 import org.turistecz.turisteczbackend.repository.SitioRepository;
 import org.turistecz.turisteczbackend.repository.UsuarioRepository;
 import org.turistecz.turisteczbackend.service.FavoritosService;
-import java.util.List;
 
 
 
@@ -25,15 +24,16 @@ public class FavoritosController {
     @Autowired
     private SitioRepository sitioRepo;
 
-//      @CrossOrigin(origins ="http://localhost:4200")
-//      @GetMapping("/mi-perfil")
-//      public List<Favoritos>listar() {
-//         return favoritosService.marcarComoFavorito();
-//    }
+    @CrossOrigin(origins ="http://localhost:4200")
+    @GetMapping("/comprobar-favorito/")
+    public boolean comprobarFavorito(@RequestParam int usuarioid, @RequestParam int sitioid) {
+        return favoritosService.comprobarFavorito(usuarioid, sitioid);
+   }
 
    @CrossOrigin(origins ="http://localhost:4200")
    @PostMapping("/add-favorite")
    public Favoritos addFavorito(@RequestBody FavoriteDto dto) {
+    System.out.println("en el dto esta lo siguiente : " + dto.getSitio_id() + "y además " + dto.getUsuario_id());
      Usuario usuario = usuarioRepo.findById(dto.getUsuario_id())
                           .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         Sitio sitio = sitioRepo.findById(dto.getSitio_id())
@@ -51,10 +51,11 @@ public class FavoritosController {
     //}
 
     @CrossOrigin(origins ="http://localhost:4200")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{usuario_id}/{sitio_id}")
     public void removeFavorito(@PathVariable int id) {
         favoritosService.removeFavorito(id);
     }
+
 
 
  }

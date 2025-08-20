@@ -15,6 +15,16 @@ public class FavoritosService {
     @Autowired
     FavoritosRepository repositorioFavoritos;
 
+    public boolean comprobarFavorito(int idusuario, int idsitio){
+        Favoritos f = repositorioFavoritos.comprobarFavorito(idusuario, idsitio);
+        if (f == null){System.out.println("holaa");
+            return false;
+        }else{
+            System.out.println("es true");
+            return true; 
+        }        
+    }
+
     public Favoritos addFavoritos(Favoritos favorito){
         return repositorioFavoritos.save(favorito);
     }

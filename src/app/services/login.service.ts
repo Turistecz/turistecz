@@ -16,8 +16,9 @@ export class LoginService {
 
   setUsuario(usuario: any): void {
     this.usuarioSubject.next(usuario);
+    console.log(usuario);
     localStorage.setItem('usuario', JSON.stringify(usuario));
-   
+    console.log(localStorage.getItem('usuario'));
   }
 
   logout(): void {

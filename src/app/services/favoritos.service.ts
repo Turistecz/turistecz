@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { FavoriteDto } from '../models/favorite-dto.model';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class FavoritosService {
-  private apiUrl = 'http://localhost:8080/favorite'; 
+
+  private apiUrl = 'http://localhost:8080/favorite';
 
   constructor(private http: HttpClient) {}
 
-  getFavoritos(): Observable<any[]> {
-      return this.http.get<any[]>(`${this.apiUrl}/add-favorite`);
-  }
-
   addFavorito(usuarioId: number, sitioId: number): Observable<any> {
-    // tu backend espera un objeto Favoritos en el body
-    return this.http.post<{usuario: number, sitio: number}>(`${this.apiUrl}/add-favorite`, {
-      usuario_id: usuarioId ,
-      sitio_id: sitioId
-    });
+    const dto: FavoriteDto = { usuario_id: usuarioId, sitio_id: sitioId };
+    return this.http.post<any>(`${this.apiUrl}/add-favorite`, dto);
   }
 
-  removeFavorito(favoritoId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${favoritoId}`);
+  removeFavorito(usuarioId: number, sitioId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${usuarioId}/${sitioId}`);
+  }
+
+  comprobarFavorito(usuarioId: number, sitioId: number): Observable<boolean> {
+    return this.http.get<boolean>(
+      `${this.apiUrl}/comprobar-favorito/?usuarioid=${usuarioId}&sitioid=${sitioId}`
+    );
   }
 }

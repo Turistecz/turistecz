@@ -19,31 +19,43 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class Favoritos {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-   @ManyToOne
-   @JoinColumn(name = "usuario_id", nullable = false)
-   private Usuario usuario;   
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
-   @ManyToOne
-   @JoinColumn(name = "sitios_id", nullable = false)
-   private Sitio sitio;       
+    @ManyToOne
+    @JoinColumn(name = "sitios_id")
+    private Sitio sitio;
+      // Getters y Setters
 
-   
-   public int getId() { return id; }
-   public void setId(int id) { this.id = id; }
+    public Integer getId() {
+       return id;
+    }
 
-   public Usuario getUsuario() 
-   { return usuario; }
-   public void setUsuario(Usuario usuario) 
-   { this.usuario = usuario; }
+    public void setId(Integer id) {
+       this.id = id;
+    }
 
-   public Sitio getSitio() 
-   { return sitio; }
-   public void setSitio(Sitio sitio) 
-   { this.sitio = sitio; }
+    public Usuario getUsuario() {
+       return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+       this.usuario = usuario;
+    }
+
+    public Sitio getSitio() {
+       return sitio;
+    }
+
+    public void setSitio(Sitio sitio) {
+       this.sitio = sitio;
+    }
+
+  
+    
 }
-
-
