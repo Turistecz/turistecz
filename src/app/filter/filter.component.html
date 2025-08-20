@@ -11,7 +11,7 @@
       <!-- FILA 2: Ordenar -->
       <div class="buscador-ordenar m-2">
         <label for="filterOption">Ordenar:</label>
-        <select id="filterOption" class="form-select my-2" [(ngModel)]="filterOption" (change)="applyFilters()">
+        <select id="filterOption" class="form-select my-2" [(ngModel)]="filterOption" (change)="applyEventFilters()" (change)="applyPlaceFilters()">
           <option value="future">Cronológicamente</option>
           <option value="alpha">(A-Z)</option>
           <option value="month">Solo mes actual</option>
@@ -23,7 +23,7 @@
       <button class="btn btn-outline-secondary dropdown-toggle my-2" type="button">Categorías</button>
       <div class="categorias-panel" *ngIf="showCategories">
         <div class="form-check" *ngFor="let cat of categories">
-         <input class="form-check-input" type="checkbox" [checked]="selectedCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}" /> 
+         <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}" /> 
           <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
         </div>
       </div>
