@@ -130,7 +130,6 @@ export class FilterComponent {
     if (selectedPlacesCategories.length > 0) {
       filteredPlaces = filteredPlaces.filter(place => {
         const texto = place.nombre.toLowerCase();
-        console.log(selectedPlacesCategories);
         return selectedPlacesCategories.some(cat =>
           this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
         );
