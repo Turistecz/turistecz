@@ -96,6 +96,7 @@ private initMap(): void {
     maxZoom: 19,
     attribution: '© OpenStreetMap'
   }).addTo(this.map);
+
 }
 
  getUserCoords(){
@@ -118,18 +119,20 @@ makeLocationMarkers(){
   .bindPopup(this.name, {autoClose: false})
   .openPopup();
 
-    L.Routing.control({
+  L.Routing.control({ 
     waypoints: [
         L.latLng(this.userLatLong),
         L.latLng(latlng)
     ],
-    routeWhileDragging: true
-}).addTo(this.map);
+    addWaypoints: false,
+    router: new L.Routing.OSRMv1({
+      language: 'es'
+    })
+  }).addTo(this.map);
 
   let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
 
   this.map.fitBounds(markers.getBounds());
-
 }
 
 
@@ -269,7 +272,6 @@ private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: s
         `);
         break;
     }
-    
   });
 }
 
