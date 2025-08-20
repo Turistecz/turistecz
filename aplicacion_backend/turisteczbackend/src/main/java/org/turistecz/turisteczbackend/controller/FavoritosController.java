@@ -51,10 +51,11 @@ public class FavoritosController {
     //}
 
     @CrossOrigin(origins ="http://localhost:4200")
-    @DeleteMapping("/{usuario_id}/{sitio_id}")
-    public void removeFavorito(@PathVariable int id) {
-        favoritosService.removeFavorito(id);
-    }
+@DeleteMapping("/{usuario_id}/{sitio_id}")
+public void removeFavorito(@PathVariable int usuario_id, @PathVariable int sitio_id) {
+    favoritosService.removeFavorito(usuario_id, sitio_id);
+}
+
 
 
 

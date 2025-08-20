@@ -28,9 +28,10 @@ public class FavoritosService {
     public Favoritos addFavoritos(Favoritos favorito){
         return repositorioFavoritos.save(favorito);
     }
-   public void removeFavorito(int id){
-    repositorioFavoritos.deleteById(id);
-   }
+   public void removeFavorito(int usuarioId, int sitioId){
+    repositorioFavoritos.deleteByUsuarioAndSitio(usuarioId, sitioId);
+}
+
    public List<FavoriteDto> getFavoritosbyUsuario(int usuarioId){
         List<Favoritos> favoritos = repositorioFavoritos.findByUsuario_Id(usuarioId);
 
