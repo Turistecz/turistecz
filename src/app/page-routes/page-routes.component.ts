@@ -46,7 +46,7 @@ export class pageRoutesComponent {
   
   /*Carga la ruta segun el id */
   /* El id se coloca en el oninit de abajo */
-  async loadRoutebyId(id: string): Promise<any> {
+  async loadRoutebyId(id: number): Promise<any> {
     try {
       const datos = await firstValueFrom(this.routeService.getRouteById(id));
       return datos;
@@ -82,7 +82,7 @@ export class pageRoutesComponent {
 
   async ngOnInit(): Promise<void> {
     await this.loadAllRoutes(); // Muestra todas las rutas
-    await this.loadRoutebyId("1");  // Muestra una ruta segun el id
+    await this.loadRoutebyId(1);  // Muestra una ruta segun el id
     await this.loadRoutesbyName('Romana'); // Muestra una ruta segun el nombre
     await this.loadRoutesSite("1");  // Muestra todos los sitios de una ruta segun el id
   }
