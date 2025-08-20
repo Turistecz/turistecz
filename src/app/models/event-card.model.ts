@@ -10,5 +10,13 @@ export interface EventItem {
 }
 
 export interface EventResponse {
-  result: EventItem[];
+  type: string;
+  features: {
+    type: string;
+    geometry: {
+      type: string;
+      coordinates: number[];
+    };
+    properties: EventItem;
+  }[];
 }
