@@ -17,10 +17,10 @@ public class FavoritosService {
 
     public boolean comprobarFavorito(int idusuario, int idsitio){
         Favoritos f = repositorioFavoritos.comprobarFavorito(idusuario, idsitio);
-        if (f == null){System.out.println("holaa");
+        if (f == null){
             return false;
         }else{
-            System.out.println("es true");
+            
             return true; 
         }        
     }
