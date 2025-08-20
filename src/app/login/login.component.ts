@@ -25,7 +25,7 @@ export class LoginComponent {
     if (this.email && this.password) {
       this.authService.login(this.email, this.password).subscribe({
         next: (usuario) => {
-          console.log('Login exitoso:', usuario);
+          console.log('Login exitoso:');
 
           //  Guardamos el usuario correctamente usando el servicio
           this.loginService.setUsuario(usuario);
