@@ -44,12 +44,24 @@ export class OnePlaceCardComponent {
 }
 
 
-    comprobarFavorito(idusuario: number, idsitio: number) {
-    this.favoritosService.comprobarFavorito(idusuario, idsitio)
+  comprobarFavorito(idusuario: number, idsitio: number) {
+  this.favoritosService.comprobarFavorito(idusuario, idsitio)
       .subscribe((res: boolean) => {
         this.data.esFavorito = !!res; 
       });
-}
+  }
+
+  async ngOnInit(): Promise<void> {
+    let usuario: any = localStorage.getItem('usuario');
+    if (usuario) {
+      usuario = JSON.parse(usuario);
+    } else {
+      console.error('No hay usuario logueado');
+      return;
+    }
+    await this.comprobarFavorito(usuario.id,this.data.id);    
+  }
+
 }
 
 
