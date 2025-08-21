@@ -5,5 +5,22 @@
     <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Mis Eventos</button>
     <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Log Out</button>
   </div>
-  
+
+  <div class="tab-content flex-fill" id="v-pills-tabContent">
+    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+ <div class="container">
+  <div class="row">
+    <div *ngFor="let favorito of favoritos" class="col-12 col-md-3 mb-4">
+      <app-one-place-card [data]="favorito"></app-one-place-card>
+    </div>
+  </div>
 </div>
+
+</div>
+
+
+    <!--Mis Rutas y Mis Eventos -->
+  </div>
+</div>
+
+

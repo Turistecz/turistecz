@@ -54,12 +54,20 @@
     padding: 1rem;
     
 }
-
-@media (max-width: 768px) {
-  #cardPlace .overlay-content {
-    opacity: 1;
-  }
-  #cardPlace {
+.favorito-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2; /* encima de la imagen */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#cardPlace {
     width: 80%;
     min-height: 300px;
     margin: 1.5rem auto;
@@ -78,9 +86,17 @@
     place-items: center; 
   }
 
-  }
+
 
 
   .boton{
-    
+    min-height: 30px;
+    min-width: 300px;
+}
+
+
+@media (max-width: 768px) {
+  #cardPlace .overlay-content {
+    opacity: 1;
   }
+}

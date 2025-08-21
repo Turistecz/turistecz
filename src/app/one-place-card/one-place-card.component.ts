@@ -3,13 +3,17 @@ import { FavoritosService } from '../services/favoritos.service'; // importa el 
 import { Data, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { LoginService } from '../services/login.service';
+import { NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
+
+
 
 @Component({
   selector: 'app-one-place-card',
   standalone: true,
   templateUrl: './one-place-card.component.html',
   styleUrls: ['./one-place-card.component.css'],
-  imports : [RouterModule]
+  imports : [RouterModule, CommonModule]
 
 })
 export class OnePlaceCardComponent {

@@ -36,5 +36,6 @@ export class LoginService {
   getUsuarioObservable() {
     return this.usuarioSubject.asObservable();
   }
+
   
 }
