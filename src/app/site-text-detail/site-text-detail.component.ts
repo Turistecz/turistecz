@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-site-text-detail',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './site-text-detail.component.html',
   styleUrl: './site-text-detail.component.css'
 })
