@@ -1,74 +1,77 @@
-<!-- MIGAS DE PAN -->
-<div class="breadcrumb-events">
-  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Eventos</li>
-    </ol>
-  </nav>
-</div>
-<!-- TITULO -->
-<h2 class="fw-bold mb-3 text-center">Eventos</h2>
-<app-filter [events]="events" [categories]="categoriesEvents" [categoryKeywords]="categoryEventsKeywords" (filteredEvents)="updateEvents($event)"></app-filter>
-  <!-- <div id="buscador">
-         FILA 1: Input + Botones 
-        <div class="buscador-top">
-          <input type="text" class="form-control" placeholder="Nombre del evento..." [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
-          <button class="btn btn-secondary" (click)="onSearch()"><i class="bi bi-search"></i> Buscar</button>
-          <button class="btn btn-secondary" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
-        </div>
 
-        FILA 2: Ordenar 
-        <div class="buscador-ordenar">
-          <label for="filterOption">Ordenar:</label>
-          <select id="filterOption" class="form-select" [(ngModel)]="filterOption" (change)="applyFilters()">
-            <option value="future">Cronológicamente</option>
-            <option value="alpha">(A-Z)</option>
-            <option value="month">Solo mes actual</option>
-          </select>
-        </div>
-
-       FILA 3: Categorías con menú desplegable 
-      <div class="buscador-categorias-dropdown" (mouseenter)="showCategories = true" (mouseleave)="showCategories = false">
-        <button class="btn btn-outline-secondary dropdown-toggle" type="button">Categorías</button>
-        <div class="categorias-panel" *ngIf="showCategories">
-          <div class="form-check" *ngFor="let cat of categoriesEvents">
-            <input class="form-check-input" type="checkbox" [checked]="selectedCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}" />
-            <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
-          </div>
-        </div>
-      </div> 
-  </div> -->
-
-<!-- CONTADOR -->
-<p id="textShowEvents" class="text-muted text-center w-100"> Mostrando <strong>{{ pagedEvents.length }}</strong> de <strong>{{ sortedEvents.length }}</strong> eventos — Página <strong>{{ page }}</strong> de <strong>{{ totalPages }}</strong></p>
-<br>
-
-<!-- LISTADO DE EVENTOS -->
-<div class="main-card row">
-  <div class="event-card-list col-12 col-md-6 col-lg-4" *ngFor="let event of pagedEvents; let i = index">
-    <app-event-card [data]="event" [bg]="i % 2 === 0"></app-event-card>
+<div class="container">
+  <!-- MIGAS DE PAN -->
+  <div class="breadcrumb-events">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Eventos</li>
+      </ol>
+    </nav>
   </div>
+  <!-- TITULO -->
+  <h2 class="fw-bold mb-3 text-center">Eventos</h2>
+  <app-filter [events]="events" [categories]="categoriesEvents" [categoryKeywords]="categoryEventsKeywords" (filteredEvents)="updateEvents($event)"></app-filter>
+    <!-- <div id="buscador">
+          FILA 1: Input + Botones 
+          <div class="buscador-top">
+            <input type="text" class="form-control" placeholder="Nombre del evento..." [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
+            <button class="btn btn-secondary" (click)="onSearch()"><i class="bi bi-search"></i> Buscar</button>
+            <button class="btn btn-secondary" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+          </div>
+
+          FILA 2: Ordenar 
+          <div class="buscador-ordenar">
+            <label for="filterOption">Ordenar:</label>
+            <select id="filterOption" class="form-select" [(ngModel)]="filterOption" (change)="applyFilters()">
+              <option value="future">Cronológicamente</option>
+              <option value="alpha">(A-Z)</option>
+              <option value="month">Solo mes actual</option>
+            </select>
+          </div>
+
+        FILA 3: Categorías con menú desplegable 
+        <div class="buscador-categorias-dropdown" (mouseenter)="showCategories = true" (mouseleave)="showCategories = false">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button">Categorías</button>
+          <div class="categorias-panel" *ngIf="showCategories">
+            <div class="form-check" *ngFor="let cat of categoriesEvents">
+              <input class="form-check-input" type="checkbox" [checked]="selectedCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}" />
+              <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
+            </div>
+          </div>
+        </div> 
+    </div> -->
+
+  <!-- CONTADOR -->
+  <p id="textShowEvents" class="text-muted text-center w-100"> Mostrando <strong>{{ pagedEvents.length }}</strong> de <strong>{{ sortedEvents.length }}</strong> eventos — Página <strong>{{ page }}</strong> de <strong>{{ totalPages }}</strong></p>
+  <br>
+
+  <!-- LISTADO DE EVENTOS -->
+  <div class="main-card row">
+    <div class="event-card-list col-12 col-md-6 col-lg-4" *ngFor="let event of pagedEvents; let i = index">
+      <app-event-card [data]="event" [bg]="i % 2 === 0"></app-event-card>
+    </div>
+  </div>
+
+  <!-- BARRA DE PAGINACION -->
+  <nav class="my-3">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="page == 1">
+        <button class="page-link" (click)="goToPage(1)" [disabled]="page === 1">&laquo;</button>
+      </li>
+      <li class="page-item" [class.disabled]="page == 1">
+        <button class="page-link" (click)="prevPage()" [disabled]="page === 1">Anterior</button>
+      </li>
+      <li class="page-item" *ngFor="let p of pagesToShow" [class.active]="page === p">
+        <button class="page-link" (click)="goToPage(p)">{{ p }}</button>
+      </li>
+      <li class="page-item" [class.disabled]="page == totalPages">
+        <button class="page-link" (click)="nextPage()" [disabled]="page === totalPages">Siguiente</button>
+      </li>
+      <li class="page-item" [class.disabled]="page == totalPages">
+        <button class="page-link" (click)="goToPage(totalPages)" [disabled]="page === totalPages">&raquo;</button>
+      </li>
+    </ul>
+  </nav>
+
 </div>
-
-<!-- BARRA DE PAGINACION -->
-<nav class="my-3">
-  <ul class="pagination justify-content-center">
-    <li class="page-item" [class.disabled]="page == 1">
-      <button class="page-link" (click)="goToPage(1)" [disabled]="page === 1">&laquo;</button>
-    </li>
-    <li class="page-item" [class.disabled]="page == 1">
-      <button class="page-link" (click)="prevPage()" [disabled]="page === 1">Anterior</button>
-    </li>
-    <li class="page-item" *ngFor="let p of pagesToShow" [class.active]="page === p">
-      <button class="page-link" (click)="goToPage(p)">{{ p }}</button>
-    </li>
-    <li class="page-item" [class.disabled]="page == totalPages">
-      <button class="page-link" (click)="nextPage()" [disabled]="page === totalPages">Siguiente</button>
-    </li>
-    <li class="page-item" [class.disabled]="page == totalPages">
-      <button class="page-link" (click)="goToPage(totalPages)" [disabled]="page === totalPages">&raquo;</button>
-    </li>
-  </ul>
-</nav>
-
