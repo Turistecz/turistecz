@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, Input, input, OnInit, ElementRef, ViewChild} from '@angular/core';
 import * as L from 'leaflet';
+import 'leaflet-routing-machine';
 import proj4 from 'proj4';
 import { MapService } from '../services/map.service';
 import { BiziItem, BusStopItem, TaxiStopItem, TramStopItem } from '../models/map.model';
@@ -118,10 +119,20 @@ makeLocationMarkers(){
   .bindPopup(this.name, {autoClose: false})
   .openPopup();
 
+  L.Routing.control({ 
+    waypoints: [
+        L.latLng(this.userLatLong),
+        L.latLng(latlng)
+    ],
+    addWaypoints: false,
+    router: new L.Routing.OSRMv1({
+      language: 'es'
+    })
+  }).addTo(this.map);
+
   let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
 
   this.map.fitBounds(markers.getBounds());
-
 }
 
 
@@ -261,7 +272,6 @@ private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: s
         `);
         break;
     }
-    
   });
 }
 

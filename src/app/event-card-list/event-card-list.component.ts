@@ -67,7 +67,6 @@ export class EventCardListComponent {
   loadEvents() {
     this.http.get<EventResponse>(this.apiBaseUrl).subscribe((datos) => {
       this.events = datos?.result ?? [];
-      console.log(this.events);
     });
   }
 
@@ -215,8 +214,6 @@ get pagesToShow(): number[] {
 }
 
   updateEvents(filteredEvents: EventItem[]){
-    console.log("eventos filtrados");
-    console.log(filteredEvents);
     this.sortedEvents = filteredEvents;
   }
 }

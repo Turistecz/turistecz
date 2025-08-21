@@ -1,25 +1,67 @@
 import { Component, Input } from '@angular/core';
-import { cardsHome } from '../place-card/place-card.model';
-import { HttpClient } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { FavoritosService } from '../services/favoritos.service'; // importa el servicio
+import { Data, Router, RouterModule } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-one-place-card',
-  imports: [RouterModule],
+  standalone: true,
   templateUrl: './one-place-card.component.html',
-  styleUrl: './one-place-card.component.css'
+  styleUrls: ['./one-place-card.component.css'],
+  imports : [RouterModule]
+
 })
 export class OnePlaceCardComponent {
-  
-  constructor(private http: HttpClient) {}
-async ngOnInit(): Promise<void> {
-}
+
+  constructor(private favoritosService: FavoritosService, LoginService: LoginService) {}
 
   @Input() data!: {
-    id: string;
+    id: number;
     nombre: string;
     url: string;
+    esFavorito?: boolean; // propiedad extra para controlar estado
+  };
+
+  toggleFavorito(sitio: any) {
+  let usuario: any = localStorage.getItem('usuario');
+  if (usuario) {
+    usuario = JSON.parse(usuario);
+  } else {
+    console.error('No hay usuario logueado');
+    return;
   }
+
+  if (sitio.esFavorito) {
+    this.favoritosService.removeFavorito(usuario.id, sitio.id).subscribe(() => {
+      sitio.esFavorito = false;
+    });
+  } else {
+    this.favoritosService.addFavorito(usuario.id, sitio.id).subscribe(() => {
+      sitio.esFavorito = true;
+    });
+  }
+}
+
+
+  comprobarFavorito(idusuario: number, idsitio: number) {
+  this.favoritosService.comprobarFavorito(idusuario, idsitio)
+      .subscribe((res: boolean) => {
+        this.data.esFavorito = !!res; 
+      });
+  }
+
+  async ngOnInit(): Promise<void> {
+    let usuario: any = localStorage.getItem('usuario');
+    if (usuario) {
+      usuario = JSON.parse(usuario);
+    } else {
+      console.error('No hay usuario logueado');
+      return;
+    }
+    await this.comprobarFavorito(usuario.id,this.data.id);    
+  }
+
 }
 
 

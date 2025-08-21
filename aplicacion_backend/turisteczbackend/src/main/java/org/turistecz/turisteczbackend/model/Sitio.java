@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 //Este tipo de clases representan a una entidad del modelo de datos. 
