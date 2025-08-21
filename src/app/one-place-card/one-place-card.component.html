@@ -1,12 +1,15 @@
 <a [routerLink]="['/sitios', data.id]" class="text-decoration-none text-reset">
   <div class="card text-white col-12 col-md-3" id="cardPlace">
     <img [src]="data.url" class="card-img" [alt]="data.nombre">
+     <button class="btn btn-primary favorito-btn" (click)="toggleFavorito(data); $event.preventDefault(); $event.stopPropagation();"> 
+       <i class="bi bi-star"></i>
+    </button>
     <div class="card-img-overlay overlay-content">
       <h5 class="card-title">{{data.nombre}}</h5>
     </div>    
   </div>
 </a>
 
-<button class="mt-2 boton" (click)="toggleFavorito(data)">
-  ⭐ {{ data.esFavorito ? 'Quitar de favoritos' : 'Añadir a favoritos' }}
-</button>
+<!--<button class="mt-1 boton bi bi-star" (click)="toggleFavorito(data)"> 
+   {{ data.esFavorito ? 'Quitar de favoritos' : 'Añadir a favoritos' }}-->
+
