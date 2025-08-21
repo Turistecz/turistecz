@@ -11,19 +11,19 @@ export class MonumentServiceService {
 
   constructor(private http: HttpClient) {}
 
-  // monuments: MonumentItem[] = [];
+   monuments: MonumentItem[] = [];
 
-  // topMonuments: string[] = ['basílica de nuestra señora del pilar', 'palacio de la aljafería', 'Catedral del Salvador o La Seo y Museo de Tapices', 'Puente de Piedra', 
-  //   'Puerta del Carmen', 'Monumento a los Sitios', 'Monumento a Agustina Zaragoza y a las Heroínas', 'Torreon de la Zuda', 'Murallas romanas', 'Mercado Central', 
-  //   'Museo de Zaragoza: Secciones de Antiguedad y Bellas Artes', 'Museo Goya - Coleccion Ibercaja', 'Parque Grande Jose Antonio Labordeta', 'Monumento a Goya', 
-  //   'Escultura El Alma del Ebro', 'Estatua del Emperador Augusto', 'Palacio de los Condes de Morata o Luna', 'Palacio de los Condes de Sastago', 'Casa de los Sitios' ];
+   topMonuments: string[] = ['basílica de nuestra señora del pilar', 'palacio de la aljafería', 'Catedral del Salvador o La Seo y Museo de Tapices', 'Puente de Piedra', 
+     'Puerta del Carmen', 'Monumento a los Sitios', 'Monumento a Agustina Zaragoza y a las Heroínas', 'Torreon de la Zuda', 'Murallas romanas', 'Mercado Central', 
+     'Museo de Zaragoza: Secciones de Antiguedad y Bellas Artes', 'Museo Goya - Coleccion Ibercaja', 'Parque Grande Jose Antonio Labordeta', 'Monumento a Goya', 
+     'Escultura El Alma del Ebro', 'Estatua del Emperador Augusto', 'Palacio de los Condes de Morata o Luna', 'Palacio de los Condes de Sastago', 'Casa de los Sitios' ];
 
-  // topMonumentsEmpty: string[] = [];
-  // topMonumentsEmpty2: string[] = [];
+   topMonumentsEmpty: string[] = [];
+   topMonumentsEmpty2: string[] = [];
 
     
-  // filteredMonuments: MonumentItem[] = [];
-  // orderFilteredMonuments: MonumentItem[] = [];
+   filteredMonuments: MonumentItem[] = [];
+   orderFilteredMonuments: MonumentItem[] = [];
 
 
   getMonuments(): Observable<MonumentResponse> {

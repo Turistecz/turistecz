@@ -2,9 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EventCardComponent } from '../event-card/event-card.component';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
-import { EventItem, EventResponse } from '../models/event-card.model';
+import { EventItem } from '../models/event-card.model';
 import { RouterModule } from '@angular/router';
 import { FilterComponent } from '../filter/filter.component';
 import { EventService } from '../services/event.service';
@@ -61,6 +59,7 @@ export class EventCardListComponent {
 async ngOnInit(): Promise<void> {
   this.categoriesEvents.forEach(cat => this.selectedCategoriesMap[cat] = false);
   this.loadEvents(); 
+ this.eventService.getEvents();
 }
 
  showCategories: boolean = false; //  
@@ -76,19 +75,12 @@ async ngOnInit(): Promise<void> {
 
 async loadEvents(): Promise<void> {
   try {
-    const datos = await firstValueFrom(this.eventService.getEvents());
-
-    //  GeoJSON: debes acceder a features y luego a properties
-    const rawEvents = datos?.features ?? [];
-
-    // Extraer solo el contenido útil de cada evento (properties)
-    this.events = rawEvents.map((f: any) => f.properties);
+    this.events = this.eventService.getEvents();
 
     // Sin filtros: mostrar todo
     this.sortedEvents = this.events.slice();
     this.eventsFiltered = this.events.slice();
 
-    console.log('Eventos cargados:', this.events.length);
   } catch (error) {
     console.error('Error al cargar eventos:', error);
   }
