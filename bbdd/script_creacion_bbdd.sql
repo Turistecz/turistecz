@@ -12,30 +12,30 @@ CREATE TABLE sitio (
     horario_visita VARCHAR(255),
     telefono VARCHAR(50),
     enlace_web VARCHAR(255),
-    rampas BOOLEAN,
-    ascensores BOOLEAN,
-    puertas_automaticas BOOLEAN,
-    escaleras_mecanicas BOOLEAN,
-    acceso_perros_guias BOOLEAN,  
-    acceso_perros_asistencia BOOLEAN, -- ESTO ES NUEVO
-	servicios BOOLEAN,
-	servicios_adaptados BOOLEAN,
-    braille BOOLEAN,
-    interprete_lengua_signos BOOLEAN,
-    videos_subtitulos BOOLEAN,
-	ayudas_visuales BOOLEAN,
-	cambiador BOOLEAN, -- ESTO ES NUEVO.
-    sala_lactancia BOOLEAN,
-    guias_turisticos_multiidioma BOOLEAN,
-    elementos_audiovisuales_multiidioma BOOLEAN,
-    documentacion_multiidioma BOOLEAN,
-    visitas_grupales BOOLEAN,
-    parking_adaptado BOOLEAN,
-	bancos BOOLEAN,
-	mostrador_adaptado BOOLEAN,
-	ayuda_movilidad BOOLEAN,
-    lenguaje_simple BOOLEAN, -- Hay sitios que prestar  Sillas de ruedas o bastones. 
-	sin_barreras_arquitectonicas BOOLEAN
+    rampas enum ("sí", "no", "no hay información"),
+    ascensores enum ("sí", "no", "no hay información"),
+    puertas_automaticas enum ("sí", "no", "no hay información"),
+    escaleras_mecanicas enum ("sí", "no", "no hay información"),
+    acceso_perros_guias enum ("sí", "no", "no hay información"),  
+    acceso_perros_asistencia enum ("sí", "no", "no hay información"), -- ESTO ES NUEVO
+	servicios enum ("sí", "no", "no hay información"),
+	servicios_adaptados enum ("sí", "no", "no hay información"),
+    braille enum ("sí", "no", "no hay información"),
+    interprete_lengua_signos enum ("sí", "no", "no hay información"),
+    videos_subtitulos enum ("sí", "no", "no hay información"),
+	ayudas_visuales enum ("sí", "no", "no hay información"),
+	cambiador enum ("sí", "no", "no hay información"), -- ESTO ES NUEVO.
+    sala_lactancia enum ("sí", "no", "no hay información"),
+    guias_turisticos_multiidioma enum ("sí", "no", "no hay información"),
+    elementos_audiovisuales_multiidioma enum ("sí", "no", "no hay información"),
+    documentacion_multiidioma enum ("sí", "no", "no hay información"),
+    visitas_grupales enum ("sí", "no", "no hay información"),
+    parking_adaptado enum ("sí", "no", "no hay información"),
+	bancos enum ("sí", "no", "no hay información"),
+	mostrador_adaptado enum ("sí", "no", "no hay información"),
+	ayuda_movilidad enum ("sí", "no", "no hay información"), -- Hay sitios que prestar  Sillas de ruedas o bastones. 
+    lenguaje_simple enum ("sí", "no", "no hay información"),
+	sin_barreras_arquitectonicas enum ("sí", "no", "no hay información")
 );
 
 -- Tabla imagen_sitio
@@ -104,14 +104,6 @@ CREATE TABLE verification_token(
     fecha_expiracion date
 );
 
-CREATE TABLE favoritos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    usuario_id INT NOT NULL,
-    sitios_id INT NOT NULL,
-    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuario(id),
-    CONSTRAINT fk_sitio FOREIGN KEY (sitios_id) REFERENCES sitio(id),
-    UNIQUE (usuario_id, sitios_id) -- evita duplicados
-);
 
 
 
@@ -346,4 +338,3 @@ INSERT INTO caracteristica (nombre) VALUES
 (2, 2),
 (3, 1),
 (3, 3);
-
