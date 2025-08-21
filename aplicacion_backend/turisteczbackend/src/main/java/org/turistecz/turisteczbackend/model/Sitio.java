@@ -44,76 +44,96 @@ public class Sitio {
     private String enlace_web;
 
     @Column
-    private Boolean rampas;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad rampas;
 
     @Column
-    private Boolean ascensores;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad ascensores;
 
     @Column
-    private Boolean puertas_automaticas;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad puertas_automaticas;
 
     @Column
-    private Boolean escaleras_mecanicas;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad escaleras_mecanicas;
 
     @Column
-    private Boolean acceso_perros_guias;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad acceso_perros_guias;
 
     @Column
-    private Boolean acceso_perros_asistencia;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad acceso_perros_asistencia;
 
     @Column
-    private Boolean servicios;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad servicios_adaptados;
 
     @Column
-    private Boolean servicios_adaptados;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad braille;
 
     @Column
-    private Boolean braille;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad interprete_lengua_signos;
 
     @Column
-    private Boolean interprete_lengua_signos;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad videos_subtitulos;
 
     @Column
-    private Boolean videos_subtitulos;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad ayudas_visuales;
 
     @Column
-    private Boolean ayudas_visuales;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad cambiador;
 
     @Column
-    private Boolean cambiador;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad sala_lactancia;
 
     @Column
-    private Boolean sala_lactancia;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad guias_turisticos_multiidioma;
 
     @Column
-    private Boolean guias_turisticos_multiidioma;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad elementos_audiovisuales_multiidioma;
 
     @Column
-    private Boolean elementos_audiovisuales_multiidioma;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad documentacion_multiidioma;
 
     @Column
-    private Boolean documentacion_multiidioma;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad visitas_grupales;
 
     @Column
-    private Boolean visitas_grupales;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad parking_adaptado;
 
     @Column
-    private Boolean parking_adaptado;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad bancos;
 
     @Column
-    private Boolean bancos;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad mostrador_adaptado;
 
     @Column
-    private Boolean mostrador_adaptado;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad ayuda_movilidad;
 
     @Column
-    private Boolean ayuda_movilidad;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad lenguaje_simple;
 
     @Column
-    private Boolean lenguaje_simple;
-
-    @Column
-    private Boolean sin_barreras_arquitectonicas;
+    @Enumerated(EnumType.STRING)
+    private EnumServiciosAdaptabilidad sin_barreras_arquitectonicas;
   
     //Este atributo es especial. No se corresponde exactamente con un campo de la 
     //tabla, sino que le decimos que un "sitio" de la tabla esta relacionado con una o 
@@ -206,195 +226,187 @@ public class Sitio {
       this.enlace_web = enlace_web;
     }
 
-    public Boolean getRampas() {
+    public EnumServiciosAdaptabilidad getRampas() {
       return rampas;
     }
 
-    public void setRampas(Boolean rampas) {
+    public void setRampas(EnumServiciosAdaptabilidad rampas) {
       this.rampas = rampas;
     }
 
-    public Boolean getAscensores() {
+    public EnumServiciosAdaptabilidad getAscensores() {
       return ascensores;
     }
 
-    public void setAscensores(Boolean ascensores) {
+    public void setAscensores(EnumServiciosAdaptabilidad ascensores) {
       this.ascensores = ascensores;
     }
 
-    public Boolean getPuertas_automaticas() {
+    public EnumServiciosAdaptabilidad getPuertas_automaticas() {
       return puertas_automaticas;
     }
 
-    public void setPuertas_automaticas(Boolean puertas_automaticas) {
+    public void setPuertas_automaticas(EnumServiciosAdaptabilidad puertas_automaticas) {
       this.puertas_automaticas = puertas_automaticas;
     }
 
-    public Boolean getEscaleras_mecanicas() {
+    public EnumServiciosAdaptabilidad getEscaleras_mecanicas() {
       return escaleras_mecanicas;
     }
 
-    public void setEscaleras_mecanicas(Boolean escaleras_mecanicas) {
+    public void setEscaleras_mecanicas(EnumServiciosAdaptabilidad escaleras_mecanicas) {
       this.escaleras_mecanicas = escaleras_mecanicas;
     }
   
-    public Boolean getAcceso_perros_guias() {
+    public EnumServiciosAdaptabilidad getAcceso_perros_guias() {
       return acceso_perros_guias;
     }
 
-    public void setAcceso_perros_guias(Boolean acceso_perros_guias) {
+    public void setAcceso_perros_guias(EnumServiciosAdaptabilidad acceso_perros_guias) {
       this.acceso_perros_guias = acceso_perros_guias;
     }
 
-    public Boolean getAcceso_perros_asistencia() {
+    public EnumServiciosAdaptabilidad getAcceso_perros_asistencia() {
       return acceso_perros_asistencia;
     }
 
-    public void setAcceso_perros_asistencia(Boolean acceso_perros_asistencia) {
+    public void setAcceso_perros_asistencia(EnumServiciosAdaptabilidad acceso_perros_asistencia) {
       this.acceso_perros_asistencia = acceso_perros_asistencia;
     }
 
-    public Boolean getServicios() {
-      return servicios;
-    }
-
-    public void setServicios(Boolean servicios) {
-      this.servicios = servicios;
-    }
-
-    public Boolean getServicios_adaptados() {
+    public EnumServiciosAdaptabilidad getServicios_adaptados() {
       return servicios_adaptados;
     }
 
-    public void setServicios_adaptados(Boolean servicios_adaptados) {
+    public void setServicios_adaptados(EnumServiciosAdaptabilidad servicios_adaptados) {
       this.servicios_adaptados = servicios_adaptados;
     }
 
-    public Boolean getBraille() {
+    public EnumServiciosAdaptabilidad getBraille() {
       return braille;
     }
 
-    public void setBraille(Boolean braille) {
+    public void setBraille(EnumServiciosAdaptabilidad braille) {
       this.braille = braille;
     }
 
-    public Boolean getInterprete_lengua_signos() {
+    public EnumServiciosAdaptabilidad getInterprete_lengua_signos() {
       return interprete_lengua_signos;
     }
 
-    public void setInterprete_lengua_signos(Boolean interprete_lengua_signos) {
+    public void setInterprete_lengua_signos(EnumServiciosAdaptabilidad interprete_lengua_signos) {
       this.interprete_lengua_signos = interprete_lengua_signos;
     }
 
-    public Boolean getVideos_subtitulos() {
+    public EnumServiciosAdaptabilidad getVideos_subtitulos() {
       return videos_subtitulos;
     }
 
-    public void setVideos_subtitulos(Boolean videos_subtitulos) {
+    public void setVideos_subtitulos(EnumServiciosAdaptabilidad videos_subtitulos) {
       this.videos_subtitulos = videos_subtitulos;
     }
 
-    public Boolean getAyudas_visuales() {
+    public EnumServiciosAdaptabilidad getAyudas_visuales() {
       return ayudas_visuales;
     }
 
-    public void setAyudas_visuales(Boolean ayudas_visuales) {
+    public void setAyudas_visuales(EnumServiciosAdaptabilidad ayudas_visuales) {
       this.ayudas_visuales = ayudas_visuales;
     }
 
-    public Boolean getCambiador() {
+    public EnumServiciosAdaptabilidad getCambiador() {
       return cambiador;
     }
 
-    public void setCambiador(Boolean cambiador) {
+    public void setCambiador(EnumServiciosAdaptabilidad cambiador) {
       this.cambiador = cambiador;
     }
     
-    public Boolean getSala_lactancia() {
+    public EnumServiciosAdaptabilidad getSala_lactancia() {
       return sala_lactancia;
     }
 
-    public void setSala_lactancia(Boolean sala_lactancia) {
+    public void setSala_lactancia(EnumServiciosAdaptabilidad sala_lactancia) {
       this.sala_lactancia = sala_lactancia;
     }
 
-    public Boolean getGuias_turisticos_multiidioma() {
+    public EnumServiciosAdaptabilidad getGuias_turisticos_multiidioma() {
       return guias_turisticos_multiidioma;
     }
 
-    public void setGuias_turisticos_multiidioma(Boolean guias_turisticos_multiidioma) {
+    public void setGuias_turisticos_multiidioma(EnumServiciosAdaptabilidad guias_turisticos_multiidioma) {
       this.guias_turisticos_multiidioma = guias_turisticos_multiidioma;
     }
 
-    public Boolean getElementos_audiovisuales_multiidioma() {
+    public EnumServiciosAdaptabilidad getElementos_audiovisuales_multiidioma() {
       return elementos_audiovisuales_multiidioma;
     }
 
-    public void setElementos_audiovisuales_multiidioma(Boolean elementos_audiovisuales_multiidioma) {
+    public void setElementos_audiovisuales_multiidioma(EnumServiciosAdaptabilidad elementos_audiovisuales_multiidioma) {
       this.elementos_audiovisuales_multiidioma = elementos_audiovisuales_multiidioma;
     }
 
-    public Boolean getDocumentacion_multiidioma() {
+    public EnumServiciosAdaptabilidad getDocumentacion_multiidioma() {
       return documentacion_multiidioma;
     }
 
-    public void setDocumentacion_multiidioma(Boolean documentacion_multiidioma) {
+    public void setDocumentacion_multiidioma(EnumServiciosAdaptabilidad documentacion_multiidioma) {
       this.documentacion_multiidioma = documentacion_multiidioma;
     }
 
-    public Boolean getVisitas_grupales() {
+    public EnumServiciosAdaptabilidad getVisitas_grupales() {
       return visitas_grupales;
     }
 
-    public void setVisitas_grupales(Boolean visitas_grupales) {
+    public void setVisitas_grupales(EnumServiciosAdaptabilidad visitas_grupales) {
       this.visitas_grupales = visitas_grupales;
     }
 
-    public Boolean getParking_adaptado() {
+    public EnumServiciosAdaptabilidad getParking_adaptado() {
       return parking_adaptado;
     }
 
-    public void setParking_adaptado(Boolean parking_adaptado) {
+    public void setParking_adaptado(EnumServiciosAdaptabilidad parking_adaptado) {
       this.parking_adaptado = parking_adaptado;
     }
 
-    public Boolean getBancos() {
+    public EnumServiciosAdaptabilidad getBancos() {
       return bancos;
     }
 
-    public void setBancos(Boolean bancos) {
+    public void setBancos(EnumServiciosAdaptabilidad bancos) {
       this.bancos = bancos;
     }
 
-    public Boolean getMostrador_adaptado() {
+    public EnumServiciosAdaptabilidad getMostrador_adaptado() {
       return mostrador_adaptado;
     }
     
-    public void setMostrador_adaptado(Boolean mostrador_adaptado) {
+    public void setMostrador_adaptado(EnumServiciosAdaptabilidad mostrador_adaptado) {
       this.mostrador_adaptado = mostrador_adaptado;
     }
 
-    public Boolean getAyuda_movilidad() {
+    public EnumServiciosAdaptabilidad getAyuda_movilidad() {
       return ayuda_movilidad;
     }
 
-    public void setAyuda_movilidad(Boolean ayuda_movilidad) {
+    public void setAyuda_movilidad(EnumServiciosAdaptabilidad ayuda_movilidad) {
       this.ayuda_movilidad = ayuda_movilidad;
     }
 
-    public Boolean getLenguaje_simple() {
+    public EnumServiciosAdaptabilidad getLenguaje_simple() {
       return lenguaje_simple;
     }
 
-    public void setLenguaje_simple(Boolean lenguaje_simple) {
+    public void setLenguaje_simple(EnumServiciosAdaptabilidad lenguaje_simple) {
       this.lenguaje_simple = lenguaje_simple;
     }
 
-    public Boolean getSin_barreras_arquitectonicas() {
+    public EnumServiciosAdaptabilidad getSin_barreras_arquitectonicas() {
       return sin_barreras_arquitectonicas;
     }
 
-    public void setSin_barreras_arquitectonicas(Boolean sin_barreras_arquitectonicas) {
+    public void setSin_barreras_arquitectonicas(EnumServiciosAdaptabilidad sin_barreras_arquitectonicas) {
       this.sin_barreras_arquitectonicas = sin_barreras_arquitectonicas;
     }
 
