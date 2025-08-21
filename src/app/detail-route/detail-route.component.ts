@@ -29,6 +29,7 @@ export class DetailRouteComponent {
 
   /* SITE & TEXT DETAIL */
   routesSite: sitioResponse [] =[];
+  sortedCards: sitioResponse[] = [];
 
   /* IMAGEN SITIO */
   // oneSite: sitioDetails = {
@@ -61,7 +62,13 @@ export class DetailRouteComponent {
       const datos = await firstValueFrom(this.routeService.getRouteSites(id));
       this.routesSite = datos;
       console.log('trae ests rutasss',this.routesSite);
-      return datos;
+      this.routesSite = datos.flatMap((sitio: { imagenes: any[]; })  =>
+        sitio.imagenes.map((img: any) => ({
+          nombre: img.nombre,
+          url: img.url,
+          id: img.id
+        }))
+      );    
     } catch (error) {
       console.error('Error al cargar ruta por ID:', error);
       throw error;
