@@ -99,6 +99,7 @@ private initMap(): void {
 
 }
 
+
  getUserCoords(){
   navigator.geolocation.getCurrentPosition(position => 
     {
@@ -126,13 +127,13 @@ makeLocationMarkers(){
     ],
     addWaypoints: false,
     router: new L.Routing.OSRMv1({
-      language: 'es'
+      language: 'es',
     })
   }).addTo(this.map);
 
   let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
 
-  this.map.fitBounds(markers.getBounds());
+  this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
 }
 
 
