@@ -120,6 +120,8 @@ makeLocationMarkers(){
   .bindPopup(this.name, {autoClose: false})
   .openPopup();
 
+  //TODO: mirar de poner la ruta en pie, pq parece que esta en coche
+
   L.Routing.control({ 
     waypoints: [
         L.latLng(this.userLatLong),
@@ -127,7 +129,7 @@ makeLocationMarkers(){
     ],
     addWaypoints: false,
     router: new L.Routing.OSRMv1({
-      language: 'es',
+      language: 'es'
     })
   }).addTo(this.map);
 
