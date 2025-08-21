@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output, output, SimpleChanges} from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { EventItem, EventResponse } from '../models/event-card.model';
+import { EventItem } from '../models/event-card.model';
 import { HttpClient } from '@angular/common/http';
-import { EventCardListComponent } from '../event-card-list/event-card-list.component';
-import { Events } from 'leaflet';
 import { cardsHome } from '../place-card/place-card.model';
 
 @Component({

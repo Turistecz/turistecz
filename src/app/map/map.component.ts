@@ -99,6 +99,7 @@ private initMap(): void {
 
 }
 
+
  getUserCoords(){
   navigator.geolocation.getCurrentPosition(position => 
     {
@@ -119,6 +120,8 @@ makeLocationMarkers(){
   .bindPopup(this.name, {autoClose: false})
   .openPopup();
 
+  //TODO: mirar de poner la ruta en pie, pq parece que esta en coche
+
   L.Routing.control({ 
     waypoints: [
         L.latLng(this.userLatLong),
@@ -132,7 +135,7 @@ makeLocationMarkers(){
 
   let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
 
-  this.map.fitBounds(markers.getBounds());
+  this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
 }
 
 
