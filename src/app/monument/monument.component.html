@@ -7,7 +7,7 @@
     <li class="breadcrumb-item active" aria-current="page">{{monumentsFiltered[monumentNumber].title}}</li>
   </ol>
 </nav>
-<h1 class="title-pag">{{monumentsFiltered[monumentNumber].title}}</h1>
+<h1 class="title-pag">{{monumentsFiltered[monumentNumber]?.title}}</h1>
 
 
     <div class="row pt-4 row">
@@ -68,7 +68,7 @@
        
     <div  class="row pt-3">
         <div class="col-12 col-md-6"> 
-             <a class="btn btn-primary" id="boton-info" href="{{monumentsFiltered[monumentNumber].uri}}" role="button">Más información</a>
+             <a class="btn btn-primary" id="boton-info" href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a>
              <br><br><br>
             <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
                 <h2> Contacto </h2>
