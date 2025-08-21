@@ -1,7 +1,10 @@
 package org.turistecz.turisteczbackend.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.turistecz.turisteczbackend.dto.FavoriteDto;
 import org.turistecz.turisteczbackend.model.Favoritos;
@@ -10,6 +13,7 @@ import org.turistecz.turisteczbackend.model.Usuario;
 import org.turistecz.turisteczbackend.repository.SitioRepository;
 import org.turistecz.turisteczbackend.repository.UsuarioRepository;
 import org.turistecz.turisteczbackend.service.FavoritosService;
+
 
 
 
@@ -44,18 +48,15 @@ public class FavoritosController {
 
         return favoritosService.addFavoritos(favorito);
 }
-   // public Favoritos addFavorito(@RequestBody FavoriteDto favorito) {
-       // return favoritosService.addFavoritos(favorito);
-       // return null;
-    //}
-
     @CrossOrigin(origins ="http://localhost:4200")
 @DeleteMapping("/{usuario_id}/{sitio_id}")
 public void removeFavorito(@PathVariable int usuario_id, @PathVariable int sitio_id) {
     favoritosService.removeFavorito(usuario_id, sitio_id);
 }
-
-
-
-
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/my-favorite")
+public ResponseEntity<List<Sitio>> getMisFavoritos(@RequestParam int usuarioId){
+      List<Sitio> favoritos = favoritosService.getFavoritosbyUsuario(usuarioId);
+    return ResponseEntity.ok(favoritos); 
+}
  }

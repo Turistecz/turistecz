@@ -4,8 +4,8 @@
       <!-- FILA 1: Input + Botones -->
       <div class="buscador-top d-inline-block">
         <input type="text" class="form-control m-2 my-0" placeholder="Buscar por nombre" [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
-        <button class="btn btn-secondary m-2" (click)="onSearch()"><i class="bi bi-search"></i> Buscar</button>
-        <button class="btn btn-secondary" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> Reset</button>
+        <button class="btn btn-outline-light m-2" (click)="onSearch()"><i class="bi bi-search"></i> </button>
+        <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> </button>
       </div>
 
       <!-- FILA 2: Ordenar -->

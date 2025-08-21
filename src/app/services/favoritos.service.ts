@@ -3,6 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { FavoriteDto } from '../models/favorite-dto.model';
 
+export interface Sitio {
+  id: number;
+  nombre: string;
+  url: string;
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -26,4 +31,8 @@ export class FavoritosService {
       `${this.apiUrl}/comprobar-favorito/?usuarioid=${usuarioId}&sitioid=${sitioId}`
     );
   }
+    getMisFavoritos(usuarioId: number): Observable<Sitio[]> {
+    return this.http.get<Sitio[]>(`${this.apiUrl}/my-favorite?usuarioId=${usuarioId}`);
+
+}
 }
