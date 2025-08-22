@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { EventItem } from '../models/event-card.model';
 import { HttpClient } from '@angular/common/http';
 import { cardsHome } from '../place-card/place-card.model';
@@ -17,22 +17,32 @@ export class FilterComponent {
   sortedEvents: EventItem[] = [];
   searchText: string = '';
   filterOption: 'month' | 'future' | 'alpha' = 'future';
+  showAdaptability: boolean = true;
 
   @Input() events: EventItem[] = [];
   @Input() places: cardsHome[] = [];
   @Input() categories: string[] = [];
-
   @Input() categoryKeywords: { [key: string]: string[] } = {};
   @Output() filteredEvents = new EventEmitter<any[]>(); 
   @Output() filteredCards = new EventEmitter<any[]>();
   // @Input() accesibilityCategories : Accesibilidad[] = [];
-  @Input() 
 
   selectedEventsCategoriesMap: { [key: string]: boolean } = {};
   selectedPlacesCategoriesMap: { [key: string]: boolean } = {};
   selectedAccesibilityCategoriesMap: { [key: string]: boolean } = {}; //Mirar si esto va aquí o en places
 
-  constructor(private http: HttpClient) {}
+
+  constructor(private router: Router){
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd){
+        if (val.url === '/sitios'){
+          this.showAdaptability = true;
+        }else {
+          this.showAdaptability = false;
+        }
+      }
+    })
+  }
 
 categoriesAdaptability: string[] = [
     'Rampas',
