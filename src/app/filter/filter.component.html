@@ -1,4 +1,3 @@
-<p>Filtros</p>
 
 <div id="buscador" class="d-inline-block p-4 mx-3">
       <!-- FILA 1: Input + Botones -->
@@ -20,16 +19,37 @@
 
     
     <div>
+      
       <div class="m-2 filtro-lista">
-  <p class="mb-1">Categorías</p> 
-  <!-- Título fijo de la lista -->
+      <label>Categorías:</label>
 
-  <div class="form-check" *ngFor="let cat of categories">
-    <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}"/>
-    <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
-  </div>
+      <!-- Título fijo de la lista -->
+      
+      <div class="form-check" *ngFor="let cat of categories">
+        <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}"/>
+        <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
+      </div>
+
+      <br>
+      <label>Adaptabilidad:</label>
+
+      <div class="form-check" *ngFor="let cat of categoriesAdaptability">
+        <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}"/>
+        <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
+      </div>
+      
+  <!--<div class="desplegable m-2" (mouseenter)="showAccesibilityCategories = true" ()="showAccesibilityCategories = false">
+      <button class="btn btn-outline-secondary dropdown-toggle my-2" type="button">Accesibilidad</button>
+      <div class="categorias-panel" *ngIf="showAccesibilityCategories">
+         <div class="form-check" *ngFor="let categories of accesibilitycategories">
+         <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}" /> 
+          <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
+        </div> 
+      </div>
+    </div> -->
+  
 </div>
-    </div> 
+    
 
     <!-- FILA 3: Categorías con menú desplegable -->
     <!-- <div class=" m-2" (mouseenter)="showCategories = true" (mouseleave)="showCategories = false">
