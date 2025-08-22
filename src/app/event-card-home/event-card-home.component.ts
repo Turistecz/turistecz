@@ -5,6 +5,7 @@ import { EventItem, EventResponse } from '../models/event-card.model';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { EventCardListComponent } from '../event-card-list/event-card-list.component';
 
 
 @Component({
@@ -21,5 +22,7 @@ export class EventCardHomeComponent {
   events: EventItem[] = [];
   sortedEvents: EventItem[] = [];
 
+
+  @Input() pagedEvents: EventItem[] = []; 
 
 }
