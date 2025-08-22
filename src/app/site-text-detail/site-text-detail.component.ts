@@ -1,7 +1,6 @@
 import { Component, Input, SimpleChanges} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { sitioResponse } from '../models/details-routes';
-import { RouterLink } from '@angular/router';
 
 
 @Component({
@@ -18,20 +17,21 @@ export class SiteTextDetailComponent {
     id: '',
     url: '',
     nombre:''    
-    } 
+    },
   };
+
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['oneSite']) {
-      console.log('oneSite changed:', changes['oneSite'].currentValue);
       this.oneSite = {
         imagenes: {
           id: changes['oneSite'].currentValue.id,
           url: changes['oneSite'].currentValue.url,
           nombre:changes['oneSite'].currentValue.nombre    
-        }   
+        },   
       };
     }
   }
 
+  
 }
