@@ -17,6 +17,7 @@ export interface routeDetails {
 // export interface sitioResponse {
 //   // id: string;
 //   imagenes: sitioDetails[];
+
 // }
 
 export interface sitioResponse {
@@ -24,6 +25,18 @@ export interface sitioResponse {
     id: string;
     url: string;
     nombre: string;
-    
   };
+  // sitios_ruta: {
+  //   texto: string;
+  // }
 }
+
+export interface textoDetails{
+  sitios_ruta: {
+    texto: string;
+  }
+}
+
+
+
+
