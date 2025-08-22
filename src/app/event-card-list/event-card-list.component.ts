@@ -44,7 +44,7 @@ export class EventCardListComponent {
   ],
   'Ocio y entretenimiento': [
     'feria', 'show', 'tapeo', 'zumba',
-    'mercado', 'baile', 'juego', 'fiesta',
+    'mercado', 'baile', 'juego', 'fiesta'
   ]
 };
 
