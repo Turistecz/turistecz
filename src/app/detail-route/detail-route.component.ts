@@ -6,11 +6,12 @@ import { firstValueFrom } from 'rxjs';
 import { FrontDetailCardComponent } from "../front-detail-card/front-detail-card.component";
 import { SiteTextDetailComponent } from "../site-text-detail/site-text-detail.component";
 import { CommonModule } from '@angular/common';
-import { routeDetails, sitioResponse } from '../models/details-routes';
+import { routeDetails, sitioResponse, textoDetails } from '../models/details-routes';
+import { TextDetailComponent } from "../text-detail/text-detail.component";
 
 @Component({
   selector: 'app-detail-route',
-  imports: [FrontDetailCardComponent, CommonModule, SiteTextDetailComponent],
+  imports: [FrontDetailCardComponent, CommonModule, SiteTextDetailComponent, TextDetailComponent],
   templateUrl: './detail-route.component.html',
   styleUrl: './detail-route.component.css'
 })
@@ -29,15 +30,8 @@ export class DetailRouteComponent {
 
   /* SITE & TEXT DETAIL */
   routesSite: sitioResponse [] =[];
-  sortedCards: sitioResponse[] = [];
-
-  /* IMAGEN SITIO */
-  // oneSite: sitioDetails = {
-  //     id: '',
-  //     nombre: '',
-  //     url: ''   
-  // }
-
+  routeText: textoDetails [] =[];
+  //todo: sitioDetails[]=[];
 
   /* FRONT DETAIL */
   /*Carga la ruta segun el id */
@@ -57,23 +51,57 @@ export class DetailRouteComponent {
   /* SITE & TEXT DETAIL */
   // /*Carga el sitio segun el id */
   /* El id se coloca en el oninit de abajo */
+  
   async loadRoutesSite(id: string): Promise<any> {
     try {
       const datos = await firstValueFrom(this.routeService.getRouteSites(id));
       this.routesSite = datos;
-      console.log('trae ests rutasss',this.routesSite);
+      this.routeText = datos;
       this.routesSite = datos.flatMap((sitio: { imagenes: any[]; })  =>
         sitio.imagenes.map((img: any) => ({
           nombre: img.nombre,
           url: img.url,
           id: img.id
         }))
+      );   
+      this.routeText = datos.flatMap((sitio: { sitios_ruta: any[]; })  =>
+        sitio.sitios_ruta.map((txt: any) => ({
+          texto: txt.texto          
+        }))
       );    
+      console.log('temporal2:',this.routeText);
     } catch (error) {
       console.error('Error al cargar ruta por ID:', error);
       throw error;
     }
+    //this.todo =  Object.assign({},this.routeText,this.routesSite);
+      // console.log('funciona por dios',todo)
   }
+
+
+    
+
+  /*async loadRoutesSite(id: string): Promise<any> {
+    try {
+      const datos = await firstValueFrom(this.routeService.getRouteSites(id));
+      this.routesSite = datos;
+      console.log('trae ests rutasss', this.routesSite);
+      this.routesSite = datos.map((sitio: any) => ({
+        imagenes: sitio.imagenes?.map((img: any) => ({
+          nombre: img.nombre,
+          url: img.url,
+          id: img.id
+        })) ,
+         sitios_ruta: sitio.sitios_ruta?.map((txt: any) => ({
+          texto: txt.texto
+        })) 
+       
+      }));
+    } catch (error) {
+      console.error('Error al cargar ruta por ID:', error);
+      throw error;
+    }
+  };*/
 
   // async loadRoutesSite(id: string): Promise<any> {
   //   try {
@@ -91,7 +119,6 @@ export class DetailRouteComponent {
     await this.loadRoutebyId(1);  // Muestra una ruta segun el id //  FRONT DETAIL 
     await this.loadRoutesSite("1");  // Muestra todos los sitios de una ruta segun el id // SITE & TEXT DETAIL 
   }
-
 
 }
     
