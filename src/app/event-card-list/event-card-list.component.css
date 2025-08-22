@@ -18,18 +18,15 @@ h2{
 }
 
 .filters{
-  margin-right: -2rem;
+  margin-right: -1rem;
   margin-left: 2rem;
-  padding-right: -5rem ;
 }
 
 .bloque{
   margin-bottom: 1.5rem;
 }
 
-.margen{
-  margin-right: -3rem;
-}
+
 
 .event-card-list {
   display: inline-block;
