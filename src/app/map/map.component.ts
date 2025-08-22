@@ -91,10 +91,12 @@ private initMap(): void {
   const latlng: L.LatLngExpression = [coords[1], coords[0]]; // [lat, lon]
   
   this.map = L.map('map').setView(latlng, 15); // Zaragoza
+ 
+  this.map.options.minZoom = 2;
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '© OpenStreetMap'
+    attribution: `<a href="https://www.openstreetmap.org/fixthemap"> © OpenStreetMap</a>`
   }).addTo(this.map);
 
 }
@@ -104,6 +106,8 @@ private initMap(): void {
   navigator.geolocation.getCurrentPosition(position => 
     {
       this.userLatLong = [position.coords.latitude, position.coords.longitude];
+    }, function(e) {
+      console.error('Error al cargar la localización:', e);
     });
   }
 
@@ -129,13 +133,14 @@ makeLocationMarkers(){
     ],
     addWaypoints: false,
     router: new L.Routing.OSRMv1({
+      serviceUrl: 'http://router.project-osrm.org/route/v1',
       language: 'es'
     })
   }).addTo(this.map);
 
   let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
 
-  this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
+  this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 80]});
 }
 
 
