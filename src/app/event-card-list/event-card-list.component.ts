@@ -89,7 +89,7 @@ get pagedEvents(): EventItem[] {
 goToPage(num: number) {
   if (num >= 1 && num <= this.totalPages) {
     this.page = num;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }
 }
 
