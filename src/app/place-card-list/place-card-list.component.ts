@@ -44,6 +44,7 @@ categoriesSites: string[] = [
 
   ];
 
+  // categoriesAdaptability : AccesibilidadEnum[] =[]
   // Palabras clave asociadas a cada categoria
  categorySitesKeywords: { [key: string]: string[] } = {
   'Museos/Exposiciones': [
