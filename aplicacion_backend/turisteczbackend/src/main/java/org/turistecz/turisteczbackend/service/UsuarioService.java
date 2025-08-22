@@ -91,6 +91,40 @@ public class UsuarioService {
 
         registrarUsuario(usuario);
     }
+    public Usuario buscarPorEmail(String email) {
+        Usuario usuario = repositorioUsuario.findByEmail(email);
+        if (usuario == null) {
+            throw new RuntimeException("Usuario no encontrado");
+        }
+        return usuario;
+    }
+    public void cambiarEmail(Integer userId, String nuevoEmail) {
+        Usuario usuario = repositorioUsuario.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Verificar si el nuevo email ya existe
+        if (existsByEmail(nuevoEmail)) {
+            throw new RuntimeException("El email ya está registrado");
+        }
+
+        usuario.setEmail(nuevoEmail);
+        repositorioUsuario.save(usuario);
+    }
+    public void cambiarContrasena(Integer userId, String actualContrasena, String nuevaContrasena) {
+        Usuario usuario = repositorioUsuario.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        // Verificar contraseña actual
+        if (!passwordEncoder.matches(actualContrasena, usuario.getContrasena())) {
+            throw new RuntimeException("La contraseña actual no es correcta");
+        }
+
+        // Encriptar nueva contraseña y guardar
+        usuario.setContrasena(passwordEncoder.encode(nuevaContrasena));
+        repositorioUsuario.save(usuario);
+    }
+
+
 }
 
 
