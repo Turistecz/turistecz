@@ -6,9 +6,10 @@ import { firstValueFrom } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { OnePlaceCardComponent } from '../one-place-card/one-place-card.component';
 
+
 @Component({
   selector: 'app-place-card',
-  imports: [CommonModule, RouterModule,OnePlaceCardComponent],
+  imports: [CommonModule, RouterModule, OnePlaceCardComponent],
   templateUrl: './place-card.component.html',
   styleUrl: './place-card.component.css'
 })
@@ -20,7 +21,6 @@ async ngOnInit(): Promise<void> {
 }
 
 cards: cardsHome[]=[];
-
 
 
  async loadImages(): Promise<void> {

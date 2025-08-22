@@ -10,6 +10,7 @@ import { MonumentItem } from '../models/monument.model';
 import { FilterComponent } from '../filter/filter.component';
 
 
+
 @Component({
   selector: 'app-place-card-list',
   imports: [CommonModule, RouterModule, OnePlaceCardComponent, FilterComponent],
@@ -25,6 +26,34 @@ cards: cardsHome[]=[];
 sortedCards: cardsHome[]=[];
 monuments: MonumentItem[] = [];
 monumentsNames: string[] = [];
+// accesibilidad: Accesibilidad[]=[];
+
+// categoriesAdaptability: string[] = [
+//   'Rampas',
+//   'Ascensores',
+//   'Puertas automáticas',
+//   'Escaleras mecánicas',
+//   'Servicios adaptados',
+//   'Sala de lactancia',
+//   'Cambiador',
+//   'Parking adaptado',
+//   'Bancos/asientos',
+//   'Mostrador adaptado',
+//   'Sin barreras arquitectónicas',
+//   'Braille',
+//   'Intérprete de lengua de signos',
+//   'Vídeos subtítulos',
+//   'Ayudas visuales',
+//   'Guías turísticos multiidioma',
+//   'Elementos audiovisuales multiidioma',
+//   'Documentacion multiidioma',
+//   'Visitas grupales',
+//   'Ayuda a la movilidad',
+//   'Lenguaje simple',
+//   'Acceso para perros guías',
+//   'Acceso para perro de asistencia'
+
+//   ];
 
 categoriesSites: string[] = [
     'Museos/Exposiciones',
@@ -36,6 +65,7 @@ categoriesSites: string[] = [
 
   ];
 
+  // categoriesAdaptability : AccesibilidadEnum[] =[]
   // Palabras clave asociadas a cada categoria
  categorySitesKeywords: { [key: string]: string[] } = {
   'Museos/Exposiciones': [
