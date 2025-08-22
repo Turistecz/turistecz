@@ -1,6 +1,7 @@
 
 <div id="buscador" class="d-inline-block p-4 mx-3">
       <!-- FILA 1: Input + Botones -->
+       
       <div class="buscador-top d-inline-block">
         <input type="text" class="form-control m-2 my-0" placeholder="Buscar por nombre" [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
         <button class="btn btn-outline-light m-2" (click)="onSearch()"><i class="bi bi-search"></i> </button>
