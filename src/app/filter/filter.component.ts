@@ -23,7 +23,6 @@ export class FilterComponent {
   @Input() events: EventItem[] = [];
   @Input() places: cardsHome[] = [];
   @Input() categories: string[] = [];
-
   @Input() categoryKeywords: { [key: string]: string[] } = {};
   @Output() filteredEvents = new EventEmitter<any[]>(); 
   @Output() filteredCards = new EventEmitter<any[]>();
