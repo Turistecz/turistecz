@@ -7,7 +7,7 @@ import { EventCardComponent } from "../event-card/event-card.component";
 
 @Component({
   selector: 'app-home',
-  imports: [PlaceCardComponent, RoutesCardListComponent, CommonModule, EventCardHomeComponent, EventCardComponent],
+  imports: [PlaceCardComponent, RoutesCardListComponent, CommonModule, EventCardHomeComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
