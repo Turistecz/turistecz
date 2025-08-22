@@ -34,7 +34,7 @@
       <label>Adaptabilidad:</label>
 
       <div class="form-check" *ngFor="let cat of categoriesAdaptability">
-        <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}"/>
+        <input class="form-check-input" type="checkbox" [checked]="selectedPlacesCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}"/>
         <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
       </div>
       
