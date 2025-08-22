@@ -51,9 +51,7 @@ export class EventCardListComponent {
 };
 
    selectedCategoriesMap: { [key: string]: boolean } = {};
-
-  apiBaseUrl: string = 'https://www.zaragoza.es/sede/servicio/puntos-interes?rf=html&srsname=utm30n&start=0&rows=500&distance=500';
-
+  
   constructor(private eventService: EventService) {}
 
 async ngOnInit(): Promise<void> {
