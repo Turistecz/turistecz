@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { cardsHome, cardsHomeResponse } from '../place-card/place-card.model';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
@@ -8,7 +8,7 @@ import { OnePlaceCardComponent } from "../one-place-card/one-place-card.componen
 import { MonumentServiceService } from '../services/monument-service.service';
 import { MonumentItem } from '../models/monument.model';
 import { FilterComponent } from '../filter/filter.component';
-import { AccesibilidadEnum } from './accesibilidadEnum';
+import { EnumServiciosAdaptabilidad } from './EnumServiciosAdaptabilidad';
 
 
 
@@ -25,36 +25,52 @@ export class PlaceCardListComponent {
 
 cards: cardsHome[]=[];
 sortedCards: cardsHome[]=[];
-monuments: MonumentItem[] = [];
+
 monumentsNames: string[] = [];
-// accesibilidad: Accesibilidad[]=[];
 
-// categoriesAdaptability: string[] = [
-//   'Rampas',
-//   'Ascensores',
-//   'Puertas automáticas',
-//   'Escaleras mecánicas',
-//   'Servicios adaptados',
-//   'Sala de lactancia',
-//   'Cambiador',
-//   'Parking adaptado',
-//   'Bancos/asientos',
-//   'Mostrador adaptado',
-//   'Sin barreras arquitectónicas',
-//   'Braille',
-//   'Intérprete de lengua de signos',
-//   'Vídeos subtítulos',
-//   'Ayudas visuales',
-//   'Guías turísticos multiidioma',
-//   'Elementos audiovisuales multiidioma',
-//   'Documentacion multiidioma',
-//   'Visitas grupales',
-//   'Ayuda a la movilidad',
-//   'Lenguaje simple',
-//   'Acceso para perros guías',
-//   'Acceso para perro de asistencia'
+ monumento: MonumentItem = {
+      id: 0,
+      title: "",
+      description: "",
+      address: "",
+      horario: "",
+      phone: "",
+      price: "",
+      image: "",
+      uri: "",
+      imagenes: [
+        {
+          url: "",
+          nombre: "",
+          copy: "",
+          id: 0
+        }
+      ],
+      rampas: EnumServiciosAdaptabilidad.no_hay_informacion,
+      ascensores: EnumServiciosAdaptabilidad.no_hay_informacion,
+      puertas_automaticas: EnumServiciosAdaptabilidad.no_hay_informacion,
+      escaleras_mecanicas: EnumServiciosAdaptabilidad.no_hay_informacion,
+      servicios_adaptados: EnumServiciosAdaptabilidad.no_hay_informacion,
+      sala_lactancia: EnumServiciosAdaptabilidad.no_hay_informacion,
+      cambiador: EnumServiciosAdaptabilidad.no_hay_informacion,
+      parking_adaptado: EnumServiciosAdaptabilidad.no_hay_informacion,
+      bancos: EnumServiciosAdaptabilidad.no_hay_informacion,
+      mostrador_adaptado: EnumServiciosAdaptabilidad.no_hay_informacion,
+      sin_barreras_arquitectonicas: EnumServiciosAdaptabilidad.no_hay_informacion,
+      braille: EnumServiciosAdaptabilidad.no_hay_informacion,
+      interprete_lengua_signos: EnumServiciosAdaptabilidad.no_hay_informacion,
+      videos_subtitulos: EnumServiciosAdaptabilidad.no_hay_informacion,
+      ayudas_visuales: EnumServiciosAdaptabilidad.no_hay_informacion,
+      guias_turisticos_multiidioma: EnumServiciosAdaptabilidad.no_hay_informacion,
+      elementos_audiovisuales_multiidioma: EnumServiciosAdaptabilidad.no_hay_informacion,
+      documentacion_multiidioma: EnumServiciosAdaptabilidad.no_hay_informacion,
+      visitas_grupales: EnumServiciosAdaptabilidad.no_hay_informacion,
+      ayuda_movilidad: EnumServiciosAdaptabilidad.no_hay_informacion,
+      lenguaje_simple: EnumServiciosAdaptabilidad.no_hay_informacion,
+      acceso_perros_guias: EnumServiciosAdaptabilidad.no_hay_informacion,
+      acceso_perros_asistencia: EnumServiciosAdaptabilidad.no_hay_informacion
+    };
 
-//   ];
 
 categoriesSites: string[] = [
     'Museos/Exposiciones',
@@ -66,7 +82,6 @@ categoriesSites: string[] = [
 
   ];
 
-  // categoriesAdaptability : AccesibilidadEnum[] =[]
   // Palabras clave asociadas a cada categoria
  categorySitesKeywords: { [key: string]: string[] } = {
   'Museos/Exposiciones': [
@@ -94,8 +109,9 @@ categoriesSites: string[] = [
 
 async ngOnInit(): Promise<void> {
   await this.loadImages();
-
+// console.log(this.monumento)
 }
+ 
 
  async loadImages(): Promise<void> {
   try {
