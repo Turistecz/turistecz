@@ -8,7 +8,6 @@ import { OnePlaceCardComponent } from "../one-place-card/one-place-card.componen
 import { MonumentServiceService } from '../services/monument-service.service';
 import { MonumentItem } from '../models/monument.model';
 import { FilterComponent } from '../filter/filter.component';
-import { EnumServiciosAdaptabilidad } from './EnumServiciosAdaptabilidad';
 
 
 
