@@ -1,11 +1,27 @@
+<app-header></app-header>
 
-  <app-header></app-header>
 <main class="main">
   <div class="content">
-
+    <!-- Aquí va el contenido de tu página -->
   </div>
 </main>
-<router-outlet />
+
+<router-outlet></router-outlet>
+
+
+<button class="btn-flotante" (click)="isModalOpen = true">
+  <i class="fas fa-question"></i>
+</button>
+
+
+<div class="modal" *ngIf="isModalOpen" (click)="isModalOpen = false">
+  <div class="modal-content" (click)="$event.stopPropagation()"> <!-- Esto es para que si clickamos dentro de la ventana que se abre no se cierre, si pulsamos fuera de la ventana si que se cierra-->
+    <span class="close" (click)="isModalOpen = false">&times;</span>
+    <h2>Centro de ayuda</h2>
+    <p>Aquí puedes poner tus preguntas frecuentes, información de soporte o lo que quieras mostrar.</p>
+  </div>
+</div>
 
 <app-footer></app-footer>
+
 
