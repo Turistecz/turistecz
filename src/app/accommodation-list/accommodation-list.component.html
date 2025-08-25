@@ -1,0 +1,6 @@
+
+<div *ngFor="let h of items" class="card mb-3 p-3 shadow-sm">
+  <h3 class="h5">{{ h.title }}</h3>
+  <p>Descripción: {{ h.descripcion || 'No disponible' }}</p>
+  <p>Email: {{ h.email || 'No disponible' }}</p>
+</div>
