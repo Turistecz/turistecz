@@ -31,7 +31,7 @@ export class RoutesService {
   }
 
   /*Buscar Rutas por Id*/
-  getRouteById(id:string):Observable<any>{
+  getRouteById(id:number):Observable<any>{
     return this.http.get(this.routeIdURL+id)
     .pipe(
       catchError(this.handleError)
