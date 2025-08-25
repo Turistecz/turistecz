@@ -132,7 +132,7 @@ export class MonumentComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.loadImages();
     //Para ver si recibe toda la info de la base de datos
-    //console.log('Monumento completo:', this.monumento);
+    console.log(this.monumento);
     await this.loadMonuments();
    
     this.apiConnectService.getMonumentsNames().subscribe(data => {
