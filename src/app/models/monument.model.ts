@@ -1,5 +1,6 @@
 import { EnumServiciosAdaptabilidad } from "../place-card-list/EnumServiciosAdaptabilidad";
 
+
 export interface MonumentItem {
   id: number;
   title: string;

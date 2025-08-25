@@ -5,6 +5,7 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { EventItem } from '../models/event-card.model';
 import { HttpClient } from '@angular/common/http';
 import { cardsHome } from '../place-card/place-card.model';
+import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
 
 
 @Component({
@@ -25,12 +26,41 @@ export class FilterComponent {
   @Input() categoryKeywords: { [key: string]: string[] } = {};
   @Output() filteredEvents = new EventEmitter<any[]>(); 
   @Output() filteredCards = new EventEmitter<any[]>();
-  // @Input() accesibilityCategories : Accesibilidad[] = [];
+  @Output() filtersAdaptability = new EventEmitter<string[]>();
+  
 
   selectedEventsCategoriesMap: { [key: string]: boolean } = {};
   selectedPlacesCategoriesMap: { [key: string]: boolean } = {};
   selectedAccesibilityCategoriesMap: { [key: string]: boolean } = {}; //Mirar si esto va aquí o en places
 
+accesibilityOptions = [
+  { key: 'rampas', label: 'Rampas' },
+  { key: 'ascensores', label: 'Ascensores' },
+  { key: 'puertas_automaticas', label: 'Puertas automáticas' },
+  { key: 'escaleras_mecanicas', label: 'Escaleras mecánicas' },
+  { key: 'servicios_adaptados', label: 'Servicios adaptados' },
+  { key: 'sala_lactancia', label: 'Sala de lactancia' },
+  { key: 'cambiador', label: 'Cambiador' },
+  { key: 'parking_adaptado', label: 'Parking adaptado' },
+  { key: 'bancos', label: 'Bancos/asientos' },
+  { key: 'mostrador_adaptado', label: 'Mostrador adaptado' },
+  { key: 'sin_barreras_arquitectónicas', label: 'Sin barreras arquitectónicas' },
+  { key: 'braille', label: 'Braille' },
+  { key: 'interprete_lengua_signos', label: 'Intérprete de lengua de signos' },
+  { key: 'videos_subtitulados', label: 'Vídeos subtitulados' },
+  { key: 'ayudas_visuales', label: 'Ayudas visuales' },
+  { key: 'guias_turisticos_multiidioma', label: 'Guías turísticos multiidioma' },
+  { key: 'elementos_audiovisuales_multiidioma', label: 'Elementos audiovisuales multiidioma' },
+  { key: 'documentacion_multiidioma', label: 'Documentación multiidioma' },
+  { key: 'visitas_grupales', label: 'Visitas grupales' },
+  { key: 'ayuda_movilidad', label: 'Ayuda a la movilidad' },
+  { key: 'lenguaje_simple', label: 'Lenguaje simple' },
+  { key: 'acceso_perros_guias', label: 'Acceso a perros guías' },
+  { key: 'acceso_perros_asistencia', label: 'Acceso a perros de asistencia' },
+
+];
+
+Ada: string[] = [];
 
   constructor(private router: Router){
     router.events.subscribe((val) => {
@@ -75,8 +105,13 @@ categoriesAdaptability: string[] = [
     this.categories.forEach(cat => {
       this.selectedEventsCategoriesMap[cat] = false;
       this.selectedPlacesCategoriesMap[cat] = false;
-      this.selectedAccesibilityCategoriesMap[cat] = false;
+      
     });
+
+    this.accesibilityOptions.forEach(option => {
+      this.selectedAccesibilityCategoriesMap[option.key] = false;
+    });
+
     this.applyEventFilters();
     this.applyPlaceFilters();
   
@@ -112,6 +147,11 @@ categoriesAdaptability: string[] = [
       .replace(/[^a-zA-ZáéíóúñÑ ]/g, '')
       .trim();
   }
+
+  toggleAccessibility(key: string) {
+  this.selectedAccesibilityCategoriesMap[key] = !this.selectedAccesibilityCategoriesMap[key];
+  this.applyPlaceFilters();
+}
 
   applyEventFilters() {
     const today = new Date();
@@ -166,7 +206,7 @@ categoriesAdaptability: string[] = [
 
   applyPlaceFilters(){
       
-    let filteredPlaces = this.places;
+    let filteredPlaces = [...this.places];
 
     const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap).filter(cat => this.selectedPlacesCategoriesMap[cat]);
     if (selectedPlacesCategories.length > 0) {
@@ -178,15 +218,18 @@ categoriesAdaptability: string[] = [
       });
     }
 
-    const selectedAccesibilityCategories = Object.keys(this.selectedAccesibilityCategoriesMap).filter(cat => this.selectedAccesibilityCategoriesMap[cat]);
-    if (selectedAccesibilityCategories.length > 0) {
-      filteredPlaces = filteredPlaces.filter(place => {
-        const texto = place.nombre.toLowerCase();
-        return selectedAccesibilityCategories.some(cat =>
-          this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
-        );
-      });
-    }
+    const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
+    .filter(key => this.selectedAccesibilityCategoriesMap[key]);
+
+    if (selectedAccessibilityKeys.length > 0) {
+    filteredPlaces = filteredPlaces.filter(place =>
+      selectedAccessibilityKeys.some(key =>
+        place[key as keyof cardsHome] === EnumServiciosAdaptabilidad.si ||
+        place[key as keyof cardsHome] === EnumServiciosAdaptabilidad.bajo_peticion
+      )
+    );
+  
+  }
 
     if (this.searchText.trim()) {
       const search = this.normalize(this.searchText);
@@ -198,14 +241,11 @@ categoriesAdaptability: string[] = [
     this.filteredCards.emit(filteredPlaces);
 };
 
- toggleAccesibilityDropdown() {
-    this.showAccesibilityCategories = !this.showAccesibilityCategories;
-  }
   
   toggleCategory(cat: string) {
     this.selectedEventsCategoriesMap[cat] = !this.selectedEventsCategoriesMap[cat];
     this.selectedPlacesCategoriesMap[cat] = !this.selectedPlacesCategoriesMap[cat];
-    this.selectedAccesibilityCategoriesMap[cat] = !this.selectedAccesibilityCategoriesMap[cat];
+    // this.selectedAccesibilityCategoriesMap[cat] = !this.selectedAccesibilityCategoriesMap[cat];
     this.applyEventFilters();
     this.applyPlaceFilters();
   }
@@ -230,6 +270,10 @@ categoriesAdaptability: string[] = [
     });
     this.applyEventFilters();
     this.applyPlaceFilters();
+
+     this.accesibilityOptions.forEach(option => {
+      this.selectedAccesibilityCategoriesMap[option.key] = false;
+    });
   }
 
   // getDifferentColor(): boolean {
