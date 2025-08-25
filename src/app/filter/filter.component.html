@@ -25,7 +25,7 @@
       <div class="m-2 filtro-lista">
       <label>Categorías:</label>
 
-      <!-- Título fijo de la lista -->
+
       
       <div class="form-check" *ngFor="let cat of categories">
         <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}"/>
@@ -35,32 +35,9 @@
       <br>
       <ng-container *ngIf="showAdaptability">
        <label>Adaptabilidad:</label>
-        <div class="form-check" *ngFor="let cat of categoriesAdaptability">
-          <input class="form-check-input" type="checkbox" [checked]="selectedPlacesCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}"/>
-          <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
+        <div class="form-check" *ngFor="let option of accesibilityOptions">
+          <input class="form-check-input" type="checkbox" [checked]="selectedAccesibilityCategoriesMap[option.key]" (change)="toggleAccessibility(option.key)" id="acc-{{ option.key }}"/>
+          <label class="form-check-label" [for]="'acc-' + option.key">{{ option.label }}</label>
         </div>
       </ng-container>
      
-  <!--<div class="desplegable m-2" (mouseenter)="showAccesibilityCategories = true" ()="showAccesibilityCategories = false">
-      <button class="btn btn-outline-secondary dropdown-toggle my-2" type="button">Accesibilidad</button>
-      <div class="categorias-panel" *ngIf="showAccesibilityCategories">
-         <div class="form-check" *ngFor="let categories of accesibilitycategories">
-         <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}" /> 
-          <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
-        </div> 
-      </div>
-    </div> -->
-  
-
-
-    <!-- FILA 3: Categorías con menú desplegable -->
-    <!-- <div class=" m-2" (mouseenter)="showCategories = true" (mouseleave)="showCategories = false">
-      <button class="btn btn-outline-secondary dropdown-toggle my-2" type="button">Categorías</button>
-      <div class="categorias-panel" *ngIf="showCategories">
-        <div class="form-check" *ngFor="let cat of categories">
-         <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}" /> 
-          <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
-        </div>
-      </div>
-    </div>  -->
-  
