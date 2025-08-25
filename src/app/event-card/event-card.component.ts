@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { EventItem } from '../models/event-card.model';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class EventCardComponent {
 
 
   // access data from parent 
-  @Input() data = {
+  @Input() data: EventItem = {
     title: "",
     description: "",
     link:""
