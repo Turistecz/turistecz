@@ -144,13 +144,5 @@ async ngOnInit(): Promise<void> {
     this.sortedCards = filteredPlaces;
   }
 
-
-  
-
-  //funcion para comprobar que recibe datos accesibilidad
-  // recibeDatos(sitiosFiltrados: MonumentItem[]){
-  //   if(sitiosFiltrados.rampas){
-  //     console.log(sitiosFiltrados.nombre)
-  //   }
-  // }
 };
+
