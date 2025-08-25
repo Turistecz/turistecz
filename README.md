@@ -76,3 +76,82 @@ git push origin "nombreDeLaRama"
 ## Último paso:
 
 Enviar solicitud (pull request) en GitHub.
+
+
+# 📌 Backend Turistecz
+
+API REST desarrollada con **Spring Boot**, **JPA** y **MySQL**, que gestiona las funcionalidades del backend de la aplicación.  
+
+---
+
+## 🚀 Tecnologías utilizadas
+- **Java 17+**
+- **Spring Boot**
+- **Maven**
+- **MySQL**
+- **JPA**
+
+---
+
+## ⚙️ Requisitos previos
+Antes de comenzar, asegúrate de tener instalado:
+
+- [Java JDK 17+](https://adoptium.net/)
+- [MySQL Connector](https://dev.mysql.com/downloads/mysql/) 
+- [MySQL Server](https://dev.mysql.com/downloads/mysql/) 
+- [MySQL Workbench](https://dev.mysql.com/downloads/mysql/) 
+
+## ⚙️ Extensiones en VSCode
+Antes de comenzar, asegúrate de tener instalado las siguientes extensiones:
+
+- [SpringBootJava]
+- [SPringBootTools]
+- [SPringBootDashboard]
+- [SPringBootInitializrJavaSupport]
+
+---
+
+## 🛠️ Instalación y configuración
+
+
+1. **Configurar la base de datos**
+   - Crear la base de datos en MySQL (según el modelo diseñado en MySQL Workbench).
+   - Configurar usuario en MySQLServer con las creedenciales que están en `src/main/resources/application.properties`:
+     ```properties
+     spring.datasource.url=jdbc:mysql://localhost:3306/nombre_bd
+     spring.datasource.username=usuario
+     spring.datasource.password=contraseña
+     spring.jpa.hibernate.ddl-auto=update
+     spring.jpa.show-sql=true
+     spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+     ```
+     -Revisar que realmente estamos accediendo a la base de datos. 
+
+2. **Compilar y ejecutar el backend**
+   ```bash
+   mvn clean install
+   mvn spring-boot:run
+   ```
+     ```bash
+  también se puede arrancar desde TuristeczBackendApplication.java
+   ```
+
+
+3. **Acceder a la aplicación**
+   - Por defecto se ejecuta en: `http://localhost:8080`
+
+---
+
+## 📂 Estructura del proyecto
+```
+aplicacion_backend
+ └── turisteczbackend
+     ├── src/main/java
+     │   ├── controller   # Controladores REST
+     │   ├── service      # Lógica de negocio
+     │   ├── repository   # Acceso a datos (JPA)
+     │   └── model        # Entidades JPA
+     └── resources
+               └── application.properties
+
+---
