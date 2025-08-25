@@ -137,6 +137,7 @@ async ngOnInit(): Promise<void> {
     );    
 
     this.sortedCards = this.cards;
+    console.log('Cards loaded:', this.sortedCards);
 
 
   } catch (error) {

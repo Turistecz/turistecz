@@ -12,7 +12,7 @@ import org.turistecz.turisteczbackend.model.Ruta;
 public interface RutaRepository extends JpaRepository<Ruta, Integer> {
 
     @Query("SELECT ru FROM Ruta ru WHERE ru.id = :id")
-    Ruta encontrarNombrePorId(@Param("id") String id);
+    Ruta encontrarNombrePorId(@Param("id") Number id);
 
     @Query("SELECT ru FROM Ruta ru WHERE ru.nombre LIKE %:nombre%")
     List<Ruta> encontrarRutasParecidas(@Param("nombre") String nombre);
