@@ -22,8 +22,8 @@ h2{
 .main-card{
    /* justify-content: center;  */
    /* position: relative; */
-   margin-top: 1rem;
-   margin-bottom: 2rem;
+   /* margin-top: 1rem; */
+   /* margin-bottom: 2rem; */
    @media (max-width: 767px) {
         display: block;
         justify-content: center;
