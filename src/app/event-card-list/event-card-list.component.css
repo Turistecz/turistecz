@@ -17,10 +17,22 @@ h2{
   padding-bottom: 1rem;
 }
 
+.filters{
+  margin-right: -1rem;
+  margin-left: 2rem;
+}
+
+.bloque{
+  margin-bottom: 1.5rem;
+}
+
+
+
 .event-card-list {
   display: inline-block;
   padding-bottom: 1rem;
 }
+
 
 
 #textShowEvents{
@@ -28,10 +40,12 @@ h2{
 }
 
 
+
 .main-card{
-  display: flex;
-  flex-wrap: wrap;
-  margin-inline: 15%;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  margin-inline: 4rem;
+  
 
   @media (max-width: 1224px ) {
     margin-inline: 2.5%;
