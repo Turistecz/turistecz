@@ -1,4 +1,4 @@
-import { AccesibilidadEnum } from "../place-card-list/accesibilidadEnum";
+import { EnumServiciosAdaptabilidad } from "../place-card-list/EnumServiciosAdaptabilidad";
 
 export interface MonumentItem {
   id: number;
@@ -16,29 +16,29 @@ export interface MonumentItem {
     copy: string,
     id: number
   }]
-    rampas: AccesibilidadEnum,
-    ascensores: AccesibilidadEnum,
-    puertas_automaticas: AccesibilidadEnum,
-    escaleras_mecanicas: AccesibilidadEnum,
-    servicios_adaptados: AccesibilidadEnum,
-    sala_lactancia: AccesibilidadEnum,
-    cambiador: AccesibilidadEnum,
-    parking_adaptado: AccesibilidadEnum,
-    bancos: AccesibilidadEnum,
-    mostrador_adaptado: AccesibilidadEnum,
-    sin_barreras_arquitectonicas: AccesibilidadEnum,
-    braille: AccesibilidadEnum,
-    interprete_lengua_signos: AccesibilidadEnum,
-    videos_subtitulos: AccesibilidadEnum,
-    ayudas_visuales: AccesibilidadEnum,
-    guias_turisticos_multiidioma: AccesibilidadEnum,
-    elementos_audiovisuales_multiidioma: AccesibilidadEnum,
-    documentacion_multiidioma: AccesibilidadEnum,
-    visitas_grupales: AccesibilidadEnum,
-    ayuda_movilidad: AccesibilidadEnum,
-    lenguaje_simple: AccesibilidadEnum,
-    acceso_perros_guias: AccesibilidadEnum,
-    acceso_perros_asistencia: AccesibilidadEnum
+    rampas: EnumServiciosAdaptabilidad,
+    ascensores: EnumServiciosAdaptabilidad,
+    puertas_automaticas: EnumServiciosAdaptabilidad,
+    escaleras_mecanicas: EnumServiciosAdaptabilidad,
+    servicios_adaptados: EnumServiciosAdaptabilidad,
+    sala_lactancia: EnumServiciosAdaptabilidad,
+    cambiador: EnumServiciosAdaptabilidad,
+    parking_adaptado: EnumServiciosAdaptabilidad,
+    bancos: EnumServiciosAdaptabilidad,
+    mostrador_adaptado: EnumServiciosAdaptabilidad,
+    sin_barreras_arquitectonicas: EnumServiciosAdaptabilidad,
+    braille: EnumServiciosAdaptabilidad,
+    interprete_lengua_signos: EnumServiciosAdaptabilidad,
+    videos_subtitulos: EnumServiciosAdaptabilidad,
+    ayudas_visuales: EnumServiciosAdaptabilidad,
+    guias_turisticos_multiidioma: EnumServiciosAdaptabilidad,
+    elementos_audiovisuales_multiidioma: EnumServiciosAdaptabilidad,
+    documentacion_multiidioma: EnumServiciosAdaptabilidad,
+    visitas_grupales: EnumServiciosAdaptabilidad,
+    ayuda_movilidad: EnumServiciosAdaptabilidad,
+    lenguaje_simple: EnumServiciosAdaptabilidad,
+    acceso_perros_guias: EnumServiciosAdaptabilidad,
+    acceso_perros_asistencia: EnumServiciosAdaptabilidad
 
 }
 
