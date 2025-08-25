@@ -27,9 +27,14 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -55,6 +60,7 @@
           },
           "defaultConfiguration": "production"
         },
+        
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {

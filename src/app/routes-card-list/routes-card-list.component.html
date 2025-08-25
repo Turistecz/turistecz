@@ -1,0 +1,23 @@
+
+<div class="imagen-bg-routes"> 
+  <div class="container cardRoutes">
+    <h2>Rutas</h2>
+    <div class="row justify-content-center">  
+      <div class="cardito col-12 col-md-4" *ngFor="let route of routesName">
+      <app-routes-card [routesName]="route"> </app-routes-card>
+      </div>
+    </div>
+   <div class="text-center my-5">
+    <a href="/rutas">
+    <button type="button" class="btn-routes btn btn-primary">Saber más</button>
+    </a>
+   </div> 
+  </div>
+</div> 
+
+
+
+
+
+
+

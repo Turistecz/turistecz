@@ -1,0 +1,52 @@
+@import '@fontsource-variable/baloo-bhaijaan-2'; /* IMPORTANTE! PARA UTILIZAR UN FONT DIFERENTE, IMPORTAR */
+
+
+
+.container-routes{
+    width: 90%; 
+    aspect-ratio: 4 / 2;
+    display: grid;
+    border-radius: 1.5rem;
+    margin: 0 auto;
+    
+}
+
+.card-body-r{
+    border-bottom-left-radius: 1.5rem;
+    border-bottom-right-radius: 1.5rem;
+    background-color: #113f6d;
+}
+
+img{
+    
+    object-fit: cover;
+    width: 100%;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+    
+}
+
+.card-title {
+    color: #ffffff;
+    font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+    font-weight:700;
+    font-size: 2rem; 
+    text-align: center;
+    
+}
+
+.card-subtitle{
+    color: #ffffff;
+    font-size: smaller;
+    font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+    font-weight:500;
+    text-align: center;
+    font-size: 1.5rem; 
+}
+
+/* faldon con opacidad para texto */
+
+.container-routes:hover{
+    transform:scale(1.09);
+    transition: transform 0.2s ease-in-out;
+}
