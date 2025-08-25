@@ -8,6 +8,7 @@ import { OnePlaceCardComponent } from "../one-place-card/one-place-card.componen
 import { MonumentServiceService } from '../services/monument-service.service';
 import { MonumentItem } from '../models/monument.model';
 import { FilterComponent } from '../filter/filter.component';
+import { AccesibilidadEnum } from './accesibilidadEnum';
 
 
 
@@ -107,7 +108,31 @@ async ngOnInit(): Promise<void> {
       sitio.imagenes.map((img: any) => ({
         nombre: img.nombre,
         url: img.url,
-        id: img.id
+        id: img.id,
+        // rampas: img.rampas,
+        // ascensores: img.ascensores,
+        // puertas_automaticas: img.puertas_automaticas,
+        // escaleras_mecanicas: img.escaleras_mecanicas,
+        // servicios_adaptados: img.servicios_adaptados,
+        // sala_lactancia: img.sala_lactancia,
+        // cambiador: img.cambiador,
+        // parking_adaptado: img.parking_adaptado,
+        // bancos: img.bancos,
+        // mostrador_adaptado: img.mostrador_adaptado,
+        // sin_barreras_arquitectonicas: img.sin_barreras_arquitectonicas,
+        // braille: img.braille,
+        // interprete_lengua_signos: img.interprete_lengua_signos,
+        // videos_subtitulos: img.videos_subtitulos,
+        // ayudas_visuales: img.ayudas_visuales,
+        // guias_turisticos_multiidioma: img.guias_turisticos_multiidioma,
+        // elementos_audiovisuales_multiidioma: img.elementos_audiovisuales_multiidioma,
+        // documentacion_multiidioma: img.documentacion_multiidioma,
+        // visitas_grupales: img.visitas_grupales,
+        // ayuda_movilidad: img.ayuda_movilidad,
+        // lenguaje_simple: img.lenguaje_simple,
+        // acceso_perros_guias: img.acceso_perros_guias,
+        // acceso_perros_asistencia: img.acceso_perros_asistencia
+
       }))
     );    
 
@@ -126,11 +151,9 @@ async ngOnInit(): Promise<void> {
   }
 
   //funcion para comprobar que recibe datos accesibilidad
-//   recibeDatos(filteredPlaces: cardsHome[]){
-//     if(filteredPlaces.rampas){
-//       console.log(filteredPlaces.nombre)
-//     }
-    
-//   }
-// };
-}
+  // recibeDatos(sitiosFiltrados: MonumentItem[]){
+  //   if(sitiosFiltrados.rampas){
+  //     console.log(sitiosFiltrados.nombre)
+  //   }
+  // }
+};
