@@ -7,6 +7,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { inject } from '@angular/core';
 import { MonumentServiceService } from '../services/monument-service.service';
 import { MapComponent } from "../map/map.component";
+import { AccesibilidadEnum } from '../place-card-list/accesibilidadEnum';
 
 @Component({
   selector: 'app-monument',
@@ -43,7 +44,30 @@ export class MonumentComponent implements OnInit {
         copy: "",
         id: 0
       }
-    ]
+    ],
+    rampas: AccesibilidadEnum.no_hay_informacion,
+    ascensores: AccesibilidadEnum.no_hay_informacion,
+    puertas_automaticas: AccesibilidadEnum.no_hay_informacion,
+    escaleras_mecanicas: AccesibilidadEnum.no_hay_informacion,
+    servicios_adaptados: AccesibilidadEnum.no_hay_informacion,
+    sala_lactancia: AccesibilidadEnum.no_hay_informacion,
+    cambiador: AccesibilidadEnum.no_hay_informacion,
+    parking_adaptado: AccesibilidadEnum.no_hay_informacion,
+    bancos: AccesibilidadEnum.no_hay_informacion,
+    mostrador_adaptado: AccesibilidadEnum.no_hay_informacion,
+    sin_barreras_arquitectonicas: AccesibilidadEnum.no_hay_informacion,
+    braille: AccesibilidadEnum.no_hay_informacion,
+    interprete_lengua_signos: AccesibilidadEnum.no_hay_informacion,
+    videos_subtitulos: AccesibilidadEnum.no_hay_informacion,
+    ayudas_visuales: AccesibilidadEnum.no_hay_informacion,
+    guias_turisticos_multiidioma: AccesibilidadEnum.no_hay_informacion,
+    elementos_audiovisuales_multiidioma: AccesibilidadEnum.no_hay_informacion,
+    documentacion_multiidioma: AccesibilidadEnum.no_hay_informacion,
+    visitas_grupales: AccesibilidadEnum.no_hay_informacion,
+    ayuda_movilidad: AccesibilidadEnum.no_hay_informacion,
+    lenguaje_simple: AccesibilidadEnum.no_hay_informacion,
+    acceso_perros_guias: AccesibilidadEnum.no_hay_informacion,
+    acceso_perros_asistencia: AccesibilidadEnum.no_hay_informacion
   };
 
   coords = {
