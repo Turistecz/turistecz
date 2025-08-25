@@ -65,5 +65,12 @@ export const routes: Routes = [
     path: 'mi-perfil', 
         loadComponent: () =>
                 import('./mi-perfil/mi-perfil.component').then(m => m.MiPerfilComponent)
-    },   
+    }, 
+      {
+    path: 'alojamientos', 
+        loadComponent: () =>
+                import('./accommodation/accommodation.component').then(m => m.AccommodationComponent)
+    },
+      
+
 ]
