@@ -120,10 +120,17 @@ async ngOnInit(): Promise<void> {
 }
 
   updatePlaces(filteredPlaces: cardsHome[]){
-    console.log("eventos filtrados");
-    console.log(filteredPlaces);
+    // console.log("eventos filtrados");
+    // console.log(filteredPlaces);
     this.sortedCards = filteredPlaces;
   }
 
-};
-
+  //funcion para comprobar que recibe datos accesibilidad
+//   recibeDatos(filteredPlaces: cardsHome[]){
+//     if(filteredPlaces.rampas){
+//       console.log(filteredPlaces.nombre)
+//     }
+    
+//   }
+// };
+}
