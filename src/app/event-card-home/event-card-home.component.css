@@ -1,15 +1,15 @@
 h2{
-   color: #184591;
+    color: #184591;
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
     font-weight:700;
     font-size: 4rem;
-    text-align: center;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    /* text-align: center; */
+    /* padding-top: 1rem; */
+    /* padding-bottom: 1rem */
 }
 
 .event-card-list {
-    width: 25%;
+    /* width: 25%; */
 
      @media (max-width: 767px) 
     {
@@ -20,8 +20,8 @@ h2{
 } 
 
 .main-card{
-   justify-content: center; 
-   position: relative;
+   /* justify-content: center;  */
+   /* position: relative; */
    margin-top: 1rem;
    margin-bottom: 2rem;
    @media (max-width: 767px) {
@@ -34,7 +34,7 @@ h2{
 .btn-routes {   
     background: linear-gradient( #184591, #2A8BEA);
     font-family: "inclusive", system-ui;
-    font-weight: 500;   
+    /* font-weight: 500;    */
 }  
 
 .btn-routes:hover {
