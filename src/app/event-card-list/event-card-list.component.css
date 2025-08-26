@@ -7,15 +7,15 @@
   font-weight: bold;
 }
 
-h2{
-  color: #184591;
+/*h2{
+  color: #184591; 
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
   font-weight: bold;
   font-size: 4rem;
   text-align: center;
   padding-top: 2rem;
   padding-bottom: 1rem;
-}
+} */
 
 .filters{
   margin-right: -1rem;
