@@ -34,6 +34,11 @@ export class FilterComponent {
   selectedAccesibilityCategoriesMap: { [key: string]: boolean } = {}; //Mirar si esto va aquí o en places
   groups = ['accesibilidad', 'servicios', 'infraestructura', 'familiar', 'multiidioma'];
 
+  
+  showAccesibilityCategories: boolean = false;
+  showCategories: boolean = false; //  
+  showOrder: boolean = false;
+
 accesibilityOptions = [
   { key: 'rampas', label: 'Rampas', groups: ['accesibilidad', 'infraestructura'] },
   { key: 'ascensores', label: 'Ascensores', groups:['accesibilidad', 'infraestructura'] },
@@ -65,19 +70,21 @@ getOptionsByGroup(group: string) {
   return this.accesibilityOptions.filter(option => option.groups.includes(group));
 }
 
-Ada: string[] = [];
 
   constructor(private router: Router){
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd){
         if (val.url === '/sitios'){
           this.showAdaptability = true;
+          this.showOrder = false;
         }else {
           this.showAdaptability = false;
+          this.showOrder= true
         }
       }
     })
   }
+
 
 categoriesAdaptability: string[] = [
     'Rampas',
@@ -131,8 +138,7 @@ categoriesAdaptability: string[] = [
       this.applyPlaceFilters();
   }
 
-  showAccesibilityCategories: boolean = false;
-  showCategories: boolean = false; //  
+  
 
   extractDateFromText(text: string): number {
     const regex = /(\d{2})[-\/](\d{2})[-\/](\d{4})/; // regex patrones para manipular texto
