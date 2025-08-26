@@ -23,7 +23,8 @@ private apiUrl = 'https://www.zaragoza.es/sede/servicio/alojamiento.json';
         return response.result.map((h: any) => ({
           title: h.title,
           descripcion: h.description ?? '',
-          email: h.email ?? ''
+          email: h.email ?? '',
+          link: h.link ?? h.uri ?? ''
         }));
       })
     );
