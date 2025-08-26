@@ -34,7 +34,7 @@ export class FilterComponent {
   selectedEventsCategoriesMap: { [key: string]: boolean } = {};
   selectedPlacesCategoriesMap: { [key: string]: boolean } = {};
   selectedAccesibilityCategoriesMap: { [key: string]: boolean } = {}; //Mirar si esto va aquí o en places
-  groups = ['accesibilidad', 'servicios', 'infraestructura', 'familiar', 'multiidioma'];
+  groups = ['accesibilidad', 'servicios', 'familiar', 'multiidioma'];
 
   
   showAccesibilityCategories: boolean = false;
