@@ -50,6 +50,9 @@
       </li>
     </ul>
   </nav></div>
+  <div *ngIf="noResultsEvents" class="no-results">
+    No se ha encontrado ningún resultado para los filtros aplicados.
+  </div>
 <!-- CONTADOR -->
   <p id="textShowEvents" class="text-muted text-center w-100"> Mostrando <strong>{{ pagedEvents.length }}</strong> de <strong>{{ sortedEvents.length }}</strong> eventos — Página <strong>{{ page }}</strong> de <strong>{{ totalPages }}</strong></p>
   <br>

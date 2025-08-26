@@ -21,7 +21,7 @@ import { FilterComponent } from '../filter/filter.component';
 export class PlaceCardListComponent {
 
  constructor(private http: HttpClient, private apiConnectService: MonumentServiceService) {}
-
+noResultsPlaces: boolean = false;
 cards: cardsHome[]=[];
 sortedCards: cardsHome[]=[];
 

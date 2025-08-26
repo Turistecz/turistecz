@@ -27,6 +27,8 @@ export class FilterComponent {
   @Output() filteredEvents = new EventEmitter<any[]>(); 
   @Output() filteredCards = new EventEmitter<any[]>();
   @Output() filtersAdaptability = new EventEmitter<string[]>();
+  @Output() noResultsPlacesEvent = new EventEmitter<boolean>();
+@Output() noResultsEventsEvent = new EventEmitter<boolean>();
   
 
   selectedEventsCategoriesMap: { [key: string]: boolean } = {};
@@ -38,6 +40,9 @@ export class FilterComponent {
   showAccesibilityCategories: boolean = false;
   showCategories: boolean = false; //  
   showOrder: boolean = false;
+  //Para el mensaje de "no se han encontrado resultados"
+  noResultsPlaces: boolean = false;
+  noResultsEvents: boolean = false;
 
 accesibilityOptions = [
   { key: 'rampas', label: 'Rampas', groups: ['accesibilidad', 'infraestructura'] },
@@ -211,15 +216,20 @@ categoriesAdaptability: string[] = [
         this.normalize(event.description ?? '').includes(search)
       );
     }
+    this.noResultsEvents = this.filteredEvents.length === 0;
 
+    this.noResultsEvents= filtered.length === 0;
     this.filteredEvents.emit(filtered);
+    this.noResultsEventsEvent.emit(this.noResultsEvents);
   }
 
   applyPlaceFilters(){
       
     let filteredPlaces = [...this.places];
 
-    const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap).filter(cat => this.selectedPlacesCategoriesMap[cat]);
+    const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap)
+    .filter(cat => this.selectedPlacesCategoriesMap[cat]);
+
     if (selectedPlacesCategories.length > 0) {
       filteredPlaces = filteredPlaces.filter(place => {
         const texto = place.nombre.toLowerCase();
@@ -248,10 +258,11 @@ categoriesAdaptability: string[] = [
         this.normalize(place.nombre).includes(search)
       );
     }
+    this.noResultsPlaces = filteredPlaces.length === 0;
 
     this.filteredCards.emit(filteredPlaces);
+     this.noResultsPlacesEvent.emit(this.noResultsPlaces);
 };
-
   
   toggleCategory(cat: string) {
     this.selectedEventsCategoriesMap[cat] = !this.selectedEventsCategoriesMap[cat];
