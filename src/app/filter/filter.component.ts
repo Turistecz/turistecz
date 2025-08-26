@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { EventItem } from '../models/event-card.model';
 import { HttpClient } from '@angular/common/http';
 import { cardsHome } from '../place-card/place-card.model';
+import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
+
 
 @Component({
   selector: 'app-filter',
@@ -13,10 +15,10 @@ import { cardsHome } from '../place-card/place-card.model';
   styleUrl: './filter.component.css'
 })
 export class FilterComponent {
-
   sortedEvents: EventItem[] = [];
   searchText: string = '';
   filterOption: 'month' | 'future' | 'alpha' = 'future';
+  showAdaptability: boolean = true;
 
   @Input() events: EventItem[] = [];
   @Input() places: cardsHome[] = [];
@@ -24,33 +26,108 @@ export class FilterComponent {
   @Input() categoryKeywords: { [key: string]: string[] } = {};
   @Output() filteredEvents = new EventEmitter<any[]>(); 
   @Output() filteredCards = new EventEmitter<any[]>();
+  @Output() filtersAdaptability = new EventEmitter<string[]>();
+  
 
   selectedEventsCategoriesMap: { [key: string]: boolean } = {};
   selectedPlacesCategoriesMap: { [key: string]: boolean } = {};
+  selectedAccesibilityCategoriesMap: { [key: string]: boolean } = {}; //Mirar si esto va aquí o en places
 
-  constructor(private http: HttpClient) {}
+accesibilityOptions = [
+  { key: 'rampas', label: 'Rampas' },
+  { key: 'ascensores', label: 'Ascensores' },
+  { key: 'puertas_automaticas', label: 'Puertas automáticas' },
+  { key: 'escaleras_mecanicas', label: 'Escaleras mecánicas' },
+  { key: 'servicios_adaptados', label: 'Servicios adaptados' },
+  { key: 'sala_lactancia', label: 'Sala de lactancia' },
+  { key: 'cambiador', label: 'Cambiador' },
+  { key: 'parking_adaptado', label: 'Parking adaptado' },
+  { key: 'bancos', label: 'Bancos/asientos' },
+  { key: 'mostrador_adaptado', label: 'Mostrador adaptado' },
+  { key: 'sin_barreras_arquitectónicas', label: 'Sin barreras arquitectónicas' },
+  { key: 'braille', label: 'Braille' },
+  { key: 'interprete_lengua_signos', label: 'Intérprete de lengua de signos' },
+  { key: 'videos_subtitulados', label: 'Vídeos subtitulados' },
+  { key: 'ayudas_visuales', label: 'Ayudas visuales' },
+  { key: 'guias_turisticos_multiidioma', label: 'Guías turísticos multiidioma' },
+  { key: 'elementos_audiovisuales_multiidioma', label: 'Elementos audiovisuales multiidioma' },
+  { key: 'documentacion_multiidioma', label: 'Documentación multiidioma' },
+  { key: 'visitas_grupales', label: 'Visitas grupales' },
+  { key: 'ayuda_movilidad', label: 'Ayuda a la movilidad' },
+  { key: 'lenguaje_simple', label: 'Lenguaje simple' },
+  { key: 'acceso_perros_guias', label: 'Acceso a perros guías' },
+  { key: 'acceso_perros_asistencia', label: 'Acceso a perros de asistencia' },
 
+];
+
+Ada: string[] = [];
+
+  constructor(private router: Router){
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd){
+        if (val.url === '/sitios'){
+          this.showAdaptability = true;
+        }else {
+          this.showAdaptability = false;
+        }
+      }
+    })
+  }
+
+categoriesAdaptability: string[] = [
+    'Rampas',
+    'Ascensores',
+    'Puertas automáticas',
+    'Escaleras mecánicas',
+    'Servicios adaptados',
+    'Sala de lactancia',
+    'Cambiador',
+    'Parking adaptado',
+    'Bancos/asientos',
+    'Mostrador adaptado',
+    'Sin barreras arquitectónicas',
+    'Braille',
+    'Intérprete de lengua de signos',
+    'Vídeos subtítulos',
+    'Ayudas visuales',
+    'Guías turísticos multiidioma',
+    'Elementos audiovisuales multiidioma',
+    'Documentacion multiidioma',
+    'Visitas grupales',
+    'Ayuda a la movilidad',
+    'Lenguaje simple',
+    'Acceso para perros guías',
+    'Acceso para perro de asistencia'
+
+  ];
   ngOnInit() {
     // Inicializar todos los checkboxes como false
     this.categories.forEach(cat => {
       this.selectedEventsCategoriesMap[cat] = false;
       this.selectedPlacesCategoriesMap[cat] = false;
+      
     });
+
+    this.accesibilityOptions.forEach(option => {
+      this.selectedAccesibilityCategoriesMap[option.key] = false;
+    });
+
     this.applyEventFilters();
     this.applyPlaceFilters();
   
   }
     //Para que los eventos se carguen al inicio de la página. Antes no funcionaba porque se ejecutaba primero 
     // el Filter y events[] quedaba vacío.
-   ngOnChanges(changes: SimpleChanges) {
-      if (changes['events'] && changes['events'].currentValue) {
-        this.applyEventFilters();
-      }
-      if (changes['places'] && changes ['places'].currentValue)
-        this.applyPlaceFilters();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['events'] && changes['events'].currentValue) {
+      this.applyEventFilters();
     }
+    if (changes['places'] && changes ['places'].currentValue)
+      this.applyPlaceFilters();
+  }
 
- showCategories: boolean = false; //  
+  showAccesibilityCategories: boolean = false;
+  showCategories: boolean = false; //  
 
   extractDateFromText(text: string): number {
     const regex = /(\d{2})[-\/](\d{2})[-\/](\d{4})/; // regex patrones para manipular texto
@@ -70,6 +147,11 @@ export class FilterComponent {
       .replace(/[^a-zA-ZáéíóúñÑ ]/g, '')
       .trim();
   }
+
+  toggleAccessibility(key: string) {
+  this.selectedAccesibilityCategoriesMap[key] = !this.selectedAccesibilityCategoriesMap[key];
+  this.applyPlaceFilters();
+}
 
   applyEventFilters() {
     const today = new Date();
@@ -109,6 +191,8 @@ export class FilterComponent {
       });
     }
 
+
+
     if (this.searchText.trim()) {
       const search = this.normalize(this.searchText);
       filtered = filtered.filter(event =>
@@ -122,7 +206,7 @@ export class FilterComponent {
 
   applyPlaceFilters(){
       
-    let filteredPlaces = this.places;
+    let filteredPlaces = [...this.places];
 
     const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap).filter(cat => this.selectedPlacesCategoriesMap[cat]);
     if (selectedPlacesCategories.length > 0) {
@@ -133,6 +217,19 @@ export class FilterComponent {
         );
       });
     }
+
+    const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
+    .filter(key => this.selectedAccesibilityCategoriesMap[key]);
+
+    if (selectedAccessibilityKeys.length > 0) {
+    filteredPlaces = filteredPlaces.filter(place =>
+      selectedAccessibilityKeys.some(key =>
+        place[key as keyof cardsHome] === EnumServiciosAdaptabilidad.si ||
+        place[key as keyof cardsHome] === EnumServiciosAdaptabilidad.bajo_peticion
+      )
+    );
+  
+  }
 
     if (this.searchText.trim()) {
       const search = this.normalize(this.searchText);
@@ -148,6 +245,7 @@ export class FilterComponent {
   toggleCategory(cat: string) {
     this.selectedEventsCategoriesMap[cat] = !this.selectedEventsCategoriesMap[cat];
     this.selectedPlacesCategoriesMap[cat] = !this.selectedPlacesCategoriesMap[cat];
+    // this.selectedAccesibilityCategoriesMap[cat] = !this.selectedAccesibilityCategoriesMap[cat];
     this.applyEventFilters();
     this.applyPlaceFilters();
   }
@@ -172,6 +270,10 @@ export class FilterComponent {
     });
     this.applyEventFilters();
     this.applyPlaceFilters();
+
+     this.accesibilityOptions.forEach(option => {
+      this.selectedAccesibilityCategoriesMap[option.key] = false;
+    });
   }
 
   // getDifferentColor(): boolean {

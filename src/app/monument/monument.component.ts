@@ -7,6 +7,8 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { inject } from '@angular/core';
 import { MonumentServiceService } from '../services/monument-service.service';
 import { MapComponent } from "../map/map.component";
+import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
+
 
 @Component({
   selector: 'app-monument',
@@ -25,7 +27,7 @@ export class MonumentComponent implements OnInit {
   monumentsFiltered: MonumentItem[] = [];
   monumentsNames: string[] = [];
 
-  //cards: cardsHome[] = [];
+
   monumento: MonumentItem = {
     id: 0,
     title: "",
@@ -43,13 +45,37 @@ export class MonumentComponent implements OnInit {
         copy: "",
         id: 0
       }
-    ]
+    ],
+    rampas: EnumServiciosAdaptabilidad.no_hay_informacion,
+    ascensores: EnumServiciosAdaptabilidad.no_hay_informacion,
+    puertas_automaticas: EnumServiciosAdaptabilidad.no_hay_informacion,
+    escaleras_mecanicas: EnumServiciosAdaptabilidad.no_hay_informacion,
+    servicios_adaptados: EnumServiciosAdaptabilidad.no_hay_informacion,
+    sala_lactancia: EnumServiciosAdaptabilidad.no_hay_informacion,
+    cambiador: EnumServiciosAdaptabilidad.no_hay_informacion,
+    parking_adaptado: EnumServiciosAdaptabilidad.no_hay_informacion,
+    bancos: EnumServiciosAdaptabilidad.no_hay_informacion,
+    mostrador_adaptado: EnumServiciosAdaptabilidad.no_hay_informacion,
+    sin_barreras_arquitectonicas: EnumServiciosAdaptabilidad.no_hay_informacion,
+    braille: EnumServiciosAdaptabilidad.no_hay_informacion,
+    interprete_lengua_signos: EnumServiciosAdaptabilidad.no_hay_informacion,
+    videos_subtitulos: EnumServiciosAdaptabilidad.no_hay_informacion,
+    ayudas_visuales: EnumServiciosAdaptabilidad.no_hay_informacion,
+    guias_turisticos_multiidioma: EnumServiciosAdaptabilidad.no_hay_informacion,
+    elementos_audiovisuales_multiidioma: EnumServiciosAdaptabilidad.no_hay_informacion,
+    documentacion_multiidioma: EnumServiciosAdaptabilidad.no_hay_informacion,
+    visitas_grupales: EnumServiciosAdaptabilidad.no_hay_informacion,
+    ayuda_movilidad: EnumServiciosAdaptabilidad.no_hay_informacion,
+    lenguaje_simple: EnumServiciosAdaptabilidad.no_hay_informacion,
+    acceso_perros_guias: EnumServiciosAdaptabilidad.no_hay_informacion,
+    acceso_perros_asistencia: EnumServiciosAdaptabilidad.no_hay_informacion
   };
 
   coords = {
     latitud: 0,
     longitud: 0
   };
+
 
 
   async loadImages(): Promise<void> {
@@ -106,7 +132,10 @@ export class MonumentComponent implements OnInit {
   // Un solo ngOnInit combinando las dos tareas
   async ngOnInit(): Promise<void> {
     await this.loadImages();
+    //Para ver si recibe toda la info de la base de datos
+    console.log(this.monumento);
     await this.loadMonuments();
+   
     this.apiConnectService.getMonumentsNames().subscribe(data => {
       data.map(monumento => this.monumentsNames.push(monumento.nombre));
     });  

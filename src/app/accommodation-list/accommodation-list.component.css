@@ -1,0 +1,9 @@
+/* Tarjeta más pequeña y legible */
+.card-text {
+  max-width: 49rem;          
+  font-size: 1rem;
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;  
+  cursor: pointer;  
+          
+}
+

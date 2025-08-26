@@ -23,7 +23,7 @@ public class RutaService {
 	    return repositorioRuta.findAll();
 	}
 
-    public Ruta buscarNombrePorId(String id) {
+    public Ruta buscarNombrePorId(Number id) {
         return repositorioRuta.encontrarNombrePorId(id);
     }
 
