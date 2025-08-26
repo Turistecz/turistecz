@@ -58,3 +58,12 @@
   }
 }
 
+.little-circle{
+font-size: 2rem;
+color: #1a1c6b;
+}
+
+.messageError{
+  font-size: 1.2rem; 
+  color: #495057;
+}
