@@ -5,6 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.turistecz.turisteczbackend.model.Usuario;
 import org.turistecz.turisteczbackend.service.UsuarioService;
+import org.turistecz.turisteczbackend.security.JwtUtil;
+
+import java.util.Map;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
+
 
     @Autowired
     private UsuarioService usuarioService;

@@ -8,6 +8,7 @@ import org.turistecz.turisteczbackend.model.Usuario;
 import org.turistecz.turisteczbackend.model.VerificationToken;
 import org.turistecz.turisteczbackend.repository.UsuarioRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +31,7 @@ public class UsuarioService {
         usuario.setEmail(dto.getEmail());
         usuario.setPassword(passwordEncoder.encode(dto.getContrasena()));
         usuario.setActivo(false);
+        usuario.setFecha_creacion(LocalDate.now());
 
         // ❌ ERROR: antes retornabas aquí y cortabas el flujo
         // return usuarioRepository.save(usuario);

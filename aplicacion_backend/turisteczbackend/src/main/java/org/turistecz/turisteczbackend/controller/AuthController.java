@@ -21,6 +21,7 @@ public class AuthController {
     @Autowired
     private UsuarioService usuarioService;
 
+
     @Autowired
     private JwtUtil jwtUtil;
 
