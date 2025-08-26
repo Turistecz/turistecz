@@ -17,7 +17,7 @@ h2{
   /* padding-bottom: 1rem; */
 } 
 
-.filters{
+.filters {
   margin-right: -1rem;
   /* margin-left: 2rem; */
 }
@@ -35,18 +35,29 @@ h2{
   font-family: "inclusive", system-ui;
 }
 
-
-
-.main-card{
-  /* display: flex; */
-  /* flex-wrap: wrap; */
+.main-card {
   margin-inline: 4rem;
-  
+}
 
-  @media (max-width: 1224px ) {
+@media (max-width: 1224px) {
+  .main-card {
     margin-inline: 2.5%;
   }
-  @media (max-width: 430px) {
-    margin-inline:5%;
+}
+
+@media (max-width: 768px) {
+  .filters {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .main-card {
+    margin-inline: 0 !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .main-card {
+    margin-inline: 5%;
   }
 }
