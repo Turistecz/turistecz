@@ -1,14 +1,13 @@
-
-
   <!-- MIGAS DE PAN -->
-  <div class="breadcrumb-events">
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Eventos</li>
-      </ol>
-    </nav>
-  </div>
+<div class="breadcrumb-events fw-bold ml-1 mt-3">
+  <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="/">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Eventos</li>
+    </ol>
+  </nav>
+</div>
+
   <!-- TITULO -->
 <div class="row">
   
@@ -18,9 +17,6 @@
    
     <app-filter [events]="events" [categories]="categoriesEvents" [categoryKeywords]="categoryEventsKeywords" (filteredEvents)="updateEvents($event)"></app-filter>
   </div> 
- 
-
-  
 
   <!-- LISTADO DE EVENTOS -->
    <div class="col-8">
@@ -30,6 +26,7 @@
       </div>
     </div>
     </div>
+
   <!-- BARRA DE PAGINACION -->
   <nav class="my-3">
     <ul class="pagination justify-content-center">
@@ -50,6 +47,7 @@
       </li>
     </ul>
   </nav></div>
+
 <!-- CONTADOR -->
   <p id="textShowEvents" class="text-muted text-center w-100"> Mostrando <strong>{{ pagedEvents.length }}</strong> de <strong>{{ sortedEvents.length }}</strong> eventos — Página <strong>{{ page }}</strong> de <strong>{{ totalPages }}</strong></p>
   <br>
