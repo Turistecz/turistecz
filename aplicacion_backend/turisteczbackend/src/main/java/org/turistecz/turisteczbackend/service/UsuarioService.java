@@ -3,7 +3,6 @@ package org.turistecz.turisteczbackend.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.turistecz.turisteczbackend.dto.UsuarioDto;
 import org.turistecz.turisteczbackend.model.Usuario;
@@ -11,22 +10,23 @@ import org.turistecz.turisteczbackend.model.VerificationToken;
 import org.turistecz.turisteczbackend.repository.UsuarioRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
-
 @Service
 public class UsuarioService {
 
-    @Autowired
-    private UsuarioRepository repositorioUsuario;
+    private final UsuarioRepository repositorioUsuario;
+    private final PasswordEncoder passwordEncoder;
+    private final VerificationTokenService verificationService;
+    private final emailService emailService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private VerificationTokenService verificationService;
-
-    @Autowired
-    private emailService emailService;
+    public UsuarioService(UsuarioRepository repositorioUsuario,
+                          PasswordEncoder passwordEncoder,
+                          VerificationTokenService verificationService,
+                          emailService emailService) {
+        this.repositorioUsuario = repositorioUsuario;
+        this.passwordEncoder = passwordEncoder;
+        this.verificationService = verificationService;
+        this.emailService = emailService;
+    }
 
     public List<Usuario> buscarTodosUsuarios() {
         return repositorioUsuario.findAll();
@@ -36,29 +36,40 @@ public class UsuarioService {
         return repositorioUsuario.encontrarNombrePorId(id);
     }
 
+    // 🔹 Validar login verificando activo y contraseña
     public Usuario validarCredenciales(String email, String contrasenaRaw) {
         Usuario usuario = repositorioUsuario.findByEmail(email);
-        if (usuario != null && passwordEncoder.matches(contrasenaRaw, usuario.getContrasena())) {
-            return usuario;
+        if (usuario == null) {
+            throw new RuntimeException("Usuario no encontrado");
         }
-        return null;
+
+        if (!usuario.getActivo()) {
+            throw new RuntimeException("Usuario no verificado. Revisa tu email.");
+        }
+
+        if (!passwordEncoder.matches(contrasenaRaw, usuario.getContrasena())) {
+            throw new RuntimeException("Contraseña incorrecta");
+        }
+
+        return usuario;
     }
 
+    // 🔹 Registro de usuario
     public void registrarUsuario(Usuario usuario) {
         // Encriptar contraseña
-        String hash = passwordEncoder.encode(usuario.getContrasena());
-        usuario.setContrasena(hash);
+        usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
 
-        // Poner activo = false
+        // Usuario inactivo hasta verificar email
         usuario.setActivo(false);
+        usuario.setFecha_creacion(LocalDate.now());
 
-        // Guardar el usuario en la base de datos
+        // Guardar usuario
         Usuario nuevoUsuario = repositorioUsuario.save(usuario);
 
         // Crear token de verificación
         VerificationToken token = verificationService.crearTokenParaUsuario(nuevoUsuario);
 
-        // Enviar email con el enlace de verificación
+        // Enviar email con enlace de verificación
         String linkVerificacion = "http://localhost:8080/auth/verify?token=" + token.getToken();
         String cuerpo = "Hola " + usuario.getNombre() + ",\n\nGracias por registrarte en Turistecz. Por favor verifica tu cuenta haciendo clic en el siguiente enlace:\n\n"
                       + linkVerificacion + "\n\nEste enlace expirará en 24 horas.";
@@ -66,13 +77,13 @@ public class UsuarioService {
         emailService.enviarEmail(usuario.getEmail(), "Verificación de cuenta", cuerpo);
     }
 
+    // 🔹 Registrar usuario desde DTO
     public void registrarUsuarioDesdeDto(UsuarioDto usuarioDto) {
         Usuario usuario = new Usuario();
         usuario.setNombre(usuarioDto.getNombre());
         usuario.setApellido(usuarioDto.getApellido());
         usuario.setEmail(usuarioDto.getEmail());
         usuario.setContrasena(usuarioDto.getContrasena());
-        usuario.setFecha_creacion(LocalDate.now());
 
         registrarUsuario(usuario);
     }
@@ -81,16 +92,6 @@ public class UsuarioService {
         return repositorioUsuario.findByEmail(email) != null;
     }
 
-    public void crearUsuario(UsuarioDto usuarioDto) {
-        Usuario usuario = new Usuario();
-        usuario.setNombre(usuarioDto.getNombre());
-        usuario.setApellido(usuarioDto.getApellido());
-        usuario.setEmail(usuarioDto.getEmail());
-        usuario.setContrasena(usuarioDto.getContrasena());
-        usuario.setFecha_creacion(LocalDate.now());
-
-        registrarUsuario(usuario);
-    }
     public Usuario buscarPorEmail(String email) {
         Usuario usuario = repositorioUsuario.findByEmail(email);
         if (usuario == null) {
@@ -98,11 +99,11 @@ public class UsuarioService {
         }
         return usuario;
     }
+
     public void cambiarEmail(Integer userId, String nuevoEmail) {
         Usuario usuario = repositorioUsuario.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        // Verificar si el nuevo email ya existe
         if (existsByEmail(nuevoEmail)) {
             throw new RuntimeException("El email ya está registrado");
         }
@@ -110,21 +111,16 @@ public class UsuarioService {
         usuario.setEmail(nuevoEmail);
         repositorioUsuario.save(usuario);
     }
+
     public void cambiarContrasena(Integer userId, String actualContrasena, String nuevaContrasena) {
         Usuario usuario = repositorioUsuario.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
-        // Verificar contraseña actual
         if (!passwordEncoder.matches(actualContrasena, usuario.getContrasena())) {
             throw new RuntimeException("La contraseña actual no es correcta");
         }
 
-        // Encriptar nueva contraseña y guardar
         usuario.setContrasena(passwordEncoder.encode(nuevaContrasena));
         repositorioUsuario.save(usuario);
     }
-
-
 }
-
-
