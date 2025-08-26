@@ -32,47 +32,59 @@ export class FilterComponent {
   selectedEventsCategoriesMap: { [key: string]: boolean } = {};
   selectedPlacesCategoriesMap: { [key: string]: boolean } = {};
   selectedAccesibilityCategoriesMap: { [key: string]: boolean } = {}; //Mirar si esto va aquí o en places
+  groups = ['accesibilidad', 'servicios', 'infraestructura', 'familiar', 'multiidioma'];
+
+  
+  showAccesibilityCategories: boolean = false;
+  showCategories: boolean = false; //  
+  showOrder: boolean = false;
 
 accesibilityOptions = [
-  { key: 'rampas', label: 'Rampas' },
-  { key: 'ascensores', label: 'Ascensores' },
-  { key: 'puertas_automaticas', label: 'Puertas automáticas' },
-  { key: 'escaleras_mecanicas', label: 'Escaleras mecánicas' },
-  { key: 'servicios_adaptados', label: 'Servicios adaptados' },
-  { key: 'sala_lactancia', label: 'Sala de lactancia' },
-  { key: 'cambiador', label: 'Cambiador' },
-  { key: 'parking_adaptado', label: 'Parking adaptado' },
-  { key: 'bancos', label: 'Bancos/asientos' },
-  { key: 'mostrador_adaptado', label: 'Mostrador adaptado' },
-  { key: 'sin_barreras_arquitectónicas', label: 'Sin barreras arquitectónicas' },
-  { key: 'braille', label: 'Braille' },
-  { key: 'interprete_lengua_signos', label: 'Intérprete de lengua de signos' },
-  { key: 'videos_subtitulados', label: 'Vídeos subtitulados' },
-  { key: 'ayudas_visuales', label: 'Ayudas visuales' },
-  { key: 'guias_turisticos_multiidioma', label: 'Guías turísticos multiidioma' },
-  { key: 'elementos_audiovisuales_multiidioma', label: 'Elementos audiovisuales multiidioma' },
-  { key: 'documentacion_multiidioma', label: 'Documentación multiidioma' },
-  { key: 'visitas_grupales', label: 'Visitas grupales' },
-  { key: 'ayuda_movilidad', label: 'Ayuda a la movilidad' },
-  { key: 'lenguaje_simple', label: 'Lenguaje simple' },
-  { key: 'acceso_perros_guias', label: 'Acceso a perros guías' },
-  { key: 'acceso_perros_asistencia', label: 'Acceso a perros de asistencia' },
+  { key: 'rampas', label: 'Rampas', groups: ['accesibilidad', 'infraestructura'] },
+  { key: 'ascensores', label: 'Ascensores', groups:['accesibilidad', 'infraestructura'] },
+  { key: 'puertas_automaticas', label: 'Puertas automáticas', groups: ['accesibilidad', 'infraestructura'] },
+  { key: 'escaleras_mecanicas', label: 'Escaleras mecánicas', groups: ['accesibilidad', 'infraestructura'] },
+  { key: 'servicios_adaptados', label: 'Servicios adaptados', groups: ['accesibilidad', 'infraestructura'] },
+  { key: 'sala_lactancia', label: 'Sala de lactancia', groups: ['familiar', 'servicios'] },
+  { key: 'cambiador', label: 'Cambiador', groups: ['familiar', 'servicios'] },
+  { key: 'parking_adaptado', label: 'Parking adaptado', groups: ['accesibilidad', 'infraestructura'] },
+  { key: 'bancos', label: 'Bancos/asientos', groups: ['accesibilidad', 'infraestructura', 'servicios'] },
+  { key: 'mostrador_adaptado', label: 'Mostrador adaptado', groups: ['accesibilidad', 'infraestructura'] },
+  { key: 'sin_barreras_arquitectónicas', label: 'Sin barreras arquitectónicas', groups: ['accesibilidad', 'infraestructura'] },
+  { key: 'braille', label: 'Braille', groups: ['accesibilidad', 'servicio' ] },
+  { key: 'interprete_lengua_signos', label: 'Intérprete de lengua de signos', groups: ['accesibilidad', 'servicios'] },
+  { key: 'videos_subtitulados', label: 'Vídeos subtitulados', groups: ['accesibilidad', 'servicios'] },
+  { key: 'ayudas_visuales', label: 'Ayudas visuales', groups: ['accesibilidad', 'servicios'] },
+  { key: 'guias_turisticos_multiidioma', label: 'Guías turísticos multiidioma', groups: ['multiidioma', 'servicios'] },
+  { key: 'elementos_audiovisuales_multiidioma', label: 'Elementos audiovisuales multiidioma', groups: ['multiidioma', 'servicios'] },
+  { key: 'documentacion_multiidioma', label: 'Documentación multiidioma', groups: ['multiidioma', 'servicios']  },
+  { key: 'visitas_grupales', label: 'Visitas grupales', groups: ['familiar', 'servicios'] },
+  { key: 'ayuda_movilidad', label: 'Ayuda a la movilidad', groups: ['accesibilidad', 'servicios'] },
+  { key: 'lenguaje_simple', label: 'Lenguaje simple', groups: ['accesibilidad', 'servicios'] },
+  { key: 'acceso_perros_guias', label: 'Acceso a perros guías', groups: ['accesibilidad', 'servicios'] },
+  { key: 'acceso_perros_asistencia', label: 'Acceso a perros de asistencia', groups: ['accesibilidad', 'servicios'] },
 
 ];
 
-Ada: string[] = [];
+getOptionsByGroup(group: string) {
+  return this.accesibilityOptions.filter(option => option.groups.includes(group));
+}
+
 
   constructor(private router: Router){
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd){
         if (val.url === '/sitios'){
           this.showAdaptability = true;
+          this.showOrder = false;
         }else {
           this.showAdaptability = false;
+          this.showOrder= true
         }
       }
     })
   }
+
 
 categoriesAdaptability: string[] = [
     'Rampas',
@@ -126,8 +138,7 @@ categoriesAdaptability: string[] = [
       this.applyPlaceFilters();
   }
 
-  showAccesibilityCategories: boolean = false;
-  showCategories: boolean = false; //  
+  
 
   extractDateFromText(text: string): number {
     const regex = /(\d{2})[-\/](\d{2})[-\/](\d{4})/; // regex patrones para manipular texto
