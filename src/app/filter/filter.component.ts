@@ -234,7 +234,7 @@ categoriesAdaptability: string[] = [
 
     if (selectedAccessibilityKeys.length > 0) {
     filteredPlaces = filteredPlaces.filter(place =>
-      selectedAccessibilityKeys.some(key =>
+      selectedAccessibilityKeys.every(key =>
         place[key as keyof cardsHome] === EnumServiciosAdaptabilidad.si ||
         place[key as keyof cardsHome] === EnumServiciosAdaptabilidad.bajo_peticion
       )
