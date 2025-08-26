@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError, of, tap } from 'rxjs';
 import { RoutesPage } from '../models/routes.model';
@@ -19,6 +19,15 @@ export class RoutesService {
   routesFilter: RoutesPage[]=[];
 
   constructor(private http: HttpClient) { }
+
+   private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  }
+
 
   /* Mostrar todas las rutas*/
   getAllRoutes():Observable<RoutesPage[]>{
