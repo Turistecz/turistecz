@@ -44,7 +44,7 @@ export const routes: Routes = [
         loadComponent: () =>
                 import('./page-routes/page-routes.component').then(m => m.pageRoutesComponent)
     }, 
-     {
+    {
         path: 'signin', 
         loadComponent: () =>
                 import('./sign-form/sign-form.component').then(m => m.SignformComponent)
