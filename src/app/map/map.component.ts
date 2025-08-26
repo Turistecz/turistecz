@@ -146,6 +146,7 @@ private initMap(): void {
 }
 
 //connect to local OSRM server and insert route data in route variable
+//TODO: see and move this function to map service
 async getRoute() {
   const latlng = this.getSiteCoords();
 
@@ -170,6 +171,7 @@ async getRoute() {
 }
 
 // creates markers for user and monument location and adjusts the map view to fit both
+//TODO: find alternative to get user location or solution/check for when it doesn't work
 makeLocationMarkers(){
   const latlng = this.getSiteCoords();
   let userMarker = L.marker(this.userLatLong).addTo(this.map)
@@ -186,7 +188,7 @@ makeLocationMarkers(){
 
   this.visualRouteLine();
 
-  //OSRM demo server
+  //OSRM demo server (old way of getting the route)
   // L.Routing.control({ 
   //   waypoints: [
   //       L.latLng(this.userLatLong),
@@ -207,7 +209,6 @@ visualRouteLine(){
     this.sortedRouteCoords.push([item[1], item[0]]);
   });
   L.polyline(this.sortedRouteCoords, {color: 'red'}).addTo(this.map);
-
 }
 
 routeInstructions(){
@@ -220,10 +221,6 @@ routeInstructions(){
       ${item.maneuver?.modifier}`, {autoClose: false})
     .openPopup();
   })
-
-  // L.marker([allSteps[0].maneuver.location[1], allSteps[0].maneuver.location[0]]).addTo(this.map)
-  // .bindPopup(allSteps[0].name + ' ' + allSteps[0].maneuver.modifier, {autoClose: false})
-  // .openPopup();
 }
 
 
