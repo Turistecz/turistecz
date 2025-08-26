@@ -3,8 +3,9 @@ import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import proj4 from 'proj4';
 import { MapService } from '../services/map.service';
-import { BiziItem, BusStopItem, TaxiStopItem, TramStopItem } from '../models/map.model';
+import { BiziItem, BusStopItem, TaxiStopItem, TramStopItem, MapRouteItem } from '../models/map.model';
 import { firstValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -14,11 +15,11 @@ import { firstValueFrom } from 'rxjs';
 })
 export class MapComponent implements AfterViewInit, OnInit{
 
-  constructor(private apiMapService: MapService) {}
+  constructor(private apiMapService: MapService, private http: HttpClient) {}
 
   private map: any
 
-  userLatLong: [number, number] = [0, 0];
+  userLatLong: [number, number] = [41.65606, -0.87734];
 
   bizis: BiziItem[] = [];
   taxiStops: TaxiStopItem[] = [];
@@ -58,12 +59,47 @@ export class MapComponent implements AfterViewInit, OnInit{
   tramMarkerGroup = new L.FeatureGroup();
   taxiMarkerGroup = new L.FeatureGroup();
 
+  route: MapRouteItem = {
+    routes: [
+      {
+        distance: 0,
+        duration: 0,
+        geometry: {
+          coordinates: [[0,0]]
+        },
+        legs: [
+          {
+            steps: [
+              {
+                distance: 0,
+                driving_side: '',
+                duration: 0,
+                geometry: {
+                  coordinates: [[0,0]]
+                },
+                maneuver: {
+                  location: [0,0],
+                  modifier: '',
+                  type: ''
+                },
+                name: ''
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  };
+
+  sortedRouteCoords: [[number, number]] = [[0,0]];
+
   @Input() data = {
     latitud: 0,
     longitud: 0
   };
 
   name = input("");
+
 
   // wait for map to load
   ngAfterViewInit(): void {
@@ -76,42 +112,67 @@ export class MapComponent implements AfterViewInit, OnInit{
     await this.loadTaxiStops();
     await this.loadBusStops();
     await this.loadTramStops();
+    await this.getRoute();
     this.makeLocationMarkers();
     
     //TODO: queda la de bus info
     this.createBiziMarkers();
     this.createBusMarkers();
-    this.createTaxiMarkers();
     this.createTramMarkers();
+    this.createTaxiMarkers();
   }
 
-// function to initialize the map, set the location point
-private initMap(): void {
-  const coords = this.convertCoords(this.data.latitud, this.data.longitud);
-  const latlng: L.LatLngExpression = [coords[1], coords[0]]; // [lat, lon]
-  
-  this.map = L.map('map').setView(latlng, 15); // Zaragoza
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap'
-  }).addTo(this.map);
-
-}
-
-
- getUserCoords(){
-  navigator.geolocation.getCurrentPosition(position => 
+  getUserCoords(){
+    navigator.geolocation.getCurrentPosition(position => 
     {
       this.userLatLong = [position.coords.latitude, position.coords.longitude];
     });
   }
 
+  getSiteCoords(): L.LatLngExpression{
+    const coords = this.convertCoords(this.data.latitud, this.data.longitud);
+    const latlng: L.LatLngExpression = [coords[1], coords[0]]; // [lat, lon]
+    return latlng;
+  }
+
+// function to initialize the map, set the location point
+private initMap(): void {
+  this.map = L.map('map').setView(this.getSiteCoords(), 15); // Zaragoza
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+  }).addTo(this.map);
+}
+
+//connect to local OSRM server and insert route data in route variable
+async getRoute() {
+  const latlng = this.getSiteCoords();
+
+  const service = 'route';
+  const version = 'v1';
+  const profile = 'foot';
+  const host = 'http://localhost:5000';
+
+  const siteCoords = [L.latLng(latlng).lng, L.latLng(latlng).lat];
+  const userCoords = [L.latLng(this.userLatLong).lng, L.latLng(this.userLatLong).lat];
+  const allCoords = (userCoords + ';' + siteCoords).toString();
+
+  const url = host + '/' + service + '/' + version + '/' + profile + '/' + allCoords + '?overview=full&steps=true&geometries=geojson';
+
+  try {
+    const datos = await firstValueFrom(this.http.get<MapRouteItem>(url));
+    this.route = datos;
+    console.log(datos)
+
+  } catch (error) {
+    console.error('Error al cargar la ruta: ', error);
+  }
+}
+
 // creates markers for user and monument location and adjusts the map view to fit both
 makeLocationMarkers(){
-  const coords = this.convertCoords(this.data.latitud, this.data.longitud);
-  const latlng: L.LatLngExpression = [coords[1], coords[0]]; // [lat, lon]
-
+  const latlng = this.getSiteCoords();
   let userMarker = L.marker(this.userLatLong).addTo(this.map)
   .bindPopup("Estás aquí", {autoClose: false})
   .openPopup();
@@ -120,22 +181,51 @@ makeLocationMarkers(){
   .bindPopup(this.name, {autoClose: false})
   .openPopup();
 
-  //TODO: mirar de poner la ruta en pie, pq parece que esta en coche
-
-  L.Routing.control({ 
-    waypoints: [
-        L.latLng(this.userLatLong),
-        L.latLng(latlng)
-    ],
-    addWaypoints: false,
-    router: new L.Routing.OSRMv1({
-      language: 'es'
-    })
-  }).addTo(this.map);
-
   let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
 
   this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
+
+  this.visualRouteLine();
+
+  //OSRM demo server
+  // L.Routing.control({ 
+  //   waypoints: [
+  //       L.latLng(this.userLatLong),
+  //       L.latLng(latlng)
+  //   ],
+  //   addWaypoints: false,
+  //   router: new L.Routing.OSRMv1({
+  //     language: 'es'
+  //   })
+  // }).addTo(this.map);
+
+}
+
+//OSRM local server
+visualRouteLine(){
+  this.sortedRouteCoords.shift();
+  this.route.routes[0].geometry.coordinates.forEach((item: [number, number]) => {
+    this.sortedRouteCoords.push([item[1], item[0]]);
+  });
+  L.polyline(this.sortedRouteCoords, {color: 'red'}).addTo(this.map);
+
+}
+
+routeInstructions(){
+  let allSteps = this.route.routes[0].legs[0].steps;
+  console.log(allSteps);
+
+  allSteps.forEach((item) => {
+    L.marker([item.maneuver.location[1], item.maneuver.location[0]]).addTo(this.map)
+    .bindPopup(`
+      ${item?.name}<br>
+      ${item.maneuver?.modifier}`, {autoClose: false})
+    .openPopup();
+  })
+
+  // L.marker([allSteps[0].maneuver.location[1], allSteps[0].maneuver.location[0]]).addTo(this.map)
+  // .bindPopup(allSteps[0].name + ' ' + allSteps[0].maneuver.modifier, {autoClose: false})
+  // .openPopup();
 }
 
 
@@ -162,7 +252,7 @@ async loadBizis(): Promise<void> {
 async loadTaxiStops(): Promise<void> {
   try {
     const datos = await firstValueFrom(this.apiMapService.getTaxisStops());
-    this.taxiStops = datos.result;
+    this.taxiStops = datos.features;
 
   } catch (error) {
     console.error('Error al cargar monumentos:', error);
@@ -224,6 +314,7 @@ private createTramMarkers(): void {
 };
 
 private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: string): void {
+  //console.log(array)
   array.forEach((elem) => {
     const coords = elem.geometry.coordinates;
     const props = elem;
