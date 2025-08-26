@@ -165,7 +165,6 @@ async getRoute() {
   try {
     const datos = await firstValueFrom(this.http.get<MapRouteItem>(url));
     this.route = datos;
-    console.log(datos)
 
   } catch (error) {
     console.error('Error al cargar la ruta: ', error);
@@ -215,7 +214,6 @@ visualRouteLine(){
 
 routeInstructions(){
   let allSteps = this.route.routes[0].legs[0].steps;
-  console.log(allSteps);
 
   allSteps.forEach((item) => {
     L.marker([item.maneuver.location[1], item.maneuver.location[0]]).addTo(this.map)
@@ -316,7 +314,6 @@ private createTramMarkers(): void {
 };
 
 private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: string): void {
-  //console.log(array)
   array.forEach((elem) => {
     const coords = elem.geometry.coordinates;
     const props = elem;
