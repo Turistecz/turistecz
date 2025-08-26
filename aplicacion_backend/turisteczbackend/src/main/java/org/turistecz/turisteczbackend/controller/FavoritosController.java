@@ -47,16 +47,16 @@ public class FavoritosController {
         favorito.setSitio(sitio);
 
         return favoritosService.addFavoritos(favorito);
-}
+    }
     @CrossOrigin(origins ="http://localhost:4200")
-@DeleteMapping("/{usuario_id}/{sitio_id}")
-public void removeFavorito(@PathVariable int usuario_id, @PathVariable int sitio_id) {
-    favoritosService.removeFavorito(usuario_id, sitio_id);
-}
+    @DeleteMapping("/{usuario_id}/{sitio_id}")
+    public void removeFavorito(@PathVariable int usuario_id, @PathVariable int sitio_id) {
+        favoritosService.removeFavorito(usuario_id, sitio_id);
+    }
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/my-favorite")
-public ResponseEntity<List<Sitio>> getMisFavoritos(@RequestParam int usuarioId){
-      List<Sitio> favoritos = favoritosService.getFavoritosbyUsuario(usuarioId);
-    return ResponseEntity.ok(favoritos); 
-}
+        public ResponseEntity<List<Sitio>> getMisFavoritos(@RequestParam int usuarioId){
+        List<Sitio> favoritos = favoritosService.getFavoritosbyUsuario(usuarioId);
+        return ResponseEntity.ok(favoritos); 
+    }
  }
