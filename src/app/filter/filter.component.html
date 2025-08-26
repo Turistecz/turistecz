@@ -10,7 +10,7 @@
       </div>
 
       <!-- FILA 2: Ordenar -->
-      <div class="buscador-ordenar m-2">
+      <div class="buscador-ordenar m-2" *ngIf="showOrder">
         <label for="filterOption">Ordenar:</label>
         <select id="filterOption" class="form-select my-2" [(ngModel)]="filterOption" (change)="applyEventFilters()" (change)="applyPlaceFilters()">
           <option value="future">Cronológicamente</option>
