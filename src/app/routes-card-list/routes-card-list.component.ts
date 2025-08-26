@@ -6,6 +6,8 @@ import { RoutesPage } from '../models/routes.model';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { RoutesService } from '../services/routes.service';
+import { firstValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-routes-card-list',
@@ -18,23 +20,17 @@ export class RoutesCardListComponent {
   private route = inject(ActivatedRoute);
   constructor(private http: HttpClient,private routeService: RoutesService) {}
 
-  routesName: RoutesPage[]=[];
-
-     async loadAllRoutes(): Promise<any> {
+    routesName: RoutesPage[]=[];
+  async loadAllRoutes(): Promise<void> {
     try {
-      console.log('Aqui ha entrado')
-      const datos = await this.routeService.getAllRoutes().subscribe(
-        datos => {
-          this.routesName = datos.slice(0,3)
-          }
-        )
-      return datos  
-      }   
-    catch (error) {
-        console.error('Error al cargar Rutas:', error);
-    }   
-  } 
-
+      console.log('Aqui ha entrado');
+      const datos = await firstValueFrom(this.routeService.getAllRoutes());
+      this.routesName = datos.slice(0, 3); // usar slice aquí
+      console.log(this.routesName);
+    } catch (error) {
+      console.error('Error al cargar Rutas:', error);
+    }
+  }
   async ngOnInit(): Promise<void> {
     await this.loadAllRoutes(); // Muestra todas las rutas
   };

@@ -17,23 +17,25 @@ public class AuthController {
 
     @Autowired
     private UsuarioService usuarioService;
+
     @Autowired
     private JwtUtil jwtUtil;
 
     @Autowired
     private VerificationTokenService verificationTokenService;
-    @CrossOrigin(origins = "http://localhost:4200")
+
+    // 🔹 Registro de usuario
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UsuarioDto usuarioDto) {
         if (usuarioService.existsByEmail(usuarioDto.getEmail())) {
             return ResponseEntity.badRequest().body("El email ya está registrado");
-        } 
+        }
 
-        usuarioService.crearUsuario(usuarioDto);
-       
+        usuarioService.registrarUsuarioDesdeDto(usuarioDto); // ✅ método correcto
         return ResponseEntity.ok("Registro exitoso. Revisa tu correo para activar tu cuenta.");
     }
-    @CrossOrigin(origins = "http://localhost:4200")
+
+    // 🔹 Verificación de cuenta
     @GetMapping("/verify")
     public ResponseEntity<?> verificarCuenta(@RequestParam String token) {
         boolean resultado = verificationTokenService.verificarToken(token);
@@ -44,7 +46,7 @@ public class AuthController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
+    // 🔹 Cambiar email
     @PutMapping("/change-email")
     public ResponseEntity<?> changeEmail(
             @RequestHeader("Authorization") String authHeader,
@@ -59,7 +61,7 @@ public class AuthController {
         return ResponseEntity.ok("Email actualizado correctamente");
     }
 
-     @CrossOrigin(origins = "http://localhost:4200")
+    // 🔹 Cambiar contraseña
     @PutMapping("/change-password")
     public ResponseEntity<?> changePassword(
             @RequestHeader("Authorization") String authHeader,
@@ -73,7 +75,4 @@ public class AuthController {
 
         return ResponseEntity.ok("Contraseña actualizada correctamente");
     }
-
-
-
 }
