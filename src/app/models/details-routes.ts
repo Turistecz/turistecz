@@ -32,6 +32,7 @@ export interface sitioResponse {
 }
 
 export interface textoDetails{
+  nombre: string,
   sitios_ruta: {
     texto: string;
   }
