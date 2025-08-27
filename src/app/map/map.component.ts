@@ -417,12 +417,13 @@ private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: s
         break;
 
       case "parking adaptado":
+        //no incluyo ${props.properties.num_calle1} porque en muchos casos el numero de la calle no aparece
         markerVar.bindPopup(`
-          <strong>${props.properties.title}</strong><br>
-           Dirección: ${props.properties.calle_1}, ${props.properties.num_calle1} <br>
+          <strong> Calle ${props.properties.calle_1}</strong><br> 
            Horario: ${props.properties.horario} <br>
            Número de plazas: ${props.properties.plazas} 
           `)
+         
     }
   });
 }
