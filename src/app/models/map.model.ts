@@ -90,7 +90,7 @@ export interface MapRouteItem {
       }
       legs: [
         {
-          steps: MapRouteSteps[]
+          steps: MapRouteSteps[],
         }
       ]
     }
