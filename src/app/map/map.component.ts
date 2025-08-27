@@ -93,7 +93,8 @@ export class MapComponent implements AfterViewInit, OnInit{
                 },
                 name: ''
               }
-            ]
+            ],
+            summary: ''
           }
         ]
       }
@@ -225,40 +226,47 @@ visualRouteLine(){
 
 routeInstructions(){
   let allSteps = this.route.routes[0].legs[0].steps;
+  let list = document.getElementById("instructionsList");
 
   allSteps.forEach((item) => {
+    item.maneuver.type
+  });
 
-    //console.log(item.name + ' ' + item.maneuver.modifier)
-    // L.marker([item.maneuver.location[1], item.maneuver.location[0]]).addTo(this.map)
-    // .bindPopup(`
-    //   ${item?.name}<br>
-    //   ${item.maneuver?.modifier}`, {autoClose: false})
-    // .openPopup();
-  })
+  allSteps.forEach((item) => {
+    let li = document.createElement("li");
+    li.innerText = item.maneuver.type + ' ' + item.maneuver.modifier + ' ' + item.name + ' '
+      + this.convertMetersToKm(item.distance);
+    list?.appendChild(li);
+  });
+}
 
+convertSecondsToMinHr(seconds: number): string{
+  let hours = Math.floor(seconds / 3600);
+  let mins = Math.floor((seconds % 3600) / 60);
 
-  // let textbox = L.Control.extend({
-  //   onAdd: function() {
-  //     //let text = L.DomUtil.create('div');
-  //     let text = document.createElement("div");
-  //     text.id = "info_text";
-  //     text.innerHTML = "<strong>" + instructions + "</strong>";
-  //     return text;
-  //   },
-  // });
+  if (hours > 0) {
+    return `${hours} hr ${mins} min`
+  } else {
+    return `${mins} min`
+  }
+}
 
-  // new textbox({position: "topright"}).addTo(this.map);
+get mins(): string {
+  return this.convertSecondsToMinHr(this.route.routes[0].duration);
+}
 
+convertMetersToKm(meters: number): string{
+  let km = meters / 1000;
 
-  // .bindTooltip("<div style='background:blue;'><b>P</b></div>",
-  //   {
-  //     direction: 'right',
-  //     permanent: true,
-  //     sticky: true,
-  //   }
-  // ).openTooltip();
+  if (km > 1) {
+    return km.toFixed(1) + " km,";
+  } else {
+    return meters.toFixed(1) + " m,";
+  }
+}
 
-
+get kms(): string {
+  return this.convertMetersToKm(this.route.routes[0].distance);
 }
 
 
