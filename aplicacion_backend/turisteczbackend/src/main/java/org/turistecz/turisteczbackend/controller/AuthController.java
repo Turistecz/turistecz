@@ -41,7 +41,7 @@ public class AuthController {
     // 🔹 Verificación de cuenta
     @GetMapping("/verify")
     public ResponseEntity<?> verificarCuenta(@RequestParam String token) {
-        boolean resultado = verificationTokenService.verificarToken(token);
+        boolean resultado = verificationTokenService.verificarTokenActivacion(token);
         if (resultado) {
             return ResponseEntity.ok("Cuenta activada correctamente");
         } else {
@@ -80,26 +80,11 @@ public class AuthController {
     }
     
     // 🔹 Petición de recuperación de contraseña
-        @PostMapping("/forgot-password")
-        public ResponseEntity<?> forgotPassword(@RequestBody Recuperar_contrasenaDto dto) {
-                Usuario usuario = usuarioService.buscarPorEmail(dto.getEmail());
-            if (usuario == null) {
-            return ResponseEntity.badRequest().body("No existe un usuario con ese email");
-            }
-
-            VerificationToken token = verificationTokenService.generarTokenRecuperacion(usuario);
-
-            String enlace = "http://localhost:4200/reset-password?token=" + token;
-
-            usuarioService.enviarCorreoRecuperacion(dto.getEmail(), enlace);
-
-            return ResponseEntity.ok("Correo enviado si el usuario existe");
-        }
-
+    
         
         @PostMapping("/reset-password")
         public ResponseEntity<?> resetPassword(@RequestParam String token, @RequestParam String nuevaContrasena) {
-            Usuario usuario = verificationTokenService.getUsuarioDesdeTokenRecuperacion(token);
+            Usuario usuario = verificationTokenService.verificarTokenRecuperacion(token);
             if (usuario == null) {
                 return ResponseEntity.badRequest().body("Token inválido o expirado");
             }
@@ -107,5 +92,19 @@ public class AuthController {
             usuarioService.actualizarContrasena(usuario.getId(), nuevaContrasena);
             return ResponseEntity.ok("Contraseña actualizada correctamente.");
         }
+
+        @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody UsuarioDto dto) {
+        Usuario usuario = usuarioService.buscarPorEmail(dto.getEmail());
+        if (usuario == null) {
+            return ResponseEntity.badRequest().body("Correo no registrado");
+        }
+
+        var token = verificationTokenService.crearToken(usuario, VerificationToken.TipoToken.RECUPERACION, 2);
+        String enlace = "http://localhost:4200/reset-password?token=" + token.getToken();
+        usuarioService.enviarCorreoRecuperacion(usuario.getEmail(), enlace);
+
+        return ResponseEntity.ok("Se ha enviado un enlace de recuperación a tu correo");
+    }
         
 }
