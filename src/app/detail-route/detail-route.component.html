@@ -1,16 +1,27 @@
-<div class="imagen-bg-routes"> 
-  <div class="cardRoutes container-routes">
-    <div class="cardito col-12 col-md-12 ">
-      <app-front-detail-card [oneRoute]="oneRoute"> </app-front-detail-card>
+
+<!-- PORTADA -->
+  <div class="imagen-bg-routes"> 
+    <div class="cardRoutes container-routes">
+      <div class="cardito">
+        <app-front-detail-card [oneRoute]="oneRoute"> </app-front-detail-card>
+      </div>
     </div>
-    
   </div>
-</div>
-<div *ngFor="let site of routesSite">
-  <app-site-text-detail [oneSite]="site"></app-site-text-detail> 
-</div>
-<div *ngFor="let text of routeText; ">
-  <app-text-detail [oneText]="text"></app-text-detail>
-</div>
+
+  
+
+  <div>
+    <!-- TEXTO -->
+    <div *ngFor="let text of routeText" class="displayFlex justifyContentCenter col-6">
+      <app-text-detail [oneText]="text"></app-text-detail>
+    </div>
+  
+    <!-- IMAGEN -->
+    <div *ngFor="let site of routesSite" class="displayFlex justifyContentCenter col-6">
+      <app-site-text-detail [oneSite]="site"></app-site-text-detail> 
+    </div>
+  </div>
+  
+
 
 

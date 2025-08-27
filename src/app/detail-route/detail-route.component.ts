@@ -65,9 +65,11 @@ export class DetailRouteComponent {
           id: img.id
         }))
       );   
-      this.routeText = datos.flatMap((sitio: { sitios_ruta: any[]; })  =>
-        sitio.sitios_ruta.map((txt: any) => ({
-          texto: txt.texto          
+      this.routeText = datos.flatMap((sitio: any) =>
+        (sitio.sitios_ruta || []).map((txt: any) => ({
+          nombre: sitio.nombre,
+          texto: txt.texto   
+         
         }))
       );    
       console.log('temporal2:',this.routeText);
@@ -79,68 +81,9 @@ export class DetailRouteComponent {
       // console.log('funciona por dios',todo)
   }
 
-
-
-
-    async loadnameSite(id: number): Promise<any> {
-    try {
-      const datos = await firstValueFrom(this.routeService.getRouteSites(id));
-      this.routesName = datos;
-      
-      this.routesName = datos.flatMap((sitio: { imagenes: any[]; })  =>
-        sitio.imagenes.map((img: any) => ({
-          nombre: img.nombre,
-    }))
-      ); 
-      console.log('Nombre Ruta:',this.routesName);
-
-    } catch (error) {
-      console.error('Error al cargar ruta por ID:', error);
-      throw error;
-    }
-  }
-
-
-    
-
-  /*async loadRoutesSite(id: string): Promise<any> {
-    try {
-      const datos = await firstValueFrom(this.routeService.getRouteSites(id));
-      this.routesSite = datos;
-      console.log('trae ests rutasss', this.routesSite);
-      this.routesSite = datos.map((sitio: any) => ({
-        imagenes: sitio.imagenes?.map((img: any) => ({
-          nombre: img.nombre,
-          url: img.url,
-          id: img.id
-        })) ,
-         sitios_ruta: sitio.sitios_ruta?.map((txt: any) => ({
-          texto: txt.texto
-        })) 
-       
-      }));
-    } catch (error) {
-      console.error('Error al cargar ruta por ID:', error);
-      throw error;
-    }
-  };*/
-
-  // async loadRoutesSite(id: string): Promise<any> {
-  //   try {
-  //     const datos = await firstValueFrom(this.routeService.getRouteSites(id));
-  //     this.oneSite = datos;
-  //     console.log('trae ests rutasss',this.oneSite);
-  //     return datos;
-  //   } catch (error) {
-  //     console.error('Error al cargar ruta por ID:', error);
-  //     throw error;
-  //   }
-  // }
-
   async ngOnInit(): Promise<void> {
-    await this.loadRoutebyId(1);  // Muestra una ruta segun el id //  FRONT DETAIL 
-    await this.loadRoutesSite(1);
-    await this.loadnameSite(1);  // Muestra todos los sitios de una ruta segun el id // SITE & TEXT DETAIL 
+    await this.loadRoutebyId(3);  // Muestra una ruta segun el id //  FRONT DETAIL 
+    await this.loadRoutesSite(3);  // Muestra todos los sitios de una ruta segun el id // SITE & TEXT DETAIL 
   }
 
 }
