@@ -50,5 +50,16 @@ public class VerificationToken {
     public void setFecha_expiracion(LocalDateTime fecha_expiracion) {
         this.fecha_expiracion = fecha_expiracion;
     }
+
+    private String tipo; // ACTIVATION o RECOVERY
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
    
 }

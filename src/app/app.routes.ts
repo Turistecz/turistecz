@@ -73,7 +73,10 @@ export const routes: Routes = [
         loadComponent: () =>
                 import('./accommodation/accommodation.component').then(m => m.AccommodationComponent)
     },
-      
+    {
+    path: 'recuperar-contrasena',
+    loadComponent: () => import('./recuperar-contrasena/recuperar-contrasena.component').then(m => m.RecuperarContrasenaComponent)
+    }     
 
 ]
 >>>>>>> d173460 (Changes CSS card and colors sections1 (#146))
