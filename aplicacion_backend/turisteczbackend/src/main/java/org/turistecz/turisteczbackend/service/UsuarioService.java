@@ -31,7 +31,6 @@ public class UsuarioService {
         usuario.setEmail(dto.getEmail());
         usuario.setPassword(passwordEncoder.encode(dto.getContrasena()));
         usuario.setActivo(false);
-        usuario.setFecha_creacion(LocalDate.now());
 
         // ❌ ERROR: antes retornabas aquí y cortabas el flujo
         // return usuarioRepository.save(usuario);
