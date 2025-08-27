@@ -10,25 +10,17 @@
   text-align: center;
   margin-bottom: 2rem;
   margin-top: 1rem;
-}
 
 #buscador{
     background-color: rgb(69, 90, 173);
-    /* color: white; */
+    color: white;
     border-radius: 1.5rem;
 }
 
 .titleFilter{
-    /* text-align: center; */
+    text-align: center;
     margin-bottom: 2rem;
-    /* margin-top: 1rem; */
+    margin-top: 1rem;
 
 }
-
-.filtro-lista > .adaptability-group:last-child{
-    margin-bottom: 0 !important;
-}
-
-.filtro-lista > .adaptability-group:last-child > .form-check:last-child{
-    margin-bottom: 0 !important;
 }

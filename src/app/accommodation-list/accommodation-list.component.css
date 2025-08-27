@@ -2,69 +2,44 @@
 .cards-grid {
   display: grid;
   gap: 1rem;
-  text-align: center; 
+text-align: center;
 }
 
-/* filas pares (2, 4, 6,) */
-.cards-grid section:nth-child(6n+4) .card-inside,
-.cards-grid section:nth-child(6n+5) .card-inside,
-.cards-grid section:nth-child(6n+6) .card-inside {
-  background:  #184591;
-}
-
-.titulo {
-  color: #dde2e8;
-  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-  font-weight: bold;
-}
-
-.desc-box {
-  margin-top: 1rem;
-  font-weight: bold;
-  font-size: 1rem;
-  color: #dde2e8;
-}
 .card-inside {
-  background: linear-gradient( #2a8dfb);
-  border-color: #e4e9ee;
-  font-family: "inclusive", sans-serif;
+   background: linear-gradient( #2a8dfb, #e1e6ea);
+  border-color: #7ea5d7;
 }
 
 .ver-mas {
   background: none;
   border: none;
-  color:  #0d131a;     
-  font-weight: bolder;
-  font-family: "inclusive", sans-serif;
-   margin-top: auto;
-  align-self: center;
-
+  color:  #07090b;       
+  font-weight: 500;
 }
 
 .ver-mas:hover {
   text-decoration: underline;
 }
 
-.ver-mas-arrow {
+.ver-mas .arrow {
   font-size: 1rem;
   line-height: 0.5;
 }
 
-/* Animacion, pagina que podemos conseguir mas : "https://www.transition.style/#out:circle:bottom-right" 
+/* Animacion, pagina que podemos conseguir mas : "https://www.transition.style/#out:circle:bottom-right" */ 
 @keyframes square-in-hesitate {
-   Al inicio: todo oculto  
+  /* Al inicio: todo oculto  */
   0% { clip-path: inset(100% 100% 100% 100%);}
-   Al 40%: se muestra una parte central 
+  /* Al 40%: se muestra una parte central */
   40% { clip-path: inset(33% 33% 33% 33%);}
-   Al final: se muestra todo el contenido 
+  /* Al final: se muestra todo el contenido */
   100% {clip-path: inset(0 0 0 0); }
 }
 
 [transition-style="in:square:hesitate"] {
-  /* se les aplica la animacion anterior en 2s, con curva de aceleracion 
+  /* se les aplica la animacion anterior en 2s, con curva de aceleración */
   animation: 2s cubic-bezier(.30, 1, .30, 1) square-in-hesitate both;
 }
-  */
 
 @media (min-width: 768px) {     
   .cards-grid { grid-template-columns: repeat(2, 1fr); }

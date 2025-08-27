@@ -1,9 +1,9 @@
-<div class="ticket-vertical text-center position-relative rounded-5" [ngClass]="getOtherColor()" >
-    <a href="{{data.link}}" class="text-decoration-none" target="_blank" rel="event">
-        <div class="inside-text p-3 d-flex flex-column justify-content-center text-white"> <!--TODO: necesario revisar y adaptar a responsive porque se cortan los títulos -->   
-            <h2 class="fs-3">{{data.title}}</h2>
-            <p class="fs-6">{{data.description}}</p>
-        </div> 
+<div class="ticket-vertical text-center" [ngClass]="getOtherColor()" >
+    <a href="{{data.link}}" target="_blank" rel="event">
+    <div class="inside-text ">   
+        <h2>{{data.title}}</h2>
+        <p>{{data.description}}</p>
+    </div> 
     </a>
 </div> 
 
