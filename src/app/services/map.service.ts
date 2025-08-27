@@ -63,7 +63,7 @@ export class MapService {
 
   getAdapParking():Observable<AdapParkingResponse> {
     const adapParking = "equipamiento/aparcamiento-personas-discapacidad";
-    const Params = new HttpParams().set('rf', 'html').set('start', '0').set('rows', '500').set('distance', '500');
+    const Params = new HttpParams().set('rf', 'html').set('start', '0').set('rows', '500');
     const Headers = new HttpHeaders({
       Accept: 'application/geo+json', 
     });
