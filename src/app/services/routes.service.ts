@@ -56,7 +56,7 @@ export class RoutesService {
   }
 
   /*Muetras los sitios de la Ruta ordenados*/
-   getRouteSites(id:string):Observable<any>{
+   getRouteSites(id:number):Observable<any>{
     return this.http.get(this.routeSitesURL+id)
     .pipe(
       catchError(this.handleError)

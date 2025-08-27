@@ -1,8 +1,10 @@
 package org.turistecz.turisteczbackend.controller;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.turistecz.turisteczbackend.model.Sitios_Ruta;
-import org.turistecz.turisteczbackend.service.Sitios_RutaService;
+import org.turistecz.turisteczbackend.model.SitiosRuta;
+import org.turistecz.turisteczbackend.service.SitiosRutaService;
 
 
 
@@ -15,13 +17,30 @@ import org.turistecz.turisteczbackend.service.Sitios_RutaService;
 public class Sitios_RutaController {
     
     @Autowired	   
-    private Sitios_RutaService sitios_rutaService;
+    private SitiosRutaService sitios_rutaService;
 
-
+    // @CrossOrigin(origins = "http://localhost:4200")
+    // @GetMapping("/sitiosrutaPorId")
+    // public Sitios_Ruta mostrarSitiosRutaPorID(@RequestParam Integer id_sitio, @RequestParam Integer id_ruta ) {
+    //     return sitios_rutaService.buscarNombrePorId(id_sitio, id_ruta);
+    
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/sitiosrutaPorId")
-    public Sitios_Ruta mostrarSitiosRutaPorID(@RequestParam Integer id_sitio, @RequestParam Integer id_ruta ) {
-        return sitios_rutaService.buscarNombrePorId(id_sitio, id_ruta);
+    @GetMapping("/textoRutaPorId")
+    public List<SitiosRuta> mostrarTextoRutaPorID(@RequestParam Integer id_ruta) {
+        return sitios_rutaService.buscarTextoRutaPorId(id_ruta);
     }
+
+    
+    // @CrossOrigin(origins = "http://localhost:4200")
+    // @GetMapping("/textoRutaPorId")
+    // public Sitios_Ruta mostrarTextoRutaPorID(@RequestParam String id_ruta ) {
+    //     return sitios_rutaService.buscarTextoRutaPorId(id_ruta);
+    // }
+
+    // @CrossOrigin(origins = "http://localhost:4200")
+    // @GetMapping("/textoRutaPorId")
+    // public Sitios_Ruta mostrarTextoRutaPorID(@RequestParam Integer id_ruta ) {
+    //     return sitios_rutaService.buscarTextoRutaPorId(id_ruta);
+    // }
 }
