@@ -14,6 +14,7 @@ import { EventService } from '../services/event.service';
   imports: [CommonModule, FormsModule, EventCardComponent, RouterModule, FilterComponent]
 })
 export class EventCardListComponent {
+  noResultsEvents: boolean = false;
   events: EventItem[] = [];
   eventsFiltered: EventItem[] = [];
   sortedEvents: EventItem[] = [];
