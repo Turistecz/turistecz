@@ -1,0 +1,14 @@
+name: baseline
+on:
+  pull_request:
+    branches: [ main ]   # si tu rama por defecto no es 'main', cámbiala
+  push:
+    branches: [ main ]
+
+jobs:
+  sanity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Quick sanity
+        run: echo "CI OK"
