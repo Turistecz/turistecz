@@ -1,7 +1,7 @@
 
 <div class="cards-grid">
   <section *ngFor="let a of items" >
-        <article class="card card-inside p-3 shadow-sm h-100">
+        <article class="card card-inside p-4 shadow-sm h-100">
           <h4 class="titulo" >{{ a.title }}</h4>
            <div class="desc-box">
             <div  [innerHTML]="a.descripcion"></div>
