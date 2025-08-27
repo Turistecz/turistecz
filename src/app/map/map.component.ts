@@ -17,7 +17,7 @@ export class MapComponent implements AfterViewInit, OnInit{
 
   constructor(private apiMapService: MapService, private http: HttpClient) {}
 
-  private map: any
+  private map: any;
 
   userLatLong: [number, number] = [41.65606, -0.87734];
 
@@ -211,18 +211,45 @@ visualRouteLine(){
     this.sortedRouteCoords.push([item[1], item[0]]);
   });
   L.polyline(this.sortedRouteCoords, {color: 'red'}).addTo(this.map);
+  this.routeInstructions();
 }
 
 routeInstructions(){
   let allSteps = this.route.routes[0].legs[0].steps;
 
   allSteps.forEach((item) => {
-    L.marker([item.maneuver.location[1], item.maneuver.location[0]]).addTo(this.map)
-    .bindPopup(`
-      ${item?.name}<br>
-      ${item.maneuver?.modifier}`, {autoClose: false})
-    .openPopup();
+
+    //console.log(item.name + ' ' + item.maneuver.modifier)
+    // L.marker([item.maneuver.location[1], item.maneuver.location[0]]).addTo(this.map)
+    // .bindPopup(`
+    //   ${item?.name}<br>
+    //   ${item.maneuver?.modifier}`, {autoClose: false})
+    // .openPopup();
   })
+
+
+  // let textbox = L.Control.extend({
+  //   onAdd: function() {
+  //     //let text = L.DomUtil.create('div');
+  //     let text = document.createElement("div");
+  //     text.id = "info_text";
+  //     text.innerHTML = "<strong>" + instructions + "</strong>";
+  //     return text;
+  //   },
+  // });
+
+  // new textbox({position: "topright"}).addTo(this.map);
+
+
+  // .bindTooltip("<div style='background:blue;'><b>P</b></div>",
+  //   {
+  //     direction: 'right',
+  //     permanent: true,
+  //     sticky: true,
+  //   }
+  // ).openTooltip();
+
+
 }
 
 
