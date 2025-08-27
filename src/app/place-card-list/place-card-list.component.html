@@ -8,8 +8,8 @@
 
    
 
-    <div class="containerCard col-7 " *ngIf="sortedCards.length > 0">
-      <div *ngFor="let cardHome of sortedCards" class="col- col-md-3">
+    <div class="containerCard col-7" *ngIf="sortedCards.length > 0">
+      <div *ngFor="let cardHome of sortedCards">
         <app-one-place-card [data]="cardHome"></app-one-place-card>
       </div>
     </div>
