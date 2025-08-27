@@ -123,4 +123,17 @@ public class UsuarioService {
         usuario.setContrasena(passwordEncoder.encode(nuevaContrasena));
         repositorioUsuario.save(usuario);
     }
+
+    public void actualizarContrasena(Integer id, String nuevaContrasena) {
+        Usuario usuario = repositorioUsuario.findById(id).orElseThrow();
+        usuario.setContrasena(passwordEncoder.encode(nuevaContrasena));
+        repositorioUsuario.save(usuario);
+        
+    }
+
+    public void enviarCorreoRecuperacion(String email, String enlace) {
+        System.out.println("Enviar correo a " + email + " con enlace: " + enlace);
+   
+    }
+
 }

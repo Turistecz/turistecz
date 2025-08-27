@@ -6,7 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import org.turistecz.turisteczbackend.dto.UsuarioDto;
 import org.turistecz.turisteczbackend.dto.ChangeEmailDto;
 import org.turistecz.turisteczbackend.dto.ChangePasswordDto;
+import org.turistecz.turisteczbackend.dto.Recuperar_contrasenaDto;
+import org.turistecz.turisteczbackend.dto.Resetear_contrasenaDto;
 import org.turistecz.turisteczbackend.model.Usuario;
+import org.turistecz.turisteczbackend.model.VerificationToken;
 import org.turistecz.turisteczbackend.service.UsuarioService;
 import org.turistecz.turisteczbackend.service.VerificationTokenService;
 import org.turistecz.turisteczbackend.security.JwtUtil;
@@ -75,4 +78,34 @@ public class AuthController {
 
         return ResponseEntity.ok("Contraseña actualizada correctamente");
     }
+    
+    // 🔹 Petición de recuperación de contraseña
+        @PostMapping("/forgot-password")
+        public ResponseEntity<?> forgotPassword(@RequestBody Recuperar_contrasenaDto dto) {
+                Usuario usuario = usuarioService.buscarPorEmail(dto.getEmail());
+            if (usuario == null) {
+            return ResponseEntity.badRequest().body("No existe un usuario con ese email");
+            }
+
+            VerificationToken token = verificationTokenService.generarTokenRecuperacion(usuario);
+
+            String enlace = "http://localhost:4200/reset-password?token=" + token;
+
+            usuarioService.enviarCorreoRecuperacion(dto.getEmail(), enlace);
+
+            return ResponseEntity.ok("Correo enviado si el usuario existe");
+        }
+
+        
+        @PostMapping("/reset-password")
+        public ResponseEntity<?> resetPassword(@RequestParam String token, @RequestParam String nuevaContrasena) {
+            Usuario usuario = verificationTokenService.getUsuarioDesdeTokenRecuperacion(token);
+            if (usuario == null) {
+                return ResponseEntity.badRequest().body("Token inválido o expirado");
+            }
+
+            usuarioService.actualizarContrasena(usuario.getId(), nuevaContrasena);
+            return ResponseEntity.ok("Contraseña actualizada correctamente.");
+        }
+        
 }
