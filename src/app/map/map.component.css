@@ -1,6 +1,18 @@
+
+
+
 #map {
   height: 600px;
   width: 100%;
   margin: 0 auto;
   z-index: 0;
+
+}
+
+.instructionsContainer {
+  position: relative;
+  display: inline;
+  top: 40px;
+  left: 200px;
+  z-index: 1;
 }
