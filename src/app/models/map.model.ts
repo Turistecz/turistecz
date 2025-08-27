@@ -96,3 +96,35 @@ export interface TaxiStopResponse {
 export interface TramStopResponse {
   features: TramStopItem[];
 }
+
+export interface MapRouteItem {
+  routes: [
+    {
+      distance: number, //in meters
+      duration: number, //in seconds
+      geometry: {
+        coordinates: [[number, number]]
+      }
+      legs: [
+        {
+          steps: MapRouteSteps[],
+        }
+      ]
+    }
+  ]
+}
+
+export interface MapRouteSteps {
+  distance: number,
+  driving_side: string,
+  duration: number,
+  geometry: {
+    coordinates: [[number, number]]
+  }
+  maneuver: {
+    location: [number, number], //long, lat of the turn
+    modifier?: string,
+    type: string
+  },
+  name: string,
+}
