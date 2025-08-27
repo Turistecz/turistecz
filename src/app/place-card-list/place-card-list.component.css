@@ -6,18 +6,14 @@
     font-weight: 700;
     font-size: 4rem;
     text-align: center;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin-top: 2rem;
 }
 
 .containerCard {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* responsive layout */
-  grid-auto-rows: min-content;
-  gap: 2rem;
-  margin-left: 4rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+  gap: 1.5rem;
 }
+
 
 .card-img {
     height: 100%;
@@ -49,13 +45,18 @@
   object-fit: cover;
 }
 
-.row{
-  row-gap: 2rem;
+ .row{  
+  margin-left: 0;
+  margin-right: 0;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1199px) {
   #tituloSitiosHome {
     font-size: 2.5rem;
+  }
+  .containerCard {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
 
