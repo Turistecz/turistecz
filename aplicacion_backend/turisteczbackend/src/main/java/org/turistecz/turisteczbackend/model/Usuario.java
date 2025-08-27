@@ -1,87 +1,53 @@
 package org.turistecz.turisteczbackend.model;
+
 import jakarta.persistence.*;
-import java.time.LocalDate; 
 
 @Entity
+@Table(name = "usuarios")
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    
-    @Column(length = 255)
+    private Integer id;   // ✅ cambiado de int a Integer
+
     private String nombre;
-
-    @Column(length = 255)
-    private String apellido;
-
-    @Column(length = 255)
     private String email;
+    private String password;
+    private boolean activo;
 
-    @Column(length = 255)
-    private String contrasena;
-
-    @Column(nullable = false)
-    private Boolean activo = false;
-
-    @Column()
-    private LocalDate fecha_creacion;
-
-    //Getters y Setters   
-    public int getId() {
+    // Getters y setters
+    public Integer getId() {
         return id;
     }
-
-    public void setId(int id) {
-      this.id = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNombre() {
-      return nombre;
+        return nombre;
     }
-
-    public void setNombre(String n) {
-    	this.nombre = n;
-    }
-
-    public String getApellido() {
-      return apellido;
-    }
-
-    public void setApellido(String a) {
-    	this.apellido = a;
-    }
-
-    public String getContrasena() {
-      return contrasena;
-    }
-
-    public void setContrasena(String c) {
-    	this.contrasena = c;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getEmail() {
-      return email;
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setEmail(String e) {
-    	this.email = e;
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Boolean getActivo() {
-      return activo;
+    public boolean isActivo() {
+        return activo;
     }
-
-    public void setActivo(Boolean activo) {
-      this.activo = activo;
+    public void setActivo(boolean activo) {
+        this.activo = activo;
     }
-
-    public LocalDate getFecha_creacion() {
-      return fecha_creacion;
-    }
-
-    public void setFecha_creacion(LocalDate fecha_creacion) {
-      this.fecha_creacion = fecha_creacion;
-    }  
-    
 }

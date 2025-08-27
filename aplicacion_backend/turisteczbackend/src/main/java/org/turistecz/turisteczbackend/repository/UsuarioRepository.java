@@ -1,16 +1,11 @@
 package org.turistecz.turisteczbackend.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.turistecz.turisteczbackend.model.Usuario;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-
-     @Query("SELECT u.nombre FROM Usuario u WHERE u.id = :id")
-     String encontrarNombrePorId(@Param("id") String id);
-
-	 Usuario findByEmail(String email);
-    
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {  // ✅ Integer en vez de Long
+    Optional<Usuario> findByEmail(String email);
+    boolean existsByEmail(String email);
 }
-
