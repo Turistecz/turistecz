@@ -3,7 +3,7 @@ import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import proj4 from 'proj4';
 import { MapService } from '../services/map.service';
-import { BiziItem, BusStopItem, TaxiStopItem, TramStopItem } from '../models/map.model';
+import { AdapParkingItem, BiziItem, BusStopItem, TaxiStopItem, TramStopItem } from '../models/map.model';
 import { firstValueFrom } from 'rxjs';
 
 
@@ -24,6 +24,7 @@ export class MapComponent implements AfterViewInit, OnInit{
   taxiStops: TaxiStopItem[] = [];
   busStops: BusStopItem[] = [];
   tramStops: TramStopItem[] = [];
+  adapParking: AdapParkingItem[] = [];
 
   biziIcon = L.icon({
     iconUrl: 'media/bizi-icon.png',
@@ -53,10 +54,19 @@ export class MapComponent implements AfterViewInit, OnInit{
     popupAnchor: [0, -20],
   });
 
+ AdapParkingIcon = L.icon({
+    iconUrl: 'media/parking-adap.svg',
+    iconSize: [22, 32], //medidas por ajustar
+    iconAnchor: [12, 20],
+    popupAnchor: [0, -20],
+  });
+
+  //TODO: falta el de busInfo
   biziMarkerGroup = new L.FeatureGroup();
   busMarkerGroup = new L.FeatureGroup();
   tramMarkerGroup = new L.FeatureGroup();
   taxiMarkerGroup = new L.FeatureGroup();
+  adapParkingGroup = new L.FeatureGroup();
 
   @Input() data = {
     latitud: 0,

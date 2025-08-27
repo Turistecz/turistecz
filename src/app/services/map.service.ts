@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BiziResponse, BusInfoResponse, BusStopResponse, TaxiStopItem, TaxiStopResponse, TramStopResponse } from '../models/map.model';
+import { AdapParkingResponse, BiziResponse, BusInfoResponse, BusStopResponse, TaxiStopItem, TaxiStopResponse, TramStopResponse } from '../models/map.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import L from 'leaflet';
@@ -59,7 +59,16 @@ export class MapService {
     });
     
     return this.http.get<TaxiStopResponse>(this.url+taxi,{params: Params, headers: Headers});
+  }
+
+  getAdapParking():Observable<AdapParkingResponse> {
+    const adapParking = "equipamiento/aparcamiento-personas-discapacidad";
+    const Params = new HttpParams().set('rf', 'html').set('start', '0').set('rows', '500').set('distance', '500');
+    const Headers = new HttpHeaders({
+      Accept: 'application/geo+json', 
+    });
     
+    return this.http.get<AdapParkingResponse>(this.url+adapParking,{params: Params, headers: Headers});
   }
 
   getMap(){

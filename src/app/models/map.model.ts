@@ -64,6 +64,29 @@ export interface TramStopItem {
   ]
 }
 
+export interface AdapParkingItem{
+  geometry: {
+        type: string,
+        coordinates: [number, number]
+      },
+      properties: {
+        gid: number,
+        id: number,
+        tipo_reserva: string,
+        calle_1: string,
+        num_calle1: string,
+        longitud: number,
+        horario: string,
+        categoria: string,
+        plazas: string,
+        icon: string
+      }
+}
+
+export interface AdapParkingResponse{
+  features: AdapParkingItem[];
+}
+
 export interface BiziResponse {
   features: BiziItem[];
 }
