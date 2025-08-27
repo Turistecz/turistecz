@@ -62,12 +62,11 @@ export class MapComponent implements AfterViewInit, OnInit{
     popupAnchor: [0, -20],
   });
 
-  //TODO: falta el de busInfo
   biziMarkerGroup = new L.FeatureGroup();
   busMarkerGroup = new L.FeatureGroup();
   tramMarkerGroup = new L.FeatureGroup();
   taxiMarkerGroup = new L.FeatureGroup();
-  adapParkingGroup = new L.FeatureGroup();
+  adapParkingMarkerGroup = new L.FeatureGroup();
 
   route: MapRouteItem = {
     routes: [
@@ -122,6 +121,8 @@ export class MapComponent implements AfterViewInit, OnInit{
     await this.loadTaxiStops();
     await this.loadBusStops();
     await this.loadTramStops();
+    await this.loadAdapParking();
+
     await this.getRoute();
     this.makeLocationMarkers();
     
@@ -130,6 +131,7 @@ export class MapComponent implements AfterViewInit, OnInit{
     this.createBusMarkers();
     this.createTramMarkers();
     this.createTaxiMarkers();
+    this.createAdapParkingMarkers();
   }
 
   getUserCoords(){
@@ -143,6 +145,7 @@ export class MapComponent implements AfterViewInit, OnInit{
     const coords = this.convertCoords(this.data.latitud, this.data.longitud);
     const latlng: L.LatLngExpression = [coords[1], coords[0]]; // [lat, lon]
     return latlng;
+    this.createAdapParkingMarkers();
   }
 
 // function to initialize the map, set the location point
@@ -321,6 +324,16 @@ public showHideMarkers(event: Event, group: L.FeatureGroup): void {
   }
 }
 
+async loadAdapParking(): Promise<void> {
+  try {
+    const datos = await firstValueFrom(this.apiMapService.getAdapParking());
+    this.adapParking = datos.features;
+
+  } catch (error) {
+    console.error('Error al cargar monumentos:', error);
+  }
+}
+
 //TODO: hide & show markers on zoom
 // map.on('zoomend', function() {
 //     if (map.getZoom() <7){
@@ -345,6 +358,10 @@ private createBusMarkers(): void {
 
 private createTramMarkers(): void {
   this.createMarkers(this.tramIcon, this.tramMarkerGroup, this.tramStops, "tram");
+};
+
+private createAdapParkingMarkers(): void {
+this.createMarkers(this.AdapParkingIcon, this.adapParkingMarkerGroup, this.adapParking, "parking adaptado");
 };
 
 private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: string): void {
@@ -398,6 +415,14 @@ private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: s
           <strong>${props.properties.title}</strong><br>
         `);
         break;
+
+      case "parking adaptado":
+        markerVar.bindPopup(`
+          <strong>${props.properties.title}</strong><br>
+           Dirección: ${props.properties.calle_1}, ${props.properties.num_calle1} <br>
+           Horario: ${props.properties.horario} <br>
+           Número de plazas: ${props.properties.plazas} 
+          `)
     }
   });
 }
