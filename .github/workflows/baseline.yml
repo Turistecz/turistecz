@@ -1,14 +1,17 @@
-name: baseline
+# .github/workflows/baseline.yml
+name: CI Baseline
 on:
   pull_request:
-    branches: [ main ]   # si tu rama por defecto no es 'main', cámbiala
+    branches: [ main ]
+    types: [opened, synchronize, reopened, ready_for_review]
   push:
     branches: [ main ]
 
 jobs:
-  sanity:
+  status:
+    name: status
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Quick sanity
-        run: echo "CI OK"
+      - run: echo "CI OK"
+
