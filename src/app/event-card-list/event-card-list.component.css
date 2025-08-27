@@ -1,37 +1,37 @@
 @import '@fontsource-variable/baloo-bhaijaan-2';
 
-.breadcrumb-events {
-  margin-left: 5rem;
-  margin-top: 1rem;
+.breadcrumb-events{
+  /* margin-left: 5rem; */
+  /* margin-top: 1rem; */
   font-family: 'inclusive', sans-serif;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
-h2 {
-  color: #184591;
+h2{
+  color: #184591; 
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-  font-weight: bold;
+  /* font-weight: bold; */
   font-size: 4rem;
-  text-align: center;
-  padding-top: 2rem;
-  padding-bottom: 1rem;
-}
+  /* text-align: center; */
+  /* padding-top: 2rem; */
+  /* padding-bottom: 1rem; */
+} 
 
 .filters {
   margin-right: -1rem;
-  margin-left: 2rem;
+  /* margin-left: 2rem; */
 }
 
-.bloque {
-  margin-bottom: 1.5rem;
-}
+/* .bloque{
+  margin-bottom: 1.5rem; 
+}*/
 
-.event-card-list {
+/* .event-card-list {
   display: inline-block;
-  padding-bottom: 1rem;
-}
+  padding-bottom: 1rem; 
+} */
 
-#textShowEvents {
+#textShowEvents{
   font-family: "inclusive", system-ui;
 }
 
