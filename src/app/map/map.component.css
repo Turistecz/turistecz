@@ -1,5 +1,7 @@
 
-
+#mapContainer{
+  position: relative;
+}
 
 #map {
   height: 600px;
@@ -10,9 +12,9 @@
 }
 
 .instructionsContainer {
-  position: relative;
+  position: absolute;
   display: inline;
-  top: 40px;
-  left: 200px;
+  top: 0;
+  right: 0;
   z-index: 1;
 }
