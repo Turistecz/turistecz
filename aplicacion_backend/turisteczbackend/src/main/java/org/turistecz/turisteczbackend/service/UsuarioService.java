@@ -1,139 +1,115 @@
 package org.turistecz.turisteczbackend.service;
 
-import java.time.LocalDate;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.turistecz.turisteczbackend.dto.UsuarioDto;
 import org.turistecz.turisteczbackend.model.Usuario;
 import org.turistecz.turisteczbackend.model.VerificationToken;
 import org.turistecz.turisteczbackend.repository.UsuarioRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
 
-    private final UsuarioRepository repositorioUsuario;
-    private final PasswordEncoder passwordEncoder;
-    private final VerificationTokenService verificationService;
-    private final emailService emailService;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-    public UsuarioService(UsuarioRepository repositorioUsuario,
-                          PasswordEncoder passwordEncoder,
-                          VerificationTokenService verificationService,
-                          emailService emailService) {
-        this.repositorioUsuario = repositorioUsuario;
-        this.passwordEncoder = passwordEncoder;
-        this.verificationService = verificationService;
-        this.emailService = emailService;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public List<Usuario> buscarTodosUsuarios() {
-        return repositorioUsuario.findAll();
-    }
-
-    public String encontrarNombrePorId(String id) {
-        return repositorioUsuario.encontrarNombrePorId(id);
-    }
-
-    // 🔹 Validar login verificando activo y contraseña
-    public Usuario validarCredenciales(String email, String contrasenaRaw) {
-        Usuario usuario = repositorioUsuario.findByEmail(email);
-        if (usuario == null) {
-            throw new RuntimeException("Usuario no encontrado");
-        }
-
-        if (!usuario.getActivo()) {
-            throw new RuntimeException("Usuario no verificado. Revisa tu email.");
-        }
-
-        if (!passwordEncoder.matches(contrasenaRaw, usuario.getContrasena())) {
-            throw new RuntimeException("Contraseña incorrecta");
-        }
-
-        return usuario;
-    }
+    @Autowired
+    private VerificationTokenService verificationTokenService;
 
     // 🔹 Registro de usuario
-    public void registrarUsuario(Usuario usuario) {
-        // Encriptar contraseña
-        usuario.setContrasena(passwordEncoder.encode(usuario.getContrasena()));
-
-        // Usuario inactivo hasta verificar email
-        usuario.setActivo(false);
-        usuario.setFecha_creacion(LocalDate.now());
-
-        // Guardar usuario
-        Usuario nuevoUsuario = repositorioUsuario.save(usuario);
-
-        // Crear token de verificación
-        VerificationToken token = verificationService.crearTokenParaUsuario(nuevoUsuario);
-
-        // Enviar email con enlace de verificación
-        String linkVerificacion = "http://localhost:8080/auth/verify?token=" + token.getToken();
-        String cuerpo = "Hola " + usuario.getNombre() + ",\n\nGracias por registrarte en Turistecz. Por favor verifica tu cuenta haciendo clic en el siguiente enlace:\n\n"
-                      + linkVerificacion + "\n\nEste enlace expirará en 24 horas.";
-
-        emailService.enviarEmail(usuario.getEmail(), "Verificación de cuenta", cuerpo);
-    }
-
-    // 🔹 Registrar usuario desde DTO
-    public void registrarUsuarioDesdeDto(UsuarioDto usuarioDto) {
+    public Usuario registrarUsuarioDesdeDto(UsuarioDto dto) {
         Usuario usuario = new Usuario();
-        usuario.setNombre(usuarioDto.getNombre());
-        usuario.setApellido(usuarioDto.getApellido());
-        usuario.setEmail(usuarioDto.getEmail());
-        usuario.setContrasena(usuarioDto.getContrasena());
+        usuario.setNombre(dto.getNombre());
+        usuario.setEmail(dto.getEmail());
+        usuario.setPassword(passwordEncoder.encode(dto.getContrasena()));
+        usuario.setActivo(false);
 
-        registrarUsuario(usuario);
+        // ❌ ERROR: antes retornabas aquí y cortabas el flujo
+        // return usuarioRepository.save(usuario);
+
+        // ✅ Guardamos el usuario
+        Usuario saved = usuarioRepository.save(usuario);
+
+        // ✅ Creamos token de ACTIVACIÓN (no recuperación)
+        var token = verificationTokenService.crearToken(
+                saved,
+                VerificationToken.TipoToken.ACTIVACION,
+                48 // expira en 48 horas
+        );
+
+        // ✅ Creamos enlace de verificación
+        String enlace = "http://localhost:4200/verify?token=" + token.getToken();
+
+        // ✅ Enviamos correo
+        enviarCorreoVerificacion(saved.getEmail(), enlace);
+
+        return saved;
     }
 
+    // 🔹 Verificar existencia por email
     public boolean existsByEmail(String email) {
-        return repositorioUsuario.findByEmail(email) != null;
+        return usuarioRepository.existsByEmail(email);
     }
 
+    // 🔹 Buscar usuario por email
     public Usuario buscarPorEmail(String email) {
-        Usuario usuario = repositorioUsuario.findByEmail(email);
-        if (usuario == null) {
-            throw new RuntimeException("Usuario no encontrado");
-        }
-        return usuario;
+        return usuarioRepository.findByEmail(email).orElse(null);
     }
 
-    public void cambiarEmail(Integer userId, String nuevoEmail) {
-        Usuario usuario = repositorioUsuario.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        if (existsByEmail(nuevoEmail)) {
-            throw new RuntimeException("El email ya está registrado");
-        }
-
-        usuario.setEmail(nuevoEmail);
-        repositorioUsuario.save(usuario);
+    public Optional<Usuario> findById(Integer id) {
+        return usuarioRepository.findById(id);
     }
 
-    public void cambiarContrasena(Integer userId, String actualContrasena, String nuevaContrasena) {
-        Usuario usuario = repositorioUsuario.findById(userId)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
-        if (!passwordEncoder.matches(actualContrasena, usuario.getContrasena())) {
-            throw new RuntimeException("La contraseña actual no es correcta");
-        }
-
-        usuario.setContrasena(passwordEncoder.encode(nuevaContrasena));
-        repositorioUsuario.save(usuario);
+    // 🔹 Cambiar email
+    public void cambiarEmail(Integer id, String nuevoEmail) {
+        usuarioRepository.findById(id).ifPresent(usuario -> {
+            usuario.setEmail(nuevoEmail);
+            usuarioRepository.save(usuario);
+        });
     }
 
-    public void actualizarContrasena(Integer id, String nuevaContrasena) {
-        Usuario usuario = repositorioUsuario.findById(id).orElseThrow();
-        usuario.setContrasena(passwordEncoder.encode(nuevaContrasena));
-        repositorioUsuario.save(usuario);
-        
+    // 🔹 Cambiar contraseña
+    public void cambiarContrasena(Integer id, String actual, String nueva) {
+        usuarioRepository.findById(id).ifPresent(usuario -> {
+            if (passwordEncoder.matches(actual, usuario.getPassword())) {
+                usuario.setPassword(passwordEncoder.encode(nueva));
+                usuarioRepository.save(usuario);
+            } else {
+                throw new IllegalArgumentException("Contraseña actual incorrecta");
+            }
+        });
     }
 
+    // 🔹 Forzar actualización de contraseña (reset password)
+    public void actualizarContrasena(Integer id, String nueva) {
+        usuarioRepository.findById(id).ifPresent(usuario -> {
+            usuario.setPassword(passwordEncoder.encode(nueva));
+            usuarioRepository.save(usuario);
+        });
+    }
+
+    // 🔹 Aquí iría tu lógica real de envío de correos
     public void enviarCorreoRecuperacion(String email, String enlace) {
-        System.out.println("Enviar correo a " + email + " con enlace: " + enlace);
-   
+        System.out.println("Enlace de recuperación enviado a " + email + ": " + enlace);
     }
 
+    public void enviarCorreoVerificacion(String email, String enlace) {
+        System.out.println("Enlace de verificación enviado a " + email + ": " + enlace);
+    }
+
+    // 🔹 Otros métodos
+    public List<Usuario> findAll() {
+        return usuarioRepository.findAll();
+    }
+
+    public void deleteById(Integer id) {
+        usuarioRepository.deleteById(id);
+    }
 }

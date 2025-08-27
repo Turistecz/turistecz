@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.turistecz.turisteczbackend.model.Usuario;
@@ -22,27 +20,41 @@ public class VerificationTokenService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    // 🔹 Crear token genérico
+    public VerificationToken crearToken(Usuario usuario, VerificationToken.TipoToken tipo, int horasExpiracion) {
+        // Eliminar tokens anteriores del mismo tipo
+        tokenRepository.deleteAllByUsuarioAndTipo(usuario, tipo);
 
-    public VerificationToken crearTokenParaUsuario(Usuario usuario) {
-        String token = UUID.randomUUID().toString();
-        VerificationToken verificationToken = new VerificationToken();
-        verificationToken.setToken(token);
-        verificationToken.setUsuario(usuario);
-        verificationToken.setFecha_expiracion(LocalDateTime.now().plusHours(48));
-        verificationToken.setTipo("ACTIVATION");
+        String tokenStr = UUID.randomUUID().toString();
+        VerificationToken token = new VerificationToken();
+        token.setToken(tokenStr);
+        token.setUsuario(usuario);
+        token.setTipo(tipo);
+        token.setFecha_expiracion(LocalDateTime.now().plusHours(horasExpiracion));
 
-        return tokenRepository.save(verificationToken);
+        VerificationToken saved = tokenRepository.save(token);
+        System.out.println("Token creado para " + tipo + ": " + saved.getToken() + " (usuario=" + usuario.getEmail() + ")");
+        return saved;
     }
 
-
-    public boolean verificarToken(String token) {
+    // 🔹 Verificar token de activación
+    public boolean verificarTokenActivacion(String token) {
         Optional<VerificationToken> optional = tokenRepository.findByToken(token);
+
         if (optional.isEmpty()) {
+            System.out.println("Token de activación inválido");
             return false;
         }
 
         VerificationToken vt = optional.get();
         if (vt.getFecha_expiracion().isBefore(LocalDateTime.now())) {
+            tokenRepository.delete(vt);
+            System.out.println("Token de activación expirado y eliminado");
+            return false;
+        }
+
+        if (vt.getTipo() != VerificationToken.TipoToken.ACTIVACION) {
+            System.out.println("Token no es de activación");
             return false;
         }
 
@@ -51,28 +63,41 @@ public class VerificationTokenService {
         usuarioRepository.save(usuario);
         tokenRepository.delete(vt);
 
+        System.out.println("Usuario activado: " + usuario.getEmail());
         return true;
     }
 
-    public VerificationToken generarTokenRecuperacion(Usuario usuario){
-        String token = UUID.randomUUID().toString();
-        VerificationToken verificationToken = new VerificationToken();
-        verificationToken.setToken(token);
-        verificationToken.setUsuario(usuario);
-        verificationToken.setFecha_expiracion(LocalDateTime.now().plusHours(2));
-        verificationToken.setTipo("RECOVERY");
-        
-        return tokenRepository.save(verificationToken);
-    }
-
-    public Usuario getUsuarioDesdeTokenRecuperacion(String token){
+    // 🔹 Verificar token de recuperación
+    public Usuario verificarTokenRecuperacion(String token) {
         Optional<VerificationToken> optional = tokenRepository.findByToken(token);
-        if(optional.isEmpty()) return null;
+
+        if (optional.isEmpty()) {
+            System.out.println("Token de recuperación inválido");
+            return null;
+        }
 
         VerificationToken vt = optional.get();
-        if(vt.getFecha_expiracion().isBefore(LocalDateTime.now())) return null;
+        if (vt.getFecha_expiracion().isBefore(LocalDateTime.now())) {
+            tokenRepository.delete(vt);
+            System.out.println("Token de recuperación expirado y eliminado");
+            return null;
+        }
+
+        if (vt.getTipo() != VerificationToken.TipoToken.RECUPERACION) {
+            System.out.println("Token no es de recuperación");
+            return null;
+        }
 
         return vt.getUsuario();
+    }
 
+    // 🔹 Limpiar tokens expirados (opcional, cron o manual)
+    public void limpiarTokensExpirados() {
+        tokenRepository.findAll().stream()
+                .filter(t -> t.getFecha_expiracion().isBefore(LocalDateTime.now()))
+                .forEach(t -> {
+                    System.out.println("Eliminando token expirado: " + t.getToken());
+                    tokenRepository.delete(t);
+                });
     }
 }
