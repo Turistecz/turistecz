@@ -17,6 +17,8 @@ export class TextDetailComponent {
     }
   };
 
+@Input() oneName:string = '';
+
     ngOnChanges(changes: SimpleChanges) {
     if (changes['oneText']) {
       console.log('onetexxtoo changed:', changes['oneText'].currentValue);
@@ -26,6 +28,17 @@ export class TextDetailComponent {
         }
       };
       console.log('oneText changed2:', this.oneText);
+
+      if (changes['oneName']) {
+      console.log('onetexxtoo changed:', changes['oneName'].currentValue);
+      this.oneText = {
+        sitios_ruta: {
+          texto: changes['oneName'].currentValue.texto 
+        }
+      };
+      console.log('oneName changed2:', this.oneText);
+    }
     }
   }
+
 }

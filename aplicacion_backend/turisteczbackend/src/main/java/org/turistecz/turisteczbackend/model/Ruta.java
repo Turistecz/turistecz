@@ -50,11 +50,11 @@ public class Ruta {
     //mostrar la información de la entidad en formato JSON debe mostrar un campo más que
     //enseñe los "Sitios_Ruta" que están relacionados con esta Ruta 
     @JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id.ruta", cascade = CascadeType.ALL)
-    private List<Sitios_Ruta> sitios_ruta;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "ruta", cascade = CascadeType.ALL)
+    private List<SitiosRuta> sitios_ruta;
 
 
-    public List<Sitios_Ruta> getSitios_ruta() {
+    public List<SitiosRuta> getSitios_ruta() {
       return sitios_ruta;
     }
 
