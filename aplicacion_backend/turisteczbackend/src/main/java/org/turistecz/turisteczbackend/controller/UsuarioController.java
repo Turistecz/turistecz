@@ -36,26 +36,51 @@ public class UsuarioController {
     }
 
     // 🔹 Login que devuelve JWT
-    @PostMapping("/login/signin")
+    @PostMapping("/login/signin")   
     public ResponseEntity<?> login(@RequestBody Usuario datosLogin) {
-        Usuario usuario = usuarioService.validarCredenciales(
-            datosLogin.getEmail(),
-            datosLogin.getContrasena()
-        );
+        try {
+            // 🔹 Log de entrada
+            System.out.println("Intento de login: " + datosLogin.getEmail());
 
-        if (usuario != null) {
-            // ✅ Generar token JWT
-            String token = jwtUtil.generateToken(usuario.getEmail(), usuario.getId());
+            // 🔹 Buscar usuario por email
+            Usuario usuario = usuarioService.validarCredenciales(
+                datosLogin.getEmail(),
+                datosLogin.getContrasena()
+            );
 
-            // ✅ Devolver token y datos básicos del usuario
-            return ResponseEntity.ok(Map.of(
-                "token", token,
-                "id", usuario.getId(),
-                "nombre", usuario.getNombre(),
-                "email", usuario.getEmail()
-            ));
-        } else {
-            return ResponseEntity.status(401).body("Credenciales inválidas");
+            // 🔹 Si usuario es null (no debería pasar si validarCredenciales lanza excepción)
+            if (usuario == null) {
+                return ResponseEntity.status(401).body("Credenciales inválidas");
+            }
+
+        // 🔹 Crear respuesta sin exponer contraseña
+        Usuario respuesta = new Usuario();
+        respuesta.setId(usuario.getId());
+        respuesta.setNombre(usuario.getNombre());
+        respuesta.setApellido(usuario.getApellido());
+        respuesta.setEmail(usuario.getEmail());
+        respuesta.setActivo(usuario.getActivo());
+        respuesta.setFecha_creacion(usuario.getFecha_creacion());
+
+        // 🔹 Generar JWT
+        String token = jwtUtil.generateToken(usuario.getEmail(), usuario.getId());
+        System.out.println("Token generado: " + token);
+
+        // 🔹 Devolver usuario + token
+        return ResponseEntity.ok(Map.of(
+            "usuario", respuesta,
+            "token", token
+        ));
+
+        } catch (RuntimeException e) {
+            // 🔹 Capturar errores conocidos
+            System.err.println("Error en login: " + e.getMessage());
+            return ResponseEntity.status(401).body(e.getMessage());
+        } catch (Exception e) {
+            // 🔹 Capturar cualquier error inesperado
+            System.err.println("Error inesperado en login: " + e);
+            return ResponseEntity.status(500).body("Error interno del servidor");
         }
     }
+
 }

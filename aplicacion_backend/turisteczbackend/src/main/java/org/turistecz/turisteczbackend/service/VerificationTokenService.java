@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.turistecz.turisteczbackend.model.Usuario;
@@ -20,15 +22,18 @@ public class VerificationTokenService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+
     public VerificationToken crearTokenParaUsuario(Usuario usuario) {
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setToken(token);
         verificationToken.setUsuario(usuario);
         verificationToken.setFecha_expiracion(LocalDateTime.now().plusHours(48));
+        verificationToken.setTipo("ACTIVATION");
 
         return tokenRepository.save(verificationToken);
     }
+
 
     public boolean verificarToken(String token) {
         Optional<VerificationToken> optional = tokenRepository.findByToken(token);
@@ -37,7 +42,6 @@ public class VerificationTokenService {
         }
 
         VerificationToken vt = optional.get();
-
         if (vt.getFecha_expiracion().isBefore(LocalDateTime.now())) {
             return false;
         }
@@ -48,5 +52,27 @@ public class VerificationTokenService {
         tokenRepository.delete(vt);
 
         return true;
+    }
+
+    public VerificationToken generarTokenRecuperacion(Usuario usuario){
+        String token = UUID.randomUUID().toString();
+        VerificationToken verificationToken = new VerificationToken();
+        verificationToken.setToken(token);
+        verificationToken.setUsuario(usuario);
+        verificationToken.setFecha_expiracion(LocalDateTime.now().plusHours(2));
+        verificationToken.setTipo("RECOVERY");
+        
+        return tokenRepository.save(verificationToken);
+    }
+
+    public Usuario getUsuarioDesdeTokenRecuperacion(String token){
+        Optional<VerificationToken> optional = tokenRepository.findByToken(token);
+        if(optional.isEmpty()) return null;
+
+        VerificationToken vt = optional.get();
+        if(vt.getFecha_expiracion().isBefore(LocalDateTime.now())) return null;
+
+        return vt.getUsuario();
+
     }
 }
