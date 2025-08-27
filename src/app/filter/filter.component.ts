@@ -27,42 +27,47 @@ export class FilterComponent {
   @Output() filteredEvents = new EventEmitter<any[]>(); 
   @Output() filteredCards = new EventEmitter<any[]>();
   @Output() filtersAdaptability = new EventEmitter<string[]>();
+  @Output() noResultsPlacesEvent = new EventEmitter<boolean>();
+@Output() noResultsEventsEvent = new EventEmitter<boolean>();
   
 
   selectedEventsCategoriesMap: { [key: string]: boolean } = {};
   selectedPlacesCategoriesMap: { [key: string]: boolean } = {};
   selectedAccesibilityCategoriesMap: { [key: string]: boolean } = {}; //Mirar si esto va aquí o en places
-  groups = ['accesibilidad', 'servicios', 'infraestructura', 'familiar', 'multiidioma'];
+  groups = ['accesibilidad', 'servicios', 'familiar', 'multiidioma'];
 
   
   showAccesibilityCategories: boolean = false;
   showCategories: boolean = false; //  
   showOrder: boolean = false;
+  //Para el mensaje de "no se han encontrado resultados"
+  noResultsPlaces: boolean = false;
+  noResultsEvents: boolean = false;
 
 accesibilityOptions = [
-  { key: 'rampas', label: 'Rampas', groups: ['accesibilidad', 'infraestructura'] },
-  { key: 'ascensores', label: 'Ascensores', groups:['accesibilidad', 'infraestructura'] },
-  { key: 'puertas_automaticas', label: 'Puertas automáticas', groups: ['accesibilidad', 'infraestructura'] },
-  { key: 'escaleras_mecanicas', label: 'Escaleras mecánicas', groups: ['accesibilidad', 'infraestructura'] },
-  { key: 'servicios_adaptados', label: 'Servicios adaptados', groups: ['accesibilidad', 'infraestructura'] },
-  { key: 'sala_lactancia', label: 'Sala de lactancia', groups: ['familiar', 'servicios'] },
-  { key: 'cambiador', label: 'Cambiador', groups: ['familiar', 'servicios'] },
-  { key: 'parking_adaptado', label: 'Parking adaptado', groups: ['accesibilidad', 'infraestructura'] },
-  { key: 'bancos', label: 'Bancos/asientos', groups: ['accesibilidad', 'infraestructura', 'servicios'] },
-  { key: 'mostrador_adaptado', label: 'Mostrador adaptado', groups: ['accesibilidad', 'infraestructura'] },
-  { key: 'sin_barreras_arquitectónicas', label: 'Sin barreras arquitectónicas', groups: ['accesibilidad', 'infraestructura'] },
-  { key: 'braille', label: 'Braille', groups: ['accesibilidad', 'servicio' ] },
-  { key: 'interprete_lengua_signos', label: 'Intérprete de lengua de signos', groups: ['accesibilidad', 'servicios'] },
-  { key: 'videos_subtitulados', label: 'Vídeos subtitulados', groups: ['accesibilidad', 'servicios'] },
-  { key: 'ayudas_visuales', label: 'Ayudas visuales', groups: ['accesibilidad', 'servicios'] },
-  { key: 'guias_turisticos_multiidioma', label: 'Guías turísticos multiidioma', groups: ['multiidioma', 'servicios'] },
-  { key: 'elementos_audiovisuales_multiidioma', label: 'Elementos audiovisuales multiidioma', groups: ['multiidioma', 'servicios'] },
-  { key: 'documentacion_multiidioma', label: 'Documentación multiidioma', groups: ['multiidioma', 'servicios']  },
-  { key: 'visitas_grupales', label: 'Visitas grupales', groups: ['familiar', 'servicios'] },
-  { key: 'ayuda_movilidad', label: 'Ayuda a la movilidad', groups: ['accesibilidad', 'servicios'] },
-  { key: 'lenguaje_simple', label: 'Lenguaje simple', groups: ['accesibilidad', 'servicios'] },
-  { key: 'acceso_perros_guias', label: 'Acceso a perros guías', groups: ['accesibilidad', 'servicios'] },
-  { key: 'acceso_perros_asistencia', label: 'Acceso a perros de asistencia', groups: ['accesibilidad', 'servicios'] },
+  { key: 'rampas', label: 'Rampas', groups: ['accesibilidad'] },
+  { key: 'ascensores', label: 'Ascensores', groups:['accesibilidad'] },
+  { key: 'puertas_automaticas', label: 'Puertas automáticas', groups: ['accesibilidad'] },
+  { key: 'escaleras_mecanicas', label: 'Escaleras mecánicas', groups: ['accesibilidad'] },
+  { key: 'servicios_adaptados', label: 'Servicios adaptados', groups: ['accesibilidad'] },
+  { key: 'sala_lactancia', label: 'Sala de lactancia', groups: ['familiar'] },
+  { key: 'cambiador', label: 'Cambiador', groups: ['familiar'] },
+  { key: 'parking_adaptado', label: 'Parking adaptado', groups: ['accesibilidad'] },
+  { key: 'bancos', label: 'Bancos/asientos', groups: ['servicios'] },
+  { key: 'mostrador_adaptado', label: 'Mostrador adaptado', groups: ['accesibilidad'] },
+  { key: 'sin_barreras_arquitectónicas', label: 'Sin barreras arquitectónicas', groups: ['accesibilidad'] },
+  { key: 'braille', label: 'Braille', groups: ['accesibilidad' ] },
+  { key: 'interprete_lengua_signos', label: 'Intérprete de lengua de signos', groups: ['accesibilidad'] },
+  { key: 'videos_subtitulados', label: 'Vídeos subtitulados', groups: ['accesibilidad'] },
+  { key: 'ayudas_visuales', label: 'Ayudas visuales', groups: ['accesibilidad'] },
+  { key: 'guias_turisticos_multiidioma', label: 'Guías turísticos multiidioma', groups: ['multiidioma'] },
+  { key: 'elementos_audiovisuales_multiidioma', label: 'Elementos audiovisuales multiidioma', groups: ['multiidioma'] },
+  { key: 'documentacion_multiidioma', label: 'Documentación multiidioma', groups: ['multiidioma']  },
+  { key: 'visitas_grupales', label: 'Visitas grupales', groups: ['familiar'] },
+  { key: 'ayuda_movilidad', label: 'Ayuda a la movilidad', groups: [ 'servicios'] },
+  { key: 'lenguaje_simple', label: 'Lenguaje simple', groups: ['servicios'] },
+  { key: 'acceso_perros_guias', label: 'Acceso a perros guías', groups: ['servicios'] },
+  { key: 'acceso_perros_asistencia', label: 'Acceso a perros de asistencia', groups: ['servicios'] },
 
 ];
 
@@ -211,15 +216,20 @@ categoriesAdaptability: string[] = [
         this.normalize(event.description ?? '').includes(search)
       );
     }
+    this.noResultsEvents = this.filteredEvents.length === 0;
 
+    this.noResultsEvents= filtered.length === 0;
     this.filteredEvents.emit(filtered);
+    this.noResultsEventsEvent.emit(this.noResultsEvents);
   }
 
   applyPlaceFilters(){
       
     let filteredPlaces = [...this.places];
 
-    const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap).filter(cat => this.selectedPlacesCategoriesMap[cat]);
+    const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap)
+    .filter(cat => this.selectedPlacesCategoriesMap[cat]);
+
     if (selectedPlacesCategories.length > 0) {
       filteredPlaces = filteredPlaces.filter(place => {
         const texto = place.nombre.toLowerCase();
@@ -234,7 +244,7 @@ categoriesAdaptability: string[] = [
 
     if (selectedAccessibilityKeys.length > 0) {
     filteredPlaces = filteredPlaces.filter(place =>
-      selectedAccessibilityKeys.some(key =>
+      selectedAccessibilityKeys.every(key =>
         place[key as keyof cardsHome] === EnumServiciosAdaptabilidad.si ||
         place[key as keyof cardsHome] === EnumServiciosAdaptabilidad.bajo_peticion
       )
@@ -248,10 +258,11 @@ categoriesAdaptability: string[] = [
         this.normalize(place.nombre).includes(search)
       );
     }
+    this.noResultsPlaces = filteredPlaces.length === 0;
 
     this.filteredCards.emit(filteredPlaces);
+     this.noResultsPlacesEvent.emit(this.noResultsPlaces);
 };
-
   
   toggleCategory(cat: string) {
     this.selectedEventsCategoriesMap[cat] = !this.selectedEventsCategoriesMap[cat];

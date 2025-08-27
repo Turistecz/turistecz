@@ -1,9 +1,11 @@
-<div class="card card-text mb-2 p-3 shadow-sm" role="button" (click)="abrirEnlace(a.link)"  (keydown.enter)="abrirEnlace(a.link)"  *ngFor="let a of items">
 
-  <h5 class="mb-2">{{ a.title }}</h5>
-
-  <!--  (interpreta <strong><abbr>Tel...</abbr></strong>)  de la api -->
-  <p class="mb-2" [innerHTML]="a.descripcion"></p>
-
-  <p class="mb-0">Email:{{ a.email || 'No disponible' }}</p>
+<div class="cards-grid">
+  <section *ngFor="let a of items" transition-style="in:square:hesitate">
+        <article class="card card-inside p-3 shadow-sm h-100">
+          <h4>{{ a.title }}</h4>
+          <a [innerHTML]="a.descripcion"></a>
+          <p *ngIf="a.email">Email: {{ a.email }}</p>
+         <button class="ver-mas" (click)="abrirEnlace(a.link)" (keydown.enter)="abrirEnlace(a.link)"> Ver más <span class="arrow">›</span> </button>
+        </article>
+    </section>
 </div>
