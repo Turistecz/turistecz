@@ -9,7 +9,7 @@
 <div *ngFor="let site of routesSite">
   <app-site-text-detail [oneSite]="site"></app-site-text-detail> 
 </div>
-<div *ngFor="let text of routeText">
+<div *ngFor="let text of routeText; ">
   <app-text-detail [oneText]="text"></app-text-detail>
 </div>
 

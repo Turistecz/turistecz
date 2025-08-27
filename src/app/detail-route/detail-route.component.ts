@@ -31,6 +31,7 @@ export class DetailRouteComponent {
   /* SITE & TEXT DETAIL */
   routesSite: sitioResponse [] =[];
   routeText: textoDetails [] =[];
+  routesName: string = '';
   //todo: sitioDetails[]=[];
 
   /* FRONT DETAIL */
@@ -52,7 +53,7 @@ export class DetailRouteComponent {
   // /*Carga el sitio segun el id */
   /* El id se coloca en el oninit de abajo */
   
-  async loadRoutesSite(id: string): Promise<any> {
+  async loadRoutesSite(id: number): Promise<any> {
     try {
       const datos = await firstValueFrom(this.routeService.getRouteSites(id));
       this.routesSite = datos;
@@ -76,6 +77,27 @@ export class DetailRouteComponent {
     }
     //this.todo =  Object.assign({},this.routeText,this.routesSite);
       // console.log('funciona por dios',todo)
+  }
+
+
+
+
+    async loadnameSite(id: number): Promise<any> {
+    try {
+      const datos = await firstValueFrom(this.routeService.getRouteSites(id));
+      this.routesName = datos;
+      
+      this.routesName = datos.flatMap((sitio: { imagenes: any[]; })  =>
+        sitio.imagenes.map((img: any) => ({
+          nombre: img.nombre,
+    }))
+      ); 
+      console.log('Nombre Ruta:',this.routesName);
+
+    } catch (error) {
+      console.error('Error al cargar ruta por ID:', error);
+      throw error;
+    }
   }
 
 
@@ -117,7 +139,8 @@ export class DetailRouteComponent {
 
   async ngOnInit(): Promise<void> {
     await this.loadRoutebyId(1);  // Muestra una ruta segun el id //  FRONT DETAIL 
-    await this.loadRoutesSite("1");  // Muestra todos los sitios de una ruta segun el id // SITE & TEXT DETAIL 
+    await this.loadRoutesSite(1);
+    await this.loadnameSite(1);  // Muestra todos los sitios de una ruta segun el id // SITE & TEXT DETAIL 
   }
 
 }

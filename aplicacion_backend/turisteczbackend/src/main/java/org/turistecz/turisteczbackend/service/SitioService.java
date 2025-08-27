@@ -62,7 +62,7 @@ public class SitioService {
 	    return repositorioSitio.encontrarSitioCorrespondienteALaImagen(id);
 	}
 	  
-	public List<Sitio> buscarSitiosRuta(String id){
+	public List<Sitio> buscarSitiosRuta(Integer id){
 		return repositorioSitio.encontrarSitiosRuta(id);
 	}
 

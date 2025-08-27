@@ -60,13 +60,14 @@ CREATE TABLE ruta (
 
 -- Tabla sitios_ruta
 CREATE TABLE sitios_ruta (
-    id_ruta INT,
+	id int PRIMARY KEY AUTO_INCREMENT,
+    id_ruta INT ,
     id_sitio INT,
     orden INT,
     texto VARCHAR(255),
-    PRIMARY KEY (id_ruta, id_sitio),
     FOREIGN KEY (id_ruta) REFERENCES ruta(id),
-    FOREIGN KEY (id_sitio) REFERENCES sitio(id)
+    FOREIGN KEY (id_sitio) REFERENCES sitio(id),
+    UNIQUE (id_ruta, id_sitio)
 );
 
 -- Tabla caracteristica

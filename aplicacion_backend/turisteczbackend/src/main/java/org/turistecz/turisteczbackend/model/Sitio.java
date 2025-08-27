@@ -162,9 +162,10 @@ public class Sitio {
     //mostrar la información de la entidad en formato JSON debe mostrar un campo más que
     //enseñe los "Sitios_Ruta" que están relacionados con este Sitio 
     @JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id.sitio", cascade = CascadeType.ALL)
-    private List<Sitios_Ruta> sitios_ruta;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sitio", cascade = CascadeType.ALL)
+    private List<SitiosRuta> sitios_ruta;
 
+    
     // Getters y Setters    
     public int getId() {
         return id;
@@ -414,8 +415,12 @@ public class Sitio {
       return imagenes;
     }
 
-    public List<Sitios_Ruta> getSitios_ruta() {
+    public List<SitiosRuta> getSitios_ruta() {
       return sitios_ruta;
+    }
+
+    public void setSitios_ruta(List<SitiosRuta> sitios_ruta) {
+      this.sitios_ruta = sitios_ruta;
     }
 
 }
