@@ -1,13 +1,12 @@
 package org.turistecz.turisteczbackend.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-//import org.springframework.data.jpa.repository.Query;
-//import org.springframework.data.repository.query.Param;
-import org.turistecz.turisteczbackend.model.Sitios_Ruta;
+import org.turistecz.turisteczbackend.model.SitiosRuta;
 
-import jakarta.persistence.EmbeddedId;
 
 //Las clases de tipo Repository son las encargadas de crear las consultas a la BBDD
 //y traer el resultado de su ejecucion. Heredan de la clase JpaRepository, lo cual les
@@ -16,7 +15,7 @@ import jakarta.persistence.EmbeddedId;
 //metodos que, si se sigue la sintaxis de JPA, se pueden transformar automaticamente en 
 //sentencias SQL sin necesidad de poner nada en ese lenguaje. Por otro lado, tambien se 
 //pueden escribir metodos que tengan sentencias SQL asociadas
-public interface Sitios_RutaRepository extends JpaRepository<Sitios_Ruta, EmbeddedId> {
+public interface SitiosRutaRepository extends JpaRepository<SitiosRuta, Integer> {
 	
 	//Un metodo como este sigue la sintaxis de JPA, le estamos diciendo solo con la 
 	//firma del metodo que tiene que devolver la lista de sitios que cuyo nombre se
@@ -27,6 +26,21 @@ public interface Sitios_RutaRepository extends JpaRepository<Sitios_Ruta, Embedd
 	// Si quereis usarlo, todo vuestro.
 
 	@Query(value = "SELECT * FROM Sitios_Ruta sr WHERE sr.id_sitio = :id_sitio and sr.id_ruta = :id_ruta", nativeQuery = true)
-    Sitios_Ruta encontrarNombrePorIdSitioIdRuta(@Param("id_sitio") Integer id_sitio, @Param("id_ruta") Integer id_ruta);
+    SitiosRuta encontrarNombrePorIdSitioIdRuta(@Param("id_sitio") Integer id_sitio, @Param("id_ruta") Integer id_ruta);
 
-}
+	// @Query(value = "SELECT sr.texto FROM Sitios_Ruta sr JOIN SITIO st ON sr.id_sitio = st.id WHERE sr.id_ruta = :id_ruta", nativeQuery = true)
+    // List<Sitios_Ruta> encontrarTextoPorIdSitioIdRuta(@Param("id_ruta") Integer id_ruta);
+
+	
+	@Query(value = "SELECT sr.texto, sr.id_sitio FROM Sitios_Ruta sr WHERE sr.id_ruta = :id_ruta", nativeQuery = true)
+    List<SitiosRuta> encontrarTextoPorIdSitioIdRuta(@Param("id_ruta") Integer id_ruta);
+
+	
+
+	// @Query(value = "SELECT texto FROM Sitios_Ruta sr JOIN SITIO st ON sr.id_sitio = st.id WHERE sr.id_ruta = :id_ruta", nativeQuery = true)
+    // Sitios_Ruta encontrarTextoPorIdSitioIdRuta(@Param("id_ruta") String id_ruta);
+
+	// @Query(value = "SELECT texto FROM Sitios_Ruta sr JOIN SITIO st ON sr.id_sitio = st.id WHERE sr.id_ruta = :id_ruta", nativeQuery = true)
+    // Sitios_Ruta encontrarTextoPorIdSitioIdRuta(@Param("id_ruta") Integer id_ruta);
+
+} 

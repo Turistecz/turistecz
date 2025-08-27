@@ -124,8 +124,8 @@ public class SitioController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/sitiosRuta")
-    public List<Sitio> mostrarSitiosRuta(@RequestParam String id) {
+    public List<Sitio> mostrarSitiosRuta(@RequestParam Integer id) {
         return sitioService.buscarSitiosRuta(id);
     }
-    
+
 }
