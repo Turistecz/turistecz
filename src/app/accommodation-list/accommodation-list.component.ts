@@ -16,6 +16,5 @@ export class AccommodationListComponent {
 
     window.open(url, '_blank');
   }
-  
 
 }

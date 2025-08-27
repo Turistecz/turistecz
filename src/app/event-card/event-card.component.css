@@ -1,10 +1,10 @@
 .ticket-vertical {
-    /* width: 100%; */
-    /* position: relative; */
+    width: 100%;
+    position: relative;
     font-family: 'inclusive', sans-serif; 
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* border-radius: 2rem; */
+    display: flex;
+    flex-direction: column;
+    border-radius: 2rem;
 }
 
 .ticket-vertical:hover {
@@ -20,36 +20,36 @@
 .bg-color2{
   background-color: #184591;
 }
- 
-/* a {
+
+a {
     text-decoration: none;
-    color: inherit;  
-} */
+    color: inherit; 
+}
 
 .inside-text {
-    height: 28rem;    /* height ticket text */
-    /* padding: 1.5rem; */
-    /* position: relative; */
-    /* display: flex; */
-    /* flex-direction:column; */
-    /* align-items: center; */
-    /* justify-content: center; */
+    height: 28rem;   /* height ticket text */
+    padding: 1.5rem;
+    position: relative;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
 }
 
 .inside-text h2{
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-    /* font-weight: bold; */
-    /* font-size: 1.5rem; */
-    /* color: #ffffff; */
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #ffffff;
 
-    @media (max-width: 430px){ 
+    @media (max-width: 430px){
         font-size: 1.65rem; 
-    }
+    } 
 }
 
 .inside-text p{
-    /* font-size: 1.1rem; */
-    /* color: #ffffff; */
+    font-size: 1.1rem;
+    color: #ffffff;
     font-family: "inclusive", sans-serif;
 
     @media (max-width: 430px){  

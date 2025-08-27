@@ -64,6 +64,23 @@ export interface TramStopItem {
   ]
 }
 
+export interface AdapParkingItem{
+  geometry: {
+        coordinates: [number, number]
+      },
+      properties: {
+        id: number,
+        calle_1: string,
+        num_calle1: string,
+        horario: string,
+        plazas: string,
+      }
+}
+
+export interface AdapParkingResponse{
+  features: AdapParkingItem[];
+}
+
 export interface BiziResponse {
   features: BiziItem[];
 }
@@ -74,40 +91,8 @@ export interface BusInfoResponse {
   result: BusInfoItem[];
 }
 export interface TaxiStopResponse {
-  features: TaxiStopItem[];
+  result: TaxiStopItem[];
 }
 export interface TramStopResponse {
   features: TramStopItem[];
-}
-
-export interface MapRouteItem {
-  routes: [
-    {
-      distance: number, //in meters
-      duration: number, //in seconds
-      geometry: {
-        coordinates: [[number, number]]
-      }
-      legs: [
-        {
-          steps: MapRouteSteps[]
-        }
-      ]
-    }
-  ]
-}
-
-export interface MapRouteSteps {
-  distance: number,
-  driving_side: string,
-  duration: number,
-  geometry: {
-    coordinates: [[number, number]]
-  }
-  maneuver: {
-    location: [number, number], //long, lat of the turn
-    modifier?: string,
-    type: string
-  },
-  name: string,
 }
