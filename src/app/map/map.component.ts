@@ -289,7 +289,7 @@ async loadBizis(): Promise<void> {
 async loadTaxiStops(): Promise<void> {
   try {
     const datos = await firstValueFrom(this.apiMapService.getTaxisStops());
-    this.taxiStops = datos.features;
+    this.taxiStops = datos.result;
 
   } catch (error) {
     console.error('Error al cargar monumentos:', error);
