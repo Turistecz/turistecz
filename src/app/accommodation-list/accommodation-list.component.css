@@ -26,14 +26,12 @@
 }
 .card-inside {
   background: linear-gradient( #2a8dfb);
-  border-color: #e4e9ee;
   font-family: "inclusive", sans-serif;
 }
 
 .ver-mas {
   background: none;
-  border: none;
-  color:  #0d131a;     
+  border: none;  
   font-weight: bolder;
   font-family: "inclusive", sans-serif;
    margin-top: auto;
