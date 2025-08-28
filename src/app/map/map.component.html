@@ -1,5 +1,17 @@
 
-<div id="map"></div>
+<div id="mapContainer">
+    <div class="instructionsContainer border border-2 overflow-auto h-75 w-25 mt-3 me-3 p-2 pb-0 bg-white">
+        <div class="mb-0">
+            <p class="fs-5 mb-1" id="legName">{{this.route.routes[0].legs[0].summary}}</p>
+            <p class="mb-2" id="distanceTime">{{kms}} {{mins}}</p>
+        </div>
+        <div class="instructionsListDiv">
+            <ul class="list-group-flush ps-0" id="instructionsList"></ul>
+        </div>
+    </div>
+    <div id="map"></div>
+</div>
+
 <p>LEYENDA:</p>
 <p>
     <img src="media/marker-icon.png" style="width:20px;height:30px;" alt="ícono estás aquí">
@@ -31,8 +43,4 @@
     <input class="icon" id="adapParkingId" type="checkbox" (change)="showHideMarkers($event, this.adapParkingMarkerGroup)">
 </p>
 
-<!-- (img)icono = sitio(?)
-(img)bici = estacion bici 
-(img)bus = estacion bus 
-(img)tranvia = estacion tranvia.  -->
 
