@@ -1,13 +1,12 @@
+<div id="buscador" class="d-inline-block text-white p-5 mx-3 ">
 
-<div id="buscador" class="row">
-      <!-- FILA 1: Input + Botones -->
-       
-      <div class="buscador-top d-inline-block">
-        <h4 class="titleFilter">Filtros</h4>
-        <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
-        <button class="btn btn-outline-light m-2" (click)="onSearch()"><i class="bi bi-search"></i> </button>
-        <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> </button>
-      </div>
+  <!-- FILA 1: Input + Botones -->
+  <div class="buscador-top">
+    <h4 class="titleFilter text-center mb-4">Filtros</h4>
+    <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
+    <button class="btn btn-outline-light m-2" (click)="onSearch()"><i class="bi bi-search"></i> </button>
+    <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> </button>
+  </div>
 
       <!-- FILA 2: Ordenar -->
       <div class="buscador-ordenar m-2" *ngIf="showOrder">
