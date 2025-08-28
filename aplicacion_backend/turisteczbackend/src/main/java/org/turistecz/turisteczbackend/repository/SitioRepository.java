@@ -41,7 +41,7 @@ public interface SitioRepository extends JpaRepository<Sitio, Integer> {
     Sitio encontrarSitioCorrespondienteALaImagen(@Param("id") String id);
 
 
-	@Query(value = "SELECT s.* FROM SITIO s JOIN sitios_ruta sr ON s.id = sr.id_sitio WHERE sr.id_ruta = :id ORDER BY sr.orden ASC", nativeQuery = true)
+	@Query(value = "SELECT s.*, sr.texto AS sitio_ruta_texto FROM SITIO s JOIN sitios_ruta sr ON s.id = sr.id_sitio WHERE sr.id_ruta = :id ORDER BY sr.orden ASC", nativeQuery = true)
     List<Sitio> encontrarSitiosRuta(@Param("id") Integer id);
 	
 }

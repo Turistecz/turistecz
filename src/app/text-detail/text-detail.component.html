@@ -1,8 +1,19 @@
-<div class="card text-black col-md-3" >
-  <div>
-  <h1> {{oneText.nombre}}</h1>
+<div class="container pt-5 ">
+  <div class="row">
+    <div class="col-6">
+      <div class="card">
+        <img src={{oneText.imagenes.url}} class="" >
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card" >
+        <div>
+          <h1> {{oneText.nombre}}</h1>
+        </div>
+        <div>
+         <p>{{oneText.sitio_ruta_texto}}</p>
+        </div>
+      </div>
+    </div>
   </div>
-  <div>
-  <p>{{oneText.sitios_ruta.texto}}</p>
-</div>
 </div>

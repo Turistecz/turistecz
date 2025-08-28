@@ -3,35 +3,35 @@ import { CommonModule } from '@angular/common';
 import { sitioResponse } from '../models/details-routes';
 
 
-@Component({
-  selector: 'app-site-text-detail',
-  imports: [CommonModule],
-  templateUrl: './site-text-detail.component.html',
-  styleUrl: './site-text-detail.component.css'
-})
-export class SiteTextDetailComponent {
-  constructor() {}
+// @Component({
+//   selector: 'app-site-text-detail',
+//   imports: [CommonModule],
+//   templateUrl: './site-text-detail.component.html',
+//   styleUrl: './site-text-detail.component.css'
+// })
+// export class SiteTextDetailComponent {
+//   constructor() {}
 
-@Input() oneSite: sitioResponse = {
-  imagenes: {
-    id: '',
-    url: '',
-    nombre:''    
-    },
-  };
+// @Input() oneSite: sitioResponse = {
+//   imagenes: {
+//     id: '',
+//     url: '',
+//     nombre:''    
+//     },
+//   };
 
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['oneSite']) {
-      this.oneSite = {
-        imagenes: {
-          id: changes['oneSite'].currentValue.id,
-          url: changes['oneSite'].currentValue.url,
-          nombre:changes['oneSite'].currentValue.nombre    
-        },   
-      };
-    }
-  }
+//   ngOnChanges(changes: SimpleChanges) {
+//     if (changes['oneSite']) {
+//       this.oneSite = {
+//         imagenes: {
+//           id: changes['oneSite'].currentValue.id,
+//           url: changes['oneSite'].currentValue.url,
+//           nombre:changes['oneSite'].currentValue.nombre    
+//         },   
+//       };
+//     }
+//   }
 
   
-}
+// }

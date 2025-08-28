@@ -13,24 +13,24 @@ export class TextDetailComponent {
 
 @Input() oneText:textoDetails = {
    nombre: '',
-    sitios_ruta: {
-      texto: ''
-    }
+    imagenes: {
+        url: ''
+      },
+    sitio_ruta_texto:''
   };
-
-@Input() oneName:string = '';
 
     ngOnChanges(changes: SimpleChanges) {
     if (changes['oneText']) {
       console.log('onetexxtoo changed:', changes['oneText'].currentValue);
       this.oneText = {
         nombre: changes['oneText'].currentValue.nombre,
-        sitios_ruta: {
-          texto: changes['oneText'].currentValue.texto 
-        }
+        imagenes: {
+          url: changes['oneText'].currentValue.imagenes.url,
+        },
+        sitio_ruta_texto: changes['oneText'].currentValue.sitio_ruta_texto}
       };
       console.log('oneText changed2:', this.oneText);
     }
   }
 
-}
+
