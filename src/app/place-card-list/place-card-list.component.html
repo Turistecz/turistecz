@@ -9,7 +9,7 @@
    
 
     <div class="containerCard col-7" *ngIf="sortedCards.length > 0">
-      <div *ngFor="let cardHome of sortedCards">
+      <div *ngFor="let cardHome of pagedPlaces">
         <app-one-place-card [data]="cardHome"></app-one-place-card>
       </div>
     </div>
@@ -23,7 +23,16 @@
         </p>
       </div>
     </div>
-    
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center mt-4">
+        <app-pagination
+          [page]="page"
+          [pageSize]="pageSize"
+          [totalItems]="sortedCards.length"
+          (pageChange)="onPageChange($event)">
+        </app-pagination>
+      </div>
+    </div>
       
   </div> 
 </div>
