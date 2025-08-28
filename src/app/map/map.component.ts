@@ -6,7 +6,6 @@ import { MapService } from '../services/map.service';
 import { AdapParkingItem, BiziItem, BusStopItem, TaxiStopItem, TramStopItem, MapRouteItem } from '../models/map.model';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -17,12 +16,9 @@ import { HttpClient } from '@angular/common/http';
 export class MapComponent implements AfterViewInit, OnInit{
 
   constructor(private apiMapService: MapService, private http: HttpClient) {}
-  constructor(private apiMapService: MapService, private http: HttpClient) {}
 
   private map: any;
-  private map: any;
 
-  userLatLong: [number, number] = [41.65606, -0.87734];
   userLatLong: [number, number] = [41.65606, -0.87734];
 
   bizis: BiziItem[] = [];
@@ -189,39 +185,13 @@ async getRoute() {
     console.error('Error al cargar la ruta: ', error);
   }
 }
-}
-
-//connect to local OSRM server and insert route data in route variable
-//TODO: see and move this function to map service
-async getRoute() {
-  const latlng = this.getSiteCoords();
-
-  const service = 'route';
-  const version = 'v1';
-  const profile = 'foot';
-  const host = 'http://localhost:5000';
-
-  const siteCoords = [L.latLng(latlng).lng, L.latLng(latlng).lat];
-  const userCoords = [L.latLng(this.userLatLong).lng, L.latLng(this.userLatLong).lat];
-  const allCoords = (userCoords + ';' + siteCoords).toString();
-
-  const url = host + '/' + service + '/' + version + '/' + profile + '/' + allCoords + '?overview=full&steps=true&geometries=geojson';
-
-  try {
-    const datos = await firstValueFrom(this.http.get<MapRouteItem>(url));
-    this.route = datos;
-
-  } catch (error) {
-    console.error('Error al cargar la ruta: ', error);
-  }
-}
 
 // creates markers for user and monument location and adjusts the map view to fit both
 //TODO: find alternative to get user location or solution/check for when it doesn't work
 //TODO: find alternative to get user location or solution/check for when it doesn't work
 makeLocationMarkers(){
   const latlng = this.getSiteCoords();
-  const latlng = this.getSiteCoords();
+
   let userMarker = L.marker(this.userLatLong).addTo(this.map)
   .bindPopup("Estás aquí", {autoClose: false})
   .openPopup();
@@ -262,103 +232,52 @@ visualRouteLine(){
 
 routeInstructions(){
   let allSteps = this.route.routes[0].legs[0].steps;
+  let table = document.getElementById("instructionsList");
 
   allSteps.forEach((item) => {
-
-    //console.log(item.name + ' ' + item.maneuver.modifier)
-    // L.marker([item.maneuver.location[1], item.maneuver.location[0]]).addTo(this.map)
-    // .bindPopup(`
-    //   ${item?.name}<br>
-    //   ${item.maneuver?.modifier}`, {autoClose: false})
-    // .openPopup();
-  })
-
-
-  // let textbox = L.Control.extend({
-  //   onAdd: function() {
-  //     //let text = L.DomUtil.create('div');
-  //     let text = document.createElement("div");
-  //     text.id = "info_text";
-  //     text.innerHTML = "<strong>" + instructions + "</strong>";
-  //     return text;
-  //   },
-  // });
-
-  // new textbox({position: "topright"}).addTo(this.map);
-
-
-  // .bindTooltip("<div style='background:blue;'><b>P</b></div>",
-  //   {
-  //     direction: 'right',
-  //     permanent: true,
-  //     sticky: true,
-  //   }
-  // ).openTooltip();
-
-
-
-  this.visualRouteLine();
-
-  //OSRM demo server (old way of getting the route)
-  // L.Routing.control({ 
-  //   waypoints: [
-  //       L.latLng(this.userLatLong),
-  //       L.latLng(latlng)
-  //   ],
-  //   addWaypoints: false,
-  //   router: new L.Routing.OSRMv1({
-  //     language: 'es'
-  //   })
-  // }).addTo(this.map);
-
-}
-
-//OSRM local server
-visualRouteLine(){
-  this.sortedRouteCoords.shift();
-  this.route.routes[0].geometry.coordinates.forEach((item: [number, number]) => {
-    this.sortedRouteCoords.push([item[1], item[0]]);
+    item.maneuver.type
   });
-  L.polyline(this.sortedRouteCoords, {color: 'red'}).addTo(this.map);
-  this.routeInstructions();
-}
-
-routeInstructions(){
-  let allSteps = this.route.routes[0].legs[0].steps;
 
   allSteps.forEach((item) => {
+    let tr = document.createElement("tr");
+    let tdDirections = document.createElement("td");
+    let tdDistance = document.createElement("td");
+    tdDistance.classList.add("w-25");
+    tdDirections.innerText = item.maneuver.type + ' ' + item.maneuver.modifier + ' ' + item.name;
+    tdDistance.innerText = this.convertMetersToKm(item.distance);
+    tr.appendChild(tdDirections);
+    tr.appendChild(tdDistance);
+    table?.appendChild(tr);
+  });
+}
 
-    //console.log(item.name + ' ' + item.maneuver.modifier)
-    // L.marker([item.maneuver.location[1], item.maneuver.location[0]]).addTo(this.map)
-    // .bindPopup(`
-    //   ${item?.name}<br>
-    //   ${item.maneuver?.modifier}`, {autoClose: false})
-    // .openPopup();
-  })
+convertSecondsToMinHr(seconds: number): string{
+  let hours = Math.floor(seconds / 3600);
+  let mins = Math.floor((seconds % 3600) / 60);
 
+  if (hours > 0) {
+    return `${hours} hr ${mins} min`
+  } else {
+    return `${mins} min`
+  }
+}
 
-  // let textbox = L.Control.extend({
-  //   onAdd: function() {
-  //     //let text = L.DomUtil.create('div');
-  //     let text = document.createElement("div");
-  //     text.id = "info_text";
-  //     text.innerHTML = "<strong>" + instructions + "</strong>";
-  //     return text;
-  //   },
-  // });
+get mins(): string {
+  return this.convertSecondsToMinHr(this.route.routes[0].duration);
+}
 
-  // new textbox({position: "topright"}).addTo(this.map);
+convertMetersToKm(meters: number): string{
+  let km = meters / 1000;
 
+  if (km > 1) {
+    return km.toFixed(1) + " km";
+  } else {
+    return meters.toFixed(1) + " m";
+  }
+}
 
-  // .bindTooltip("<div style='background:blue;'><b>P</b></div>",
-  //   {
-  //     direction: 'right',
-  //     permanent: true,
-  //     sticky: true,
-  //   }
-  // ).openTooltip();
-
-
+get kms(): string {
+  return this.convertMetersToKm(this.route.routes[0].distance);
 }
 
 
