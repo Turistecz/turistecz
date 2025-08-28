@@ -27,14 +27,15 @@ export class OnePlaceCardComponent {
     esFavorito?: boolean; // propiedad extra para controlar estado
   };
 
-  toggleFavorito(sitio: any) {
+toggleFavorito(sitio: any) {
   let usuario: any = localStorage.getItem('usuario');
-  if (usuario) {
-    usuario = JSON.parse(usuario);
-  } else {
-    console.error('No hay usuario logueado');
+
+  if (!usuario) {
+    alert('Debes estar registrado para poder añadir a favoritos ⭐');
     return;
   }
+
+  usuario = JSON.parse(usuario);
 
   if (sitio.esFavorito) {
     this.favoritosService.removeFavorito(usuario.id, sitio.id).subscribe(() => {
@@ -46,6 +47,7 @@ export class OnePlaceCardComponent {
     });
   }
 }
+
 
 
   comprobarFavorito(idusuario: number, idsitio: number) {
