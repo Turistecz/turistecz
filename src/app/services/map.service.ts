@@ -9,7 +9,8 @@ import L from 'leaflet';
 })
 export class MapService {
 
-  private url: string = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/";
+  private urbanismo: string = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/";
+  private farmacia: string = "https://www.zaragoza.es/sede/servicio/farmacia";
 
   constructor(private http: HttpClient) { }
   
@@ -20,7 +21,7 @@ export class MapService {
       Accept: 'application/geo+json', 
     });
 
-    return this.http.get<BiziResponse>(this.url+bizi,{params: Params, headers: Headers});
+    return this.http.get<BiziResponse>(this.urbanismo+bizi,{params: Params, headers: Headers});
   }
 
   getBusesStation():Observable<BusStopResponse> {
@@ -29,7 +30,7 @@ export class MapService {
     const Headers = new HttpHeaders({
       Accept: 'application/geo+json', 
     });
-    return this.http.get<BusStopResponse>(this.url+bus,{params: Params, headers: Headers});
+    return this.http.get<BusStopResponse>(this.urbanismo+bus,{params: Params, headers: Headers});
   }
 
   getBusesInfo(id: string):Observable<BusInfoResponse> {
@@ -38,7 +39,7 @@ export class MapService {
     const Headers = new HttpHeaders({
        Accept: 'application/geo+json', 
     });
-    return this.http.get<BusInfoResponse>(this.url+bus+id,{params: Params, headers: Headers});
+    return this.http.get<BusInfoResponse>(this.urbanismo+bus+id,{params: Params, headers: Headers});
   }
 
   getTramsStation():Observable<TramStopResponse> {
@@ -48,7 +49,7 @@ export class MapService {
     const Headers = new HttpHeaders({
       Accept: 'application/geo+json', 
     });
-    return this.http.get<TramStopResponse>(this.url+tram,{params: Params, headers: Headers});
+    return this.http.get<TramStopResponse>(this.urbanismo+tram,{params: Params, headers: Headers});
   }
 
   getTaxisStops():Observable<TaxiStopResponse> {
@@ -58,8 +59,17 @@ export class MapService {
       Accept: 'application/geo+json', 
     });
     
-    return this.http.get<TaxiStopResponse>(this.url+taxi,{params: Params, headers: Headers});
+    return this.http.get<TaxiStopResponse>(this.urbanismo+taxi,{params: Params, headers: Headers});
+  }
+
+  getAdapParking():Observable<AdapParkingResponse> {
+    const adapParking = "equipamiento/aparcamiento-personas-discapacidad";
+    const Params = new HttpParams().set('rf', 'html').set('start', '0').set('rows', '500');
+    const Headers = new HttpHeaders({
+      Accept: 'application/geo+json', 
+    });
     
+    return this.http.get<AdapParkingResponse>(this.urbanismo+adapParking,{params: Params, headers: Headers});
   }
 
   getMap(){
