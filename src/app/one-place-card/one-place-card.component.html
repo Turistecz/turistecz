@@ -1,5 +1,5 @@
 <a [routerLink]="['/sitios', data.id]" class="text-decoration-none text-reset">
-  <div class="card text-white col-12 col-md-3 my-0" id="cardPlace">
+  <div class="card text-white col-12 col-md-3" id="cardPlace">
     <img [src]="data.url" class="card-img" [alt]="data.nombre">
      <button class="btn btn-light favorito-btn" (click)="toggleFavorito(data); $event.preventDefault(); $event.stopPropagation();"> 
        <i class="bi"[ngClass]="data.esFavorito ? 'bi-star-fill text-warning' : 'bi-star text-secondary'"></i>
