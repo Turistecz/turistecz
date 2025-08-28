@@ -5,6 +5,7 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { EventItem } from '../models/event-card.model';
 import { HttpClient } from '@angular/common/http';
 import { cardsHome } from '../place-card/place-card.model';
+import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
 
 
 @Component({
@@ -25,11 +26,54 @@ export class FilterComponent {
   @Input() categoryKeywords: { [key: string]: string[] } = {};
   @Output() filteredEvents = new EventEmitter<any[]>(); 
   @Output() filteredCards = new EventEmitter<any[]>();
-  // @Input() accesibilityCategories : Accesibilidad[] = [];
+  @Output() filtersAdaptability = new EventEmitter<string[]>();
+  @Output() noResultsPlacesEvent = new EventEmitter<boolean>();
+@Output() noResultsEventsEvent = new EventEmitter<boolean>();
+  
 
   selectedEventsCategoriesMap: { [key: string]: boolean } = {};
   selectedPlacesCategoriesMap: { [key: string]: boolean } = {};
   selectedAccesibilityCategoriesMap: { [key: string]: boolean } = {}; //Mirar si esto va aquí o en places
+  groups = ['accesibilidad', 'servicios', 'familiar', 'multiidioma'];
+
+  
+  showAccesibilityCategories: boolean = false;
+  showCategories: boolean = false; //  
+  showOrder: boolean = false;
+  //Para el mensaje de "no se han encontrado resultados"
+  noResultsPlaces: boolean = false;
+  noResultsEvents: boolean = false;
+
+accesibilityOptions = [
+  { key: 'rampas', label: 'Rampas', groups: ['accesibilidad'] },
+  { key: 'ascensores', label: 'Ascensores', groups:['accesibilidad'] },
+  { key: 'puertas_automaticas', label: 'Puertas automáticas', groups: ['accesibilidad'] },
+  { key: 'escaleras_mecanicas', label: 'Escaleras mecánicas', groups: ['accesibilidad'] },
+  { key: 'servicios_adaptados', label: 'Servicios adaptados', groups: ['accesibilidad'] },
+  { key: 'sala_lactancia', label: 'Sala de lactancia', groups: ['familiar'] },
+  { key: 'cambiador', label: 'Cambiador', groups: ['familiar'] },
+  { key: 'parking_adaptado', label: 'Parking adaptado', groups: ['accesibilidad'] },
+  { key: 'bancos', label: 'Bancos/asientos', groups: ['servicios'] },
+  { key: 'mostrador_adaptado', label: 'Mostrador adaptado', groups: ['accesibilidad'] },
+  { key: 'sin_barreras_arquitectónicas', label: 'Sin barreras arquitectónicas', groups: ['accesibilidad'] },
+  { key: 'braille', label: 'Braille', groups: ['accesibilidad' ] },
+  { key: 'interprete_lengua_signos', label: 'Intérprete de lengua de signos', groups: ['accesibilidad'] },
+  { key: 'videos_subtitulados', label: 'Vídeos subtitulados', groups: ['accesibilidad'] },
+  { key: 'ayudas_visuales', label: 'Ayudas visuales', groups: ['accesibilidad'] },
+  { key: 'guias_turisticos_multiidioma', label: 'Guías turísticos multiidioma', groups: ['multiidioma'] },
+  { key: 'elementos_audiovisuales_multiidioma', label: 'Elementos audiovisuales multiidioma', groups: ['multiidioma'] },
+  { key: 'documentacion_multiidioma', label: 'Documentación multiidioma', groups: ['multiidioma']  },
+  { key: 'visitas_grupales', label: 'Visitas grupales', groups: ['familiar'] },
+  { key: 'ayuda_movilidad', label: 'Ayuda a la movilidad', groups: [ 'servicios'] },
+  { key: 'lenguaje_simple', label: 'Lenguaje simple', groups: ['servicios'] },
+  { key: 'acceso_perros_guias', label: 'Acceso a perros guías', groups: ['servicios'] },
+  { key: 'acceso_perros_asistencia', label: 'Acceso a perros de asistencia', groups: ['servicios'] },
+
+];
+
+getOptionsByGroup(group: string) {
+  return this.accesibilityOptions.filter(option => option.groups.includes(group));
+}
 
 
   constructor(private router: Router){
@@ -37,12 +81,15 @@ export class FilterComponent {
       if (val instanceof NavigationEnd){
         if (val.url === '/sitios'){
           this.showAdaptability = true;
+          this.showOrder = false;
         }else {
           this.showAdaptability = false;
+          this.showOrder= true
         }
       }
     })
   }
+
 
 categoriesAdaptability: string[] = [
     'Rampas',
@@ -75,8 +122,13 @@ categoriesAdaptability: string[] = [
     this.categories.forEach(cat => {
       this.selectedEventsCategoriesMap[cat] = false;
       this.selectedPlacesCategoriesMap[cat] = false;
-      this.selectedAccesibilityCategoriesMap[cat] = false;
+      
     });
+
+    this.accesibilityOptions.forEach(option => {
+      this.selectedAccesibilityCategoriesMap[option.key] = false;
+    });
+
     this.applyEventFilters();
     this.applyPlaceFilters();
   
@@ -91,8 +143,7 @@ categoriesAdaptability: string[] = [
       this.applyPlaceFilters();
   }
 
-  showAccesibilityCategories: boolean = false;
-  showCategories: boolean = false; //  
+  
 
   extractDateFromText(text: string): number {
     const regex = /(\d{2})[-\/](\d{2})[-\/](\d{4})/; // regex patrones para manipular texto
@@ -112,6 +163,11 @@ categoriesAdaptability: string[] = [
       .replace(/[^a-zA-ZáéíóúñÑ ]/g, '')
       .trim();
   }
+
+  toggleAccessibility(key: string) {
+  this.selectedAccesibilityCategoriesMap[key] = !this.selectedAccesibilityCategoriesMap[key];
+  this.applyPlaceFilters();
+}
 
   applyEventFilters() {
     const today = new Date();
@@ -160,15 +216,20 @@ categoriesAdaptability: string[] = [
         this.normalize(event.description ?? '').includes(search)
       );
     }
+    this.noResultsEvents = this.filteredEvents.length === 0;
 
+    this.noResultsEvents= filtered.length === 0;
     this.filteredEvents.emit(filtered);
+    this.noResultsEventsEvent.emit(this.noResultsEvents);
   }
 
   applyPlaceFilters(){
       
-    let filteredPlaces = this.places;
+    let filteredPlaces = [...this.places];
 
-    const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap).filter(cat => this.selectedPlacesCategoriesMap[cat]);
+    const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap)
+    .filter(cat => this.selectedPlacesCategoriesMap[cat]);
+
     if (selectedPlacesCategories.length > 0) {
       filteredPlaces = filteredPlaces.filter(place => {
         const texto = place.nombre.toLowerCase();
@@ -178,15 +239,18 @@ categoriesAdaptability: string[] = [
       });
     }
 
-    const selectedAccesibilityCategories = Object.keys(this.selectedAccesibilityCategoriesMap).filter(cat => this.selectedAccesibilityCategoriesMap[cat]);
-    if (selectedAccesibilityCategories.length > 0) {
-      filteredPlaces = filteredPlaces.filter(place => {
-        const texto = place.nombre.toLowerCase();
-        return selectedAccesibilityCategories.some(cat =>
-          this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
-        );
-      });
-    }
+    const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
+    .filter(key => this.selectedAccesibilityCategoriesMap[key]);
+
+    if (selectedAccessibilityKeys.length > 0) {
+    filteredPlaces = filteredPlaces.filter(place =>
+      selectedAccessibilityKeys.every(key =>
+        place[key as keyof cardsHome] === EnumServiciosAdaptabilidad.si ||
+        place[key as keyof cardsHome] === EnumServiciosAdaptabilidad.bajo_peticion
+      )
+    );
+  
+  }
 
     if (this.searchText.trim()) {
       const search = this.normalize(this.searchText);
@@ -194,18 +258,16 @@ categoriesAdaptability: string[] = [
         this.normalize(place.nombre).includes(search)
       );
     }
+    this.noResultsPlaces = filteredPlaces.length === 0;
 
     this.filteredCards.emit(filteredPlaces);
+     this.noResultsPlacesEvent.emit(this.noResultsPlaces);
 };
-
- toggleAccesibilityDropdown() {
-    this.showAccesibilityCategories = !this.showAccesibilityCategories;
-  }
   
   toggleCategory(cat: string) {
     this.selectedEventsCategoriesMap[cat] = !this.selectedEventsCategoriesMap[cat];
     this.selectedPlacesCategoriesMap[cat] = !this.selectedPlacesCategoriesMap[cat];
-    this.selectedAccesibilityCategoriesMap[cat] = !this.selectedAccesibilityCategoriesMap[cat];
+    // this.selectedAccesibilityCategoriesMap[cat] = !this.selectedAccesibilityCategoriesMap[cat];
     this.applyEventFilters();
     this.applyPlaceFilters();
   }
@@ -230,6 +292,10 @@ categoriesAdaptability: string[] = [
     });
     this.applyEventFilters();
     this.applyPlaceFilters();
+
+     this.accesibilityOptions.forEach(option => {
+      this.selectedAccesibilityCategoriesMap[option.key] = false;
+    });
   }
 
   // getDifferentColor(): boolean {

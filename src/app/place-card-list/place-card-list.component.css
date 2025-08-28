@@ -10,10 +10,12 @@
     padding-bottom: 1rem;
     margin-top: 2rem;
 }
+
 .containerCard {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* responsive layout */
-  gap: 3rem;
+  grid-auto-rows: min-content;
+  gap: 2rem;
   margin-left: 4rem;
 }
 
@@ -48,7 +50,7 @@
 }
 
 .row{
-  row-gap: 20px;
+  row-gap: 2rem;
 }
 
 @media (max-width: 767px) {
@@ -57,3 +59,12 @@
   }
 }
 
+.little-circle{
+font-size: 2rem;
+color: #1a1c6b;
+}
+
+.messageError{
+  font-size: 1.2rem; 
+  color: #495057;
+}

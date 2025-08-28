@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { cardsHome, cardsHomeResponse } from '../place-card/place-card.model';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
@@ -8,7 +8,6 @@ import { OnePlaceCardComponent } from "../one-place-card/one-place-card.componen
 import { MonumentServiceService } from '../services/monument-service.service';
 import { MonumentItem } from '../models/monument.model';
 import { FilterComponent } from '../filter/filter.component';
-import { AccesibilidadEnum } from './accesibilidadEnum';
 
 
 
@@ -22,39 +21,12 @@ import { AccesibilidadEnum } from './accesibilidadEnum';
 export class PlaceCardListComponent {
 
  constructor(private http: HttpClient, private apiConnectService: MonumentServiceService) {}
-
+noResultsPlaces: boolean = false;
 cards: cardsHome[]=[];
 sortedCards: cardsHome[]=[];
-monuments: MonumentItem[] = [];
+
 monumentsNames: string[] = [];
-// accesibilidad: Accesibilidad[]=[];
-
-// categoriesAdaptability: string[] = [
-//   'Rampas',
-//   'Ascensores',
-//   'Puertas automáticas',
-//   'Escaleras mecánicas',
-//   'Servicios adaptados',
-//   'Sala de lactancia',
-//   'Cambiador',
-//   'Parking adaptado',
-//   'Bancos/asientos',
-//   'Mostrador adaptado',
-//   'Sin barreras arquitectónicas',
-//   'Braille',
-//   'Intérprete de lengua de signos',
-//   'Vídeos subtítulos',
-//   'Ayudas visuales',
-//   'Guías turísticos multiidioma',
-//   'Elementos audiovisuales multiidioma',
-//   'Documentacion multiidioma',
-//   'Visitas grupales',
-//   'Ayuda a la movilidad',
-//   'Lenguaje simple',
-//   'Acceso para perros guías',
-//   'Acceso para perro de asistencia'
-
-//   ];
+monumentos: MonumentItem[] = [];
 
 categoriesSites: string[] = [
     'Museos/Exposiciones',
@@ -66,7 +38,6 @@ categoriesSites: string[] = [
 
   ];
 
-  // categoriesAdaptability : AccesibilidadEnum[] =[]
   // Palabras clave asociadas a cada categoria
  categorySitesKeywords: { [key: string]: string[] } = {
   'Museos/Exposiciones': [
@@ -94,62 +65,71 @@ categoriesSites: string[] = [
 
 async ngOnInit(): Promise<void> {
   await this.loadImages();
-
+  console.log('Monumentos cargados:', this.monumentos);
+  console.log('Cards cargadas:', this.sortedCards);
 }
+ 
 
  async loadImages(): Promise<void> {
   try {
-    const datos = await firstValueFrom(this.http.get<any[]>(
-      'http://localhost:8080/api/sitios'
-    ));
+      const datos = await firstValueFrom(this.http.get<MonumentItem[]>(
+        'http://localhost:8080/api/sitios'
+      ));
 
-    // Recorremos cada sitio, y si tiene imágenes, las añadimos
-    this.cards = datos.flatMap(sitio =>
-      sitio.imagenes.map((img: any) => ({
-        nombre: img.nombre,
-        url: img.url,
-        id: img.id,
-        // rampas: img.rampas,
-        // ascensores: img.ascensores,
-        // puertas_automaticas: img.puertas_automaticas,
-        // escaleras_mecanicas: img.escaleras_mecanicas,
-        // servicios_adaptados: img.servicios_adaptados,
-        // sala_lactancia: img.sala_lactancia,
-        // cambiador: img.cambiador,
-        // parking_adaptado: img.parking_adaptado,
-        // bancos: img.bancos,
-        // mostrador_adaptado: img.mostrador_adaptado,
-        // sin_barreras_arquitectonicas: img.sin_barreras_arquitectonicas,
-        // braille: img.braille,
-        // interprete_lengua_signos: img.interprete_lengua_signos,
-        // videos_subtitulos: img.videos_subtitulos,
-        // ayudas_visuales: img.ayudas_visuales,
-        // guias_turisticos_multiidioma: img.guias_turisticos_multiidioma,
-        // elementos_audiovisuales_multiidioma: img.elementos_audiovisuales_multiidioma,
-        // documentacion_multiidioma: img.documentacion_multiidioma,
-        // visitas_grupales: img.visitas_grupales,
-        // ayuda_movilidad: img.ayuda_movilidad,
-        // lenguaje_simple: img.lenguaje_simple,
-        // acceso_perros_guias: img.acceso_perros_guias,
-        // acceso_perros_asistencia: img.acceso_perros_asistencia
+      // Guardamos todos los monumentos en el array
+      this.monumentos = datos;
 
-      }))
-    );    
+      // Creamos las cards a partir de todas las imágenes de todos los monumentos
+      this.cards = datos.flatMap(sitio =>
+        sitio.imagenes.map((img: any) => ({
+          nombre: img.nombre,
+          url: img.url,
+          id: img.id,
+          rampas: sitio.rampas,
+          ascensores: sitio.ascensores,
+          puertas_automaticas: sitio.puertas_automaticas,
+          escaleras_mecanicas: sitio.escaleras_mecanicas,
+          servicios_adaptados: sitio.servicios_adaptados,
+          sala_lactancia: sitio.sala_lactancia,
+          cambiador: sitio.cambiador,
+          parking_adaptado: sitio.parking_adaptado,
+          bancos: sitio.bancos,
+          mostrador_adaptado: sitio.mostrador_adaptado,
+          sin_barreras_arquitectonicas: sitio.sin_barreras_arquitectonicas,
+          braille: sitio.braille,
+          interprete_lengua_signos: sitio.interprete_lengua_signos,
+          videos_subtitulos: sitio.videos_subtitulos,
+          ayudas_visuales: sitio.ayudas_visuales,
+          guias_turisticos_multiidioma: sitio.guias_turisticos_multiidioma,
+          elementos_audiovisuales_multiidioma: sitio.elementos_audiovisuales_multiidioma,
+          documentacion_multiidioma: sitio.documentacion_multiidioma,
+          visitas_grupales: sitio.visitas_grupales,
+          ayuda_movilidad: sitio.ayuda_movilidad,
+          lenguaje_simple: sitio.lenguaje_simple,
+          acceso_perros_guias: sitio.acceso_perros_guias,
+          acceso_perros_asistencia: sitio.acceso_perros_asistencia
+        }))
+      );
 
-    this.sortedCards = this.cards;
-    console.log('Cards loaded:', this.sortedCards);
+      this.sortedCards = this.cards;
 
+      // Log detallado
+      console.log(`Se cargaron ${this.monumentos.length} monumentos`);
+      this.monumentos.forEach((m, index) => {
+        console.log(`Monumento ${index + 1}:`, m);
+      });
 
-  } catch (error) {
-    console.error('Error al cargar monumentos:', error);
+    } catch (error) {
+      console.error('Error al cargar monumentos:', error);
+    }
   }
-}
 
-  updatePlaces(filteredPlaces: cardsHome[]){
-    // console.log("eventos filtrados");
-    // console.log(filteredPlaces);
+  updatePlaces(filteredPlaces: cardsHome[]) {
     this.sortedCards = filteredPlaces;
   }
+
+
+  
 
   //funcion para comprobar que recibe datos accesibilidad
   // recibeDatos(sitiosFiltrados: MonumentItem[]){

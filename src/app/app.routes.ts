@@ -63,5 +63,17 @@ export const routes: Routes = [
     path: 'mi-perfil', 
         loadComponent: () =>
                 import('./mi-perfil/mi-perfil.component').then(m => m.MiPerfilComponent)
+<<<<<<< HEAD
     },   
 ];
+=======
+    }, 
+      {
+    path: 'alojamientos', 
+        loadComponent: () =>
+                import('./accommodation/accommodation.component').then(m => m.AccommodationComponent)
+    },
+      
+
+]
+>>>>>>> d173460 (Changes CSS card and colors sections1 (#146))
