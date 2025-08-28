@@ -10,7 +10,6 @@ import { OnePlaceCardComponent } from '../one-place-card/one-place-card.componen
 @Component({
   selector: 'app-place-card',
   imports: [CommonModule, RouterModule, OnePlaceCardComponent],
-  imports: [CommonModule, RouterModule, OnePlaceCardComponent],
   templateUrl: './place-card.component.html',
   styleUrls: ['./place-card.component.css'] // corregido
 })
