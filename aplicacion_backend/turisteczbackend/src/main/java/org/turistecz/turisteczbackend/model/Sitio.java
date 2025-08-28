@@ -150,22 +150,10 @@ public class Sitio {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sitio", cascade = CascadeType.ALL)
     private List<Imagen_sitio> imagenes;
 
-    //Este atributo es especial. No se corresponde exactamente con un campo de la 
-    //tabla, sino que le decimos que un "sitio" de la tabla esta relacionado con uno o 
-    //varios Sitios_Ruta(de la tabla correspondiente). Con la anotacion @OneToMany le 
-    //indicamos la cardinalidad de la relacion que hay entre esta tabla y aquella con la 
-    //que esta relacionada. Con el atributo "fetch = FetchType.LAZY" le indicamos que, 
-    //cuando saque de la BBDD la informacion de esta clase, no es necesario que se traiga 
-    //de primeras la informacion de las entidades asociadas (las Imagen_Sitio correspondientes),  
-    //para agilizar la carga de datos.  Con la anotacion @JsonManagedReference le estamos 
-    //diciendo que esta entidad es la importante de la relación, y que cuando tenga que 
-    //mostrar la información de la entidad en formato JSON debe mostrar un campo más que
-    //enseñe los "Sitios_Ruta" que están relacionados con este Sitio 
-    @JsonManagedReference
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sitio", cascade = CascadeType.ALL)
-    private List<SitiosRuta> sitios_ruta;
+    @Column
+    private String sitio_ruta_texto;
 
-    
+
     // Getters y Setters    
     public int getId() {
         return id;
@@ -415,12 +403,11 @@ public class Sitio {
       return imagenes;
     }
 
-    public List<SitiosRuta> getSitios_ruta() {
-      return sitios_ruta;
+    public String getSitio_ruta_texto() {
+      return sitio_ruta_texto;
     }
 
-    public void setSitios_ruta(List<SitiosRuta> sitios_ruta) {
-      this.sitios_ruta = sitios_ruta;
+    public void setSitio_ruta_texto(String sitio_ruta_texto) {
+      this.sitio_ruta_texto = sitio_ruta_texto;
     }
-
 }

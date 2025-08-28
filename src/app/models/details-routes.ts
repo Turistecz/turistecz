@@ -6,36 +6,13 @@ export interface routeDetails {
     imagen_destacada: string; 
 }
 
-// INTERFACE PARA LOS SITIOS DE LA RUTA POR ID
-
-// export interface sitioDetails {
-//     id: string;
-//     nombre: string;
-//     url: string;
-// }
-
-// export interface sitioResponse {
-//   // id: string;
-//   imagenes: sitioDetails[];
-
-// }
-
-export interface sitioResponse {
-  imagenes: {
-    id: string;
-    url: string;
-    nombre: string;
-  };
-  // sitios_ruta: {
-  //   texto: string;
-  // }
-}
-
 export interface textoDetails{
   nombre: string,
-  sitios_ruta: {
-    texto: string;
-  }
+  imagenes: {
+    url: string;
+  },
+  sitio_ruta_texto: string;
+  
 }
 
 
