@@ -77,6 +77,22 @@ export interface AdapParkingItem{
       }
 }
 
+export interface FarmaciaItem{
+  geometry: {
+        coordinates: [number, number]
+      },
+      properties: {
+        id: number,
+        title: string,
+        telefonos: string,
+        calle: string,
+        guardia: {
+          fecha: string,
+          horario: string,
+        },
+}
+}
+
 export interface AdapParkingResponse{
   features: AdapParkingItem[];
 }
