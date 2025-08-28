@@ -8,12 +8,13 @@ import { OnePlaceCardComponent } from "../one-place-card/one-place-card.componen
 import { MonumentServiceService } from '../services/monument-service.service';
 import { MonumentItem } from '../models/monument.model';
 import { FilterComponent } from '../filter/filter.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 
 
 @Component({
   selector: 'app-place-card-list',
-  imports: [CommonModule, RouterModule, OnePlaceCardComponent, FilterComponent],
+  imports: [CommonModule, RouterModule, OnePlaceCardComponent, FilterComponent, PaginationComponent],
   templateUrl: './place-card-list.component.html',
   styleUrl: './place-card-list.component.css'
 })
@@ -21,6 +22,11 @@ import { FilterComponent } from '../filter/filter.component';
 export class PlaceCardListComponent {
 
  constructor(private http: HttpClient, private apiConnectService: MonumentServiceService) {}
+ 
+  page: number = 1;
+  pageSize: number = 21;
+  
+ 
 noResultsPlaces: boolean = false;
 cards: cardsHome[]=[];
 sortedCards: cardsHome[]=[];
@@ -62,6 +68,15 @@ categoriesSites: string[] = [
     'murallas', 'caesaraugusta',
   ]
 };
+  onPageChange(newPage: number) {
+    this.page = newPage;
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+  get pagedPlaces(): cardsHome[] {
+  const start = (this.page - 1) * this.pageSize;
+  return this.sortedCards.slice(start, start + this.pageSize);
+}
+
 
 async ngOnInit(): Promise<void> {
   await this.loadImages();
