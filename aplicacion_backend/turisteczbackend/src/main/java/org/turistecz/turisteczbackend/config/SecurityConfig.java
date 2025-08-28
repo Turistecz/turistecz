@@ -41,7 +41,7 @@ public class SecurityConfig {
                     "/auth/forgot-password",
                     "/auth/reset-password",
                     "/api/sitios/**",
-                    "/api/rutas/**"
+                    "/api/rutas/**"                   
                 ).permitAll()
                 .anyRequest().authenticated()
             );
@@ -71,8 +71,5 @@ public class SecurityConfig {
         return source;
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
-    }
+ 
 }

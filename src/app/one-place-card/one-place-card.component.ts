@@ -1,12 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { FavoritosService } from '../services/favoritos.service'; // importa el servicio
-import { Data, Router, RouterModule } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import { LoginService } from '../services/login.service';
-import { NgClass } from '@angular/common';
-import { CommonModule } from '@angular/common';
-
-
+import { FavoritosService } from '../services/favoritos.service';
+import { Router, RouterModule } from '@angular/router';
+import { NgClass, CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-one-place-card',
@@ -14,11 +9,13 @@ import { CommonModule } from '@angular/common';
   templateUrl: './one-place-card.component.html',
   styleUrls: ['./one-place-card.component.css'],
   imports : [RouterModule, CommonModule]
-
 })
 export class OnePlaceCardComponent {
 
-  constructor(private favoritosService: FavoritosService, LoginService: LoginService) {}
+  constructor(
+    private favoritosService: FavoritosService,
+    private router: Router
+  ) {}
 
   @Input() data!: {
     id: number;
@@ -27,31 +24,33 @@ export class OnePlaceCardComponent {
     esFavorito?: boolean; // propiedad extra para controlar estado
   };
 
-toggleFavorito(sitio: any) {
-  let usuario: any = localStorage.getItem('usuario');
+  toggleFavorito(sitio: any) {
+    let usuario: any = localStorage.getItem('usuario');
+    if (usuario) {
+      usuario = JSON.parse(usuario);
+    } else {
+      // 🔹 Confirmación: si no hay usuario logueado
+      const irLogin = confirm('⚠️ Debes iniciar sesión para añadir favoritos.\n\n¿Quieres ir a la página de login ahora?');
+      if (irLogin) {
+        this.router.navigate(['/login']); // redirige al login
+      }
+      return;
+    }
 
-  if (!usuario) {
-    alert('Debes estar registrado para poder aañadir a favoritos ⭐');
-    return;
+    // 🔹 Si está logueado: añadir/quitar favorito
+    if (sitio.esFavorito) {
+      this.favoritosService.removeFavorito(usuario.id, sitio.id).subscribe(() => {
+        sitio.esFavorito = false;
+      });
+    } else {
+      this.favoritosService.addFavorito(usuario.id, sitio.id).subscribe(() => {
+        sitio.esFavorito = true;
+      });
+    }
   }
-
-  usuario = JSON.parse(usuario);
-
-  if (sitio.esFavorito) {
-    this.favoritosService.removeFavorito(usuario.id, sitio.id).subscribe(() => {
-      sitio.esFavorito = false;
-    });
-  } else {
-    this.favoritosService.addFavorito(usuario.id, sitio.id).subscribe(() => {
-      sitio.esFavorito = true;
-    });
-  }
-}
-
-
 
   comprobarFavorito(idusuario: number, idsitio: number) {
-  this.favoritosService.comprobarFavorito(idusuario, idsitio)
+    this.favoritosService.comprobarFavorito(idusuario, idsitio)
       .subscribe((res: boolean) => {
         this.data.esFavorito = !!res; 
       });
@@ -61,13 +60,9 @@ toggleFavorito(sitio: any) {
     let usuario: any = localStorage.getItem('usuario');
     if (usuario) {
       usuario = JSON.parse(usuario);
+      await this.comprobarFavorito(usuario.id, this.data.id);    
     } else {
-      console.error('No hay usuario logueado');
-      return;
+      console.warn('⚠️ No hay usuario logueado, no se comprobarán favoritos.');
     }
-    await this.comprobarFavorito(usuario.id,this.data.id);    
   }
-
 }
-
-
