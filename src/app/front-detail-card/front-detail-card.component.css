@@ -20,17 +20,16 @@
 }
 
 .container-routes{
-    width: 45%;  
+    width: 52%;  
     display: grid;
     border-radius: 1.5rem;
     margin: 0 auto;  
-  
 }
 
 .card-body-r{
     border-bottom-left-radius: 1.5rem;
     border-bottom-right-radius: 1.5rem;
-    background-color: #113f6d;
+    background-color: #184591;;
 }
 
 img{
@@ -41,7 +40,7 @@ img{
 }
 
 .card-title {
-    color: #113f6d;
+    color: #184591;
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
     font-weight:700;
     font-size: 2.5rem; 
