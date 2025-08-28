@@ -18,7 +18,7 @@ export class FilterComponent {
   sortedEvents: EventItem[] = [];
   searchText: string = '';
   filterOption: 'month' | 'future' | 'alpha' = 'future';
-  showAdaptability: boolean = true;
+  showAdaptability: boolean = false;
 
   @Input() events: EventItem[] = [];
   @Input() places: cardsHome[] = [];
@@ -28,7 +28,7 @@ export class FilterComponent {
   @Output() filteredCards = new EventEmitter<any[]>();
   @Output() filtersAdaptability = new EventEmitter<string[]>();
   @Output() noResultsPlacesEvent = new EventEmitter<boolean>();
-@Output() noResultsEventsEvent = new EventEmitter<boolean>();
+  @Output() noResultsEventsEvent = new EventEmitter<boolean>();
   
 
   selectedEventsCategoriesMap: { [key: string]: boolean } = {};
