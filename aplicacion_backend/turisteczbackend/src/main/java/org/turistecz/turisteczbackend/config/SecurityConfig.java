@@ -39,7 +39,9 @@ public class SecurityConfig {
                     "/auth/login",
                     "/auth/verify",
                     "/auth/forgot-password",
-                    "/auth/reset-password"
+                    "/auth/reset-password",
+                    "/api/sitios/**",
+                    "/api/rutas/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             );
