@@ -1,13 +1,12 @@
-
-#mapContainer{
+/* #mapContainer{
   position: relative;
-}
+} */
 
 #map {
   height: 600px;
-  width: 100%;
-  margin: 0 auto;
-  z-index: 0;
+  /* width: 100%; */
+  /* margin: 0 auto; */
+  /* z-index: 0; */
 }
 
 .instructionsContainer {
