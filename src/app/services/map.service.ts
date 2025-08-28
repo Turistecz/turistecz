@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
-import { AdapParkingResponse, BiziResponse, BusInfoResponse, BusStopResponse, TaxiStopItem, TaxiStopResponse, TramStopResponse } from '../models/map.model';
-=======
 import { AdapParkingResponse, BiziResponse, BusInfoResponse, BusStopResponse, FarmaciaResponse, TaxiStopItem, TaxiStopResponse, TramStopResponse } from '../models/map.model';
->>>>>>> ce7eb84 (farmacias de guardia correctly included en map)
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import L from 'leaflet';
@@ -63,11 +59,7 @@ export class MapService {
       Accept: 'application/geo+json', 
     });
     
-<<<<<<< HEAD
-    return this.http.get<TaxiStopResponse>(this.url+taxi,{params: Params, headers: Headers});
-=======
     return this.http.get<TaxiStopResponse>(this.urbanismo+taxi,{params: Params, headers: Headers});
->>>>>>> 61e3a0c (FarmaciaItem interface in map.model)
   }
 
   getAdapParking():Observable<AdapParkingResponse> {
@@ -77,11 +69,7 @@ export class MapService {
       Accept: 'application/geo+json', 
     });
     
-<<<<<<< HEAD
-    return this.http.get<AdapParkingResponse>(this.url+adapParking,{params: Params, headers: Headers});
-=======
     return this.http.get<AdapParkingResponse>(this.urbanismo+adapParking,{params: Params, headers: Headers});
->>>>>>> 61e3a0c (FarmaciaItem interface in map.model)
   }
 
   getFarmacia():Observable<FarmaciaResponse> {
