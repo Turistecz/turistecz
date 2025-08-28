@@ -226,17 +226,23 @@ visualRouteLine(){
 
 routeInstructions(){
   let allSteps = this.route.routes[0].legs[0].steps;
-  let list = document.getElementById("instructionsList");
+  let table = document.getElementById("instructionsList");
 
   allSteps.forEach((item) => {
     item.maneuver.type
   });
 
+  //Create rows with two columns for instructions info and distance for every step in leg(route)
   allSteps.forEach((item) => {
-    let li = document.createElement("li");
-    li.innerText = item.maneuver.type + ' ' + item.maneuver.modifier + ' ' + item.name + ' '
-      + this.convertMetersToKm(item.distance);
-    list?.appendChild(li);
+    let tr = document.createElement("tr");
+    let tdDirections = document.createElement("td");
+    let tdDistance = document.createElement("td");
+    tdDistance.classList.add("w-25");
+    tdDirections.innerText = item.maneuver.type + ' ' + item.maneuver.modifier + ' ' + item.name;
+    tdDistance.innerText = this.convertMetersToKm(item.distance);
+    tr.appendChild(tdDirections);
+    tr.appendChild(tdDistance);
+    table?.appendChild(tr);
   });
 }
 
@@ -259,9 +265,9 @@ convertMetersToKm(meters: number): string{
   let km = meters / 1000;
 
   if (km > 1) {
-    return km.toFixed(1) + " km,";
+    return km.toFixed(1) + " km";
   } else {
-    return meters.toFixed(1) + " m,";
+    return meters.toFixed(1) + " m";
   }
 }
 
