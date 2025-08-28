@@ -128,6 +128,7 @@ export interface MapRouteItem {
       legs: [
         {
           steps: MapRouteSteps[],
+          summary: string
         }
       ]
     }

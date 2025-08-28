@@ -102,7 +102,8 @@ export class MapComponent implements AfterViewInit, OnInit{
                 },
                 name: ''
               }
-            ]
+            ],
+            summary: '',
           }
         ]
       }
@@ -245,10 +246,6 @@ routeInstructions(){
   let table = document.getElementById("instructionsList");
 
   allSteps.forEach((item) => {
-    item.maneuver.type
-  });
-
-  allSteps.forEach((item) => {
     let tr = document.createElement("tr");
     let tdDirections = document.createElement("td");
     let tdDistance = document.createElement("td");
@@ -258,7 +255,7 @@ routeInstructions(){
     tr.appendChild(tdDirections);
     tr.appendChild(tdDistance);
     table?.appendChild(tr);
-  });
+  })
 }
 
 convertSecondsToMinHr(seconds: number): string{
@@ -280,9 +277,9 @@ convertMetersToKm(meters: number): string{
   let km = meters / 1000;
 
   if (km > 1) {
-    return km.toFixed(1) + " km";
+    return km.toFixed(1) + " km,";
   } else {
-    return meters.toFixed(1) + " m";
+    return meters.toFixed(1) + " m,";
   }
 }
 
