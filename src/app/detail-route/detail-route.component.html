@@ -8,36 +8,19 @@
     </div>
   </div>
 
-  <!-- <div class="container">
-    <div class="row"> -->
-      <!-- IMAGEN -->
-      <!-- <div *ngFor="let site of routesSite" class="col-6" >
-        <app-site-text-detail [oneSite]="site" class=""></app-site-text-detail> 
-      </div> -->
+<!-- TEXTO E IMAGENES -->
 
-      <!-- TEXTO -->
-      <!-- <div *ngFor="let text of routeText" class="col-6">
-        <app-text-detail [oneText]="text" class=""></app-text-detail>
-      </div>
-    </div>
-  </div> -->
+<div class="container todo">
+  <div class="linea"></div>
   <div class="">
     <div class="">
-      <!-- IMAGEN -->
-      <!-- <div class="col-6">
-        <div *ngFor="let site of routesSite">
-          <app-site-text-detail [oneSite]="site"></app-site-text-detail>
-        </div>
-      </div> -->
-      <!-- TEXTO -->
-      <div class="">
-        <div *ngFor="let text of routeText">
-          <app-text-detail [oneText]="text"></app-text-detail>
-        </div>
+      <div *ngFor="let text of routeText">
+        <app-text-detail [oneText]="text"></app-text-detail>
       </div>
     </div>
   </div>
-  
+</div>
+<div class="mb-5"></div>
 
 
 

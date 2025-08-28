@@ -1,0 +1,37 @@
+@import '@fontsource-variable/baloo-bhaijaan-2'; 
+@import '@fontsource-variable/inclusive-sans';
+
+.titulo{
+    color: #184591;
+    font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+    font-weight:bold;
+    font-size: 1.8rem;
+ }
+
+ .bg-txt{
+    background-color: #1844910c;
+ }
+
+ p{
+    font-family: 'Inclusive Sans Variable';
+    font-weight: 500;
+    font-size: 1rem; 
+    margin-bottom: 0;
+ }
+
+.card-radius{
+    border-radius: 1.5rem;
+}
+
+.img_card{
+    height: 35rem;
+}
+
+img{
+    object-fit: cover;
+    height: 35rem;
+    width: 100%;
+    border-radius: 1.5rem;
+}
+
+
