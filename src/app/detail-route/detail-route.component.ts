@@ -71,8 +71,8 @@ export class DetailRouteComponent {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.loadRoutebyId(1);  // Muestra una ruta segun el id //  FRONT DETAIL 
-    await this.loadRoutesSite(1);  // Muestra todos los sitios de una ruta segun el id // SITE & TEXT DETAIL 
+    await this.loadRoutebyId(2);  // Muestra una ruta segun el id //  FRONT DETAIL 
+    await this.loadRoutesSite(2);  // Muestra todos los sitios de una ruta segun el id // SITE & TEXT DETAIL 
   }
 
 }
