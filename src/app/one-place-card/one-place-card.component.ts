@@ -31,7 +31,7 @@ toggleFavorito(sitio: any) {
   let usuario: any = localStorage.getItem('usuario');
 
   if (!usuario) {
-    alert('Debes estar registrado para poder añadir a favoritos ⭐');
+    alert('Debes estar registrado para poder aañadir a favoritos ⭐');
     return;
   }
 
