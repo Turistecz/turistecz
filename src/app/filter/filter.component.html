@@ -1,3 +1,4 @@
+<div id="buscador" class="d-inline-block text-white p-5 mx-3 ">
 
 <div id="buscador" class="row">
       <!-- FILA 1: Input + Botones -->
@@ -32,12 +33,10 @@
         <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
       </div>
 
-      <br>
-      <ng-container *ngIf="showAdaptability">
-  
-
+    <br>
+    <ng-container *ngIf="showAdaptability">
       <div *ngFor="let group of groups" class="adaptability-group mb-4">
-        <h5>{{ group | titlecase }}</h5>
+        <h5> {{ group | titlecase }}</h5>
 
         <div class="form-check mb-1" *ngFor="let option of getOptionsByGroup(group)">
           <input class="form-check-input"
@@ -53,7 +52,3 @@
     </ng-container>
   </div>
 </div>
-
-      
-    
-

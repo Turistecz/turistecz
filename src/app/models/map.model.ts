@@ -92,6 +92,7 @@ export interface BusInfoResponse {
 }
 export interface TaxiStopResponse {
   features: TaxiStopItem[];
+  features: TaxiStopItem[];
 }
 export interface TramStopResponse {
   features: TramStopItem[];

@@ -8,6 +8,7 @@
     text-align: center;
 }
 
+
 .containerCard {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
@@ -64,7 +65,15 @@
 font-size: 2rem;
 color: #1a1c6b;
 }
+.little-circle{
+font-size: 2rem;
+color: #1a1c6b;
+}
 
+.messageError{
+  font-size: 1.2rem; 
+  color: #495057;
+}
 .messageError{
   font-size: 1.2rem; 
   color: #495057;
