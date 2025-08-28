@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 24 24" fill="none" aria-label="Cruz de farmacia" xmlns="http://www.w3.org/2000/svg">
+  <rect x="2" y="2" width="20" height="20" rx="4" fill="#16A34A"/>
+  <path d="M11 7h2v4h4v2h-4v4h-2v-4H7v-2h4V7z" fill="#FFFFFF"/>
+</svg>
