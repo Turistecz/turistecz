@@ -8,7 +8,6 @@
 
 <router-outlet></router-outlet>
 
-<<<<<<< HEAD
 <!-- Botón flotante -->
 <button class="btn-flotante" (click)="isModalOpen = true">
   <i class="fas fa-universal-access"></i>
@@ -74,25 +73,7 @@
         <div class="col-md-6 d-flex align-items-center"><i class="fas fa-book me-2 text-primary"></i> Documentación</div>
       </div>
     </div>
-=======
-
-<button class="btn-flotante" (click)="isModalOpen = true">
-  <i class="fas fa-question"></i>
-</button>
-
-
-<div class="modal" *ngIf="isModalOpen" (click)="isModalOpen = false">
-  <div class="modal-content" (click)="$event.stopPropagation()"> <!-- Esto es para que si clickamos dentro de la ventana que se abre no se cierre, si pulsamos fuera de la ventana si que se cierra-->
-    <span class="close" (click)="isModalOpen = false">&times;</span>
-    <h2>Centro de ayuda</h2>
-    <p>Aquí puedes poner tus preguntas frecuentes, información de soporte o lo que quieras mostrar.</p>
->>>>>>> 4eab0cc (floating button and modal window created)
   </div>
 </div>
 
 <app-footer></app-footer>
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 4eab0cc (floating button and modal window created)

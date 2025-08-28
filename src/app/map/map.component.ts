@@ -120,7 +120,6 @@ export class MapComponent implements AfterViewInit, OnInit{
   name = input("");
 
 
-
   // wait for map to load
   ngAfterViewInit(): void {
     this.initMap();
@@ -140,7 +139,6 @@ export class MapComponent implements AfterViewInit, OnInit{
     //TODO: queda la de bus info
     this.createBiziMarkers();
     this.createBusMarkers();
-    this.createTramMarkers();
     this.createTramMarkers();
     this.createTaxiMarkers();
     this.createAdapParkingMarkers();
@@ -198,7 +196,6 @@ async getRoute() {
 }
 
 // creates markers for user and monument location and adjusts the map view to fit both
-//TODO: find alternative to get user location or solution/check for when it doesn't work
 //TODO: find alternative to get user location or solution/check for when it doesn't work
 makeLocationMarkers(){
   const latlng = this.getSiteCoords();
