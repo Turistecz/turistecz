@@ -1,0 +1,28 @@
+<nav class="my-3" *ngIf="totalPages > 1">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="page === 1">
+      <button class="page-link" (click)="goToPage(1)" [disabled]="page === 1">&laquo;</button>
+    </li>
+    <li class="page-item" [class.disabled]="page === 1">
+      <button class="page-link" (click)="prevPage()" [disabled]="page === 1">Anterior</button>
+    </li>
+
+    <li class="page-item" *ngFor="let p of pagesToShow" [class.active]="page === p">
+      <button class="page-link" (click)="goToPage(p)">{{ p }}</button>
+    </li>
+
+    <li class="page-item" [class.disabled]="page === totalPages">
+      <button class="page-link" (click)="nextPage()" [disabled]="page === totalPages">Siguiente</button>
+    </li>
+    <li class="page-item" [class.disabled]="page === totalPages">
+      <button class="page-link" (click)="goToPage(totalPages)" [disabled]="page === totalPages">&raquo;</button>
+    </li>
+  </ul>
+</nav>
+
+<p class="text-muted text-center w-100">
+  Mostrando <strong>{{ Math.min(pageSize, totalItems - (page-1)*pageSize) }}</strong>
+ de
+  <strong>{{ totalItems }}</strong> elementos — Página
+  <strong>{{ page }}</strong> de <strong>{{ totalPages }}</strong>
+</p>

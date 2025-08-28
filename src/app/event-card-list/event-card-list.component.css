@@ -26,10 +26,9 @@ h2{
   margin-bottom: 1.5rem; 
 }*/
 
-/* .event-card-list {
-  display: inline-block;
-  padding-bottom: 1rem; 
-} */
+.event-card-list {
+ margin-bottom: 2rem;
+}
 
 #textShowEvents{
   font-family: "inclusive", system-ui;
