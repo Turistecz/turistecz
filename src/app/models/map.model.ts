@@ -93,6 +93,10 @@ export interface FarmaciaItem{
 }
 }
 
+export interface FarmaciaResponse{
+  features: FarmaciaItem[];
+}
+
 export interface AdapParkingResponse{
   features: AdapParkingItem[];
 }
