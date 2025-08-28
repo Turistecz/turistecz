@@ -3,7 +3,7 @@ import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import proj4 from 'proj4';
 import { MapService } from '../services/map.service';
-import { BiziItem, BusStopItem, TaxiStopItem, TramStopItem, MapRouteItem } from '../models/map.model';
+import { AdapParkingItem, BiziItem, BusStopItem, TaxiStopItem, TramStopItem, MapRouteItem, FarmaciaItem } from '../models/map.model';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -25,6 +25,8 @@ export class MapComponent implements AfterViewInit, OnInit{
   taxiStops: TaxiStopItem[] = [];
   busStops: BusStopItem[] = [];
   tramStops: TramStopItem[] = [];
+  adapParking: AdapParkingItem[] = [];
+  farmacias: FarmaciaItem[] = [];
 
   biziIcon = L.icon({
     iconUrl: 'media/bizi-icon.png',
@@ -54,10 +56,26 @@ export class MapComponent implements AfterViewInit, OnInit{
     popupAnchor: [0, -20],
   });
 
+ AdapParkingIcon = L.icon({
+    iconUrl: 'media/parking-adap.svg',
+    iconSize: [22, 32], //medidas por ajustar
+    iconAnchor: [12, 20],
+    popupAnchor: [0, -20],
+  });
+
+  FarmaciaIcon = L.icon({
+    iconUrl: 'media/farmacia-icon.svg',
+     iconSize: [22, 32], //medidas por ajustar
+    iconAnchor: [12, 20],
+    popupAnchor: [0, -20],
+  })
+
   biziMarkerGroup = new L.FeatureGroup();
   busMarkerGroup = new L.FeatureGroup();
   tramMarkerGroup = new L.FeatureGroup();
   taxiMarkerGroup = new L.FeatureGroup();
+  adapParkingMarkerGroup = new L.FeatureGroup();
+  farmaciaMarketGroup = new L.FeatureGroup();
 
   route: MapRouteItem = {
     routes: [
@@ -112,6 +130,8 @@ export class MapComponent implements AfterViewInit, OnInit{
     await this.loadTaxiStops();
     await this.loadBusStops();
     await this.loadTramStops();
+    await this.loadAdapParking();
+    await this.loadFarmacia();
     await this.getRoute();
     this.makeLocationMarkers();
     
@@ -120,6 +140,8 @@ export class MapComponent implements AfterViewInit, OnInit{
     this.createBusMarkers();
     this.createTramMarkers();
     this.createTaxiMarkers();
+    this.createAdapParkingMarkers();
+    this.createFarmaciaMarkers();
   }
 
   getUserCoords(){
@@ -301,6 +323,27 @@ async loadBusStops(): Promise<void> {
   }
 }
 
+
+async loadAdapParking(): Promise<void> {
+  try {
+    const datos = await firstValueFrom(this.apiMapService.getAdapParking());
+    this.adapParking = datos.features;
+
+  } catch (error) {
+    console.error('Error al cargar monumentos:', error);
+  }
+}
+
+async loadFarmacia(): Promise<void> {
+  try {
+    const datos = await firstValueFrom(this.apiMapService.getFarmacia());
+    this.farmacias = datos.features;
+
+  } catch (error) {
+    console.error('Error al cargar monumentos:', error);
+  }
+}
+
 public showHideMarkers(event: Event, group: L.FeatureGroup): void {
   if ((event.target as HTMLInputElement).checked){
     group.addTo(this.map);
@@ -308,7 +351,6 @@ public showHideMarkers(event: Event, group: L.FeatureGroup): void {
     this.map.removeLayer(group);
   }
 }
-
 //TODO: hide & show markers on zoom
 // map.on('zoomend', function() {
 //     if (map.getZoom() <7){
@@ -333,6 +375,14 @@ private createBusMarkers(): void {
 
 private createTramMarkers(): void {
   this.createMarkers(this.tramIcon, this.tramMarkerGroup, this.tramStops, "tram");
+};
+
+private createAdapParkingMarkers(): void {
+this.createMarkers(this.AdapParkingIcon, this.adapParkingMarkerGroup, this.adapParking, "parking adaptado");
+};
+
+private createFarmaciaMarkers(): void {
+this.createMarkers(this.FarmaciaIcon, this.farmaciaMarketGroup, this.farmacias, "farmacias de guardia");
 };
 
 private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: string): void {
@@ -386,6 +436,26 @@ private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: s
           <strong>${props.properties.title}</strong><br>
         `);
         break;
+
+      case "parking adaptado":
+        //no incluyo ${props.properties.num_calle1} porque en muchos casos el numero de la calle no aparece
+        markerVar.bindPopup(`
+          <strong> Calle ${props.properties.calle_1}</strong><br> 
+          Horario: ${props.properties.horario} <br>
+          Número de plazas: ${props.properties.plazas} 
+          `);
+          break;
+
+       case "farmacias de guardia":
+        //no incluyo ${props.properties.num_calle1} porque en muchos casos el numero de la calle no aparece
+        markerVar.bindPopup(`
+          <strong>${props.properties.title}</strong><br>  
+          Calle ${props.properties.calle}<br>
+          Guardia: ${props.properties.guardia.fecha} <br> 
+          ${props.properties.guardia.horario} <br>
+          Teléfono: ${props.properties.telefonos} 
+          `)
+         
     }
   });
 }
