@@ -22,6 +22,7 @@ export class MapService {
     });
 
     return this.http.get<BiziResponse>(this.urbanismo+bizi,{params: Params, headers: Headers});
+    return this.http.get<BiziResponse>(this.urbanismo+bizi,{params: Params, headers: Headers});
   }
 
   getBusesStation():Observable<BusStopResponse> {
@@ -30,6 +31,7 @@ export class MapService {
     const Headers = new HttpHeaders({
       Accept: 'application/geo+json', 
     });
+    return this.http.get<BusStopResponse>(this.urbanismo+bus,{params: Params, headers: Headers});
     return this.http.get<BusStopResponse>(this.urbanismo+bus,{params: Params, headers: Headers});
   }
 
@@ -40,6 +42,7 @@ export class MapService {
        Accept: 'application/geo+json', 
     });
     return this.http.get<BusInfoResponse>(this.urbanismo+bus+id,{params: Params, headers: Headers});
+    return this.http.get<BusInfoResponse>(this.urbanismo+bus+id,{params: Params, headers: Headers});
   }
 
   getTramsStation():Observable<TramStopResponse> {
@@ -49,6 +52,7 @@ export class MapService {
     const Headers = new HttpHeaders({
       Accept: 'application/geo+json', 
     });
+    return this.http.get<TramStopResponse>(this.urbanismo+tram,{params: Params, headers: Headers});
     return this.http.get<TramStopResponse>(this.urbanismo+tram,{params: Params, headers: Headers});
   }
 
