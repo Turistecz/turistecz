@@ -1,35 +1,43 @@
-<div id="buscador" class="d-inline-block text-white p-5 mx-3 ">
 
-  <!-- FILA 1: Input + Botones -->
-  <div class="buscador-top">
-    <h4 class="titleFilter text-center">Filtros</h4>
-    <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
-    <button class="btn btn-outline-light m-2" (click)="onSearch()"><i class="bi bi-search"></i> </button>
-    <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> </button>
-  </div>
+<div id="buscador" class="row">
+      <!-- FILA 1: Input + Botones -->
+       
+      <div class="buscador-top d-inline-block">
+        <h4 class="titleFilter">Filtros</h4>
+        <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
+        <button class="btn btn-outline-light m-2" (click)="onSearch()"><i class="bi bi-search"></i> </button>
+        <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> </button>
+      </div>
 
-  <!-- FILA 2: Ordenar -->
-  <div class="buscador-ordenar m-2" *ngIf="showOrder">
-    <label for="filterOption">Ordenar:</label>
-    <select id="filterOption" class="form-select my-2" [(ngModel)]="filterOption" (change)="applyEventFilters()" (change)="applyPlaceFilters()">
-      <option value="future">Cronológicamente</option>
-      <option value="alpha">(A-Z)</option>
-      <option value="month">Solo mes actual</option>
-    </select>
-  </div>
+      <!-- FILA 2: Ordenar -->
+      <div class="buscador-ordenar m-2" *ngIf="showOrder">
+        <label for="filterOption">Ordenar:</label>
+        <select id="filterOption" class="form-select my-2" [(ngModel)]="filterOption" (change)="applyEventFilters()" (change)="applyPlaceFilters()">
+          <option value="future">Cronológicamente</option>
+          <option value="alpha">(A-Z)</option>
+          <option value="month">Solo mes actual</option>
+        </select>
+      </div>
 
-  <div>
-    <div class="m-2 filtro-lista mt-4 mb-0">
-    <h5>Categorías</h5>
-    <div class="form-check mb-1" *ngFor="let cat of categories">
-      <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}"/>
-      <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
-    </div>
+    
+    <div>
+      
+      <div class="m-2 filtro-lista mt-4">
+      <h5>Categorías</h5>
 
-    <br>
-    <ng-container *ngIf="showAdaptability">
+
+      
+      <div class="form-check mb-1" *ngFor="let cat of categories">
+        <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}"/>
+        <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
+      </div>
+
+      <br>
+      <ng-container *ngIf="showAdaptability">
+  
+
       <div *ngFor="let group of groups" class="adaptability-group mb-4">
-        <h5> {{ group | titlecase }}</h5>
+        <h5>{{ group | titlecase }}</h5>
 
         <div class="form-check mb-1" *ngFor="let option of getOptionsByGroup(group)">
           <input class="form-check-input"
@@ -43,5 +51,4 @@
         </div>
       </div>
     </ng-container>
-  </div>
-</div>
+        
