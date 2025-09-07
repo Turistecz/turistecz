@@ -1,17 +1,13 @@
-# .github/workflows/baseline.yml
 name: CI Baseline
 on:
   pull_request:
     branches: [ main ]
-    types: [opened, synchronize, reopened, ready_for_review]
   push:
-    branches: [ main ]
+    branches: [ main, recovery/** ]
+  workflow_dispatch:
 
 jobs:
   status:
-    name: status
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
       - run: echo "CI OK"
-
