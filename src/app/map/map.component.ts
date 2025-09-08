@@ -133,8 +133,8 @@ export class MapComponent implements AfterViewInit, OnInit{
     await this.loadTramStops();
     await this.loadAdapParking();
     await this.loadFarmacia();
-    await this.getRoute();
     this.makeLocationMarkers();
+    await this.getRoute();
     
     //TODO: queda la de bus info
     this.createBiziMarkers();
@@ -189,6 +189,7 @@ async getRoute() {
   try {
     const datos = await firstValueFrom(this.http.get<MapRouteItem>(url));
     this.route = datos;
+    this.visualRouteLine();
 
   } catch (error) {
     console.error('Error al cargar la ruta: ', error);
@@ -211,8 +212,6 @@ makeLocationMarkers(){
   let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
 
   this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
-
-  this.visualRouteLine();
 
   //OSRM demo server (old way of getting the route)
   // L.Routing.control({ 
@@ -241,42 +240,162 @@ visualRouteLine(){
 routeInstructions(){
   let allSteps = this.route.routes[0].legs[0].steps;
   let table = document.getElementById("instructionsList");
+  let directionsTypeSpanish: string[] = [];
+  let directionsModifierSpanish: string[] = [];
 
   allSteps.forEach((item) => {
+    switch (item.maneuver.type) {
+      case "turn": {
+        directionsTypeSpanish.push("Gira ");
+        break;
+      }
+      case "new name": {
+        directionsTypeSpanish.push("Continua ");
+        break;
+      }
+      case "depart": {
+        directionsTypeSpanish.push("Inicia ");
+        break;
+      }
+      case "arrive": {
+        directionsTypeSpanish.push("Llegaste ");
+        break;
+      }
+      case "merge": {
+        directionsTypeSpanish.push("Entra a ");
+        break;
+      }
+      case "ramp": {
+        directionsTypeSpanish.push("Rampa ");
+        break;
+      }
+      case "on ramp": {
+        directionsTypeSpanish.push("Sube por la rampa ");
+        break;
+      }
+      case "off ramp": {
+        directionsTypeSpanish.push("Baja por la rampa ");
+        break;
+      }
+      case "fork": {
+        directionsTypeSpanish.push("Gira ");
+        break;
+      }
+      case "end of road": {
+        directionsTypeSpanish.push("Gira ");
+        break;
+      }
+      case "use lane": {
+        directionsTypeSpanish.push("Continúa por el carril ");
+        break;
+      }
+      case "continue": {
+        directionsTypeSpanish.push("Continúa ");
+        break;
+      }
+      case "roundabout": {
+        directionsTypeSpanish.push("Rotonda ");
+        break;
+      }
+      case "rotary": {
+        directionsTypeSpanish.push("Algo parecido a rotonda ");
+        break;
+      }
+      case "roundabout turn": {
+        directionsTypeSpanish.push("Gira en la rotonda por la ");
+        break;
+      }
+      case "notification": {
+        directionsTypeSpanish.push("Aviso: ");
+        break;
+      }
+    }
 
-    //console.log(item.name + ' ' + item.maneuver.modifier)
-    // L.marker([item.maneuver.location[1], item.maneuver.location[0]]).addTo(this.map)
-    // .bindPopup(`
-    //   ${item?.name}<br>
-    //   ${item.maneuver?.modifier}`, {autoClose: false})
-    // .openPopup();
-  })
+    switch (item.maneuver.modifier) {
+      case "uturn": {
+        directionsModifierSpanish.push("da la vuelta ");
+        break;
+      }
+      case "sharp right": {
+        directionsModifierSpanish.push("a la derecha ");
+        break;
+      }
+      case "right": {
+        directionsModifierSpanish.push("a la derecha ");
+        break;
+      }
+      case "slight right": {
+        directionsModifierSpanish.push("levemente a la derecha ");
+        break;
+      }
+      case "straight": {
+        directionsModifierSpanish.push(" ");
+        break;
+      }
+      case "slight left": {
+        directionsModifierSpanish.push("levemente a la izquierda ");
+        break;
+      }
+      case "left": {
+        directionsModifierSpanish.push("a la izquierda ");
+        break;
+      }
+      case "sharp left": {
+        directionsModifierSpanish.push("a la izquierda ");
+        break;
+      }
+    }
 
+  });
 
-  // let textbox = L.Control.extend({
-  //   onAdd: function() {
-  //     //let text = L.DomUtil.create('div');
-  //     let text = document.createElement("div");
-  //     text.id = "info_text";
-  //     text.innerHTML = "<strong>" + instructions + "</strong>";
-  //     return text;
-  //   },
-  // });
-
-  // new textbox({position: "topright"}).addTo(this.map);
-
-
-  // .bindTooltip("<div style='background:blue;'><b>P</b></div>",
-  //   {
-  //     direction: 'right',
-  //     permanent: true,
-  //     sticky: true,
-  //   }
-  // ).openTooltip();
-
-
+  //Create rows with two columns for instructions info and distance for every step in leg(route)
+  allSteps.forEach((item, i) => {
+    let tr = document.createElement("tr");
+    let tdDirections = document.createElement("td");
+    let tdDistance = document.createElement("td");
+    tdDistance.classList.add("w-25");
+    tdDirections.innerText = directionsTypeSpanish[i] + directionsModifierSpanish[i];
+    if (item.name){
+      tdDirections.innerText += 'por ' + item.name;
+    }
+    if (item.maneuver.type == "arrive") {
+      tdDirections.innerText = directionsTypeSpanish[i] + 'a tu destino';
+    }
+    tdDistance.innerText = this.convertMetersToKm(item.distance);
+    tr.appendChild(tdDirections);
+    tr.appendChild(tdDistance);
+    table?.appendChild(tr);
+  });
 }
 
+convertSecondsToMinHr(seconds: number): string{
+  let hours = Math.floor(seconds / 3600);
+  let mins = Math.floor((seconds % 3600) / 60);
+
+  if (hours > 0) {
+    return `${hours} hr ${mins} min`
+  } else {
+    return `${mins} min`
+  }
+}
+
+get mins(): string {
+  return this.convertSecondsToMinHr(this.route.routes[0].duration);
+}
+
+convertMetersToKm(meters: number): string{
+  let km = meters / 1000;
+
+  if (km > 1) {
+    return km.toFixed(1) + " km";
+  } else {
+    return meters.toFixed(1) + " m";
+  }
+}
+
+get kms(): string {
+  return this.convertMetersToKm(this.route.routes[0].distance);
+}
 
 // Definir UTM zona 30N
 convertCoords(easting: number, northing: number): [number, number] {
