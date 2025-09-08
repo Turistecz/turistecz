@@ -1,29 +1,37 @@
 package org.turistecz.turisteczbackend.model;
+
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 public class VerificationToken {
-    
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String token;
 
-    @OneToOne
-    @JoinColumn(nullable = false, name = "usuario_id")
-    private Usuario usuario;
-
     private LocalDateTime fecha_expiracion;
 
-    public Long getId() {
+    @ManyToOne
+    private Usuario usuario;
+
+    @Enumerated(EnumType.STRING)
+    private VerificationToken.TipoToken tipo; // ✅ campo tipo añadido
+
+    // 🔹 Enum dentro o fuera de la clase
+    public enum TipoToken {
+        ACTIVACION,
+        RECUPERACION
+    }
+
+    // Getters y setters
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,6 +43,14 @@ public class VerificationToken {
         this.token = token;
     }
 
+    public LocalDateTime getFecha_expiracion() {
+        return fecha_expiracion;
+    }
+
+    public void setFecha_expiracion(LocalDateTime fecha_expiracion) {
+        this.fecha_expiracion = fecha_expiracion;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -43,12 +59,11 @@ public class VerificationToken {
         this.usuario = usuario;
     }
 
-    public LocalDateTime getFecha_expiracion() {
-        return fecha_expiracion;
+    public TipoToken getTipo() {
+        return tipo;
     }
 
-    public void setFecha_expiracion(LocalDateTime fecha_expiracion) {
-        this.fecha_expiracion = fecha_expiracion;
+    public void setTipo(TipoToken tipo) {
+        this.tipo = tipo;
     }
-   
 }

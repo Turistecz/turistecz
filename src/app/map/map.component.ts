@@ -3,8 +3,9 @@ import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import proj4 from 'proj4';
 import { MapService } from '../services/map.service';
-import { BiziItem, BusStopItem, TaxiStopItem, TramStopItem } from '../models/map.model';
+import { AdapParkingItem, BiziItem, BusStopItem, TaxiStopItem, TramStopItem, MapRouteItem, FarmaciaItem } from '../models/map.model';
 import { firstValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -14,16 +15,18 @@ import { firstValueFrom } from 'rxjs';
 })
 export class MapComponent implements AfterViewInit, OnInit{
 
-  constructor(private apiMapService: MapService) {}
+  constructor(private apiMapService: MapService, private http: HttpClient) {}
 
-  private map: any
+  private map: any;
 
-  userLatLong: [number, number] = [0, 0];
+  userLatLong: [number, number] = [41.65606, -0.87734];
 
   bizis: BiziItem[] = [];
   taxiStops: TaxiStopItem[] = [];
   busStops: BusStopItem[] = [];
   tramStops: TramStopItem[] = [];
+  adapParking: AdapParkingItem[] = [];
+  farmacias: FarmaciaItem[] = [];
 
   biziIcon = L.icon({
     iconUrl: 'media/bizi-icon.png',
@@ -53,10 +56,61 @@ export class MapComponent implements AfterViewInit, OnInit{
     popupAnchor: [0, -20],
   });
 
+ AdapParkingIcon = L.icon({
+    iconUrl: 'media/parking-adap.svg',
+    iconSize: [22, 32], //medidas por ajustar
+    iconAnchor: [12, 20],
+    popupAnchor: [0, -20],
+  });
+
+  FarmaciaIcon = L.icon({
+    iconUrl: 'media/farmacia-icon.svg',
+     iconSize: [22, 32], //medidas por ajustar
+    iconAnchor: [12, 20],
+    popupAnchor: [0, -20],
+  })
+
   biziMarkerGroup = new L.FeatureGroup();
   busMarkerGroup = new L.FeatureGroup();
   tramMarkerGroup = new L.FeatureGroup();
   taxiMarkerGroup = new L.FeatureGroup();
+  adapParkingMarkerGroup = new L.FeatureGroup();
+  farmaciaMarketGroup = new L.FeatureGroup();
+
+  route: MapRouteItem = {
+    routes: [
+      {
+        distance: 0,
+        duration: 0,
+        geometry: {
+          coordinates: [[0,0]]
+        },
+        legs: [
+          {
+            steps: [
+              {
+                distance: 0,
+                driving_side: '',
+                duration: 0,
+                geometry: {
+                  coordinates: [[0,0]]
+                },
+                maneuver: {
+                  location: [0,0],
+                  modifier: '',
+                  type: ''
+                },
+                name: ''
+              }
+            ],
+            summary: '',
+          }
+        ]
+      }
+    ]
+  };
+
+  sortedRouteCoords: [[number, number]] = [[0,0]];
 
   @Input() data = {
     latitud: 0,
@@ -64,6 +118,7 @@ export class MapComponent implements AfterViewInit, OnInit{
   };
 
   name = input("");
+
 
   // wait for map to load
   ngAfterViewInit(): void {
@@ -76,41 +131,74 @@ export class MapComponent implements AfterViewInit, OnInit{
     await this.loadTaxiStops();
     await this.loadBusStops();
     await this.loadTramStops();
+    await this.loadAdapParking();
+    await this.loadFarmacia();
+    await this.getRoute();
     this.makeLocationMarkers();
     
     //TODO: queda la de bus info
     this.createBiziMarkers();
     this.createBusMarkers();
-    this.createTaxiMarkers();
     this.createTramMarkers();
+    this.createTaxiMarkers();
+    this.createAdapParkingMarkers();
+    this.createFarmaciaMarkers();
   }
 
-// function to initialize the map, set the location point
-private initMap(): void {
-  const coords = this.convertCoords(this.data.latitud, this.data.longitud);
-  const latlng: L.LatLngExpression = [coords[1], coords[0]]; // [lat, lon]
-  
-  this.map = L.map('map').setView(latlng, 15); // Zaragoza
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap'
-  }).addTo(this.map);
-
-}
-
-
- getUserCoords(){
-  navigator.geolocation.getCurrentPosition(position => 
+  getUserCoords(){
+    navigator.geolocation.getCurrentPosition(position => 
     {
       this.userLatLong = [position.coords.latitude, position.coords.longitude];
     });
   }
 
+  getSiteCoords(): L.LatLngExpression{
+    const coords = this.convertCoords(this.data.latitud, this.data.longitud);
+    const latlng: L.LatLngExpression = [coords[1], coords[0]]; // [lat, lon]
+    return latlng;
+  }
+
+// function to initialize the map, set the location point
+private initMap(): void {
+  this.map = L.map('map').setView(this.getSiteCoords(), 15); // Zaragoza
+ 
+  this.map.options.minZoom = 2;
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: `<a href="https://www.openstreetmap.org/fixthemap"> © OpenStreetMap</a>`
+  }).addTo(this.map);
+}
+
+//connect to local OSRM server and insert route data in route variable
+//TODO: see and move this function to map service
+async getRoute() {
+  const latlng = this.getSiteCoords();
+
+  const service = 'route';
+  const version = 'v1';
+  const profile = 'foot';
+  const host = 'http://localhost:5000';
+
+  const siteCoords = [L.latLng(latlng).lng, L.latLng(latlng).lat];
+  const userCoords = [L.latLng(this.userLatLong).lng, L.latLng(this.userLatLong).lat];
+  const allCoords = (userCoords + ';' + siteCoords).toString();
+
+  const url = host + '/' + service + '/' + version + '/' + profile + '/' + allCoords + '?overview=full&steps=true&geometries=geojson';
+
+  try {
+    const datos = await firstValueFrom(this.http.get<MapRouteItem>(url));
+    this.route = datos;
+
+  } catch (error) {
+    console.error('Error al cargar la ruta: ', error);
+  }
+}
+
 // creates markers for user and monument location and adjusts the map view to fit both
+//TODO: find alternative to get user location or solution/check for when it doesn't work
 makeLocationMarkers(){
-  const coords = this.convertCoords(this.data.latitud, this.data.longitud);
-  const latlng: L.LatLngExpression = [coords[1], coords[0]]; // [lat, lon]
+  const latlng = this.getSiteCoords();
 
   let userMarker = L.marker(this.userLatLong).addTo(this.map)
   .bindPopup("Estás aquí", {autoClose: false})
@@ -120,22 +208,73 @@ makeLocationMarkers(){
   .bindPopup(this.name, {autoClose: false})
   .openPopup();
 
-  //TODO: mirar de poner la ruta en pie, pq parece que esta en coche
-
-  L.Routing.control({ 
-    waypoints: [
-        L.latLng(this.userLatLong),
-        L.latLng(latlng)
-    ],
-    addWaypoints: false,
-    router: new L.Routing.OSRMv1({
-      language: 'es'
-    })
-  }).addTo(this.map);
-
   let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
 
   this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
+
+  this.visualRouteLine();
+
+  //OSRM demo server (old way of getting the route)
+  // L.Routing.control({ 
+  //   waypoints: [
+  //       L.latLng(this.userLatLong),
+  //       L.latLng(latlng)
+  //   ],
+  //   addWaypoints: false,
+  //   router: new L.Routing.OSRMv1({
+  //     language: 'es'
+  //   })
+  // }).addTo(this.map);
+
+}
+
+//OSRM local server
+visualRouteLine(){
+  this.sortedRouteCoords.shift();
+  this.route.routes[0].geometry.coordinates.forEach((item: [number, number]) => {
+    this.sortedRouteCoords.push([item[1], item[0]]);
+  });
+  L.polyline(this.sortedRouteCoords, {color: 'red'}).addTo(this.map);
+  this.routeInstructions();
+}
+
+routeInstructions(){
+  let allSteps = this.route.routes[0].legs[0].steps;
+  let table = document.getElementById("instructionsList");
+
+  allSteps.forEach((item) => {
+
+    //console.log(item.name + ' ' + item.maneuver.modifier)
+    // L.marker([item.maneuver.location[1], item.maneuver.location[0]]).addTo(this.map)
+    // .bindPopup(`
+    //   ${item?.name}<br>
+    //   ${item.maneuver?.modifier}`, {autoClose: false})
+    // .openPopup();
+  })
+
+
+  // let textbox = L.Control.extend({
+  //   onAdd: function() {
+  //     //let text = L.DomUtil.create('div');
+  //     let text = document.createElement("div");
+  //     text.id = "info_text";
+  //     text.innerHTML = "<strong>" + instructions + "</strong>";
+  //     return text;
+  //   },
+  // });
+
+  // new textbox({position: "topright"}).addTo(this.map);
+
+
+  // .bindTooltip("<div style='background:blue;'><b>P</b></div>",
+  //   {
+  //     direction: 'right',
+  //     permanent: true,
+  //     sticky: true,
+  //   }
+  // ).openTooltip();
+
+
 }
 
 
@@ -162,7 +301,7 @@ async loadBizis(): Promise<void> {
 async loadTaxiStops(): Promise<void> {
   try {
     const datos = await firstValueFrom(this.apiMapService.getTaxisStops());
-    this.taxiStops = datos.result;
+    this.taxiStops = datos.features;
 
   } catch (error) {
     console.error('Error al cargar monumentos:', error);
@@ -189,6 +328,27 @@ async loadBusStops(): Promise<void> {
   }
 }
 
+
+async loadAdapParking(): Promise<void> {
+  try {
+    const datos = await firstValueFrom(this.apiMapService.getAdapParking());
+    this.adapParking = datos.features;
+
+  } catch (error) {
+    console.error('Error al cargar monumentos:', error);
+  }
+}
+
+async loadFarmacia(): Promise<void> {
+  try {
+    const datos = await firstValueFrom(this.apiMapService.getFarmacia());
+    this.farmacias = datos.features;
+
+  } catch (error) {
+    console.error('Error al cargar monumentos:', error);
+  }
+}
+
 public showHideMarkers(event: Event, group: L.FeatureGroup): void {
   if ((event.target as HTMLInputElement).checked){
     group.addTo(this.map);
@@ -196,7 +356,6 @@ public showHideMarkers(event: Event, group: L.FeatureGroup): void {
     this.map.removeLayer(group);
   }
 }
-
 //TODO: hide & show markers on zoom
 // map.on('zoomend', function() {
 //     if (map.getZoom() <7){
@@ -221,6 +380,14 @@ private createBusMarkers(): void {
 
 private createTramMarkers(): void {
   this.createMarkers(this.tramIcon, this.tramMarkerGroup, this.tramStops, "tram");
+};
+
+private createAdapParkingMarkers(): void {
+this.createMarkers(this.AdapParkingIcon, this.adapParkingMarkerGroup, this.adapParking, "parking adaptado");
+};
+
+private createFarmaciaMarkers(): void {
+this.createMarkers(this.FarmaciaIcon, this.farmaciaMarketGroup, this.farmacias, "farmacias de guardia");
 };
 
 private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: string): void {
@@ -274,6 +441,26 @@ private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: s
           <strong>${props.properties.title}</strong><br>
         `);
         break;
+
+      case "parking adaptado":
+        //no incluyo ${props.properties.num_calle1} porque en muchos casos el numero de la calle no aparece
+        markerVar.bindPopup(`
+          <strong> Calle ${props.properties.calle_1}</strong><br> 
+          Horario: ${props.properties.horario} <br>
+          Número de plazas: ${props.properties.plazas} 
+          `);
+          break;
+
+       case "farmacias de guardia":
+        //no incluyo ${props.properties.num_calle1} porque en muchos casos el numero de la calle no aparece
+        markerVar.bindPopup(`
+          <strong>${props.properties.title}</strong><br>  
+          Calle ${props.properties.calle}<br>
+          Guardia: ${props.properties.guardia.fecha} <br> 
+          ${props.properties.guardia.horario} <br>
+          Teléfono: ${props.properties.telefonos} 
+          `)
+         
     }
   });
 }

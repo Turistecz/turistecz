@@ -13,10 +13,11 @@
 
     <!-- Menú colapsable -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav nav-center justify-content-start justify-content-lg-center w-100">
+      <ul class="navbar-nav nav-center justify-content-lg-center w-100">
         <li class="nav-item"><a class="nav-link active" href="sitios">Sitios</a></li>
         <li class="nav-item"><a class="nav-link active" href="eventos">Eventos</a></li>
         <li class="nav-item"><a class="nav-link active" href="rutas">Rutas</a></li>
+        <li class="nav-item"><a class="nav-link active" href="alojamientos">Alojamientos</a></li>
       </ul>
 
       <div class="d-flex align-items-center gap-2 ms-lg-auto mt-2 mt-lg-0">
@@ -31,7 +32,7 @@
         <!-- Logueado -->
         <ng-template #logueadoTemplate>
           <div class="d-flex align-items-center gap-2">            
-             <span class="nav-link active fw-bold"><a class="text-reset text-decoration-none" href="/mi-perfil"> Bienvenido {{ usuarioNombre }} </a></span>
+             <span class="nav-link active fw-bold"><a class="text-reset text-decoration-none" href="/mi-perfil"> Perfil </a></span>
             <button class="btn btn-outline-danger btn-sm" (click)="onLogout()">
               <i class="bi bi-box-arrow-right"></i> Logout
             </button>

@@ -34,7 +34,7 @@ public class RutaController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/rutaPorID")
-    public Ruta mostrarRutaPorID(@RequestParam String id) {
+    public Ruta mostrarRutaPorID(@RequestParam Number id) {
         return rutaService.buscarNombrePorId(id);
     }
 

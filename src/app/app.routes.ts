@@ -44,7 +44,7 @@ export const routes: Routes = [
         loadComponent: () =>
                 import('./page-routes/page-routes.component').then(m => m.pageRoutesComponent)
     }, 
-     {
+    {
         path: 'signin', 
         loadComponent: () =>
                 import('./sign-form/sign-form.component').then(m => m.SignformComponent)
@@ -53,10 +53,27 @@ export const routes: Routes = [
     path: 'login', 
         loadComponent: () =>
                 import('./login/login.component').then(m => m.LoginComponent)
-    },   
+
+    },  
+    {
+    path: 'detalle-ruta', 
+        loadComponent: () =>
+                import('./detail-route/detail-route.component').then(m => m.DetailRouteComponent)
+    },
+  
      {
     path: 'mi-perfil', 
         loadComponent: () =>
                 import('./mi-perfil/mi-perfil.component').then(m => m.MiPerfilComponent)
-    },   
-];
+    }, 
+      {
+    path: 'alojamientos', 
+        loadComponent: () =>
+                import('./accommodation/accommodation.component').then(m => m.AccommodationComponent)
+    },
+    {
+    path: 'recuperar-contrasena',
+    loadComponent: () => import('./recuperar-contrasena/recuperar-contrasena.component').then(m => m.RecuperarContrasenaComponent)
+    }     
+
+]

@@ -1,13 +1,35 @@
 <h2 id="tituloSitiosHome">Sitios</h2>
-<div class="container">
+<div class="mx-2 mt-2">
   <div class="row">
-    <div class="col-3">
-      <app-filter [places]="cards" [categories]="categoriesSites" [categoryKeywords]="categorySitesKeywords" (filteredCards)="updatePlaces($event)"></app-filter>
+    <div class="filterCard col-12 col-md-3">
+      <app-filter [places]="cards" [categories]="categoriesSites" [categoryKeywords]="categorySitesKeywords" 
+      (filteredCards)="updatePlaces($event)" (noResultsPlacesEvent)="noResultsPlaces = $event"></app-filter>
     </div>
-    <div class="containerCard">
-      <div *ngFor="let cardHome of sortedCards" class="col- col-md-3">
+
+    <div class="containerCard col-12 col-md-9" *ngIf="sortedCards.length > 0">
+      <div *ngFor="let cardHome of sortedCards">
         <app-one-place-card [data]="cardHome"></app-one-place-card>
       </div>
     </div>
+
+    <div class="containerCard col-12 col-lg-9 d-block justify-content-center" *ngIf="noResultsPlaces">
+      <div class="text-center p-4 border rounded bg-light shadow-sm w-100">
+        <i class="bi bi-exclamation-circle little-circle"></i>
+        <p class="mt-2 mb-0 messageError">
+          No se ha encontrado ningún resultado para los filtros aplicados.
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 d-flex justify-content-center mt-4">
+        <app-pagination
+          [page]="page"
+          [pageSize]="pageSize"
+          [totalItems]="sortedCards.length"
+          (pageChange)="onPageChange($event)">
+        </app-pagination>
+      </div>
+    </div>
+      
   </div> 
 </div>

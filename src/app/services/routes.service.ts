@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError, of, tap } from 'rxjs';
 import { RoutesPage } from '../models/routes.model';
@@ -20,6 +20,15 @@ export class RoutesService {
 
   constructor(private http: HttpClient) { }
 
+   private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  }
+
+
   /* Mostrar todas las rutas*/
   getAllRoutes():Observable<RoutesPage[]>{
     if (this.routesCache.length > 0) {
@@ -31,7 +40,7 @@ export class RoutesService {
   }
 
   /*Buscar Rutas por Id*/
-  getRouteById(id:string):Observable<any>{
+  getRouteById(id:number):Observable<any>{
     return this.http.get(this.routeIdURL+id)
     .pipe(
       catchError(this.handleError)
