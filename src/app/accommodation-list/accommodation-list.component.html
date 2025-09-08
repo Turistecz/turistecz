@@ -1,13 +1,15 @@
 
-<div class="cards-grid">
-  <section *ngFor="let a of items" >
-        <article class="card card-inside p-4 shadow-sm h-100">
-          <h4 class="titulo" >{{ a.title }}</h4>
-           <div class="desc-box">
-            <div  [innerHTML]="a.descripcion"></div>
-             <p *ngIf="a.email">Email: {{ a.email }}</p>
-           </div>
-         <button class="ver-mas" (click)="abrirEnlace(a.link)" (keydown.enter)="abrirEnlace(a.link)"> Ver más <span class="arrow">›</span> </button>
-        </article>
-    </section>
+<div class="container my-4">
+  <div class="row cards-grid g-4 text-center"> 
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let a of items">
+      <div class="card h-100 shadow-sm text-light p-4">
+        <h4 class="card-title text-light mb-3">{{ a.title }}</h4>
+        <div class="mt-3 text-light fs-6 fw-semibold">
+          <div [innerHTML]="a.descripcion"></div>
+          <p *ngIf="a.email" class="mb-0">Email: {{ a.email }}</p>
+        </div>
+        <button class="btn btn-ver-mas mt-auto" (click)="abrirEnlace(a.link)" (keydown.enter)="abrirEnlace(a.link)"> Ver más <span class="ms-1">›</span></button>
+      </div>
+    </div>
+  </div>
 </div>
