@@ -1,29 +1,5 @@
 @import '@fontsource-variable/baloo-bhaijaan-2';
 
-.imagen-bg-routes {
-    background-image: url('/routesImage/bg-imagen.png');
-    position: relative;
-    display: flex;
-    background-size:cover;
-    padding-top: 4rem;
-}
-
-.cardRoutes{ /*Esto tiene que ver con la distribucion*/
-   display: block;
-   justify-content: space-between; 
-   margin-inline: 20rem; 
-   position: relative;
-   top:-50px
-}
-
-.cardito{
-    display: inline-block;
-    align-content: center;
-    padding-bottom: 1rem;
-    margin-top: 50px;
-    
-}
-
 
 h2{
    color: #184591;
@@ -35,7 +11,6 @@ h2{
     padding-bottom: 1rem;
 }
  
-
 
 .btn-routes:hover {
   transform: scale(1.05);
