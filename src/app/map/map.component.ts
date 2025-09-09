@@ -366,7 +366,7 @@ routeInstructions(){
 
   });
 
-  //Create rows with two columns for instructions info and distance for every step in leg(route)
+  //Create rows with three columns for icon instruction, instructions info and distance for every step in leg(route)
   allSteps.forEach((item, i) => {
     let tr = document.createElement("tr");
     let img = document.createElement("img");
@@ -375,8 +375,6 @@ routeInstructions(){
     let tdDistance = document.createElement("td");
     tdDistance.classList.add("w-25");
     tdIcon.classList.add("w-25");
-    img.style.width = "50px";
-    img.style.height = "50px";
     img.style.transform = directionsIconRotation[i];
     img.src = directionsIcon[i];
     tdIcon.appendChild(img);
