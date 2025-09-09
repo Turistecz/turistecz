@@ -1,6 +1,6 @@
 <div class="position-relative"> <!--<div id="mapContainer">-->
     <div id="map" class="w-100 m-0 z-0"></div>
-    <div class="overflow-auto row-gap-1 h-75 w-25 mt-3 me-3 p-2 bg-body-secondary z-1 position-absolute top-0 end-0"> <!--instructionsContainer -->
+    <div class="overflow-auto row-gap-1 h-75 w-25 mt-3 me-3 p-2 bg-body-secondary rounded-2 z-1 position-absolute top-0 end-0"> <!--instructionsContainer -->
         <div class="mb-0 bg-white px-2 rounded-3">
             <p class="fs-5 mb-1 pt-1" id="legName">{{this.route.routes[0].legs[0].summary}}</p>
             <p class="pb-2" id="distanceTime">{{kms}}, {{mins}}</p>
@@ -12,47 +12,47 @@
 </div>
 
 
+<div class="row mt-2">
+    <p class="fs-5">LEYENDA:</p>
+    <div class="col-12 d-flex justify-content-evenly">
+        <p>
+            <img src="media/marker-icon.png" style="width:20px;height:30px;" alt="ícono estás aquí">
+            Estás aquí
+        </p>
+        <p>
+            <img src="media/bizi-icon.png" style="width:30px;height:30px;" alt="ícono estación bizi"> 
+            Estación bizi
+            <input class="icon" #biziIconId type="checkbox" (change)="showHideMarkers($event, this.biziMarkerGroup)">
+        </p>
+        <p>
+            <img src="media/bus-icon.png" style="width:20px;height:30px;" alt="ícono parada bus"> 
+            Buses
+            <input class="icon" id="busIconId" type="checkbox" (change)="showHideMarkers($event, this.busMarkerGroup)">
+        </p>
+        <p>
+            <img src="media/taxi-icon.png" style="width:20px;height:30px;" alt="ícono parada taxi"> 
+            Taxis
+            <input class="icon" id="taxiIconId" type="checkbox" (change)="showHideMarkers($event, this.taxiMarkerGroup)">
+        </p>
+        <p>
+            <img src="media/tram-icon.png" style="width:20px;height:30px;" alt="ícono parada tranvía"> 
+            Tranvias
+            <input class="icon" id="tramIconId" type="checkbox" (change)="showHideMarkers($event, this.tramMarkerGroup)">
+        </p>
+        <p>
+            <img src="media/parking-adap.svg" style="width:20px;height:30px;" alt="ícono parking adaptado"> 
+            Parking adaptado
+            <input class="icon" id="adapParkingId" type="checkbox" (change)="showHideMarkers($event, this.adapParkingMarkerGroup)">
+        </p>
+        <p>
+            <img src="media/farmacia-icon.svg" style="width:20px;height:30px;" alt="ícono farmacias de guardia"> 
+            Farmacias de guardia
+            <input class="icon" id="farmaciaId" type="checkbox" (change)="showHideMarkers($event, this.farmaciaMarketGroup)">
+        </p>
+    </div>
+</div>
 
-<p>LEYENDA:</p>
-<p>
-    <img src="media/marker-icon.png" style="width:20px;height:30px;" alt="ícono estás aquí">
-    Estás aquí
-</p>
-<p>
-    <img src="media/bizi-icon.png" style="width:30px;height:30px;" alt="ícono estación bizi"> 
-    Estación bizi
-    <input class="icon" #biziIconId type="checkbox" (change)="showHideMarkers($event, this.biziMarkerGroup)">
-</p>
-<p>
-    <img src="media/bus-icon.png" style="width:20px;height:30px;" alt="ícono parada bus"> 
-    Buses
-    <input class="icon" id="busIconId" type="checkbox" (change)="showHideMarkers($event, this.busMarkerGroup)">
-</p>
-<p>
-    <img src="media/taxi-icon.png" style="width:20px;height:30px;" alt="ícono parada taxi"> 
-    Taxis
-    <input class="icon" id="taxiIconId" type="checkbox" (change)="showHideMarkers($event, this.taxiMarkerGroup)">
-</p>
-<p>
-    <img src="media/tram-icon.png" style="width:20px;height:30px;" alt="ícono parada tranvía"> 
-    Tranvias
-    <input class="icon" id="tramIconId" type="checkbox" (change)="showHideMarkers($event, this.tramMarkerGroup)">
-</p>
-<p>
-    <img src="media/parking-adap.svg" style="width:20px;height:30px;" alt="ícono parking adaptado"> 
-    Parking adaptado
-    <input class="icon" id="adapParkingId" type="checkbox" (change)="showHideMarkers($event, this.adapParkingMarkerGroup)">
-</p>
-
-<p>
-    <img src="media/farmacia-icon.svg" style="width:20px;height:30px;" alt="ícono farmacias de guardia"> 
-    Farmacias de guardia
-    <input class="icon" id="farmaciaId" type="checkbox" (change)="showHideMarkers($event, this.farmaciaMarketGroup)">
-</p>
 
 
-<!-- (img)icono = sitio(?)
-(img)bici = estacion bici 
-(img)bus = estacion bus 
-(img)tranvia = estacion tranvia.  -->
+
 
