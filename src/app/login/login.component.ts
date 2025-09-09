@@ -1,68 +1,51 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from '../services/login.service';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  // 🔹 Login
-  email: string = '';
-  contrasena: string = ''; // 👈 nombre igual al backend (no "password")
 
-  // 🔹 Recuperación de contraseña
-  mostrarRecuperacion: boolean = false;
-  forgotEmail: string = '';
-  mensaje: string = '';
+  email: string = '';
+  contrasena: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  // 🔹 Login
-  onLogin() {
-    if (!this.email || !this.contrasena) {
-      this.mensaje = 'Debe ingresar email y contraseña';
+  isValidEmail(email: string): boolean {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  onLogin(form: any) {
+    if (!form.valid) {
+      alert('Por favor corrige los errores en el formulario');
       return;
     }
 
     this.authService.login(this.email, this.contrasena).subscribe({
       next: res => {
-        // 🔹 Guardar token en localStorage
         localStorage.setItem('accessToken', res.accessToken);
+        localStorage.setItem('usuario', JSON.stringify(res.usuario));
 
-        this.mensaje = 'Login exitoso ✅';
-        // redirigir a la home o dashboard
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home']); // redirige a home directamente
       },
-      error: err => {
-        this.mensaje = err.error || 'Credenciales incorrectas ❌';
+      error: err => alert(err.error || '❌ Credenciales incorrectas')
+    });
+  }
+
+      irARegistro(event: Event) {
+        event.preventDefault();
+        this.router.navigate(['/signin']);
       }
-    });
-  }
 
-  // 🔹 Recuperación de contraseña
-  onForgotPassword() {
-    if (!this.forgotEmail) {
-      this.mensaje = 'Ingrese un correo válido';
-      return;
-    }
-
-    this.authService.registrarUsuario // 👈 OJO, esto NO es forgot-password
-    // Mejor llamamos directo con HttpClient porque no lo tienes en AuthService
-    // Lo dejo corregido abajo:
-
-    this.authService['http'].post(
-      'http://localhost:8080/auth/forgot-password',
-      { email: this.forgotEmail },
-      { responseType: 'text' }
-    ).subscribe({
-      next: res => this.mensaje = res,
-      error: err => this.mensaje = err.error || 'Error al enviar el enlace ❌'
-    });
-  }
+      irARecuperar(event: Event) {
+        event.preventDefault();
+        this.router.navigate(['/recuperar-contrasena']);
+      }
 }

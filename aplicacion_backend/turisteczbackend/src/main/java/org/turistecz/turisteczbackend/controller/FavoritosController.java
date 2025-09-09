@@ -37,9 +37,9 @@ public class FavoritosController {
    @CrossOrigin(origins ="http://localhost:4200")
    @PostMapping("/add-favorite")
    public Favoritos addFavorito(@RequestBody FavoriteDto dto) {
-     Usuario usuario = usuarioRepo.findById(dto.getUsuario_id())
+     Usuario usuario = usuarioRepo.findById(dto.getUsuarioId())
                           .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        Sitio sitio = sitioRepo.findById(dto.getSitio_id())
+        Sitio sitio = sitioRepo.findById(dto.getSitioId())
                         .orElseThrow(() -> new RuntimeException("Sitio no encontrado"));
 
         Favoritos favorito = new Favoritos();

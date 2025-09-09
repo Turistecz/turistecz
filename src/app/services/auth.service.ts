@@ -8,15 +8,24 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  // 🔹 Login
+  
   login(email: string, contrasena: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, { email, contrasena });
   }
 
-  // 🔹 Registro
+  
   registrarUsuario(usuario: any): Observable<string> {
     return this.http.post(`${this.apiUrl}/register`, usuario, {
       responseType: 'text'
     } as const);
   }
+
+  forgotPassword(email: string) {
+  return this.http.post(
+    'http://localhost:8080/auth/forgot-password',
+    { email },
+    { responseType: 'text' }
+  );
+}
+
 }
