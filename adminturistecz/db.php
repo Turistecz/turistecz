@@ -19,8 +19,9 @@ $conn1 = new mysqli($host1, $user1, $pass1, $db1);
     }
     if ($conn1->connect_error) {
         die("Conexión BD2 fallida: " . $conn1->connect_error);
+  
+        echo "Conexión exitosa"; 
     }
-echo "Conexión exitosa"; 
 ?>
 
     

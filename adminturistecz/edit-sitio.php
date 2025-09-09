@@ -1,19 +1,16 @@
 <?php
-include 'db.php'; // Asegúrate que este archivo define $conn1 para turistecz
+include 'db.php';
 session_start();
-
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit();
 }
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    die("ID de sitio no válido.");
+    die("ID no válido.");
 }
 
 $id = intval($_GET['id']);
-
-// Traer los datos del sitio
 $sql = "SELECT * FROM sitio WHERE id = ?";
 $stmt = $conn1->prepare($sql);
 $stmt->bind_param("i", $id);
@@ -26,7 +23,6 @@ if ($result->num_rows === 0) {
 
 $sitio = $result->fetch_assoc();
 
-// Opciones para campos enum
 $opciones = [
     "NO" => "No",
     "SI" => "Sí",
@@ -34,7 +30,6 @@ $opciones = [
     "BAJO_PETICION" => "Bajo petición"
 ];
 
-// Campos tipo enum
 $campos = [
     "rampas", "ascensores", "puertas_automaticas", "escaleras_mecanicas",
     "servicios_adaptados", "sala_lactancia", "cambiador", "parking_adaptado",
@@ -45,7 +40,6 @@ $campos = [
     "lenguaje_simple", "acceso_perros_guias", "acceso_perros_asistencia"
 ];
 
-// Procesar formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $updateFields = [
         'nombre' => htmlspecialchars(trim($_POST['nombre'])),
@@ -74,10 +68,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmtUpdate->bind_param($types, ...$values);
 
     if ($stmtUpdate->execute()) {
-        header("Location: select-sitios.php");
+        header("Location: select-sitios.php?msg=editado");
         exit();
     } else {
-        echo "Error al actualizar el sitio: " . $stmtUpdate->error;
+        $error = "Error al actualizar: " . $stmtUpdate->error;
     }
 }
 ?>
@@ -86,88 +80,108 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Sitio</title>
-     <style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f8fafc;
-            margin: 0;
-            padding: 20px;
-            color: #333;
+            background: #f4f6f9;
         }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
+        .navbar {
+            background: #2c3e50;
         }
-        .form-container {
-            max-width: 700px;
-            margin: 30px auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-            color: #555;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 6px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-        .btn {
-            margin-top: 20px;
-            padding: 10px 18px;
-            background: #2980b9;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            cursor: pointer;
-            display: inline-block;
-        }
-        .btn:hover {
-            background: #1c5980;
-        }
-        .btn-cancel {
-            background: #e74c3c;
-            margin-left: 10px;
-        }
-        .btn-cancel:hover {
-            background: #c0392b;
+        .form-label {
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
-<h1>Editar Sitio</h1>
-<form method="POST">
-    <label>Nombre: <input type="text" name="nombre" value="<?php echo htmlspecialchars($sitio['nombre']); ?>" required></label><br>
-    <label>Latitud: <input type="text" name="latitud" value="<?php echo htmlspecialchars($sitio['latitud']); ?>"></label><br>
-    <label>Longitud: <input type="text" name="longitud" value="<?php echo htmlspecialchars($sitio['longitud']); ?>"></label><br>
-    <label>Dirección: <input type="text" name="direccion" value="<?php echo htmlspecialchars($sitio['direccion']); ?>"></label><br>
-    <label>Horario visita: <input type="text" name="horario_visita" value="<?php echo htmlspecialchars($sitio['horario_visita']); ?>"></label><br>
-    <label>Teléfono: <input type="text" name="telefono" value="<?php echo htmlspecialchars($sitio['telefono']); ?>"></label><br>
-    <label>Enlace web: <input type="url" name="enlace_web" value="<?php echo htmlspecialchars($sitio['enlace_web']); ?>"></label><br><br>
+    <nav class="navbar navbar-expand-lg mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="select-sitios.php"><i class="fas fa-arrow-left"></i> Volver</a>
+            <span class="text-white">Editar: <?= htmlspecialchars($sitio['nombre']) ?></span>
+        </div>
+    </nav>
 
-    <?php foreach ($campos as $campo): ?>
-        <label><?php echo ucfirst(str_replace("_", " ", $campo)); ?>:
-            <select name="<?php echo $campo; ?>">
-                <?php foreach ($opciones as $valor => $texto): ?>
-                    <option value="<?php echo $valor; ?>" <?php echo ($sitio[$campo] === $valor) ? 'selected' : ''; ?>>
-                        <?php echo $texto; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-        </label><br>
-    <?php endforeach; ?>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="fas fa-edit"></i> Editar Sitio</h5>
+                    </div>
+                    <div class="card-body">
+                        <?php if (isset($error)): ?>
+                            <div class="alert alert-danger"><?= $error ?></div>
+                        <?php endif; ?>
 
-    <button type="submit">Guardar Cambios</button>
-</form>
+                        <form method="POST">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Nombre</label>
+                                    <input type="text" name="nombre" class="form-control" value="<?= htmlspecialchars($sitio['nombre']) ?>" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Dirección</label>
+                                    <input type="text" name="direccion" class="form-control" value="<?= htmlspecialchars($sitio['direccion'] ?? '') ?>">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Latitud</label>
+                                    <input type="text" name="latitud" class="form-control" value="<?= htmlspecialchars($sitio['latitud'] ?? '') ?>">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Longitud</label>
+                                    <input type="text" name="longitud" class="form-control" value="<?= htmlspecialchars($sitio['longitud'] ?? '') ?>">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Teléfono</label>
+                                    <input type="text" name="telefono" class="form-control" value="<?= htmlspecialchars($sitio['telefono'] ?? '') ?>">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Horario visita</label>
+                                    <input type="text" name="horario_visita" class="form-control" value="<?= htmlspecialchars($sitio['horario_visita'] ?? '') ?>">
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Enlace web</label>
+                                <input type="url" name="enlace_web" class="form-control" value="<?= htmlspecialchars($sitio['enlace_web'] ?? '') ?>">
+                            </div>
+
+                            <hr>
+                            <h6>Accesibilidad</h6>
+
+                            <div class="row">
+                                <?php foreach ($campos as $campo): ?>
+                                    <div class="col-md-6 col-lg-4 mb-3">
+                                        <label class="form-label"><?= ucfirst(str_replace("_", " ", $campo)) ?></label>
+                                        <select name="<?= $campo ?>" class="form-select">
+                                            <?php foreach ($opciones as $valor => $texto): ?>
+                                                <option value="<?= $valor ?>" <?= $sitio[$campo] === $valor ? 'selected' : '' ?>>
+                                                    <?= $texto ?>
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="select-sitios.php" class="btn btn-secondary">Cancelar</a>
+                                <button type="submit" class="btn btn-success">Guardar cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
