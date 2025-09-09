@@ -375,6 +375,9 @@ routeInstructions(){
     let tdDistance = document.createElement("td");
     tdDistance.classList.add("w-25");
     tdIcon.classList.add("w-25");
+    img.classList.add("bg-transparent")
+    tdDirections.classList.add("py-2");
+    tr.classList.add("border-bottom", "my-2");
     img.style.transform = directionsIconRotation[i];
     img.src = directionsIcon[i];
     tdIcon.appendChild(img);
@@ -386,7 +389,7 @@ routeInstructions(){
       if (item.name) {
         tdDirections.innerText = directionsTypeSpanish[i] + 'en ' + item.name;
       } else {
-        tdDirections.innerText = directionsTypeSpanish[i];
+        tdDirections.innerText = directionsTypeSpanish[i] + directionsModifierSpanish[i];
       }
       img.style.transform = "";
       img.src = "media/start-map-direction.png";
