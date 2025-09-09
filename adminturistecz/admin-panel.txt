@@ -1,0 +1,106 @@
+📌 Documentación del Panel de Administración de Sitios (PHP + MySQL)
+🔧 Introducción
+
+Este panel de administración ha sido desarrollado en PHP con conexión a MySQL para gestionar los sitios turísticos de la aplicación Turistecz.
+
+Permite:
+
+Iniciar sesión en el panel de administración.
+
+Registrar nuevos administradores.
+
+Visualizar todos los sitios registrados.
+
+Editar la información de cada sitio existente.
+
+Insertar nuevos sitios en la base de datos.
+
+⚙️ Configuración del Puerto de MySQL en XAMPP
+
+Por defecto, MySQL en XAMPP utiliza el puerto 3306. Sin embargo, este puerto ya está siendo utilizado por MySQL Workbench, lo que genera conflicto.
+
+Por ello, se ha configurado MySQL en XAMPP para trabajar en el puerto 3307.
+
+Pasos para cambiar el puerto en XAMPP:
+
+Abrir el XAMPP Control Panel.
+
+En la fila de MySQL, pulsar el botón Config.
+
+Seleccionar my.ini.
+
+Buscar la sección [mysqld].
+
+Localizar la línea:
+
+port=3306
+
+
+y cambiarla a:
+
+port=3307
+
+
+Guardar el archivo y reiniciar MySQL desde XAMPP.
+
+⚠️ Importante: Asegúrate también de cambiar la configuración de conexión en tus archivos PHP para que apunten al puerto 3307.
+
+Ejemplo de conexión en PHP (db.php):
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "turistecz";
+$port = 3307;
+
+$conn = new mysqli($servername, $username, $password, $database, $port);
+
+if ($conn->connect_error) {
+    die("Error de conexión: " . $conn->connect_error);
+}
+
+🌐 Endpoints del Panel de Administración
+
+A continuación se detallan los principales endpoints que ofrece este panel:
+
+🔑 1. Login
+
+http://localhost/adminturistecz/login.php
+Permite a los administradores registrados acceder al panel mediante correo y contraseña.
+
+🆕 2. Registro
+
+http://localhost/adminturistecz/register.php
+Formulario para registrar nuevos administradores en el sistema.
+
+📋 3. Selección de sitios
+
+http://localhost/adminturistecz/select-sitios.php
+Este es el primer endpoint al que se debe acceder tras iniciar sesión.
+
+Muestra una lista con todos los sitios registrados en la base de datos.
+
+Incluye un botón de edición en cada sitio para modificar su información.
+
+➕ 4. Inserción de nuevos sitios
+
+http://localhost/adminturistecz/insert-sitios.php
+Formulario que permite añadir un nuevo sitio turístico, rellenando los campos requeridos (nombre, descripción, localización, etc.).
+
+🚀 Flujo de uso del panel
+
+El administrador accede a login.php para iniciar sesión.
+
+Una vez autenticado, se dirige a select-sitios.php para ver los sitios disponibles.
+
+Desde ahí, puede:
+
+Editar un sitio existente.
+
+Ir a insert-sitios.php para crear un nuevo sitio.
+
+✅ Conclusión
+
+Con este panel de administración, se logra gestionar de manera sencilla los sitios turísticos de la base de datos, asegurando un control completo desde una interfaz basada en PHP.
+
+El cambio de puerto a 3307 evita conflictos con MySQL Workbench y garantiza que tanto la administración local como el desarrollo funcionen correctamente.
