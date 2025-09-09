@@ -1,4 +1,4 @@
-<div id="buscador" class="row text-white pt-3">
+<div id="buscador" class="row text-white pt-3 mb-4">
 
   <!-- FILA 1: Input + Botones -->
   <div class="buscador-top">
@@ -8,24 +8,26 @@
     <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> </button>
   </div>
 
-      <!-- FILA 2: Ordenar -->
-      <div class="buscador-ordenar m-2" *ngIf="showOrder">
-        <label for="filterOption">Ordenar:</label>
-        <select id="filterOption" class="form-select my-2" [(ngModel)]="filterOption" (change)="applyEventFilters()" (change)="applyPlaceFilters()">
-          <option value="future">Cronológicamente</option>
-          <option value="alpha">(A-Z)</option>
-          <option value="month">Solo mes actual</option>
-        </select>
-      </div>
+  <button class="filter-toggle-btn mb-3" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
+    <i class="bi" [ngClass]="filtersExpanded ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
+    {{ filtersExpanded ? 'Ocultar filtros' : 'Mostrar filtros' }}
+  </button>
 
-    
-    <div>
-      
-      <div class="m-2 filtro-lista mt-4">
+  <div class="filters-collapsible" [class.expanded]="filtersExpanded">
+  <!-- FILA 2: Ordenar -->
+    <div class="buscador-ordenar m-2" *ngIf="showOrder">
+      <label for="filterOption">Ordenar:</label>
+      <select id="filterOption" class="form-select my-2" [(ngModel)]="filterOption" (change)="applyEventFilters()" (change)="applyPlaceFilters()">
+        <option value="future">Cronológicamente</option>
+        <option value="alpha">(A-Z)</option>
+        <option value="month">Solo mes actual</option>
+      </select>
+    </div>
+ 
+        
+    <div class="m-2 filtro-lista mt-4">
       <h5>Categorías</h5>
-
-
-      
+    
       <div class="form-check mb-1" *ngFor="let cat of categories">
         <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}"/>
         <label class="form-check-label" [for]="'check-' + cat">{{ cat }}</label>
@@ -33,21 +35,22 @@
 
       <br>
       <ng-container *ngIf="showAdaptability">
-  
 
-      <div *ngFor="let group of groups" class="adaptability-group mb-4">
-        <h5>{{ group | titlecase }}</h5>
+        <div *ngFor="let group of groups" class="adaptability-group mb-4">
+          <h5>{{ group | titlecase }}</h5>
 
-        <div class="form-check mb-1" *ngFor="let option of getOptionsByGroup(group)">
-          <input class="form-check-input"
-                type="checkbox"
-                [checked]="selectedAccesibilityCategoriesMap[option.key]"
-                (change)="toggleAccessibility(option.key)"
-                id="acc-{{ option.key }}" />
-          <label class="form-check-label" [for]="'acc-' + option.key">
-            {{ option.label }}
-          </label>
+          <div class="form-check mb-1" *ngFor="let option of getOptionsByGroup(group)">
+            <input class="form-check-input"
+                  type="checkbox"
+                  [checked]="selectedAccesibilityCategoriesMap[option.key]"
+                  (change)="toggleAccessibility(option.key)"
+                  id="acc-{{ option.key }}" />
+            <label class="form-check-label" [for]="'acc-' + option.key">
+              {{ option.label }}
+            </label>
+          </div>
         </div>
-      </div>
-    </ng-container>
-        
+
+      </ng-container>
+    </div>
+  </div>
