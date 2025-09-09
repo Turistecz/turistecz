@@ -25,26 +25,41 @@ export class OnePlaceCardComponent {
   };
 
   toggleFavorito(sitio: any) {
-    let usuario: any = localStorage.getItem('usuario');
-    if (usuario) {
-      usuario = JSON.parse(usuario);
-    } else {
-      // 🔹 Confirmación: si no hay usuario logueado
-      const irLogin = confirm('⚠️ Debes iniciar sesión para añadir favoritos.\n\n¿Quieres ir a la página de login ahora?');
-      if (irLogin) {
-        this.router.navigate(['/login']); // redirige al login
-      }
-      return;
+  let usuarioStr = localStorage.getItem('usuario');
+  if (!usuarioStr) {
+    // 🔹 Confirmación si no hay usuario logueado
+    const irLogin = confirm('⚠️ Debes iniciar sesión para añadir favoritos.\n\n¿Quieres ir a la página de login ahora?');
+    if (irLogin) {
+      this.router.navigate(['/login']); 
     }
+    return;
+  }
 
-    // 🔹 Si está logueado: añadir/quitar favorito
+    const usuario = JSON.parse(usuarioStr);
+
     if (sitio.esFavorito) {
-      this.favoritosService.removeFavorito(usuario.id, sitio.id).subscribe(() => {
-        sitio.esFavorito = false;
+      // 🔹 Quitar de favoritos
+      this.favoritosService.removeFavorito(usuario.id, sitio.id).subscribe({
+        next: () => {
+          sitio.esFavorito = false;
+          console.log("🗑️ Eliminado de favoritos");
+        },
+        error: err => {
+          console.error("❌ Error al eliminar de favoritos", err);
+          alert("Error al eliminar de favoritos");
+        }
       });
     } else {
-      this.favoritosService.addFavorito(usuario.id, sitio.id).subscribe(() => {
-        sitio.esFavorito = true;
+      // 🔹 Añadir a favoritos
+      this.favoritosService.addFavorito(usuario.id, sitio.id).subscribe({
+        next: () => {
+          sitio.esFavorito = true;
+          console.log("✅ Añadido a favoritos");
+        },
+        error: err => {
+          console.error("❌ Error al añadir a favoritos", err);
+          alert("Error al añadir a favoritos");
+        }
       });
     }
   }

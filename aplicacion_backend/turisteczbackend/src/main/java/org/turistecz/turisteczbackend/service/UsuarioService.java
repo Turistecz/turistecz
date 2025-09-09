@@ -7,10 +7,11 @@ import org.turistecz.turisteczbackend.dto.UsuarioDto;
 import org.turistecz.turisteczbackend.model.Usuario;
 import org.turistecz.turisteczbackend.model.VerificationToken;
 import org.turistecz.turisteczbackend.repository.UsuarioRepository;
+import com.sendgrid.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.io.IOException;
 
 @Service
 public class UsuarioService {
@@ -24,6 +25,11 @@ public class UsuarioService {
     @Autowired
     private VerificationTokenService verificationTokenService;
 
+    @Autowired
+    private SendGrid sendGrid;
+
+    private static final String FROM_EMAIL = "pruebasturistecz@gmail.com";
+
     // 🔹 Registro de usuario
     public Usuario registrarUsuarioDesdeDto(UsuarioDto dto) {
         Usuario usuario = new Usuario();
@@ -32,23 +38,17 @@ public class UsuarioService {
         usuario.setPassword(passwordEncoder.encode(dto.getContrasena()));
         usuario.setActivo(false);
 
-        // ❌ ERROR: antes retornabas aquí y cortabas el flujo
-        // return usuarioRepository.save(usuario);
-
-        // ✅ Guardamos el usuario
+        
         Usuario saved = usuarioRepository.save(usuario);
 
-        // ✅ Creamos token de ACTIVACIÓN (no recuperación)
         var token = verificationTokenService.crearToken(
                 saved,
                 VerificationToken.TipoToken.ACTIVACION,
                 48 // expira en 48 horas
         );
 
-        // ✅ Creamos enlace de verificación
         String enlace = "http://localhost:4200/verify?token=" + token.getToken();
 
-        // ✅ Enviamos correo
         enviarCorreoVerificacion(saved.getEmail(), enlace);
 
         return saved;

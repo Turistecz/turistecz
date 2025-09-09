@@ -20,7 +20,7 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     // 🔹 Obtener todos los usuarios
-    @GetMapping
+    @GetMapping("/login")
     public ResponseEntity<List<Usuario>> getAllUsuarios() {
         return ResponseEntity.ok(usuarioService.findAll());
     }

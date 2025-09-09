@@ -1,29 +1,29 @@
 package org.turistecz.turisteczbackend.dto;
 
 public class FavoriteDto {
-    private int usuario_id;
-    private int sitio_id;
+    private int usuarioId;
+    private int sitioId;
 
     public FavoriteDto() {}
 
-    public FavoriteDto(int usuario_id, int sitio_id) {
-        this.usuario_id = usuario_id;
-        this.sitio_id = sitio_id;
+    public FavoriteDto(int usuarioId, int sitioId) {
+        this.usuarioId = usuarioId;
+        this.sitioId = sitioId;
     }
 
-    public int getUsuario_id() {
-        return usuario_id;
+    public int getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setUsuario_id(int usuario_id) {
-        this.usuario_id = usuario_id;
+    public void setUsuarioId(int usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
-    public int getSitio_id() {
-        return sitio_id;
+    public int getSitioId() {
+        return sitioId;
     }
 
-    public void setSitio_id(int sitio_id) {
-        this.sitio_id = sitio_id;
+    public void setSitioId(int sitioId) {
+        this.sitioId = sitioId;
     }
 }
