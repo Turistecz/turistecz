@@ -69,7 +69,7 @@
   /* Contenido expandido */
   .filters-collapsible.expanded {
     max-height: 100vh;
-    overflow-y: auto;
+    overflow-y: auto; /*Para que pueda hacer scroll*/
     opacity: 1;
     padding-top: clamp(0.75rem, 3vw, 1.5rem);
     padding-bottom: clamp(0.75rem, 3vw, 1.5rem);

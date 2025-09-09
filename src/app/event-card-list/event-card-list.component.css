@@ -1,30 +1,14 @@
 @import '@fontsource-variable/baloo-bhaijaan-2';
 
 .breadcrumb-events{
-  /* margin-left: 5rem; */
-  /* margin-top: 1rem; */
   font-family: 'inclusive', sans-serif;
-  /* font-weight: bold; */
 }
 
 h2{
   color: #184591; 
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-  /* font-weight: bold; */
   font-size: 4rem;
-  /* text-align: center; */
-  /* padding-top: 2rem; */
-  /* padding-bottom: 1rem; */
 } 
-
-.filters {
-  margin-right: -1rem;
-  /* margin-left: 2rem; */
-}
-
-/* .bloque{
-  margin-bottom: 1.5rem; 
-}*/
 
 .event-card-list {
  margin-bottom: 2rem;
@@ -48,6 +32,9 @@ h2{
   .filters {
     margin-left: 0 !important;
     margin-right: 0 !important;
+    padding-left: 2rem;
+    padding-right: 2rem;
+   
   }
 
   .main-card {
@@ -74,5 +61,11 @@ h2{
     align-items: flex-start;
     width: 100%;
     font-family: "inclusive", system-ui;
+  }
+
+  .row-filter{
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    
   }
 }

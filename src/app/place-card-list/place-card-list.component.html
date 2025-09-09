@@ -1,7 +1,7 @@
 <h2 id="tituloSitiosHome">Sitios</h2>
 <div class="container">
   <div class="row">
-    <div class="filterCard col-12 col-md-3">
+    <div class="col-12 col-md-3 ">
       <app-filter [places]="cards" [categories]="categoriesSites" [categoryKeywords]="categorySitesKeywords" 
       (filteredCards)="updatePlaces($event)" (noResultsPlacesEvent)="noResultsPlaces = $event"></app-filter>
     </div>
