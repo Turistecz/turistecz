@@ -42,7 +42,9 @@ public class SecurityConfig {
                     "/auth/reset-password",
                     "/api/sitios/**",
                     "/api/rutas/**",  
-                    "/api/sitioCorrespondienteALaImagen/**"
+                    "/api/sitioCorrespondienteALaImagen/**",
+                    "/api/rutaPorID/**",
+                    "/api/sitiosRuta/**"
                  
                 ).permitAll()
                 .anyRequest().authenticated()
