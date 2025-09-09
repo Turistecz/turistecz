@@ -1,111 +1,116 @@
-<?php 
+<?php
 include 'db.php';
 session_start();
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit();
-}  
+}
 
 $sql = "SELECT * FROM sitio";
-$result = $conn1->query($sql); // usamos $conn1
+$result = $conn1->query($sql);
 
 if (!$result) {
     die("Error en la consulta: " . $conn1->error);
 }
-
-// Lista de campos que queremos mostrar en la tabla
-$campos = [
-    "id", "nombre", "latitud", "longitud", "direccion", "horario_visita",
-    "telefono", "enlace_web", "rampas", "ascensores", "puertas_automaticas",
-    "escaleras_mecanicas", "servicios_adaptados", "sala_lactancia", "cambiador",
-    "parking_adaptado", "bancos", "mostrador_adaptado", "sin_barreras_arquitectonicas",
-    "braille", "interprete_lengua_signos", "videos_subtitulos", "ayudas_visuales",
-    "guias_turisticos_multiidioma", "elementos_audiovisuales_multiidioma",
-    "documentacion_multiidioma", "visitas_grupales", "ayuda_movilidad",
-    "lenguaje_simple", "acceso_perros_guias", "acceso_perros_asistencia"
-];
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Sitios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-         <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #f8fafc;
-            margin: 0;
-            padding: 20px;
-            color: #333;
+            background: #f4f6f9;
         }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-        .table-container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            overflow-x: auto;
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            min-width: 1200px; /* para scroll si hay muchas columnas */
-        }
-        th, td {
-            border-bottom: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-            font-size: 14px;
-        }
-        th {
+        .navbar {
             background: #2c3e50;
-            color: #fff;
-            position: sticky;
-            top: 0;
         }
-        tr:hover {
-            background: #f1f5f9;
+        .navbar-brand, .nav-link {
+            color: white !important;
         }
-        a.btn {
-            display: inline-block;
-            padding: 6px 12px;
-            background: #3498db;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 13px;
+        .table th {
+            background: #34495e;
+            color: white;
         }
-        a.btn:hover {
-            background: #217dbb;
+        .table-hover tbody tr:hover {
+            background-color: #f1f5f9;
         }
-    </style>
+        .btn-sm {
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body>
-    <h1>Listado de Sitios</h1>
-    <table>
-        <thead>
-            <tr>
-                <?php foreach ($campos as $campo) echo "<th>$campo</th>"; ?>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($result as $row): ?>
-            <tr>
-                <?php foreach ($campos as $campo) echo "<td>" . htmlspecialchars($row[$campo]) . "</td>"; ?>
-                <td>
-                    <a href="edit-sitio.php?id=<?php echo $row['id']; ?>">Editar</a>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+    <nav class="navbar navbar-expand-lg mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-map-marked-alt"></i> AdminTuristeCZ</a>
+            <div class="d-flex">
+                <span class="text-white me-3">Hola, <?= htmlspecialchars($_SESSION['user']) ?></span>
+                <a href="logout.php" class="btn btn-outline-light btn-sm">Cerrar sesión</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="fas fa-list"></i> Sitios Turísticos</h2>
+            <a href="insert-sitios.php" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Nuevo sitio
+            </a>
+        </div>
+
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Dirección</th>
+                                <th>Teléfono</th>
+                                <th>Web</th>
+                                <th>Rampas</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $result->fetch_assoc()): ?>
+                                <tr>
+                                    <td><?= $row['id'] ?></td>
+                                    <td><?= htmlspecialchars($row['nombre']) ?></td>
+                                    <td><?= htmlspecialchars($row['direccion'] ?? 'N/A') ?></td>
+                                    <td><?= htmlspecialchars($row['telefono'] ?? 'N/A') ?></td>
+                                    <td>
+                                        <?php if ($row['enlace_web']): ?>
+                                            <a href="<?= $row['enlace_web'] ?>" target="_blank" class="text-primary">
+                                                <i class="fas fa-globe"></i>
+                                            </a>
+                                        <?php else: ?>
+                                            N/A
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-<?= $row['rampas'] === 'SI' ? 'success' : ($row['rampas'] === 'NO' ? 'danger' : 'secondary') ?>">
+                                            <?= ucfirst(strtolower(str_replace('_', ' ', $row['rampas']))) ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="edit-sitio.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
