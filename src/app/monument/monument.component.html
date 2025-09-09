@@ -9,18 +9,16 @@
 </nav>
 <h1 class="title-pag">{{monumentsFiltered[monumentNumber]?.title}}</h1>
 
-
     <div class="row pt-4">
-        <div  class="col-12 col-md-7">
-            <img [src]="monumento.imagenes[0].url" id="imagen-intro">
+        <div  class="col-12 col-md-6">
+            <img [src]="monumento.imagenes[0].url" id="imagen-intro" class="w-100">
         </div>
                
-        <div *ngIf="monumentsFiltered[monumentNumber]?.horario" id="horario"class="col-12 col-md-4">
+        <div *ngIf="monumentsFiltered[monumentNumber]?.horario" id="horario" class="col-12 col-md-4 d-flex p-1">
             <h2>Horario</h2>
             <p id="horarioP">{{cleanHorario}}</p></div>
         
     </div>
-
     
     <div class="row pt-5 row">
         
@@ -31,77 +29,70 @@
         </div>
         <div class="col-1"></div>
 
-      
-
-        <div id="access" class="col-12 col-md-3">
+        <div id="access" class="col-12 col-md-3 p-4 rounded">
             <h2>Accesibilidad</h2>
             <br>
-            <div class="iconos_sitio">
+            <div class="d-inline-flex column-gap-2"> <!--iconos_sitio -->
                 <img src="icono_silla.svg">
-                <p>Texto de base de datos</p>
+                <p class="m-0">Texto de base de datos</p>
             </div>
-             <div class="iconos_sitio">
+             <div class="d-inline-flex column-gap-2"> <!--iconos_sitio -->
                 <img src="icono_silla.svg">
-                <p>Texto de base de datos</p>
+                <p class="m-0">Texto de base de datos</p>
             </div>
-             <div class="iconos_sitio">
+             <div class="d-inline-flex column-gap-2"> <!--iconos_sitio -->
                 <img src="icono_silla.svg">
-                <p>Texto de base de datos</p>
+                <p  class="m-0">Texto de base de datos</p>
             </div>
-              <div class="iconos_sitio">
+              <div class="d-inline-flex column-gap-2"> <!--iconos_sitio -->
                 <img src="icono_silla.svg">
-                <p>Texto de base de datos</p>
+                <p class="m-0">Texto de base de datos</p>
             </div>
-              <div class="iconos_sitio">
+              <div class="d-inline-flex column-gap-2"> <!--iconos_sitio -->
                 <img src="icono_silla.svg">
-                <p>Texto de base de datos</p>
+                <p class="m-0">Texto de base de datos</p>
             </div>
-              <div class="iconos_sitio">
+              <div class="d-inline-flex column-gap-2"> <!--iconos_sitio -->
                 <img src="icono_silla.svg">
-                <p>Texto de base de datos</p>
+                <p class="m-0">Texto de base de datos</p>
             </div>
-            
-            
-
-        </div>
-        </div>
-       
-        <div  class="row pt-3">
-            <div class="col-12 col-md-6"> 
-                <a class="btn btn-primary" id="boton-info" href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a>
-                <br><br><br>
-                <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
-                    <h2> Contacto </h2>
-                    <p>{{monumentsFiltered[monumentNumber].phone}}</p>
-                    <br>
-                </div>
-                <div class="direccion">
-                    <h2> Dirección </h2>
-                    <p>{{monumentsFiltered[monumentNumber].address}}</p>
-                </div>
-                <br>
-                <div *ngIf="monumentsFiltered[monumentNumber]?.price">
-                    <h2 class="precio"> Precio </h2>
-                    <p id="textPrice">{{cleanPrice}}</p>
-                
-                </div>
-            <!-- <h2> Enlaces de interés </h2>
-                hay que poner un ngFor para que cada-->
-            
-            
-            </div>
-        </div>
-  
    
-        <div class="row pt-6">
-            <div class="local col-12 col-md-12">
-            <h2 >Localización</h2>
-            <br>
-            <app-map [data]="coords" [name]="monumentsFiltered[monumentNumber].title"></app-map>
-            </div>
-            
         </div>
-
+    </div>
+       
+    <div  class="row pt-3">
+        <div class="col-12 col-md-6"> 
+            <a class="btn btn-primary" href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a> <!--id="boton-info" -->
+            <br><br><br>
+            <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
+                <h2> Contacto </h2>
+                <p>{{monumentsFiltered[monumentNumber].phone}}</p>
+                <br>
+            </div>
+            <div class="direccion">
+                <h2> Dirección </h2>
+                <p>{{monumentsFiltered[monumentNumber].address}}</p>
+            </div>
+            <br>
+            <div *ngIf="monumentsFiltered[monumentNumber]?.price">
+                <h2 class="precio"> Precio </h2>
+                <p id="textPrice">{{cleanPrice}}</p>
+            
+            </div>
+        <!-- <h2> Enlaces de interés </h2>
+            hay que poner un ngFor para que cada-->
+        
+        </div>
+    </div>
+   
+    <div class="row pt-6">
+        <div class="local col-12 col-md-12">
+        <h2 >Localización</h2>
+        <br>
+        <app-map [data]="coords" [name]="monumentsFiltered[monumentNumber].title"></app-map>
+        </div>
+        
+    </div>
 
 </div>
 <!--

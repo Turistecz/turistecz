@@ -1,19 +1,20 @@
-.title-pag{
+/* .title-pag{
   display: block;
   margin-left:auto;
   margin-right: auto;
-}
+} */
 
 #imagen-intro{
-  max-width: 85%;
+  /* max-width: 85%; */
   border-radius: 25px;
 }
+
 #horario{
-  display: flex;
+  /* display: flex; */
   flex-direction: column;  
   background-color: rgb(216, 240, 252);
   height: fit-content;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 #horarioP{
@@ -26,33 +27,31 @@
 }
 
 #access{    
-  display: block;
+  /* display: block; */
   background-color: rgb(186, 251, 186);
   height: fit-content;
-  padding: 20px;
+  /* padding: 20px; */
   text-align: center;
 }
 
-#imageDetail{
-    
+/* #imageDetail{
   border-radius: 25px;
-}
+} */
 
-.iconos_sitio {
+/* .iconos_sitio {
   display:inline-flex;
-  align-items: center;
-  gap: 0.5rem;          /* Espacio entre imagen y texto */
-  margin-bottom: 0.5rem; /* Espacio entre filas */
+  align-items:center;
+  gap: 0.5rem;          Espacio entre imagen y texto
+  margin-bottom: 0.5rem; Espacio entre filas
+} */
 
-}
+/* .iconos_sitio p {
+  margin: 0; Elimina márgenes por defecto del párrafo
+} */
 
-.iconos_sitio p {
-  margin: 0; /* Elimina márgenes por defecto del párrafo */
-}
-
-#mapa{
+/* #mapa{
     max-width: 100%;
-}
+} */
 
 @media (max-width: 768px) {
   .title-pag{
@@ -88,7 +87,7 @@
     margin: 0 auto;
     width: 100%;
     max-width: 90%;
-  }
+  } 
 
   /* Iconos de accesibilidad: alinear al centro */
   .iconos_sitio, #access {
@@ -99,6 +98,7 @@
   #horario, #access, #boton-info{
     margin-top: 7%;
   }
+  
   #text-description{
     margin-top: 5%;
   }
