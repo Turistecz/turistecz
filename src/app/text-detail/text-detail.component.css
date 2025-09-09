@@ -8,8 +8,12 @@
     font-size: 1.8rem;
  }
 
+.sobreponer{
+    position: relative;
+}
+
  .bg-txt{
-    background-color: #1844910c;
+    background-color: #f0f0f0;
  }
 
  p{
