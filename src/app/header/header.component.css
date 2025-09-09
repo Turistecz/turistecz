@@ -1,18 +1,18 @@
 #menu {
   font-family: 'Inclusive', sans-serif;
-  font-size: 25px;
+  /* font-size: 25px; */
   /* background-color: white; */
 }
 
-#logo {
+/* #logo {
   margin-right: 30px;
-}
+} */
 
-.nav-center {
-  /* justify-content: space-around; */
+/* .nav-center {
+  justify-content: space-around;
   gap: 3.5rem;
-  /* flex-wrap: nowrap; */
-}
+  flex-wrap: nowrap;
+} */
 
 /* .search-responsive {
   width: 100%;
