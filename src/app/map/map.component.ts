@@ -240,6 +240,8 @@ visualRouteLine(){
 routeInstructions(){
   let allSteps = this.route.routes[0].legs[0].steps;
   let table = document.getElementById("instructionsList");
+  let directionsIcon: string[] = [];
+  let directionsIconRotation: string[] = [];
   let directionsTypeSpanish: string[] = [];
   let directionsModifierSpanish: string[] = [];
 
@@ -250,7 +252,7 @@ routeInstructions(){
         break;
       }
       case "new name": {
-        directionsTypeSpanish.push("Continua ");
+        directionsTypeSpanish.push("Continúa ");
         break;
       }
       case "depart": {
@@ -314,34 +316,50 @@ routeInstructions(){
     switch (item.maneuver.modifier) {
       case "uturn": {
         directionsModifierSpanish.push("da la vuelta ");
+        directionsIcon.push("media/uturn.png");
+        directionsIconRotation.push("");
         break;
       }
       case "sharp right": {
         directionsModifierSpanish.push("a la derecha ");
+        directionsIcon.push("media/left-turn.png");
+        directionsIconRotation.push("scaleX(-1)");
         break;
       }
       case "right": {
         directionsModifierSpanish.push("a la derecha ");
+        directionsIcon.push("media/left-turn.png");
+        directionsIconRotation.push("scaleX(-1)");
         break;
       }
       case "slight right": {
         directionsModifierSpanish.push("levemente a la derecha ");
+        directionsIcon.push("media/arrow.png");
+        directionsIconRotation.push("rotate(-225deg)");
         break;
       }
       case "straight": {
         directionsModifierSpanish.push(" ");
+        directionsIcon.push("media/arrow.png");
+        directionsIconRotation.push("rotate(90deg)");
         break;
       }
       case "slight left": {
         directionsModifierSpanish.push("levemente a la izquierda ");
+        directionsIcon.push("media/arrow.png");
+        directionsIconRotation.push("rotate(45deg)");
         break;
       }
       case "left": {
         directionsModifierSpanish.push("a la izquierda ");
+        directionsIcon.push("media/left-turn.png");
+        directionsIconRotation.push("scaleX(1)");
         break;
       }
       case "sharp left": {
         directionsModifierSpanish.push("a la izquierda ");
+        directionsIcon.push("media/left-turn.png");
+        directionsIconRotation.push("scaleX(1)");
         break;
       }
     }
@@ -351,17 +369,37 @@ routeInstructions(){
   //Create rows with two columns for instructions info and distance for every step in leg(route)
   allSteps.forEach((item, i) => {
     let tr = document.createElement("tr");
+    let img = document.createElement("img");
+    let tdIcon = document.createElement("td");
     let tdDirections = document.createElement("td");
     let tdDistance = document.createElement("td");
     tdDistance.classList.add("w-25");
+    tdIcon.classList.add("w-25");
+    img.style.width = "50px";
+    img.style.height = "50px";
+    img.style.transform = directionsIconRotation[i];
+    img.src = directionsIcon[i];
+    tdIcon.appendChild(img);
     tdDirections.innerText = directionsTypeSpanish[i] + directionsModifierSpanish[i];
-    if (item.name){
+    if (item.name) {
       tdDirections.innerText += 'por ' + item.name;
+    }
+    if (item.maneuver.type == "depart") {
+      if (item.name) {
+        tdDirections.innerText = directionsTypeSpanish[i] + 'en ' + item.name;
+      } else {
+        tdDirections.innerText = directionsTypeSpanish[i];
+      }
+      img.style.transform = "";
+      img.src = "media/start-map-direction.png";
     }
     if (item.maneuver.type == "arrive") {
       tdDirections.innerText = directionsTypeSpanish[i] + 'a tu destino';
+      img.style.transform = "";
+      img.src = "media/end-map-direction.png";
     }
     tdDistance.innerText = this.convertMetersToKm(item.distance);
+    tr.appendChild(tdIcon);
     tr.appendChild(tdDirections);
     tr.appendChild(tdDistance);
     table?.appendChild(tr);
