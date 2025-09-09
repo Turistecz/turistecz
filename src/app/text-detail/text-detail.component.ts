@@ -12,25 +12,28 @@ export class TextDetailComponent {
   constructor() {}
 
 @Input() oneText:textoDetails = {
-   nombre: '',
-    imagenes: {
-        url: ''
-      },
-    sitio_ruta_texto:''
+    idSitio: 0,
+    nombre: '',
+    url: '',
+    texto:'',
+    idRuta:0
   };
 
-    ngOnChanges(changes: SimpleChanges) {
-    if (changes['oneText']) {
-      console.log('onetexxtoo changed:', changes['oneText'].currentValue);
-      this.oneText = {
-        nombre: changes['oneText'].currentValue.nombre,
-        imagenes: {
-          url: changes['oneText'].currentValue.imagenes.url,
-        },
-        sitio_ruta_texto: changes['oneText'].currentValue.sitio_ruta_texto}
-      };
-      console.log('oneText changed2:', this.oneText);
-    }
+  ngOnChanges(changes: SimpleChanges) {
+  if (changes['oneText']) {
+    console.log('oneText changed:', changes['oneText'].currentValue);
+
+    this.oneText = {
+      idSitio: changes['oneText'].currentValue.idSitio,
+      nombre: changes['oneText'].currentValue.nombre,
+      url: changes['oneText'].currentValue.url,
+      texto: changes['oneText'].currentValue.texto,
+      idRuta: changes['oneText'].currentValue.idRuta
+    };
+
+    console.log('oneText changed2:', this.oneText);
   }
+  }
+}
 
 

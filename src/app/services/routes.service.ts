@@ -11,7 +11,7 @@ export class RoutesService {
   private routesURL = 'http://localhost:8080/api/rutas';
   private routeIdURL = 'http://localhost:8080/api/rutaPorID?id=';
   private routesLikeByNameURL = 'http://localhost:8080/api/rutasParecidas?nombre=';
-  private routeSitesURL = 'http://localhost:8080/api/sitiosRuta?id='
+  private routeSitesURL = 'http://localhost:8080/api/sitiosRutaID?id='
 
   routesCache: RoutesPage[] = [];
   
@@ -68,7 +68,6 @@ export class RoutesService {
     console.error('Ocurrió un error en RoutesService:', error);
     return throwError(() => new Error('Error al obtener datos. Inténtalo de nuevo más tarde.'));
   } 
-  /*throwError() es un método de la librería RxJS para errores.*/ 
 
 }
 

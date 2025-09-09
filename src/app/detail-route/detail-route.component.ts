@@ -53,26 +53,17 @@ export class DetailRouteComponent {
   async loadRoutesSite(id: number): Promise<any> {
     try {
       const datos = await firstValueFrom(this.routeService.getRouteSites(id));
-      this.routeText = datos;
-      this.routeText = datos.flatMap((sitio: any) =>
-         ({
-          nombre: sitio.nombre,
-          imagenes: sitio.imagenes[0],
-          sitio_ruta_texto: sitio.sitio_ruta_texto, 
-        }))
-      ;    
+      this.routeText = datos;   
       console.log('temporal2:',this.routeText);
     } catch (error) {
       console.error('Error al cargar ruta por ID:', error);
       throw error;
     }
-    //this.todo =  Object.assign({},this.routeText,this.routesSite);
-      // console.log('funciona por dios',todo)
   }
 
   async ngOnInit(): Promise<void> {
-    await this.loadRoutebyId(2);  // Muestra una ruta segun el id //  FRONT DETAIL 
-    await this.loadRoutesSite(2);  // Muestra todos los sitios de una ruta segun el id // SITE & TEXT DETAIL 
+    await this.loadRoutebyId(1);  // Muestra una ruta segun el id //  FRONT DETAIL 
+    await this.loadRoutesSite(1);  // Muestra todos los sitios de una ruta segun el id // SITE & TEXT DETAIL 
   }
 
 }

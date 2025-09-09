@@ -64,7 +64,7 @@ CREATE TABLE sitios_ruta (
     id_ruta INT ,
     id_sitio INT,
     orden INT,
-    texto VARCHAR(255),
+    texto TEXT,
     FOREIGN KEY (id_ruta) REFERENCES ruta(id),
     FOREIGN KEY (id_sitio) REFERENCES sitio(id),
     UNIQUE (id_ruta, id_sitio)
@@ -379,7 +379,9 @@ INSERT INTO imagen_sitio (id, nombre, url, copy, id_sitio) VALUES
 -- -- Insert data into ruta
 
 INSERT INTO ruta (nombre, descripcion, duracion, imagen_destacada, subtitulo) VALUES 
-("Ruta Mudéjar","La mejor arquitectura de Zaragoza","2 horas", 'images/rutas/portada_ruta_mudejar.jpg',"subtitulo"),
+("Ruta Mudéjar","El paso del pueblo islámico dejó 
+su huella arquitectónica en la ciudad. Aquí te invitamos a visitar las obras Mudéjar
+más representativas de la ciudad.","2 horas", 'images/rutas/portada_ruta_mudejar.jpg',"subtitulo"),
 ("Ruta Romana","La mejor romana de Zaragoza","2 horas","images/rutas/portada_ruta_romana.jpg","subtitulo"),
 ("Ruta Histórica","La mejor historia de Zaragoza","2 horas","images/rutas/portada_ruta_historica.jpg","subtitulo"),
 ("Ruta al Aire Libre","Los mejores parques de Zaragoza","3 horas","images/rutas/portada_ruta_verde.jpg","subtitulo"),
@@ -389,10 +391,27 @@ INSERT INTO ruta (nombre, descripcion, duracion, imagen_destacada, subtitulo) VA
 -- -- Insert data into sitios_ruta
 INSERT INTO sitios_ruta (id_ruta, id_sitio, orden, texto) VALUES 
 -- RUTA MUDEJAR
-(1,28,1,"LA MEJOR IGLESIA"),
-(1,2,2,"LA MEJOR IGLESIA"),
-(1,3,3,"LA MEJOR IGLESIA"),
-(1,29,4,"LA MEJOR IGLESIA"),
+(1,28,1,"En el barrio de El Gancho,
+próximo al casco histórico,
+se encuentra este símbolo
+del encuentro multicultural
+de la capital aragonesa.
+De estilo gótico-mudéjar, 
+la catedral se ha ampliado
+múltiples veces
+integrando nuevos
+elementos decorativos
+y arquitectónicos.
+ "),
+(1,2,2,"Utilizado como residencia. 
+De estilo gótico-mudéjar, 
+la catedral se ha ampliado
+múltiples veces
+integrando nuevos
+elementos decorativos
+y arquitectónicos."),
+(1,3,3,"Conocida como La Seo, es una joya del arte mudéjar, gótico, renacentista y barroco en pleno corazón de Zaragoza. Su imponente fachada y su interior lleno de historia la convierten en un lugar único, declarado Patrimonio de la Humanidad."),
+(1,29,4,"Uno de los mejores ejemplos del arte mudéjar en Zaragoza. Su torre, de ladrillo decorado con motivos geométricos, se alza elegante como un testimonio vivo de la fusión entre culturas."),
 
 -- RUTA ROMANA
 (2,21,1,"LA MEJOR ruta romana"),
@@ -443,3 +462,17 @@ INSERT INTO caracteristica (nombre) VALUES
 (2, 2),
 (3, 1),
 (3, 3);
+
+-- Creacion de Vista para mostrar detalles ruta:
+
+CREATE OR REPLACE VIEW v_sitios_ruta AS
+SELECT 
+    s.id AS id_sitio,
+    s.nombre,
+    imgs.url,
+    sr.texto,
+    sr.id_ruta
+FROM SITIO s
+JOIN sitios_ruta sr ON s.id = sr.id_sitio
+JOIN imagen_sitio imgs ON s.id = imgs.id
+ORDER BY sr.orden ASC;
