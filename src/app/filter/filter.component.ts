@@ -19,6 +19,7 @@ export class FilterComponent {
   searchText: string = '';
   filterOption: 'month' | 'future' | 'alpha' = 'future';
   showAdaptability: boolean = false;
+  filtersExpanded: boolean = false;
 
   @Input() events: EventItem[] = [];
   @Input() places: cardsHome[] = [];
@@ -70,6 +71,10 @@ accesibilityOptions = [
   { key: 'acceso_perros_asistencia', label: 'Acceso a perros de asistencia', groups: ['servicios'] },
 
 ];
+
+toggleFilters(): void {
+  this.filtersExpanded = !this.filtersExpanded;
+}
 
 getOptionsByGroup(group: string) {
   return this.accesibilityOptions.filter(option => option.groups.includes(group));
