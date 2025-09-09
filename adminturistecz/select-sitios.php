@@ -6,6 +6,16 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
+// Mensajes de éxito
+$msg = $_GET['msg'] ?? '';
+$mensaje = '';
+if ($msg == 'agregado') {
+    $mensaje = 'Sitio agregado correctamente.';
+} elseif ($msg == 'editado') {
+    $mensaje = 'Sitio actualizado correctamente.';
+}
+
+// Consulta: obtener todos los sitios
 $sql = "SELECT * FROM sitio";
 $result = $conn1->query($sql);
 
@@ -42,6 +52,43 @@ if (!$result) {
         .btn-sm {
             font-size: 0.85rem;
         }
+        .alert-success {
+            font-weight: 500;
+        }
+        .details-panel {
+            margin-top: 10px;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .details-panel.show {
+            max-height: 500px; /* ajusta según el contenido */
+        }
+        .details-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .details-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .details-row:last-child {
+            border-bottom: none;
+        }
+        .details-label {
+            font-weight: 500;
+            width: 150px;
+        }
+        .details-value {
+            word-break: break-word;
+        }
     </style>
 </head>
 <body>
@@ -56,16 +103,35 @@ if (!$result) {
     </nav>
 
     <div class="container">
+
+        <!-- Mensaje de éxito -->
+        <?php if ($mensaje): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle"></i> <?= $mensaje ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        <?php endif; ?>
+
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2><i class="fas fa-list"></i> Sitios Turísticos</h2>
-            <a href="insert-sitios.php" class="btn btn-primary">
-                <i class="fas fa-plus"></i> Nuevo sitio
-            </a>
+            <div>
+                <a href="insert-sitios.php" class="btn btn-primary me-2">
+                    <i class="fas fa-plus"></i> Nuevo sitio
+                </a>
+                <button class="btn btn-outline-secondary" disabled>
+                    <i class="fas fa-globe-americas"></i> Ver todos los sitios
+                </button>
+            </div>
         </div>
 
         <div class="card shadow-sm">
             <div class="card-body">
-                <div class="table-responsive">
+                <?php if ($result->num_rows == 0): ?>
+                    <div class="text-center text-muted py-4">
+                        <i class="fas fa-map-marker-alt fa-3x mb-3"></i>
+                        <p>No hay sitios registrados aún.</p>
+                    </div>
+                <?php else: ?>
                     <table class="table table-hover table-striped align-middle">
                         <thead>
                             <tr>
@@ -100,17 +166,69 @@ if (!$result) {
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="edit-sitio.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning">
+                                        <a href="edit-sitio.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning me-1">
                                             <i class="fas fa-edit"></i>
                                         </a>
+                                        <button class="btn btn-sm btn-outline-info" onclick="toggleDetails(this)">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
                                     </td>
                                 </tr>
-                            <?php endwhile; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+                                <!-- Panel de detalles oculto -->
+                                <tr>
+                                    <td colspan="7">
+                                        <div id="details-<?= $row['id'] ?>" class="details-panel">
+                                            <div class="details-title"><i class="fas fa-info-circle"></i> Detalles completos</div>
+                                            <?php
+                                                $campos = [
+                                                    "ascensores", "puertas_automaticas", "escaleras_mecanicas",
+                                                    "servicios_adaptados", "sala_lactancia", "cambiador",
+                                                    "parking_adaptado", "bancos", "mostrador_adaptado",
+                                                    "sin_barreras_arquitectonicas", "braille", "interprete_lengua_signos",
+                                                    "videos_subtitulos", "ayudas_visuales", "guias_turisticos_multiidioma",
+                                                    "elementos_audiovisuales_multiidioma", "documentacion_multiidioma",
+                                                    "visitas_grupales", "ayuda_movilidad", "lenguaje_simple",
+                                                    "acceso_perros_guias", "acceso_perros_asistencia"
+                                                ];
+
+                                                foreach ($campos as $campo) {
+                                                    $valor = $row[$campo];
+                                                    $texto = match($valor) {
+                                                        'NO' => 'No',
+                                                        'SI' => 'Sí',
+                                                        'NO_HAY_INFORMACION' => 'No hay información',
+                                                        'BAJO_PETICION' => 'Bajo petición',
+                                                        default => $valor
+                                                    };
+                                                    ?>
+                                                    <div class="details-row">
+                                                        <span class="details-label"><?= ucfirst(str_replace('_', ' ', $campo)) ?>:</span>
+                                                        <span class="details-value"><?= htmlspecialchars($texto) ?></span>
+                                                    </div>
+                                                    <?php
+                                                }
+                                            ?>
+                                        </div>
+                                        </td>
+                                    </tr>
+                                <?php endwhile; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+
+    <script>
+        function toggleDetails(btn) {
+            const panel = btn.closest('tr').nextElementSibling.querySelector('.details-panel');
+            panel.classList.toggle('show');
+            const icon = btn.querySelector('i');
+            if (panel.classList.contains('show')) {
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+    </script>
 </body>
 </html>
