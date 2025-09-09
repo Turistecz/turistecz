@@ -7,12 +7,12 @@ export interface routeDetails {
 }
 
 export interface textoDetails{
+  idSitio: number,
   nombre: string,
-  imagenes: {
-    url: string;
-  },
-  sitio_ruta_texto: string;
-  
+  url: string,
+  texto:string,
+  idRuta:number
+
 }
 
 
