@@ -15,22 +15,16 @@ private apiUrl = 'https://www.zaragoza.es/sede/servicio/alojamiento.json';
 
   getAccommodations(filas: number = 50): Observable<Accommodation[]> {
     let url = this.apiUrl;
-    url = url + '?rows=' + filas + '&fl=title,description,email,link';
+    url = url + '?rows=' + filas + '&fl=title,streetAddress,telefonos,email,link';
 
     return this.http.get<AccommodationResponse>(url).pipe(
       map((response: any) => {
         return response.result.map((h: any) => {
 
-          // limpiamos etiquetas <strong> y <abbr> de la descripcion traida de la API
-          const limpiarDesc = (h.description ?? '')
-            .replace(/<strong>/gi, '')
-            .replace(/<\/strong>/gi, '')
-            .replace(/<abbr[^>]*>/gi, '')
-            .replace(/<\/abbr>/gi, '');
-
           return {
             title: h.title,
-            descripcion: limpiarDesc,
+            streetAddress: h.streetAddress ?? '',
+            telefonos: h.telefonos ?? '',
             email: h.email ?? '',
             link: h.link ?? h.uri ?? ''
           };
