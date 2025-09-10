@@ -9,8 +9,6 @@ import { firstValueFrom} from 'rxjs';
 import { RoutesPage } from '../models/routes.model';
 import { imagenRoutes } from '../models/routes-card.model';
 
-
-
 @Component({
   selector: 'app-page-routes',
   imports: [CommonModule, RoutesCardComponent],
@@ -22,7 +20,6 @@ export class pageRoutesComponent {
   private route = inject(ActivatedRoute);
   constructor(private http: HttpClient,private routeService: RoutesService) {}
 
-
    routesName: RoutesPage[]=[];
   //  id: imagenRoutes =
   //   {
@@ -33,7 +30,6 @@ export class pageRoutesComponent {
   //   };
 
   /*  INYECCION DEL SERVICIO*/
-
   /* Carga todas las rutas mapeadas (filtradas) por nombre, descripcion y duracion.*/
   /* Si quieres mostrar mas campos, añadelos en datos: {}*/
 
@@ -93,9 +89,4 @@ export class pageRoutesComponent {
     // await this.loadRoutesbyName('Romana'); // Muestra una ruta segun el nombre
     // await this.loadRoutesSite(this.id.id);  // Muestra todos los sitios de una ruta segun el id
   }
-
 }
-    
-    
-
-

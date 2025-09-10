@@ -6,7 +6,6 @@ import { firstValueFrom } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { OnePlaceCardComponent } from '../one-place-card/one-place-card.component';
 
-
 @Component({
   selector: 'app-place-card',
   imports: [CommonModule, RouterModule, OnePlaceCardComponent],

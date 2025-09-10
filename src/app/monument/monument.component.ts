@@ -9,7 +9,6 @@ import { MonumentServiceService } from '../services/monument-service.service';
 import { MapComponent } from "../map/map.component";
 import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
 
-
 @Component({
   selector: 'app-monument',
   standalone: true,
@@ -76,10 +75,8 @@ export class MonumentComponent implements OnInit {
     longitud: 0
   };
 
-
-
   async loadImages(): Promise<void> {
-     const variableNumero = this.route.snapshot.paramMap.get('id'); 
+    const variableNumero = this.route.snapshot.paramMap.get('id'); 
     try {
       const datos = await firstValueFrom(this.http.get<any>(
         `http://localhost:8080/api/sitioCorrespondienteALaImagen?id=${variableNumero}`
@@ -106,7 +103,6 @@ export class MonumentComponent implements OnInit {
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
     }
-  
   }
 
   removeHTMLTags(text: string): string {
@@ -142,6 +138,5 @@ export class MonumentComponent implements OnInit {
 
     this.monumentNumber = Number(this.route.snapshot.paramMap.get('id'));
     this.monumentNumber--;
-
   }
 }
