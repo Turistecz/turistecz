@@ -1,37 +1,30 @@
 package org.turistecz.turisteczbackend.dto;
 
 public class UsuarioDto {
-    private String nombre;
-    private String apellido;
     private String email;
-    private String contrasena;
+    private String contrasena;  // 🔹 cambiado de "password" a "contrasena"
+    private String nombre;
 
-    // Getters y Setters
-    public String getNombre() {
-        return nombre;
-    }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public UsuarioDto() {}
 
-    public String getApellido() {
-        return apellido;
+    public String getEmail() { 
+        return email; 
     }
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setEmail(String email) { 
+        this.email = email; 
     }
 
-    public String getEmail() {
-        return email;
+    public String getContrasena() { 
+        return contrasena; 
     }
-    public void setEmail(String email) {
-        this.email = email;
+    public void setContrasena(String contrasena) { 
+        this.contrasena = contrasena; 
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public String getNombre() { 
+        return nombre; 
     }
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setNombre(String nombre) { 
+        this.nombre = nombre; 
     }
 }
