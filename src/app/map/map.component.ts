@@ -161,11 +161,16 @@ export class MapComponent implements AfterViewInit, OnInit{
 // function to initialize the map, set the location point
 private initMap(): void {
   this.map = L.map('map').setView(this.getSiteCoords(), 15); // Zaragoza
- 
-  this.map.options.minZoom = 2;
+
+  // Limits world map view and scroll to tiles outside the map
+  let southWest = L.latLng(-200,-200);
+  let northEast = L.latLng(300,300);
+  let bounds = L.latLngBounds(southWest, northEast);
+  this.map.setMaxBounds(bounds);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
+    minZoom: 2,
     attribution: `<a href="https://www.openstreetmap.org/fixthemap"> © OpenStreetMap</a>`
   }).addTo(this.map);
 }
