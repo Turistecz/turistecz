@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-
-
 @Component({
   selector: 'app-pagination',
   standalone: true,
@@ -12,7 +10,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class PaginationComponent {
   
-    Math= Math; 
+  Math= Math; 
   @Input() page: number = 1;
   @Input() pageSize: number = 21;
   @Input() totalItems: number = 0;
@@ -41,7 +39,6 @@ export class PaginationComponent {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-
   goToPage(num: number) {
     if (num >= 1 && num <= this.totalPages) {
       this.pageChange.emit(num);
@@ -56,5 +53,4 @@ export class PaginationComponent {
   prevPage() {
     this.goToPage(this.page - 1);
   }
- 
 }
