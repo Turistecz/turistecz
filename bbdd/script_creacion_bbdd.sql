@@ -383,9 +383,9 @@ INSERT INTO ruta (nombre, descripcion, duracion, imagen_destacada, subtitulo) VA
 su huella arquitectónica en la ciudad. Aquí te invitamos a visitar las obras Mudéjar
 más representativas de la ciudad.","2 horas", 'images/rutas/portada_ruta_mudejar.jpg',"Descubre la belleza oculta del Mudéjar"),
 ("Ruta Romana","La mejor romana de Zaragoza","2 horas","images/rutas/portada_ruta_romana.jpg","Explora los orígenes de Caesaraugusta"),
-("Ruta Histórica","La mejor historia de Zaragoza","2 horas","images/rutas/portada_ruta_historica.jpg","Viaja en el tiempo por Zaragoza"),
-("Ruta al Aire Libre","Los mejores parques de Zaragoza","3 horas","images/rutas/portada_ruta_verde.jpg","Explora los mejores paises de la Ciudad"),
-("Ruta Familiar","La mejor arquitectura de Zaragoza","2 horas","images/rutas/portada_ruta_familiar.jpg","Vive Zaragoza en familia");
+("Ruta Histórica","La mejor historia de Zaragoza","2 horas","images/rutas/portada_ruta_historica.jpg","Viaja en el tiempo y descubre Zaragoza"),
+("Ruta Aire Libre","Los mejores parques de Zaragoza","3 horas","images/rutas/portada_ruta_verde.jpg","Explora los mejores paisajes de la Ciudad"),
+("Ruta Familiar","La mejor arquitectura de Zaragoza","2 horas","images/rutas/portada_ruta_familiar.jpg","Vive y diviértete con toda la familia");
 
 
 -- -- Insert data into sitios_ruta

@@ -9,8 +9,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './routes-card.component.html',
   styleUrl: './routes-card.component.css'
 })
-export class RoutesCardComponent {
-  /*@Input() nameRoutes:string='';*/
+export class RoutesCardComponent {  
 
 @Input() routesName: imagenRoutes =
    {

@@ -1,74 +1,25 @@
-@import '@fontsource-variable/baloo-bhaijaan-2'; /* IMPORTANTE! PARA UTILIZAR UN FONT DIFERENTE, IMPORTAR */
-
-
-
 .sobreponer{
     position: relative;
 }
 
 .route-title{
     position: absolute;
-    align-content: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    top : 85%;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    
-}
-
-.container-routes{
-    width: 75%;
-    display: grid;
-    border-radius: 1.5rem;
-    margin: 0 auto;  
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .card-body-r{
-    border-bottom-left-radius: 1.5rem;
-    border-bottom-right-radius: 1.5rem;
     background-color: #184591;;
 }
 
 img{
     object-fit: cover;
-    width: 100%;
-    border-top-left-radius: 1.5rem;
-    border-top-right-radius: 1.5rem;
 }
 
 .card-title {
     color: #184591;
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-    font-weight:700;
-    font-size: 4rem; 
-    text-align: center;
-    margin: 0.1rem;
 }
 
 .card-subtitle{
-    color: #ffffff;
-    font-size: smaller;
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-    font-weight:400;
-    text-align: left;
-    padding-inline: 5rem;
-    font-size: 2rem; 
 }
-
-@media (max-width: 430px) {
-    .card-subtitle{
-        padding-inline: .9rem;
-        font-size: 1.4rem;
-    }
-    .container-routes{
-        width: 100%;
-    }
-    .card-title {
-        font-size: 2.4rem; 
-    }
-    .route-title {
-        top: 75%;
-    }
-
- }
