@@ -1,37 +1,33 @@
-.cards-grid > div:nth-child(6n+4) .card,
-.cards-grid > div:nth-child(6n+5) .card, 
-.cards-grid > div:nth-child(6n+6) .card {
+.card-title {
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+}
+
+.card-blue {
+  background-color: #2a8dfb;
+  font-family: "inclusive", sans-serif;  
+}
+
+.cards-grid :nth-child(6n+4) .card-blue,
+.cards-grid :nth-child(6n+5) .card-blue, 
+.cards-grid :nth-child(6n+6) .card-blue {
   background: #184591;
 }
-
-.card-title {
-  color: #dde2e8;
-  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-  font-weight: bold;
-}
-
-.card {
-  background-color: #2a8dfb;
-  font-family: "inclusive", sans-serif;
+.cards-grid .card-blue .btn {
+  color: #030303;              
   border: none;
 }
 
-.btn-ver-mas {
-  font-weight: bolder;
-  font-family: "inclusive", sans-serif;
+.cards-grid :nth-child(6n+4) .card-blue .btn,
+.cards-grid :nth-child(6n+5) .card-blue .btn, 
+.cards-grid :nth-child(6n+6) .card-blue .btn {   
+  color: #fff;         
 }
-
-.btn-ver-mas:hover {
-  text-decoration: underline;
-  color: #060607;
-}
-
 
 @media (max-width: 767px) {
-  .cards-grid > div:nth-child(even) .card {
+  .cards-grid :nth-child(even) .card {
     background-color: #184591;
   }
-  .cards-grid > div:nth-child(odd) .card {
+  .cards-grid :nth-child(odd) .card {
     background-color: #2a8dfb;
   }
 }
