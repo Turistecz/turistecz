@@ -381,11 +381,11 @@ INSERT INTO imagen_sitio (id, nombre, url, copy, id_sitio) VALUES
 INSERT INTO ruta (nombre, descripcion, duracion, imagen_destacada, subtitulo) VALUES 
 ("Ruta Mudéjar","El paso del pueblo islámico dejó 
 su huella arquitectónica en la ciudad. Aquí te invitamos a visitar las obras Mudéjar
-más representativas de la ciudad.","2 horas", 'images/rutas/portada_ruta_mudejar.jpg',"subtitulo"),
-("Ruta Romana","La mejor romana de Zaragoza","2 horas","images/rutas/portada_ruta_romana.jpg","subtitulo"),
-("Ruta Histórica","La mejor historia de Zaragoza","2 horas","images/rutas/portada_ruta_historica.jpg","subtitulo"),
-("Ruta al Aire Libre","Los mejores parques de Zaragoza","3 horas","images/rutas/portada_ruta_verde.jpg","subtitulo"),
-("Ruta Familiar","La mejor arquitectura de Zaragoza","2 horas","images/rutas/portada_ruta_familiar.jpg","subtitulo");
+más representativas de la ciudad.","2 horas", 'images/rutas/portada_ruta_mudejar.jpg',"Descubre la belleza oculta del Mudéjar"),
+("Ruta Romana","La mejor romana de Zaragoza","2 horas","images/rutas/portada_ruta_romana.jpg","Explora los orígenes de Caesaraugusta"),
+("Ruta Histórica","La mejor historia de Zaragoza","2 horas","images/rutas/portada_ruta_historica.jpg","Viaja en el tiempo por Zaragoza"),
+("Ruta al Aire Libre","Los mejores parques de Zaragoza","3 horas","images/rutas/portada_ruta_verde.jpg","Explora los mejores paises de la Ciudad"),
+("Ruta Familiar","La mejor arquitectura de Zaragoza","2 horas","images/rutas/portada_ruta_familiar.jpg","Vive Zaragoza en familia");
 
 
 -- -- Insert data into sitios_ruta

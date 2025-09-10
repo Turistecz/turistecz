@@ -1,32 +1,11 @@
-<!-- 
-<div class="container col container-routes">
-  <div class="card card-r text-nowrap">
-      <div class="card-bg-overlay d-flex flex-column justify-content-end ">
-        <h5 class="card-title-r card-title fs-1">{{routesName.name}} <br> </h5>
-        <h5 class="card-subtitle fs-1">{{routesName.subtitle}} </h5>
-      </div>
-      <img src="{{routesName.src}}" alt="imagenes de las rutas">
-      
-  </div>
-</div> -->
-
-<!--<div class="container col container-routes ">
-  <div class="c-card card-body-r">
-    <div class="card-body  ">
-      <h5 class="card-title">{{routesName.name}} <br></h5>
-      <p class="card-text card-subtitle">{{routesName.subtitle}}</p>
-      <img src="{{routesName.src}}" alt="imagenes de las rutas" class="imagen">
-    </div>
-    
-  </div>
-</div>-->
-<div>
-  <div class="" href="">
+<a [routerLink]="['/detalle-ruta', routesName.id]">
+    <div class="" href="">
       <div class="card rounded-5 container-routes" >
-        <img src="{{routesName.imagen_destacada}}" class="card-img-top" alt="...">
-        <div class="card-body card-body-r">
-          <h5 class="card-title">{{routesName.nombre}}</h5>
-          <p class="card-text card-subtitle">{{routesName.subtitulo}}</p>
-        </div>
-  </div> 
-</div>
+          <img src="{{routesName.imagen_destacada}}" class="card-img-top" alt="...">
+          <div class="card-body card-body-r">
+            <h5 class="card-title">{{routesName.nombre}}</h5>
+            <p class="card-text card-subtitle">{{routesName.subtitulo}}</p>
+          </div>
+      </div> 
+    </div>
+  </a>

@@ -1,13 +1,13 @@
 // import { routes } from './../app.routes';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { imagenRoutes } from '../models/routes-card.model';
 import { RoutesCardComponent } from '../routes-card/routes-card.component';
 import { RoutesService } from '../services/routes.service';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute} from '@angular/router';
 import { firstValueFrom} from 'rxjs';
-import { RouteSites, RoutesPage } from '../models/routes.model';
+import { RoutesPage } from '../models/routes.model';
+import { imagenRoutes } from '../models/routes-card.model';
 
 
 
@@ -24,6 +24,13 @@ export class pageRoutesComponent {
 
 
    routesName: RoutesPage[]=[];
+  //  id: imagenRoutes =
+  //   {
+  //     id:0,
+  //     imagen_destacada: '',
+  //     nombre:'',
+  //     subtitulo: ''
+  //   };
 
   /*  INYECCION DEL SERVICIO*/
 
@@ -46,45 +53,45 @@ export class pageRoutesComponent {
   
   /*Carga la ruta segun el id */
   /* El id se coloca en el oninit de abajo */
-  async loadRoutebyId(id: number): Promise<any> {
-    try {
-      const datos = await firstValueFrom(this.routeService.getRouteById(id));
-      return datos;
-    } catch (error) {
-      console.error('Error al cargar ruta por ID:', error);
-      throw error;
-    }
-  }
+  // async loadRoutebyId(id: number): Promise<any> {
+  //   try {
+  //     const datos = await firstValueFrom(this.routeService.getRouteById(id));
+  //     return datos;
+  //   } catch (error) {
+  //     console.error('Error al cargar ruta por ID:', error);
+  //     throw error;
+  //   }
+  // }
 
   /*Carga la ruta segun el nombre */
   /* El nombre se coloca en el oninit de abajo */
-  async loadRoutesbyName(name: string): Promise<any> {
-    try {
-      const datos = await firstValueFrom(this.routeService.routesLikeByName(name));
-      return datos;
-    } catch (error) {
-      console.error('Error al cargar ruta por ID:', error);
-      throw error;
-    }
-  }
+  // async loadRoutesbyName(name: string): Promise<any> {
+  //   try {
+  //     const datos = await firstValueFrom(this.routeService.routesLikeByName(name));
+  //     return datos;
+  //   } catch (error) {
+  //     console.error('Error al cargar ruta por ID:', error);
+  //     throw error;
+  //   }
+  // }
 
   /*Carga la ruta segun el id */
   /* El id se coloca en el oninit de abajo */
-  async loadRoutesSite(id: number): Promise<any> {
-    try {
-      const datos = await firstValueFrom(this.routeService.getRouteSites(id));
-      return datos;
-    } catch (error) {
-      console.error('Error al cargar ruta por ID:', error);
-      throw error;
-    }
-  }
+  // async loadRoutesSite(id: number): Promise<any> {
+  //   try {
+  //     const datos = await firstValueFrom(this.routeService.getRouteSites(id));
+  //     return datos;
+  //   } catch (error) {
+  //     console.error('Error al cargar ruta por ID:', error);
+  //     throw error;
+  //   }
+  // }
 
   async ngOnInit(): Promise<void> {
     await this.loadAllRoutes(); // Muestra todas las rutas
-    await this.loadRoutebyId(1);  // Muestra una ruta segun el id
-    await this.loadRoutesbyName('Romana'); // Muestra una ruta segun el nombre
-    await this.loadRoutesSite(1);  // Muestra todos los sitios de una ruta segun el id
+    // await this.loadRoutebyId(this.id.id);  // Muestra una ruta segun el id
+    // await this.loadRoutesbyName('Romana'); // Muestra una ruta segun el nombre
+    // await this.loadRoutesSite(this.id.id);  // Muestra todos los sitios de una ruta segun el id
   }
 
 }
