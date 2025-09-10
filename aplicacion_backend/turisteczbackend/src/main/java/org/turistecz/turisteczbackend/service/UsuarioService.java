@@ -7,11 +7,9 @@ import org.turistecz.turisteczbackend.dto.UsuarioDto;
 import org.turistecz.turisteczbackend.model.Usuario;
 import org.turistecz.turisteczbackend.model.VerificationToken;
 import org.turistecz.turisteczbackend.repository.UsuarioRepository;
-import com.sendgrid.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.io.IOException;
 
 @Service
 public class UsuarioService {
@@ -26,9 +24,7 @@ public class UsuarioService {
     private VerificationTokenService verificationTokenService;
 
     @Autowired
-    private SendGrid sendGrid;
-
-    private static final String FROM_EMAIL = "pruebasturistecz@gmail.com";
+    private EmailService emailService;
 
     // 🔹 Registro de usuario
     public Usuario registrarUsuarioDesdeDto(UsuarioDto dto) {
@@ -38,18 +34,25 @@ public class UsuarioService {
         usuario.setPassword(passwordEncoder.encode(dto.getContrasena()));
         usuario.setActivo(false);
 
-        
+        // Guardamos el usuario
         Usuario saved = usuarioRepository.save(usuario);
 
+        // Creamos token de ACTIVACIÓN (no recuperación)
         var token = verificationTokenService.crearToken(
                 saved,
                 VerificationToken.TipoToken.ACTIVACION,
                 48 // expira en 48 horas
         );
 
+        // Creamos enlace de verificación
         String enlace = "http://localhost:4200/verify?token=" + token.getToken();
 
-        enviarCorreoVerificacion(saved.getEmail(), enlace);
+        // Enviamos correo de verificación
+        emailService.enviarCorreo(
+                saved.getEmail(),
+                "Activa tu cuenta en Turistecz",
+                "Haz clic en el enlace para activar tu cuenta: " + enlace
+        );
 
         return saved;
     }
@@ -96,13 +99,13 @@ public class UsuarioService {
         });
     }
 
-    // 🔹 Aquí iría tu lógica real de envío de correos
+    // 🔹 Enviar correo de recuperación
     public void enviarCorreoRecuperacion(String email, String enlace) {
-        System.out.println("Enlace de recuperación enviado a " + email + ": " + enlace);
-    }
-
-    public void enviarCorreoVerificacion(String email, String enlace) {
-        System.out.println("Enlace de verificación enviado a " + email + ": " + enlace);
+        emailService.enviarCorreo(
+                email,
+                "Recupera tu contraseña en Turistecz",
+                "Haz clic en el enlace para restablecer tu contraseña: " + enlace
+        );
     }
 
     // 🔹 Otros métodos
