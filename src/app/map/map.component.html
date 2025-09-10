@@ -1,55 +1,68 @@
-<div class="position-relative"> <!--<div id="mapContainer">-->
-    <div id="map" class="w-100 m-0 z-0"></div>
-    <div class="overflow-auto row-gap-1 h-75 w-25 mt-3 me-3 p-2 bg-body-secondary rounded-2 z-1 position-absolute top-0 end-0"> <!--instructionsContainer -->
+<div class="position-relative mb-2"> <!--<div id="mapContainer">-->
+    <div id="map" class="w-100 m-0 z-0 rounded-2"></div>
+    <div id="listContainer" class="overflow-auto row-gap-1 mt-3 me-lg-3 me-md-0 p-2 bg-body-secondary rounded-2 z-1 end-0">  
         <div class="mb-0 bg-white px-2 rounded-3">
-            <p class="fs-5 mb-1 pt-1" id="legName">{{this.route.routes[0].legs[0].summary}}</p>
-            <p class="pb-2" id="distanceTime">{{kms}}, {{mins}}</p>
+                <p class="fs-5 mb-1 pt-1" id="legName">{{this.route.routes[0].legs[0].summary}}</p>
+                <p class="pb-2" id="distanceTime">{{kms}}, {{mins}}</p>
         </div>
-        <div class="instructionsListDiv">
+        <div class="instructionsListDiv mt-2">
             <table class="table ps-0 bg-white rounded-3" id="instructionsList"></table>
         </div>
     </div>
 </div>
 
-
-<div class="row mt-2">
+<div class="row mt-3 mb-4">
     <p class="fs-5">LEYENDA:</p>
-    <div class="col-12 d-flex justify-content-evenly">
-        <p>
-            <img src="media/marker-icon.png" style="width:20px;height:30px;" alt="ícono estás aquí">
-            Estás aquí
-        </p>
-        <p>
-            <img src="media/bizi-icon.png" style="width:30px;height:30px;" alt="ícono estación bizi"> 
-            Estación bizi
-            <input class="icon" #biziIconId type="checkbox" (change)="showHideMarkers($event, this.biziMarkerGroup)">
-        </p>
-        <p>
-            <img src="media/bus-icon.png" style="width:20px;height:30px;" alt="ícono parada bus"> 
-            Buses
-            <input class="icon" id="busIconId" type="checkbox" (change)="showHideMarkers($event, this.busMarkerGroup)">
-        </p>
-        <p>
-            <img src="media/taxi-icon.png" style="width:20px;height:30px;" alt="ícono parada taxi"> 
-            Taxis
-            <input class="icon" id="taxiIconId" type="checkbox" (change)="showHideMarkers($event, this.taxiMarkerGroup)">
-        </p>
-        <p>
-            <img src="media/tram-icon.png" style="width:20px;height:30px;" alt="ícono parada tranvía"> 
-            Tranvias
-            <input class="icon" id="tramIconId" type="checkbox" (change)="showHideMarkers($event, this.tramMarkerGroup)">
-        </p>
-        <p>
-            <img src="media/parking-adap.svg" style="width:20px;height:30px;" alt="ícono parking adaptado"> 
-            Parking adaptado
-            <input class="icon" id="adapParkingId" type="checkbox" (change)="showHideMarkers($event, this.adapParkingMarkerGroup)">
-        </p>
-        <p>
-            <img src="media/farmacia-icon.svg" style="width:20px;height:30px;" alt="ícono farmacias de guardia"> 
-            Farmacias de guardia
-            <input class="icon" id="farmaciaId" type="checkbox" (change)="showHideMarkers($event, this.farmaciaMarketGroup)">
-        </p>
-    </div>
+    <ul class="list-group list-group-horizontal-md justify-content-around flex-wrap">
+        <li class="list-group-item border-0">
+            <p class="mb-0">
+                <img src="media/marker-icon.png" style="width:20px;height:30px;" alt="ícono estás aquí">
+                Estás aquí
+            </p>
+        </li>
+        <li class="list-group-item border-0">
+            <p class="mb-0">
+                <img src="media/bizi-icon.png" style="width:30px;height:30px;" alt="ícono estación bizi"> 
+                Estación bizi
+                <input class="icon" #biziIconId type="checkbox" (change)="showHideMarkers($event, this.biziMarkerGroup)">
+            </p>
+        </li>
+        <li class="list-group-item border-0">
+            <p class="mb-0">
+                <img src="media/bus-icon.png" style="width:20px;height:30px;" alt="ícono parada bus"> 
+                Buses
+                <input class="icon" id="busIconId" type="checkbox" (change)="showHideMarkers($event, this.busMarkerGroup)">
+            </p>
+        </li>
+        <li class="list-group-item border-0">
+            <p class="mb-0">
+                <img src="media/taxi-icon.png" style="width:20px;height:30px;" alt="ícono parada taxi"> 
+                Taxis
+                <input class="icon" id="taxiIconId" type="checkbox" (change)="showHideMarkers($event, this.taxiMarkerGroup)">
+            </p>
+        </li>
+        <li class="list-group-item border-0">
+            <p class="mb-0">
+                <img src="media/tram-icon.png" style="width:20px;height:30px;" alt="ícono parada tranvía"> 
+                Tranvias
+                <input class="icon" id="tramIconId" type="checkbox" (change)="showHideMarkers($event, this.tramMarkerGroup)">
+            </p>
+        </li>
+        <li class="list-group-item border-0">
+            <p class="mb-0">
+                <img src="media/parking-adap.svg" style="width:20px;height:30px;" alt="ícono parking adaptado"> 
+                Parking adaptado
+                <input class="icon" id="adapParkingId" type="checkbox" (change)="showHideMarkers($event, this.adapParkingMarkerGroup)">
+            </p>
+        </li>
+        <li class="list-group-item border-0">
+            <p class="mb-0">
+                <img src="media/farmacia-icon.svg" style="width:20px;height:30px;" alt="ícono farmacias de guardia"> 
+                Farmacias de guardia
+                <input class="icon" id="farmaciaId" type="checkbox" (change)="showHideMarkers($event, this.farmaciaMarketGroup)">
+            </p>
+        </li>
+    </ul>
 </div>
 
 

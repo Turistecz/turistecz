@@ -245,6 +245,7 @@ visualRouteLine(){
 routeInstructions(){
   let allSteps = this.route.routes[0].legs[0].steps;
   let table = document.getElementById("instructionsList");
+  let tablePhone = document.getElementById("instructionsListPhone");
   let directionsIcon: string[] = [];
   let directionsIconRotation: string[] = [];
   let directionsTypeSpanish: string[] = [];
@@ -380,6 +381,8 @@ routeInstructions(){
     let tdDistance = document.createElement("td");
     tdDistance.classList.add("w-25");
     tdIcon.classList.add("w-25");
+    img.width = 45;
+    //img.setAttribute("id", "iconImg");
     img.classList.add("bg-transparent")
     tdDirections.classList.add("py-2");
     tr.classList.add("border-bottom", "my-2");
@@ -404,6 +407,7 @@ routeInstructions(){
       img.style.transform = "";
       img.src = "media/end-map-direction.png";
     }
+    
     tdDistance.innerText = this.convertMetersToKm(item.distance);
     tr.appendChild(tdIcon);
     tr.appendChild(tdDirections);
