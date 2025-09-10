@@ -141,6 +141,7 @@ async ngOnInit(): Promise<void> {
 
   updatePlaces(filteredPlaces: cardsHome[]) {
     this.sortedCards = filteredPlaces;
+    this.page = 1; // Reiniciar a la primera página
   }
 
 };
