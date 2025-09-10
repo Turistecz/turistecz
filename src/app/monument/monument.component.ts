@@ -93,9 +93,7 @@ export class MonumentComponent implements OnInit {
   async loadMonuments(): Promise<void> {
     try {
       const datos = await firstValueFrom(this.apiConnectService.getMonuments());
-      //this.monumentServiceService.monuments = datos.result;
       this.monuments = datos.result;
-      //this.monumentsFiltered = this.apiConnectService.filterMonuments(this.monuments);
       this.apiConnectService.filterTopMonuments(this.monuments).subscribe(filtrados => {
         this.monumentsFiltered = filtrados;
       });
@@ -128,8 +126,6 @@ export class MonumentComponent implements OnInit {
   // Un solo ngOnInit combinando las dos tareas
   async ngOnInit(): Promise<void> {
     await this.loadImages();
-    //Para ver si recibe toda la info de la base de datos
-    console.log(this.monumento);
     await this.loadMonuments();
    
     this.apiConnectService.getMonumentsNames().subscribe(data => {

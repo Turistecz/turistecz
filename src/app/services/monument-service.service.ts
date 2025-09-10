@@ -27,10 +27,10 @@ export class MonumentServiceService {
 
 
   getMonuments(): Observable<MonumentResponse> {
-     const monument = "https://www.zaragoza.es/sede/servicio/monumento";
+     const monument = "https://www.zaragoza.es/sede/servicio/monumento.json";
     const Params = new HttpParams().set('rf', 'html').set('srsname', 'utm30n').set('start', '0').set('rows', '500').set('distance', '500').set('locale', 'es');
     const Headers = new HttpHeaders({
-      Accept: 'application/solr-results+json', 
+      Accept: 'application/geo+json', 
     });
     return this.http.get<MonumentResponse>(monument,{params: Params, headers: Headers});
   }
