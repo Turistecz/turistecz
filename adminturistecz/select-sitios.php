@@ -56,9 +56,7 @@ if (!$result) {
             font-weight: 500;
         }
         .details-panel {
-            margin-top: 10px;
-            padding: 15px;
-            border: 1px solid #dee2e6;
+            margin-top: 10px;     
             border-radius: 8px;
             background-color: #f8f9fa;
             max-height: 0;
@@ -66,7 +64,13 @@ if (!$result) {
             transition: max-height 0.3s ease;
         }
         .details-panel.show {
-            max-height: 500px; /* ajusta según el contenido */
+            max-height: 12000px; /* ajusta según el contenido */
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            nth-child(even) {
+            background-color: #be0f0fff;
+             overflow-y: auto;
+            }
         }
         .details-title {
             font-weight: bold;
@@ -76,8 +80,15 @@ if (!$result) {
         .details-row {
             display: flex;
             justify-content: space-between;
-            padding: 6px 0;
+            padding: 0px 20px;
             border-bottom: 1px solid #eee;
+                        
+        }
+        .details-row:nth-child(even) {
+            background-color: #cfcac5ff;
+        }
+        .details-row:nth-child(odd) {
+            background-color: transparent;
         }
         .details-row:last-child {
             border-bottom: none;
@@ -118,9 +129,6 @@ if (!$result) {
                 <a href="insert-sitios.php" class="btn btn-primary me-2">
                     <i class="fas fa-plus"></i> Nuevo sitio
                 </a>
-                <button class="btn btn-outline-secondary" disabled>
-                    <i class="fas fa-globe-americas"></i> Ver todos los sitios
-                </button>
             </div>
         </div>
 
@@ -140,7 +148,6 @@ if (!$result) {
                                 <th>Dirección</th>
                                 <th>Teléfono</th>
                                 <th>Web</th>
-                                <th>Rampas</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -161,11 +168,6 @@ if (!$result) {
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <span class="badge bg-<?= $row['rampas'] === 'SI' ? 'success' : ($row['rampas'] === 'NO' ? 'danger' : 'secondary') ?>">
-                                            <?= ucfirst(strtolower(str_replace('_', ' ', $row['rampas']))) ?>
-                                        </span>
-                                    </td>
-                                    <td>
                                         <a href="edit-sitio.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning me-1">
                                             <i class="fas fa-edit"></i>
                                         </a>
@@ -181,7 +183,7 @@ if (!$result) {
                                             <div class="details-title"><i class="fas fa-info-circle"></i> Detalles completos</div>
                                             <?php
                                                 $campos = [
-                                                    "ascensores", "puertas_automaticas", "escaleras_mecanicas",
+                                                    "ascensores", "rampas", "puertas_automaticas", "escaleras_mecanicas",
                                                     "servicios_adaptados", "sala_lactancia", "cambiador",
                                                     "parking_adaptado", "bancos", "mostrador_adaptado",
                                                     "sin_barreras_arquitectonicas", "braille", "interprete_lengua_signos",
