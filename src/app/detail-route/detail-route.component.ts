@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input, SimpleChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { RoutesService } from '../services/routes.service';
@@ -7,6 +7,7 @@ import { FrontDetailCardComponent } from "../front-detail-card/front-detail-card
 import { CommonModule } from '@angular/common';
 import { routeDetails, textoDetails } from '../models/details-routes';
 import { TextDetailComponent } from "../text-detail/text-detail.component";
+import { imagenRoutes } from '../models/routes-card.model';
 
 @Component({
   selector: 'app-detail-route',
@@ -27,9 +28,9 @@ export class DetailRouteComponent {
     descripcion: '',
   } ;
 
+   idRuta!:number;
   /* SITE & TEXT DETAIL */
   routeText: textoDetails [] =[];
-  //todo: sitioDetails[]=[];
 
   /* FRONT DETAIL */
   /*Carga la ruta segun el id */
@@ -37,9 +38,10 @@ export class DetailRouteComponent {
   async loadRoutebyId(id: number): Promise<any> {
     try {
       const datos = await firstValueFrom(this.routeService.getRouteById(id));
-      this.oneRoute = datos; 
-      // console.log(this.oneRoute);
-      return datos;
+      this.oneRoute = datos;
+      this.idRuta = datos.id;
+      console.log("oneroute",this.oneRoute);
+      return this.oneRoute;
     } catch (error) {
       console.error('Error al cargar ruta por ID:', error);
       throw error;
@@ -54,7 +56,7 @@ export class DetailRouteComponent {
     try {
       const datos = await firstValueFrom(this.routeService.getRouteSites(id));
       this.routeText = datos;   
-      console.log('temporal2:',this.routeText);
+      console.log('routetext:',this.routeText);
     } catch (error) {
       console.error('Error al cargar ruta por ID:', error);
       throw error;
@@ -62,10 +64,13 @@ export class DetailRouteComponent {
   }
 
   async ngOnInit(): Promise<void> {
-    await this.loadRoutebyId(1);  // Muestra una ruta segun el id //  FRONT DETAIL 
-    await this.loadRoutesSite(1);  // Muestra todos los sitios de una ruta segun el id // SITE & TEXT DETAIL 
-  }
+    this.idRuta = Number(this.route.snapshot.paramMap.get('id'));
 
+    if (this.idRuta) {
+      await this.loadRoutebyId(this.idRuta);
+      await this.loadRoutesSite(this.idRuta);
+    }
+  }
 }
     
 

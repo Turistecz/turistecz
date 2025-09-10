@@ -20,19 +20,15 @@ export class TextDetailComponent {
   };
 
   ngOnChanges(changes: SimpleChanges) {
-  if (changes['oneText']) {
-    console.log('oneText changed:', changes['oneText'].currentValue);
-
-    this.oneText = {
-      idSitio: changes['oneText'].currentValue.idSitio,
-      nombre: changes['oneText'].currentValue.nombre,
-      url: changes['oneText'].currentValue.url,
-      texto: changes['oneText'].currentValue.texto,
-      idRuta: changes['oneText'].currentValue.idRuta
-    };
-
-    console.log('oneText changed2:', this.oneText);
-  }
+    if (changes['oneText']) {
+      this.oneText = {
+        idSitio: changes['oneText'].currentValue.idSitio,
+        nombre: changes['oneText'].currentValue.nombre,
+        url: changes['oneText'].currentValue.url,
+        texto: changes['oneText'].currentValue.texto,
+        idRuta: changes['oneText'].currentValue.idRuta
+      };
+    }
   }
 }
 
