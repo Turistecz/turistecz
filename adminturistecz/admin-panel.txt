@@ -15,37 +15,65 @@ Editar la información de cada sitio existente.
 
 Insertar nuevos sitios en la base de datos.
 
-⚙️ Configuración del Puerto de MySQL en XAMPP
+⚙️ Configuración Inicial en XAMPP
+1. Arrancar Apache y MySQL
 
-Por defecto, MySQL en XAMPP utiliza el puerto 3306. Sin embargo, este puerto ya está siendo utilizado por MySQL Workbench, lo que genera conflicto.
+Desde el XAMPP Control Panel, inicia los módulos Apache y MySQL.
 
-Por ello, se ha configurado MySQL en XAMPP para trabajar en el puerto 3307.
+2. Configurar la ruta del proyecto en Apache
+
+En el archivo de configuración de Apache (httpd.conf), busca las líneas:
+
+DocumentRoot "/xampp/htdocs"
+<Directory "/xampp/htdocs">
+
+
+y cámbialas por la ruta local de tu proyecto en tu ordenador (cada persona debe poner la suya). Ejemplo:
+
+DocumentRoot "C:/Users/TuUsuario/Documents/proyectos/adminturistecz"
+<Directory "C:/Users/TuUsuario/Documents/proyectos/adminturistecz">
+
+
+Guarda los cambios y reinicia Apache desde XAMPP.
+
+⚙️ Configuración del Puerto de MySQL
+
+Por defecto, MySQL en XAMPP utiliza el puerto 3306.
+Si ya está siendo usado (por ejemplo, por MySQL Workbench), puede generar conflictos.
+
+En este caso, se ha configurado MySQL en XAMPP para trabajar en el puerto 3307.
 
 Pasos para cambiar el puerto en XAMPP:
 
 Abrir el XAMPP Control Panel.
 
-En la fila de MySQL, pulsar el botón Config.
+En la fila de MySQL, pulsar Config → my.ini.
 
-Seleccionar my.ini.
+Buscar las secciones [mysqld] y [client].
 
-Buscar la sección [mysqld].
-
-Localizar la línea:
+Localizar las líneas con:
 
 port=3306
 
 
-y cambiarla a:
+y cambiarlas por:
 
 port=3307
 
 
-Guardar el archivo y reiniciar MySQL desde XAMPP.
+Guardar el archivo y reiniciar MySQL en XAMPP.
 
-⚠️ Importante: Asegúrate también de cambiar la configuración de conexión en tus archivos PHP para que apunten al puerto 3307.
+⚠️ Importante: recuerda también cambiar en el archivo config.inc.php (en el botón config de Apache en XAMPP).
 
-Ejemplo de conexión en PHP (db.php):
+-Añade $cfg['Servers'][$i]['port'] = 3307;  justo donde aparece en este ejemplo:
+
+$cfg['Servers'][$i]['host'] = '127.0.0.1';
+$cfg['Servers'][$i]['connect_type'] = 'tcp';
+$cfg['Servers'][$i]['port'] = 3307; 
+
+⚠️ Importante: recuerda también cambiar el puerto en tus archivos PHP de conexión.
+
+Ejemplo (db.php):
 
 $servername = "localhost";
 $username = "root";
@@ -59,41 +87,45 @@ if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
 }
 
+Una vez hechos estos cambios, entra en http://localhost/phpmyadmin y crea la BBDD.
+    - Copia el script que hay en esta carpeta, pégala en la pestaña de SQL > Continuar y comprueba 
+    que te aperece en el menú de bbdd de la izquierda.
+
 🌐 Endpoints del Panel de Administración
 
-A continuación se detallan los principales endpoints que ofrece este panel:
+Ya configurado, los principales endpoints disponibles serán:
 
 🔑 1. Login
+http://localhost/login.php
 
-http://localhost/adminturistecz/login.php
 Permite a los administradores registrados acceder al panel mediante correo y contraseña.
 
 🆕 2. Registro
+http://localhost/register.php
 
-http://localhost/adminturistecz/register.php
 Formulario para registrar nuevos administradores en el sistema.
 
 📋 3. Selección de sitios
+http://localhost/select-sitios.php
 
-http://localhost/adminturistecz/select-sitios.php
-Este es el primer endpoint al que se debe acceder tras iniciar sesión.
+Primer endpoint tras iniciar sesión.
 
-Muestra una lista con todos los sitios registrados en la base de datos.
+Muestra la lista de sitios registrados.
 
-Incluye un botón de edición en cada sitio para modificar su información.
+Incluye botones para editar cada sitio.
 
 ➕ 4. Inserción de nuevos sitios
+http://localhost/insert-sitios.php
 
-http://localhost/adminturistecz/insert-sitios.php
 Formulario que permite añadir un nuevo sitio turístico, rellenando los campos requeridos (nombre, descripción, localización, etc.).
 
 🚀 Flujo de uso del panel
 
-El administrador accede a login.php para iniciar sesión.
+El administrador accede a login.php e inicia sesión.
 
 Una vez autenticado, se dirige a select-sitios.php para ver los sitios disponibles.
 
-Desde ahí, puede:
+Desde ahí puede:
 
 Editar un sitio existente.
 
@@ -101,6 +133,7 @@ Ir a insert-sitios.php para crear un nuevo sitio.
 
 ✅ Conclusión
 
-Con este panel de administración, se logra gestionar de manera sencilla los sitios turísticos de la base de datos, asegurando un control completo desde una interfaz basada en PHP.
+Con este panel de administración se logra gestionar de manera sencilla los sitios turísticos de la base de datos, asegurando un control completo desde una interfaz basada en PHP.
 
-El cambio de puerto a 3307 evita conflictos con MySQL Workbench y garantiza que tanto la administración local como el desarrollo funcionen correctamente.
+El cambio de DocumentRoot garantiza que el proyecto cargue correctamente desde su carpeta local.
+El ajuste del puerto de MySQL a 3307 evita conflictos con MySQL Workbench y asegura un entorno de desarrollo funcional.
