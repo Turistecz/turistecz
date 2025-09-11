@@ -5,7 +5,6 @@ import { EventItem, EventResponse } from '../models/event-card.model';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { EventCardListComponent } from '../event-card-list/event-card-list.component';
 import { EventService } from '../services/event.service';
 
 
@@ -20,32 +19,19 @@ export class EventCardHomeComponent {
 
   constructor(private http: HttpClient, private eventService: EventService) {}
 
-  events: EventItem[] = [];
-  sortedEvents: EventItem[] = [];
+events: EventItem[] = [];
+sortedEvents: EventItem[] = [];
 
-  page: number = 1;
-  pageSize: number = 3;
-
-
-  ngOnInit() {
-    this.loadEvents();
-  }
-
-  async loadEvents(): Promise<void> {
-  try {
-    this.events = this.eventService.getEvents();
-
-    this.sortedEvents = this.events.slice();
-
-
-  } catch (error) {
-    console.error('Error al cargar eventos:', error);
-  }
+ngOnInit() {
+  this.events = this.eventService.getEvents();
+  this.sortedEvents = this.events.slice(); // ordénalos si quieres
 }
 
-get pagedEvents(): EventItem[] {
-  const start = (this.page - 1) * this.pageSize;
-  return this.sortedEvents.slice(start, start + this.pageSize);
+get eventGroups(): EventItem[][] { // Esta funcion para recorrer el array de eventos y los divido en grupos de 3
+  const groupito: EventItem[][] = [];
+  for (let i = 0; i < this.sortedEvents.length; i += 3) {
+    groupito.push(this.sortedEvents.slice(i, i + 3));
+  }
+  return groupito;
 }
-
 }
