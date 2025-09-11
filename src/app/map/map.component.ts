@@ -20,6 +20,7 @@ export class MapComponent implements AfterViewInit, OnInit{
   private map: any;
 
   userLatLong: [number, number] = [41.65606, -0.87734];
+  instructionsExpanded: boolean = false;
 
   bizis: BiziItem[] = [];
   taxiStops: TaxiStopItem[] = [];
@@ -245,7 +246,6 @@ visualRouteLine(){
 routeInstructions(){
   let allSteps = this.route.routes[0].legs[0].steps;
   let table = document.getElementById("instructionsList");
-  let tablePhone = document.getElementById("instructionsListPhone");
   let directionsIcon: string[] = [];
   let directionsIconRotation: string[] = [];
   let directionsTypeSpanish: string[] = [];
@@ -382,7 +382,6 @@ routeInstructions(){
     tdDistance.classList.add("w-25");
     tdIcon.classList.add("w-25");
     img.width = 45;
-    //img.setAttribute("id", "iconImg");
     img.classList.add("bg-transparent")
     tdDirections.classList.add("py-2");
     tr.classList.add("border-bottom", "my-2");
@@ -414,6 +413,10 @@ routeInstructions(){
     tr.appendChild(tdDistance);
     table?.appendChild(tr);
   });
+}
+
+toggleInstructions() {
+  this.instructionsExpanded = !this.instructionsExpanded;
 }
 
 convertSecondsToMinHr(seconds: number): string{

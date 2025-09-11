@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AdapParkingResponse, BiziResponse, BusInfoResponse, BusStopResponse, FarmaciaResponse, TaxiStopItem, TaxiStopResponse, TramStopResponse } from '../models/map.model';
+import { AdapParkingResponse, BiziResponse, BusInfoResponse, BusStopResponse, FarmaciaItem, FarmaciaResponse, TaxiStopItem, TaxiStopResponse, TramStopResponse } from '../models/map.model';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import L from 'leaflet';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +10,7 @@ export class MapService {
 
   private urbanismo: string = "https://www.zaragoza.es/sede/servicio/urbanismo-infraestructuras/";
   private farmacia: string = "https://www.zaragoza.es/sede/servicio/farmacia";
+  farmacias: FarmaciaItem[] = [];
 
   constructor(private http: HttpClient) { }
   
@@ -82,17 +82,9 @@ export class MapService {
     return this.http.get<FarmaciaResponse>(this.farmacia+farmacia,{params: Params, headers: Headers});
   }
 
-  getMap(){
-    let lat = 0;
-    let long = 0;
+  // getFarmacies(): FarmaciaItem[] {
 
-    navigator.geolocation.getCurrentPosition(function(position) {
-      lat = position.coords.latitude;
-      long = position.coords.longitude;
-
-    })
+  // }
 
 
-    return [lat,long]
-  }
 }
