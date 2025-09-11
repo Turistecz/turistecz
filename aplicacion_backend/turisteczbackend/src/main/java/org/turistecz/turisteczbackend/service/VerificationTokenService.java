@@ -19,63 +19,22 @@ public class VerificationTokenService {
         this.tokenRepository = tokenRepository;
     }
 
-    // ─── CREAR TOKEN ───────────────────────────────
-    public VerificationToken crearToken(Usuario usuario, VerificationToken.TipoToken tipo, int horasExpiracion) {
-        // Eliminar tokens anteriores del mismo tipo
-        tokenRepository.deleteAllByUsuarioAndTipo(usuario, tipo);
-
+    public VerificationToken crearToken(Usuario usuario) {
         VerificationToken token = new VerificationToken();
         token.setToken(UUID.randomUUID().toString());
         token.setUsuario(usuario);
-        token.setTipo(tipo);
-        token.setExpiration(LocalDateTime.now().plusHours(horasExpiracion));
-
+        token.setExpiration(LocalDateTime.now().plusHours(48));
         return tokenRepository.save(token);
     }
 
-    // ─── VERIFICAR TOKEN ACTIVACION ───────────────
-    public boolean verificarTokenActivacion(String tokenStr) {
-        Optional<VerificationToken> optional = tokenRepository.findByToken(tokenStr);
-
-        if (optional.isEmpty()) return false;
-
-        VerificationToken token = optional.get();
-
-        if (token.getExpiration().isBefore(LocalDateTime.now()) || token.getTipo() != VerificationToken.TipoToken.ACTIVACION) {
-            tokenRepository.delete(token);
-            return false;
-        }
-
-        Usuario usuario = token.getUsuario();
-        usuario.setActivo(true);
-        tokenRepository.delete(token);  // eliminamos token tras activación
-        return true;
+     public Optional<VerificationToken> validateToken(String tokenStr) {
+        return tokenRepository.findByToken(tokenStr)
+                .filter(t -> t.getExpiration() != null && t.getExpiration().isAfter(LocalDateTime.now()));
     }
 
-    // ─── VERIFICAR TOKEN RECUPERACION ─────────────
-    public Usuario verificarTokenRecuperacion(String tokenStr) {
-        Optional<VerificationToken> optional = tokenRepository.findByToken(tokenStr);
-
-        if (optional.isEmpty()) return null;
-
-        VerificationToken token = optional.get();
-
-        if (token.getExpiration().isBefore(LocalDateTime.now()) || token.getTipo() != VerificationToken.TipoToken.RECUPERACION) {
-            tokenRepository.delete(token);
-            return null;
-        }
-
-        return token.getUsuario();
-    }
-
-    // ─── ELIMINAR TOKEN ───────────────────────────
+    // Borrar token
     @Transactional
     public void deleteToken(VerificationToken token) {
         tokenRepository.delete(token);
-    }
-
-    @Transactional
-    public void deleteAllByUsuarioAndTipo(Usuario usuario, VerificationToken.TipoToken tipo) {
-        tokenRepository.deleteAllByUsuarioAndTipo(usuario, tipo);
     }
 }

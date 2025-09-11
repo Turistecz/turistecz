@@ -33,7 +33,7 @@ export class LoginComponent {
         localStorage.setItem('accessToken', res.accessToken);
         localStorage.setItem('usuario', JSON.stringify(res.usuario));
 
-        this.router.navigate(['/home']); // redirige a home directamente
+        this.router.navigate(['/']); // redirige a home directamente
       },
       error: err => alert(err.error || '❌ Credenciales incorrectas')
     });

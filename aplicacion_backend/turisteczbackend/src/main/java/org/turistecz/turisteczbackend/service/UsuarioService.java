@@ -21,54 +21,47 @@ public class UsuarioService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private VerificationTokenService verificationTokenService;
-
-    @Autowired
     private EmailService emailService;
 
-    // 🔹 Registro de usuario
+    @Autowired
+    private VerificationTokenService verificationTokenService;
+
+    // 🔹 Registrar usuario
     public Usuario registrarUsuarioDesdeDto(UsuarioDto dto) {
         Usuario usuario = new Usuario();
-        usuario.setNombre(dto.getNombre());
         usuario.setEmail(dto.getEmail());
-        usuario.setPassword(passwordEncoder.encode(dto.getContrasena()));
+        usuario.setContrasena(passwordEncoder.encode(dto.getContrasena())); // usar "password"
+        usuario.setNombre(dto.getNombre());
         usuario.setActivo(false);
 
-        // Guardamos el usuario
-        Usuario saved = usuarioRepository.save(usuario);
+        Usuario guardado = usuarioRepository.save(usuario);
 
-        // Creamos token de ACTIVACIÓN (no recuperación)
-        var token = verificationTokenService.crearToken(
-                saved,
-                VerificationToken.TipoToken.ACTIVACION,
-                48 // expira en 48 horas
-        );
-
-        // Creamos enlace de verificación
-        String enlace = "http://localhost:4200/verify?token=" + token.getToken();
-
-        // Enviamos correo de verificación
+        // Generar token y enviar correo de activación
+        VerificationToken token = verificationTokenService.crearToken(guardado);
+        String enlace = "http://localhost:8080/auth/verify?token=" + token.getToken();
         emailService.enviarCorreo(
-                saved.getEmail(),
-                "Activa tu cuenta en Turistecz",
-                "Haz clic en el enlace para activar tu cuenta: " + enlace
+                guardado.getEmail(),
+                "Activa tu cuenta",
+                "Haz clic en el siguiente enlace para activar tu cuenta:\n" + enlace
         );
 
-        return saved;
+        return guardado;
     }
 
-    // 🔹 Verificar existencia por email
-    public boolean existsByEmail(String email) {
-        return usuarioRepository.existsByEmail(email);
+    // 🔹 Guardar usuario
+    public Usuario save(Usuario usuario) {
+        return usuarioRepository.save(usuario);
     }
 
-    // 🔹 Buscar usuario por email
+    // 🔹 Buscar por email
     public Usuario buscarPorEmail(String email) {
-        return usuarioRepository.findByEmail(email).orElse(null);
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
+        return usuario.orElse(null);
     }
 
-    public Optional<Usuario> findById(Integer id) {
-        return usuarioRepository.findById(id);
+    // 🔹 Verificar si existe email
+    public boolean existsByEmail(String email) {
+        return usuarioRepository.findByEmail(email).isPresent();
     }
 
     // 🔹 Cambiar email
@@ -79,11 +72,11 @@ public class UsuarioService {
         });
     }
 
-    // 🔹 Cambiar contraseña
+    // 🔹 Cambiar contraseña (requiere contraseña actual)
     public void cambiarContrasena(Integer id, String actual, String nueva) {
         usuarioRepository.findById(id).ifPresent(usuario -> {
-            if (passwordEncoder.matches(actual, usuario.getPassword())) {
-                usuario.setPassword(passwordEncoder.encode(nueva));
+            if (passwordEncoder.matches(actual, usuario.getContrasena())) {
+                usuario.setContrasena(passwordEncoder.encode(nueva));
                 usuarioRepository.save(usuario);
             } else {
                 throw new IllegalArgumentException("Contraseña actual incorrecta");
@@ -91,10 +84,10 @@ public class UsuarioService {
         });
     }
 
-    // 🔹 Forzar actualización de contraseña (reset password)
+    // 🔹 Actualizar contraseña directamente (para reset con token)
     public void actualizarContrasena(Integer id, String nueva) {
         usuarioRepository.findById(id).ifPresent(usuario -> {
-            usuario.setPassword(passwordEncoder.encode(nueva));
+            usuario.setContrasena(passwordEncoder.encode(nueva));
             usuarioRepository.save(usuario);
         });
     }
@@ -103,16 +96,22 @@ public class UsuarioService {
     public void enviarCorreoRecuperacion(String email, String enlace) {
         emailService.enviarCorreo(
                 email,
-                "Recupera tu contraseña en Turistecz",
-                "Haz clic en el enlace para restablecer tu contraseña: " + enlace
+                "Recuperación de contraseña",
+                "Haz clic en el siguiente enlace para restablecer tu contraseña:\n" + enlace
         );
     }
 
-    // 🔹 Otros métodos
+    // 🔹 Obtener todos los usuarios
     public List<Usuario> findAll() {
         return usuarioRepository.findAll();
     }
 
+    // 🔹 Buscar por ID
+    public Optional<Usuario> findById(Integer id) {
+        return usuarioRepository.findById(id);
+    }
+
+    // 🔹 Eliminar usuario por ID
     public void deleteById(Integer id) {
         usuarioRepository.deleteById(id);
     }
