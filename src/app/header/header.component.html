@@ -2,14 +2,9 @@
   <div class="container-fluid h4 mb-0 mx-4 position-relative d-flex align-items-center" id="menu">
 
     <!-- Logo izquierda -->
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand bs-gutter 0" href="#">
       <img src="turistecz_logo.png" alt="Logo" width="200">
     </a>
-
-    <!-- Botón hamburguesa -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
     <!-- Menú centrado horizontal -->
     <div class="collapse navbar-collapse justify-content-center position-absolute start-50 translate-middle-x" id="navbarNav">
@@ -21,7 +16,7 @@
       </ul>
     </div>
 
-    <!-- Login/Perfil derecha -->
+    <!-- Bloque derecho (login + hamburguesa en móviles) -->
     <div class="d-flex align-items-center gap-2 ms-auto mt-2 mt-lg-0">
 
       <!-- No logueado -->
@@ -42,6 +37,12 @@
           </button>
         </div>
       </ng-template>
+
+      <!-- Botón hamburguesa a la derecha -->
+      <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
     </div>
 
   </div>
