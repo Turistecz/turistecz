@@ -78,12 +78,6 @@ export class MapComponent implements AfterViewInit, OnInit{
   taxiMarkerGroup = new L.MarkerClusterGroup();
   adapParkingMarkerGroup = new L.MarkerClusterGroup();
   farmaciaMarkerGroup = new L.MarkerClusterGroup();
-  // biziMarkerGroup = new L.FeatureGroup();
-  // busMarkerGroup = new L.FeatureGroup();
-  // tramMarkerGroup = new L.FeatureGroup();
-  // taxiMarkerGroup = new L.FeatureGroup();
-  // adapParkingMarkerGroup = new L.FeatureGroup();
-  // farmaciaMarkerGroup = new L.FeatureGroup();
 
   route: MapRouteItem = {
     routes: [
