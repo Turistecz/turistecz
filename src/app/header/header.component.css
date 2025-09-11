@@ -20,11 +20,26 @@
   margin-left: 10px;
 } */
 
+.navbar-brand img {
+  max-width: 40vw; /* el logo nunca ocupará más del 40% del ancho */
+  height: auto;
+}
+
+
+
+
 @media (max-width: 992px) {
   .nav-center {
     flex-direction: column;
     align-items: flex-start;
     gap: 0rem;
     padding-left: 2rem;
+  }
+}
+
+@media (max-width: 991px) { /* mismo breakpoint que navbar-expand-lg */
+  #navbarNav {
+    position: static !important;
+    transform: none !important;
   }
 }
