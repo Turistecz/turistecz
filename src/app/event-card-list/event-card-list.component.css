@@ -18,33 +18,6 @@ h2{
   font-family: "inclusive", system-ui;
 }
 
-.main-card {
-  margin-inline: 4rem;
-}
-
-@media (max-width: 1224px) {
-  .main-card {
-    margin-inline: 2.5%;
-  }
-}
-
-@media (max-width: 768px) {
-  .filters {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .main-card {
-    margin-inline: 0 !important;
-  }
-}
-
-@media (max-width: 430px) {
-  .main-card {
-    margin-inline: 5%;
-  }
-}
-
 /* RESPONSIVE: para pantallas pequeñas */
 @media (max-width: 768px) {
   .buscador-top {
@@ -60,9 +33,4 @@ h2{
     font-family: "inclusive", system-ui;
   }
 
-
-  .row-style{
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
 }
