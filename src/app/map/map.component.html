@@ -1,11 +1,14 @@
 <div class="position-relative mb-2"> <!--<div id="mapContainer">-->
     <div id="map" class="w-100 m-0 z-0 rounded-2"></div>
-    <div id="listContainer" class="overflow-auto row-gap-1 mt-3 me-lg-3 me-md-0 p-2 bg-body-secondary rounded-2 z-1 end-0">  
-        <div class="mb-0 bg-white px-2 rounded-3">
+    <div id="listContainer" class="overflow-auto row-gap-1 mt-3 me-lg-3 me-md-0 p-2 bg-body-secondary rounded-3 z-1 end-0">  
+        <div class="mb-0 bg-white px-2 rounded-3 legInfo">
                 <p class="fs-5 mb-1 pt-1" id="legName">{{this.route.routes[0].legs[0].summary}}</p>
-                <p class="pb-2" id="distanceTime">{{kms}}, {{mins}}</p>
+                <p class="pb-2 mb-1" id="distanceTime">{{kms}}, {{mins}}</p>
+                <button type="button" class="btn btn-outline-dark bg-white mt-0 mb-3 mx-0 px-2 text-start text-dark w-100" data-bs-toggle="collapse" data-bs-target="#instructionsDiv" (click)="toggleInstructions()">
+                    <p class="mb-0 text-center">{{ instructionsExpanded ? 'Ocultar direcciones' : 'Mostrar direcciones' }}</p>    
+                </button>
         </div>
-        <div class="instructionsListDiv mt-2">
+        <div class="mt-2 collapse" id="instructionsDiv">
             <table class="table ps-0 bg-white rounded-3" id="instructionsList"></table>
         </div>
     </div>
