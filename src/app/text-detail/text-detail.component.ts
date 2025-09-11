@@ -1,10 +1,11 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { textoDetails } from '../models/details-routes';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-text-detail',
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './text-detail.component.html',
   styleUrl: './text-detail.component.css'
 })
