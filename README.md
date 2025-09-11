@@ -157,3 +157,78 @@ aplicacion_backend
 ---
 
 
+## Local OSRM Server
+
+Pasos para instalar Docker y poder ejecutar en local el OSRM Server.
+
+### Instalar Docker
+1. Ir a "activar o desactivar las características de Windows" en el buscador de Windows.
+2. Activar las opciones "Plataforma de máquina virtual", "Plataforma de hipervisor de Windows", "Subsistema de Windows para Linux", "Espacio aislado de Windows" e "Hyper-V".
+3. Abrir una terminal y escribir:
+``` bash
+wsl --install
+```
+4. Crear un usuario y contraseña (importante acordarse de la contraseña).
+5. La terminal entrará automáticamente a Linux y, ahí, escribir el siguiente comando para actualizarlo:
+``` bash
+sudo apt update && sudo apt upgrade
+```
+6. Escribir "y" para decir que sí al mensaje que salga.
+7. Cuando termine salir de Linux escribiendo "exit" y, en la terminal de Windows, escribir:
+``` bash
+wsl --set default-version 2
+```
+8. Descargar docker: https://docs.docker.com/desktop/setup/install/windows-install/
+9. Instalar, marcar las dos opciones si no lo están por defecto.
+10. Abrir Docker cuando termine de instalar y crearse una cuenta.
+
+En caso de duda consultar el siguiente video: https://www.youtube.com/watch?v=4mfbrKyqsdE
+
+### Crear Server OSRM
+1. Descargar el mapa Aragon.osm.pbf en https://download.geofabrik.de/europe/spain.html
+2. Crear una carpeta llamada data (donde se quiera, pero tenerla localizada) y meter el archivo dentro
+3. Abrir Docker, ir a Ajustes, Resources, File sharing e introducir la dirección de la carpeta data
+4. Abrir una terminal, navegar a la carpeta data y abrir Linux
+5. Introducir los siguientes comandos en order para generar los datos de la ruta a pie:
+``` bash
+docker run -t -v "${PWD}:/data" ghcr.io/project-osrm/osrm-backend osrm-extract -p /opt/foot.lua /data/aragon-latest.osm.pbf || echo "osrm-extract failed"
+```
+``` bash
+docker run -t -v "${PWD}:/data" ghcr.io/project-osrm/osrm-backend osrm-partition /data/aragon-latest.osm.pbf || echo "osrm-partition failed"
+```
+``` bash
+docker run -t -v "${PWD}:/data" ghcr.io/project-osrm/osrm-backend osrm-customize /data/aragon-latest.osm.pbf || echo "osrm-customize failed"
+```
+En caso de duda consultar:
+- El GitHub de OSRM: https://github.com/Project-OSRM/osrm-backend?tab=readme-ov-file#request-against-the-demo-server
+- Este artículo: https://medium.com/@imadsaddik/1-osrm-course-installation-process-9cfeebdeb930
+
+### Iniciar server
+Si se continua del paso anterior:
+1. Introducir el siguiente comando en la terminal: 
+``` bash
+sudo docker run -t -i -p 5000:5000 -v "${PWD}:/data" ghcr.io/project-osrm/osrm-backend osrm-routed --algorithm mld /data/aragon-latest.osrm
+```
+2. Deberá haber aparecido un container en la aplicación de Docker y en la terminal la última linea deberá poner "running and waiting for requests".
+
+Si se quiere iniciar otro día, con todo instalado:
+1. Abrir la aplicación de Docker.
+2. Abrir una terminal, navegar hasta la carpeta data y abrir Linux.
+3. Esperar a que se abra la aplicación de Docker.
+4. Introducir el siguiente comando en la terminal: 
+``` bash
+sudo docker run -t -i -p 5000:5000 -v "${PWD}:/data" ghcr.io/project-osrm/osrm-backend osrm-routed --algorithm mld /data/aragon-latest.osrm
+```
+5. Deberá haber aparecido un container en la aplicación de Docker y en la terminal la última linea deberá poner "running and waiting for requests".
+
+Si se quiere cerrar/cancelar el server utilizar ctrl+C en la terminal o parar/eliminar el contenedor en Docker.
+
+### Comandos Linux
+- Para acceder a Linux abrir una terminal y escribir:
+``` bash
+wsl
+```
+- Para salir de Linux escribir en la terminal donde se encuentra abierto:
+``` bash
+exit
+```
