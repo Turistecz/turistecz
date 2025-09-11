@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, Input, input, OnInit, ElementRef, ViewChild} from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
+import 'leaflet.markercluster';
 import proj4 from 'proj4';
 import { MapService } from '../services/map.service';
 import { AdapParkingItem, BiziItem, BusStopItem, TaxiStopItem, TramStopItem, MapRouteItem, FarmaciaItem } from '../models/map.model';
@@ -71,12 +72,18 @@ export class MapComponent implements AfterViewInit, OnInit{
     popupAnchor: [0, -20],
   })
 
-  biziMarkerGroup = new L.FeatureGroup();
-  busMarkerGroup = new L.FeatureGroup();
-  tramMarkerGroup = new L.FeatureGroup();
-  taxiMarkerGroup = new L.FeatureGroup();
-  adapParkingMarkerGroup = new L.FeatureGroup();
-  farmaciaMarketGroup = new L.FeatureGroup();
+  bizisMarkerGroup = new L.MarkerClusterGroup();
+  busMarkerGroup = new L.MarkerClusterGroup();
+  tramMarkerGroup = new L.MarkerClusterGroup();
+  taxiMarkerGroup = new L.MarkerClusterGroup();
+  adapParkingMarkerGroup = new L.MarkerClusterGroup();
+  farmaciaMarkerGroup = new L.MarkerClusterGroup();
+  // biziMarkerGroup = new L.FeatureGroup();
+  // busMarkerGroup = new L.FeatureGroup();
+  // tramMarkerGroup = new L.FeatureGroup();
+  // taxiMarkerGroup = new L.FeatureGroup();
+  // adapParkingMarkerGroup = new L.FeatureGroup();
+  // farmaciaMarkerGroup = new L.FeatureGroup();
 
   route: MapRouteItem = {
     routes: [
@@ -127,7 +134,7 @@ export class MapComponent implements AfterViewInit, OnInit{
   };
 
   async ngOnInit(): Promise<void> {
-    await this.getUserCoords();
+    this.getUserCoords();
     await this.loadBizis();
     await this.loadTaxiStops();
     await this.loadBusStops();
@@ -514,18 +521,9 @@ public showHideMarkers(event: Event, group: L.FeatureGroup): void {
     this.map.removeLayer(group);
   }
 }
-//TODO: hide & show markers on zoom
-// map.on('zoomend', function() {
-//     if (map.getZoom() <7){
-//             map.removeLayer(shelterMarkers);
-//     }
-//     else {
-//             map.addLayer(shelterMarkers);
-//         }
-// });
 
 private createBiziMarkers(): void {
-this.createMarkers(this.biziIcon, this.biziMarkerGroup, this.bizis, "bizis");
+this.createMarkers(this.biziIcon, this.bizisMarkerGroup, this.bizis, "bizis");
 };
 
 private createTaxiMarkers(): void {
@@ -545,10 +543,10 @@ this.createMarkers(this.AdapParkingIcon, this.adapParkingMarkerGroup, this.adapP
 };
 
 private createFarmaciaMarkers(): void {
-this.createMarkers(this.FarmaciaIcon, this.farmaciaMarketGroup, this.farmacias, "farmacias de guardia");
+this.createMarkers(this.FarmaciaIcon, this.farmaciaMarkerGroup, this.farmacias, "farmacias de guardia");
 };
 
-private createMarkers(icon: L.Icon, group: L.FeatureGroup, array: any[], sort: string): void {
+private createMarkers(icon: L.Icon, group: L.MarkerClusterGroup, array: any[], sort: string): void {
   array.forEach((elem) => {
     const coords = elem.geometry.coordinates;
     const props = elem;
