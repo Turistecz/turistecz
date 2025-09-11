@@ -28,7 +28,6 @@ public class AuthController {
     @Autowired
     private VerificationTokenService verificationTokenService;
 
-    // ─── REGISTRO DE USUARIO ─────────────────────
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UsuarioDto usuarioDto) {
         if (usuarioService.existsByEmail(usuarioDto.getEmail())) {
@@ -39,7 +38,6 @@ public class AuthController {
         return ResponseEntity.ok("Registro exitoso. Revisa tu correo para activar tu cuenta.");
     }
 
-    // ─── LOGIN ───────────────────────────────────
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Usuario usuario = usuarioService.buscarPorEmail(request.getEmail());
@@ -47,7 +45,7 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado");
         }
 
-        if (!passwordEncoder.matches(request.getContrasena(), usuario.getPassword())) {
+        if (!passwordEncoder.matches(request.getContrasena(), usuario.getContrasena())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contraseña incorrecta");
         }
 
@@ -56,18 +54,22 @@ public class AuthController {
         return ResponseEntity.ok(new LoginResponse(accessToken, usuario));
     }
 
-    // ─── VERIFICAR CUENTA ───────────────────────
+
     @GetMapping("/verify")
     public ResponseEntity<?> verificarCuenta(@RequestParam String token) {
-        boolean resultado = verificationTokenService.verificarTokenActivacion(token);
+        boolean resultado = verificationTokenService.validateToken(token).isPresent();
         if (resultado) {
+            VerificationToken vToken = verificationTokenService.validateToken(token).get();
+            Usuario usuario = vToken.getUsuario();
+            usuario.setActivo(true);
+            usuarioService.save(usuario);
+            verificationTokenService.deleteToken(vToken);
             return ResponseEntity.ok("Cuenta activada correctamente");
         } else {
             return ResponseEntity.badRequest().body("Token inválido o expirado");
         }
     }
 
-    // ─── CAMBIAR EMAIL ──────────────────────────
     @PutMapping("/change-email")
     public ResponseEntity<?> changeEmail(
             @RequestHeader("Authorization") String authHeader,
@@ -82,7 +84,6 @@ public class AuthController {
         return ResponseEntity.ok("Email actualizado correctamente");
     }
 
-    // ─── CAMBIAR CONTRASEÑA ────────────────────
     @PutMapping("/change-password")
     public ResponseEntity<?> changePassword(
             @RequestHeader("Authorization") String authHeader,
@@ -97,7 +98,6 @@ public class AuthController {
         return ResponseEntity.ok("Contraseña actualizada correctamente");
     }
 
-    // ─── PETICIÓN DE RECUPERACIÓN DE CONTRASEÑA ──
     @PostMapping("/forgot-password")
     public ResponseEntity<?> forgotPassword(@RequestBody UsuarioDto dto) {
         Usuario usuario = usuarioService.buscarPorEmail(dto.getEmail());
@@ -105,26 +105,30 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Correo no registrado");
         }
 
-        var token = verificationTokenService.crearToken(usuario, VerificationToken.TipoToken.RECUPERACION, 2);
+        VerificationToken token = verificationTokenService.crearToken(usuario);
         String enlace = "http://localhost:4200/reset-password?token=" + token.getToken();
         usuarioService.enviarCorreoRecuperacion(usuario.getEmail(), enlace);
 
         return ResponseEntity.ok("Se ha enviado un enlace de recuperación a tu correo");
     }
 
-    // ─── RESET PASSWORD ─────────────────────────
-    @PostMapping("/reset-password")
+   @PostMapping("/reset-password")
     public ResponseEntity<?> resetPassword(@RequestParam String token, @RequestParam String nuevaContrasena) {
-        Usuario usuario = verificationTokenService.verificarTokenRecuperacion(token);
-        if (usuario == null) {
+        var vTokenOpt = verificationTokenService.validateToken(token);
+        if (vTokenOpt.isEmpty()) {
             return ResponseEntity.badRequest().body("Token inválido o expirado");
         }
 
-        usuarioService.actualizarContrasena(usuario.getId(), nuevaContrasena);
-        return ResponseEntity.ok("Contraseña actualizada correctamente.");
-    }
+        VerificationToken vToken = vTokenOpt.get();
+        Usuario usuario = vToken.getUsuario();
 
-    // ─── LOGIN RESPONSE ─────────────────────────
+        usuarioService.actualizarContrasena(usuario.getId(), nuevaContrasena);
+        verificationTokenService.deleteToken(vToken);
+
+        return ResponseEntity.ok("Contraseña actualizada correctamente.");
+
+    }
+    
     public static class LoginResponse {
         private String accessToken;
         private Usuario usuario;

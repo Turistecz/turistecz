@@ -16,7 +16,7 @@ public class EmailService {
     private SendGrid sendGrid;
 
     public void enviarCorreo(String destinatario, String asunto, String contenido) {
-        Email from = new Email("no-reply@turistecz.com");
+        Email from = new Email("pruebasturistecz@gmail.com");
         Email to = new Email(destinatario);
         Content content = new Content("text/plain", contenido);
         Mail mail = new Mail(from, asunto, to, content);
