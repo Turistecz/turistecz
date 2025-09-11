@@ -9,12 +9,12 @@
 <router-outlet></router-outlet>
 
 <!-- Botón flotante -->
-<button class="btn-flotante" (click)="isModalOpen = true">
+<button class="btn-flotante position-fixed border-0 rounded-circle h1 text-light" (click)="isModalOpen = true">
   <i class="fas fa-universal-access"></i>
 </button>
 
 <!-- Modal -->
-<div class="modal" *ngIf="isModalOpen" (click)="isModalOpen = false">
+<div class="modal z-3 d-flex align-items-center justify-content-center" *ngIf="isModalOpen" (click)="isModalOpen = false">
   <div class="modal-content p-4" (click)="$event.stopPropagation()">
     <span class="close" (click)="isModalOpen = false">&times;</span>
 
