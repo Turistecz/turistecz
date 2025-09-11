@@ -501,7 +501,6 @@ async loadFarmacia(): Promise<void> {
   try {
     const datos = await firstValueFrom(this.apiMapService.getFarmacia());
     this.farmacias = datos.features;
-    console.log(this.farmacias);
 
   } catch (error) {
     console.error('Error al cargar farmacias:', error);
