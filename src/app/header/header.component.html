@@ -1,9 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-  <div class="container-fluid h4 mb-0" id="menu">
+  <div class="container-fluid h4 mb-0 mx-4 position-relative d-flex align-items-center" id="menu">
 
-    <!-- Logo -->
+    <!-- Logo izquierda -->
     <a class="navbar-brand" href="#">
-      <img src="turistecz_logo.png" alt="Logo" width="200"> <!--id="logo"-->
+      <img src="turistecz_logo.png" alt="Logo" width="200">
     </a>
 
     <!-- Botón hamburguesa -->
@@ -11,42 +11,38 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Menú colapsable -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav nav-center justify-content-lg-center w-100 gap-5">
+    <!-- Menú centrado horizontal -->
+    <div class="collapse navbar-collapse justify-content-center position-absolute start-50 translate-middle-x" id="navbarNav">
+      <ul class="navbar-nav gap-5">
         <li class="nav-item"><a class="nav-link active" href="sitios">Sitios</a></li>
         <li class="nav-item"><a class="nav-link active" href="rutas">Rutas</a></li>
         <li class="nav-item"><a class="nav-link active" href="eventos">Eventos</a></li>
         <li class="nav-item"><a class="nav-link active" href="alojamientos">Alojamientos</a></li>
       </ul>
+    </div>
 
-      <div class="d-flex align-items-center gap-2 ms-lg-auto mt-2 mt-lg-0">
+    <!-- Login/Perfil derecha -->
+    <div class="d-flex align-items-center gap-2 ms-auto mt-2 mt-lg-0">
 
-        <!-- No logueado -->
-        <div *ngIf="!logueado; else logueadoTemplate">
-          <a class="nav-link active" href="/login">
-            <i title="Acceso/Login" class="bi bi-person-circle fs-2"></i>
-          </a>
-        </div>
+      <!-- No logueado -->
+      <div *ngIf="!logueado; else logueadoTemplate">
+        <a class="nav-link active" href="/login">
+          <i title="Acceso/Login" class="bi bi-person-circle fs-2"></i>
+        </a>
+      </div>
 
-        <!-- Logueado -->
-        <ng-template #logueadoTemplate>
-          <div class="d-flex align-items-center gap-2">            
-             <span class="nav-link active fw-bold"><a class="text-reset text-decoration-none" href="/mi-perfil"> Perfil </a></span>
-            <button class="btn btn-outline-danger btn-sm" (click)="onLogout()">
-              <i class="bi bi-box-arrow-right"></i> Logout
-            </button>
-          </div>
-        </ng-template>
-
-        <div class="input-group search-responsive">
-          <input type="text" class="form-control" placeholder="Buscar">
-          <button class="btn btn-outline-secondary" type="button">
-            <i class="bi bi-search"></i>
+      <!-- Logueado -->
+      <ng-template #logueadoTemplate>
+        <div class="d-flex align-items-center gap-2">            
+          <span class="nav-link active fw-bold">
+            <a class="text-reset text-decoration-none" href="/mi-perfil">Perfil</a>
+          </span>
+          <button class="btn btn-outline-danger btn-sm" (click)="onLogout()">
+            <i class="bi bi-box-arrow-right"></i>
           </button>
         </div>
-
-      </div>
+      </ng-template>
     </div>
+
   </div>
 </nav>
