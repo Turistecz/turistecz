@@ -15,6 +15,10 @@ export interface textoDetails{
 
 }
 
-
-
+export interface mapRoute {
+  idSitio: number,
+  nombre: string,
+  longitud: number,
+  latitud: number
+}
 
