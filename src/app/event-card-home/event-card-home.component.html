@@ -13,7 +13,7 @@
     </div>
   </div>
 
-            <!--El carrusel en pantallas grandes y medianas-->
+      <!--El carrusel en pantallas grandes y medianas-->
   <div id="eventsCarousel" class="carousel slide carousel-dark d-none d-sm-block" data-bs-ride="true">
     <div class="carousel-inner">
       <div class="carousel-item  active" data-bs-interval="5000"  *ngFor="let events of eventGroups; let i = index" [class.active]="i === 0" >
@@ -31,5 +31,11 @@
         <span class="carousel-control-next-icon "></span>
       </button>
     </div>
+    
+    <div class="text-center my-5">
+      <a href="/rutas">
+        <button type="button" class="btn-routes btn btn-primary fs-5">Ver más</button>
+      </a>
+    </div> 
 </div>
 

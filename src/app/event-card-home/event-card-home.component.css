@@ -8,7 +8,6 @@ h2{
 .btn-routes {   
     background: linear-gradient( #184591, #2A8BEA);
     font-family: "inclusive", system-ui;
-    /* font-weight: 500;    */
 }  
 
 .btn-routes:hover {
