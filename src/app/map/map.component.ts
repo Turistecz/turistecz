@@ -181,19 +181,8 @@ private initMap(): void {
 async getRoute() {
   const latlng = this.getSiteCoords();
 
-  const service = 'route';
-  const version = 'v1';
-  const profile = 'foot';
-  const host = 'http://localhost:5000';
-
-  const siteCoords = [L.latLng(latlng).lng, L.latLng(latlng).lat];
-  const userCoords = [L.latLng(this.userLatLong).lng, L.latLng(this.userLatLong).lat];
-  const allCoords = (userCoords + ';' + siteCoords).toString();
-
-  const url = host + '/' + service + '/' + version + '/' + profile + '/' + allCoords + '?overview=full&steps=true&geometries=geojson';
-
   try {
-    const datos = await firstValueFrom(this.http.get<MapRouteItem>(url));
+    const datos = await firstValueFrom(this.apiMapService.getRoute(latlng, this.userLatLong));
     this.route = datos;
     this.visualRouteLine();
 
@@ -474,7 +463,7 @@ async loadTaxiStops(): Promise<void> {
     this.taxiStops = datos.features;
 
   } catch (error) {
-    console.error('Error al cargar monumentos:', error);
+    console.error('Error al cargar paradas de taxi:', error);
   }
 }
 
@@ -484,7 +473,7 @@ async loadTramStops(): Promise<void> {
     this.tramStops = datos.features;
 
   } catch (error) {
-    console.error('Error al cargar monumentos:', error);
+    console.error('Error al cargar paradas de tranvía:', error);
   }
 }
 
@@ -494,10 +483,9 @@ async loadBusStops(): Promise<void> {
     this.busStops = datos.features;
 
   } catch (error) {
-    console.error('Error al cargar monumentos:', error);
+    console.error('Error al cargar paradas de bus:', error);
   }
 }
-
 
 async loadAdapParking(): Promise<void> {
   try {
@@ -505,7 +493,7 @@ async loadAdapParking(): Promise<void> {
     this.adapParking = datos.features;
 
   } catch (error) {
-    console.error('Error al cargar monumentos:', error);
+    console.error('Error al cargar parkings adaptados:', error);
   }
 }
 
@@ -513,9 +501,10 @@ async loadFarmacia(): Promise<void> {
   try {
     const datos = await firstValueFrom(this.apiMapService.getFarmacia());
     this.farmacias = datos.features;
+    console.log(this.farmacias);
 
   } catch (error) {
-    console.error('Error al cargar monumentos:', error);
+    console.error('Error al cargar farmacias:', error);
   }
 }
 
