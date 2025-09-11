@@ -3,32 +3,6 @@ h2{
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
     font-weight:700;
     font-size: 4rem;
-    /* text-align: center; */
-    /* padding-top: 1rem; */
-    /* padding-bottom: 1rem */
-}
-
-.event-card-list {
-    /* width: 25%; */
-
-     @media (max-width: 767px) 
-    {
-        width: 80%;
-        justify-self: center;
-        margin-bottom: 1rem;
-    }
-} 
-
-.main-card{
-   /* justify-content: center;  */
-   /* position: relative; */
-   /* margin-top: 1rem; */
-   /* margin-bottom: 2rem; */
-   @media (max-width: 767px) {
-        display: block;
-        justify-content: center;
-        margin-bottom: 10%;
-    }
 }
 
 .btn-routes {   
@@ -42,4 +16,5 @@ h2{
   @media (max-width: 767px){
     transform: scale(1);
   }
+
 }
