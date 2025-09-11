@@ -124,13 +124,17 @@ if (!$result) {
         <?php endif; ?>
 
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2><i class="fas fa-list"></i> Sitios Turísticos</h2>
+        <h2><i class="fas fa-list"></i> Sitios Turísticos</h2>
             <div>
-                <a href="insert-sitios.php" class="btn btn-primary me-2">
-                    <i class="fas fa-plus"></i> Nuevo sitio
+                <a href="insert-ruta.php" class="btn btn-primary me-2">
+                    <i class="fas fa-route"></i> Nueva ruta
+                </a>
+                <a href="insert-sitios.php" class="btn btn-primary">
+                    <i class="fas fa-map-marker-alt"></i> Nuevo sitio
                 </a>
             </div>
         </div>
+                
 
         <div class="card shadow-sm">
             <div class="card-body">
