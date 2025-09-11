@@ -1,16 +1,16 @@
-<h2 id="tituloSitiosHome">Sitios</h2>
+<h2 class="py-5" id="tituloSitiosHome">Sitios</h2>
 <div class="container">
-  <div class="row">
-    <div class="col-12 col-md-3 ">
+  <div class="row ">
+    <div class="col-12 col-md-3">
       <app-filter [places]="cards" [categories]="categoriesSites" [categoryKeywords]="categorySitesKeywords" 
       (filteredCards)="updatePlaces($event)" (noResultsPlacesEvent)="noResultsPlaces = $event"></app-filter>
     </div>
 
-  <div class="containerCard col-12 col-md-9" *ngIf="sortedCards.length > 0">
-    <div *ngFor="let cardHome of pagedPlaces">
-      <app-one-place-card [data]="cardHome"></app-one-place-card>
+    <div class="containerCard col-12 col-md-9 px-4" *ngIf="sortedCards.length > 0">
+      <div *ngFor="let cardHome of sortedCards">
+        <app-one-place-card [data]="cardHome"></app-one-place-card>
+      </div>
     </div>
-  </div>
 
     <div class="containerCard col-12 col-lg-9 d-block justify-content-center" *ngIf="noResultsPlaces">
       <div class="text-center p-4 border rounded bg-light shadow-sm w-100">

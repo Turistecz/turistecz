@@ -46,10 +46,6 @@
   object-fit: cover;
 }
 
- .row{  
-  margin-left: 0;
-  margin-right: 0;
-}
 
 @media (max-width: 1199px) {
   #tituloSitiosHome {

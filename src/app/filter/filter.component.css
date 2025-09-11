@@ -13,6 +13,10 @@
     margin-bottom: 0 !important;
 }
 
+.filtro-lista h5 {
+  font-size: 1.45rem;
+}
+
 .filter-toggle-btn {
   display: none;
   background: rgba(255, 255, 255, 0.2);
@@ -44,11 +48,15 @@
 }
 
 /* Media Queries para pantallas pequeñas (tablets y móviles) */
-@media (max-width: 48rem) {
+@media (max-width: 768px) {
   
   /* Mostrar el botón toggle */
   .filter-toggle-btn {
     display: block;
+  }
+
+  #buscador{
+    border-radius: 0;
   }
   
   /* Header siempre visible */
@@ -65,6 +73,7 @@
     margin-top: 0;
     margin-bottom: 0;
   }
+
   
   /* Contenido expandido */
   .filters-collapsible.expanded {
@@ -72,9 +81,9 @@
     overflow-y: auto; /*Para que pueda hacer scroll*/
     opacity: 1;
     padding-top: clamp(0.75rem, 3vw, 1.5rem);
-    padding-bottom: clamp(0.75rem, 3vw, 1.5rem);
+    /* padding-bottom: clamp(0.75rem, 3vw, 1.5rem); */
     margin-top: clamp(0.5rem, 2vw, 1rem);
-    margin-bottom: clamp(0.5rem, 2vw, 1rem);
+    /* margin-bottom: clamp(0.5rem, 2vw, 1rem); */
   }
   
   /* Ajustes para mejor UX en móvil */
@@ -87,21 +96,16 @@
     padding: clamp(0.5rem, 2vw, 0.75rem);
   }
   
-  .filtro-lista h5 {
-    font-size: clamp(0.9rem, 3.5vw, 1.1rem);
-    margin-bottom: clamp(0.5rem, 2vw, 1rem);
-  }
-  
   .adaptability-group {
     margin-bottom: clamp(1rem, 4vw, 1.5rem) !important;
   }
   
-  .form-check {
-    margin-bottom: clamp(0.4rem, 1.5vw, 0.75rem);
-  }
-  
   .form-check-label {
     font-size: clamp(0.8rem, 3vw, 0.95rem);
+  }
+
+  .show-button{
+    font-size: 1rem;
   }
 
 }
