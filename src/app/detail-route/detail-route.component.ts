@@ -95,7 +95,6 @@ export class DetailRouteComponent {
       longitud: sitio.longitud,
       latitud: sitio.latitud
     }));
-    // console.log('Sitios de esta ruta:', this.mapRoutes);
   }
 
   async ngOnInit(): Promise<void> {
