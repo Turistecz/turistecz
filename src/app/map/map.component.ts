@@ -7,6 +7,7 @@ import { MapService } from '../services/map.service';
 import { AdapParkingItem, BiziItem, BusStopItem, TaxiStopItem, TramStopItem, MapRouteItem, FarmaciaItem } from '../models/map.model';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { mapRoute } from '../models/details-routes';
 
 
 @Component({
@@ -121,7 +122,9 @@ export class MapComponent implements AfterViewInit, OnInit{
 
   name = input("");
 
-
+  /* Rotue Sites*/
+  @Input() routeSites:mapRoute[]=[]; 
+  
   // wait for map to load
   ngAfterViewInit(): void {
     this.initMap();
@@ -154,7 +157,7 @@ export class MapComponent implements AfterViewInit, OnInit{
     });
   }
 
-  getSiteCoords(): L.LatLngExpression{
+  getSiteCoords(): L.LatLngExpression {
     const coords = this.convertCoords(this.data.latitud, this.data.longitud);
     const latlng: L.LatLngExpression = [coords[1], coords[0]]; // [lat, lon]
     return latlng;
@@ -208,6 +211,24 @@ makeLocationMarkers(){
   let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
 
   this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
+
+  /* Route Sites */
+
+  let markersRouteSites: L.Marker[] = 
+  this.routeSites.map((sitio) => {
+    const coords = this.convertCoords(sitio.latitud, sitio.longitud);
+    const latlng: L.LatLngExpression = [coords[1], coords[0]];
+    const marker = L.marker(latlng)
+      .addTo(this.map)
+      .bindPopup(sitio.nombre, {autoClose: false})
+      .openPopup();
+      return marker;
+  });
+
+  let markersRS = L.featureGroup(markersRouteSites).addTo(this.map);
+  this.map.fitBounds(markersRS.getBounds(), {paddingTopLeft: [-80, 0]});
+
+  /* ----- */
 
   //OSRM demo server (old way of getting the route)
   // L.Routing.control({ 
