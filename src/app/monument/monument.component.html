@@ -9,12 +9,12 @@
 </nav>
 <h1 class="title-pag">{{monumentsFiltered[monumentNumber]?.title}}</h1>
 
-    <div class="row pt-4">
+    <div class="row pt-4 align-items-center">
         <div  class="col-12 col-md-6">
             <img [src]="monumento.imagenes[0].url" id="imagen-intro" class="w-100">
         </div>
-               
-        <div *ngIf="monumentsFiltered[monumentNumber]?.horario" id="horario" class="col-12 col-md-4 d-flex p-1">
+        <div class="col-0 col-md-1"></div>
+        <div *ngIf="monumentsFiltered[monumentNumber]?.horario" id="horario" class="col-12 col-md-5 p-3 p-md-5 d-flex text-center align-items-center">
             <h2>Horario</h2>
             <p id="horarioP">{{cleanHorario}}</p></div>
         
@@ -35,7 +35,7 @@
             
             <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 align-items-center ps-4 justify-content-left mb-2">
                 <i [ngClass]="['fas', category.icon, 'text-light']"></i>
-                <p class="m-0">
+                <p class="m-0 words">
                     {{category.label}}
                     <!--Para que aparezca un icono de "bajo petición" En el caso de que el valor sea ese-->
                     <i *ngIf="category.info" class="fas fa-info-circle ms-1" title="Bajo petición"></i>
@@ -46,8 +46,11 @@
     </div>
        
     <div  class="row pt-3">
-        <div class="col-12 col-md-6"> 
-            <a class="btn btn-primary" href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a> <!--id="boton-info" -->
+        <div class="col-12 col-md-6">
+            <div class="text-center text-md-start mt-4">
+                 <a class="btn btn-primary " href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a> <!--id="boton-info" -->
+            </div> 
+           
             <br><br><br>
             <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
                 <h2> Contacto </h2>
