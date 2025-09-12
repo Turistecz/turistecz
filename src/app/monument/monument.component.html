@@ -17,8 +17,7 @@
         <div *ngIf="monumentsFiltered[monumentNumber]?.horario" id="horario" class="col-12 col-md-5 p-3 p-md-5 d-flex text-center align-items-center">
             <h2>Horario</h2>
             <p id="horarioP">{{cleanHorario}}</p></div>
-        
-    </div>
+        </div>
     
     <div class="row pt-5 row">
         
@@ -65,30 +64,17 @@
             <div *ngIf="monumentsFiltered[monumentNumber]?.price">
                 <h2 class="precio"> Precio </h2>
                 <p id="textPrice">{{cleanPrice}}</p>
-            
             </div>
-        <!-- <h2> Enlaces de interés </h2>
-            hay que poner un ngFor para que cada-->
-        
         </div>
     </div>
    
     <div class="row pt-6">
         <div class="local col-12 col-md-12">
-        <h2 >Localización</h2>
-        <br>
-        <app-map [data]="coords" [name]="monumentsFiltered[monumentNumber].title"></app-map>
+            <h2 >Localización</h2>
+            <br>
+            <app-map [data]="coords" [name]="monumentsFiltered[monumentNumber].title"></app-map>
         </div>
         
     </div>
 
 </div>
-<!--
-<p>{{data.title}}</p>
-<p>{{data.description}}</p>
-<p>{{data.address}}</p>
-<p>{{data.horario}}</p>
-<p>{{data.phone}}</p>
-<p>{{data.price}}</p>
-<p>{{data.uri}}</p>
--->
