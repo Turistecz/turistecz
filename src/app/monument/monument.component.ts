@@ -26,6 +26,8 @@ export class MonumentComponent implements OnInit {
   monumentsFiltered: MonumentItem[] = [];
   monumentsNames: string[] = [];
 
+  adaptabilityCategories: { icon: string; label: string }[] = [];
+
 
   monumento: MonumentItem = {
     id: 0,
@@ -103,6 +105,49 @@ export class MonumentComponent implements OnInit {
     }
   }
 
+  async loadAdaptabilityCategories(): Promise<void> {
+    this.adaptabilityCategories = []; //Cada vez que se llama se "limpia" para que no haya resultados duplicados
+
+    // Mapeo: cada campo de monumento indicando icono + texto a mostrar
+    const mapping: Record<string, { icon: string; label: string }> = {
+      rampas: { icon: "fa-wheelchair", label: "Rampas de acceso" },
+      ascensores: { icon: "fa-elevator", label: "Ascensor" },
+      puertas_automaticas: { icon: "fa-door-open", label: "Puertas automáticas" },
+      escaleras_mecanicas: { icon: "fa-ellipsis-v", label: "Escaleras mecánicas" },
+      servicios_adaptados: { icon: "fa-restroom", label: "Servicios adaptados" },
+      sala_lactancia: { icon: "fa-baby", label: "Sala de lactancia" },
+      cambiador: { icon: "fa-baby-carriage", label: "Cambiador" },
+      parking_adaptado: { icon: "fa-parking", label: "Parking adaptado" },
+      bancos: { icon: "fa-chair", label: "Bancos" },
+      mostrador_adaptado: { icon: "fa-concierge-bell", label: "Mostrador adaptado" },
+      sin_barreras_arquitectonicas: { icon: "fa-universal-access", label: "Sin barreras arquitectónicas" },
+      braille: { icon: "fa-braille", label: "Información en braille" },
+      interprete_lengua_signos: { icon: "fa-hands", label: "Intérprete lengua de signos" },
+      videos_subtitulos: { icon: "fa-closed-captioning", label: "Vídeos con subtítulos" },
+      ayudas_visuales: { icon: "fa-low-vision", label: "Ayudas visuales" },
+      guias_turisticos_multiidioma: { icon: "fa-language", label: "Guías turísticos multiidioma" },
+      elementos_audiovisuales_multiidioma: { icon: "fa-film", label: "Elementos audiovisuales multiidioma" },
+      documentacion_multiidioma: { icon: "fa-book", label: "Documentación multiidioma" },
+      visitas_grupales: { icon: "fa-users", label: "Visitas grupales" },
+      ayuda_movilidad: { icon: "fa-walking", label: "Ayuda movilidad" },
+      lenguaje_simple: { icon: "fa-comment", label: "Lenguaje simple" },
+      acceso_perros_guias: { icon: "fa-dog", label: "Acceso perros guías" },
+      acceso_perros_asistencia: { icon: "fa-dog", label: "Acceso perros de asistencia" }
+    };
+
+    // Recorremos todas las propiedades definidas en el mapping
+    for (const key in mapping) {
+      const value = (this.monumento as any)[key];
+      //solo se muestran si el registro de cana servicio es "si" o "bajo peticion"
+      if (
+        value === EnumServiciosAdaptabilidad.si ||
+        value === EnumServiciosAdaptabilidad.bajo_peticion
+      ) {
+        this.adaptabilityCategories.push(mapping[key]);
+      }
+    }
+  }
+
   removeHTMLTags(text: string): string {
     return text ? text.replace(/<[^>]*>/g, '').trim() : "";
   }
@@ -127,6 +172,7 @@ export class MonumentComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.loadImages();
     await this.loadMonuments();
+    await this.loadAdaptabilityCategories();
    
     this.apiConnectService.getMonumentsNames().subscribe(data => {
       data.map(monumento => this.monumentsNames.push(monumento.nombre));
