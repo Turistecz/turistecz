@@ -35,7 +35,11 @@
             
             <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 align-items-center justify-content-center mb-2">
                 <i [ngClass]="['fas', category.icon, 'text-light']"></i>
-                <p class="m-0">{{category.label}}</p>
+                <p class="m-0">
+                    {{category.label}}
+                    <!--Para que aparezca un icono de "bajo petición" En el caso de que el valor sea ese-->
+                    <i *ngIf="category.info" class="fas fa-info-circle ms-1" title="Bajo petición"></i>
+                </p>
             </div>
    
         </div>
