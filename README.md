@@ -220,6 +220,7 @@ Si se quiere iniciar otro día, con todo instalado:
 sudo docker run -t -i -p 5000:5000 -v "${PWD}:/data" ghcr.io/project-osrm/osrm-backend osrm-routed --algorithm mld /data/aragon-latest.osrm
 ```
 5. Deberá haber aparecido un container en la aplicación de Docker y en la terminal la última linea deberá poner "running and waiting for requests".
+6. En el caso de que de error, comprobar si la aplicación de Docker tiene alguna actualización, cerrar la terminal y repetir los pasos.
 
 Si se quiere cerrar/cancelar el server utilizar ctrl+C en la terminal o parar/eliminar el contenedor en Docker.
 
