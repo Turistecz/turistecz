@@ -14,14 +14,30 @@ if ($msg == 'agregado') {
 } elseif ($msg == 'editado') {
     $mensaje = 'Sitio actualizado correctamente.';
 }
+// Configuración de paginación
+$por_pagina = 20;
+$pagina_actual = max(1, intval($_GET['pagina'] ?? 1));
+$offset = ($pagina_actual - 1) * $por_pagina;
 
-// Consulta: obtener todos los sitios
-$sql = "SELECT * FROM sitio";
-$result = $conn1->query($sql);
+// Contar total de registros
+$total_sql = "SELECT COUNT(*) as total FROM sitio";
+$total_result = $conn1->query($total_sql);
+$total_row = $total_result->fetch_assoc();
+$total_sitios = $total_row['total'];
+$total_paginas = ceil($total_sitios / $por_pagina);
+
+// Obtener sitios para la página actual
+$sql = "SELECT * FROM sitio LIMIT ? OFFSET ?";
+$stmt = $conn1->prepare($sql);
+$stmt->bind_param("ii", $por_pagina, $offset);
+$stmt->execute();
+$result = $stmt->get_result();
 
 if (!$result) {
     die("Error en la consulta: " . $conn1->error);
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -220,6 +236,29 @@ if (!$result) {
                                 <?php endwhile; ?>
                             </tbody>
                         </table>
+                        <!-- Paginación -->
+<div class="pagination-container mt-4">
+    <nav aria-label="Paginación">
+        <ul class="pagination justify-content-center">
+            <!-- Anterior -->
+            <li class="page-item <?= $pagina_actual <= 1 ? 'disabled' : '' ?>">
+                <a class="page-link" href="?pagina=<?= $pagina_actual - 1 ?>">&laquo;</a>
+            </li>
+
+            <!-- Números -->
+            <?php for ($i = 1; $i <= $total_paginas; $i++): ?>
+                <li class="page-item <?= $i == $pagina_actual ? 'active' : '' ?>">
+                    <a class="page-link" href="?pagina=<?= $i ?>"><?= $i ?></a>
+                </li>
+            <?php endfor; ?>
+
+            <!-- Siguiente -->
+            <li class="page-item <?= $pagina_actual >= $total_paginas ? 'disabled' : '' ?>">
+                <a class="page-link" href="?pagina=<?= $pagina_actual + 1 ?>">&raquo;</a>
+            </li>
+        </ul>
+    </nav>
+</div>
                     <?php endif; ?>
 
     <script>
