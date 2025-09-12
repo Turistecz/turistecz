@@ -1,7 +1,7 @@
 
 <div class="container my-5 ">
   <div class="row cards-grid g-4 text-center"> 
-    <div class="col-12 col-md-6 col-lg-4 d-flex " *ngFor="let a of items">
+    <div class="col-12 col-md-6 col-lg-4 d-flex " *ngFor="let a of pagedItems">
      <div class="card card-blue text-light flex-fill p-3">
       <h4 class="card-title text-light mb-2 fw-bold">{{ a.title }}</h4>
         <div class="card-body fw-semibold mt-3 mt-3">
@@ -14,6 +14,18 @@
    </div>
 </div>
 </div>
+
+<!-- 🔹 Paginador -->
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center mt-4">
+      <app-pagination
+        [page]="page"
+        [pageSize]="pageSize"
+        [totalItems]="items.length"
+        (pageChange)="onPageChange($event)">
+      </app-pagination>
+    </div>
+  </div>
 
 
 
