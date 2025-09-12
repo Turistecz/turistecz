@@ -2,6 +2,7 @@ a{
     text-decoration: none;
 }
 
+
 img{ 
     object-fit: cover;
     width: 100%;
@@ -42,17 +43,3 @@ img{
 .card-body-r{
     background-color: #184591;;
 }
-
-img{
-    object-fit: cover;
-}
-
-.card-title {
-    color: #184591;
-    font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-}
-
-.card-subtitle{
-    font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-}
-
