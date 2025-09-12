@@ -26,7 +26,7 @@ export class MonumentComponent implements OnInit {
   monumentsFiltered: MonumentItem[] = [];
   monumentsNames: string[] = [];
 
-  adaptabilityCategories: { icon: string; label: string }[] = [];
+  adaptabilityCategories: any[] = [];
 
 
   monumento: MonumentItem = {
@@ -105,10 +105,9 @@ export class MonumentComponent implements OnInit {
     }
   }
 
-  async loadAdaptabilityCategories(): Promise<void> {
-    this.adaptabilityCategories = []; //Cada vez que se llama se "limpia" para que no haya resultados duplicados
+ async loadAdaptabilityCategories(): Promise<void> {
+    this.adaptabilityCategories = []; // Limpiamos cada vez que se carga
 
-    // Mapeo: cada campo de monumento indicando icono + texto a mostrar
     const mapping: Record<string, { icon: string; label: string }> = {
       rampas: { icon: "fa-wheelchair", label: "Rampas de acceso" },
       ascensores: { icon: "fa-elevator", label: "Ascensor" },
@@ -135,18 +134,24 @@ export class MonumentComponent implements OnInit {
       acceso_perros_asistencia: { icon: "fa-dog", label: "Acceso perros de asistencia" }
     };
 
-    // Recorremos todas las propiedades definidas en el mapping
     for (const key in mapping) {
       const value = (this.monumento as any)[key];
-      //solo se muestran si el registro de cana servicio es "si" o "bajo peticion"
-      if (
-        value === EnumServiciosAdaptabilidad.si ||
-        value === EnumServiciosAdaptabilidad.bajo_peticion
-      ) {
-        this.adaptabilityCategories.push(mapping[key]);
+
+      if (value === EnumServiciosAdaptabilidad.si) {
+        this.adaptabilityCategories.push({
+          icon: mapping[key].icon,
+          label: mapping[key].label,
+          info: false
+        });
+      } else if (value === EnumServiciosAdaptabilidad.bajo_peticion) {
+        this.adaptabilityCategories.push({
+          icon: mapping[key].icon,
+          label: mapping[key].label,
+          info: true
+        });
       }
     }
-  }
+}
 
   removeHTMLTags(text: string): string {
     return text ? text.replace(/<[^>]*>/g, '').trim() : "";
