@@ -19,6 +19,11 @@
   font-size: large;
 }
 
+.words{
+  font-size: 1.01rem;
+}
+
+
 #access{    
   background-color: rgba(26, 73, 202, 0.795);
   height: fit-content;
@@ -39,7 +44,6 @@
   }
 
   #horario,
-  #descripcion,
   #access,
   #contacto,
   .direccion,
@@ -56,6 +60,10 @@
     margin-left: auto;
     margin-right: auto;
     width: 45%;
+  }
+  #descripcion{
+    width: 80%;
+    margin-left: 2.5rem;
   }
 
   /* Asegura que la imagen no se desborde y esté centrada */
