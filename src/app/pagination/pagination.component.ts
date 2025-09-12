@@ -34,6 +34,15 @@ export class PaginationComponent {
 
     return pages;
   }
+
+      get startIndex(): number {
+      return (this.page - 1) * this.pageSize + 1;
+    }
+
+    get endIndex(): number {
+      return Math.min(this.page * this.pageSize, this.totalItems);
+    }
+
     onPageChange(newPage: number) {
     this.page = newPage;
     window.scrollTo({ top: 0, behavior: 'smooth' });

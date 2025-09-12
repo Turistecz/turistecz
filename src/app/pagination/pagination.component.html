@@ -21,8 +21,8 @@
 </nav>
 
 <p class="text-muted text-center w-100">
-  Mostrando <strong>{{ Math.min(pageSize, totalItems - (page-1)*pageSize) }}</strong>
-  de
-  <strong>{{ totalItems }}</strong> elementos — Página
-  <strong>{{ page }}</strong> de <strong>{{ totalPages }}</strong>
+  Mostrando del <strong>{{ startIndex }}</strong> al
+  <strong>{{ endIndex }}</strong> de
+  <strong>{{ totalItems }}</strong> elementos —
+  Página <strong>{{ page }}</strong> de <strong>{{ totalPages }}</strong>
 </p>
