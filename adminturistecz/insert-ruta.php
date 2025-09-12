@@ -1,5 +1,5 @@
 <?php
-include 'db.php'; // Asegúrate de que este archivo tiene $conn1 para turistecz
+include 'db.php'; 
 session_start();
 
 if (!isset($_SESSION['user'])) {
@@ -7,7 +7,7 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-// Obtener todos los sitios
+
 $sql_sitios = "SELECT id, nombre FROM sitio ORDER BY nombre";
 $result_sitios = $conn1->query($sql_sitios);
 
@@ -20,12 +20,12 @@ while ($row = $result_sitios->fetch_assoc()) {
     $sitios[] = $row;
 }
 
-// Procesar formulario
+
 $success = $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        // Datos básicos de la ruta
+
         $nombre = htmlspecialchars(trim($_POST['nombre']));
         $descripcion = htmlspecialchars(trim($_POST['descripcion']));
         $duracion = htmlspecialchars(trim($_POST['duracion']));
@@ -36,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             throw new Exception("El nombre de la ruta es obligatorio.");
         }
 
-        // Insertar ruta
         $sql_ruta = "INSERT INTO ruta (nombre, descripcion, duracion, imagen_destacada, subtitulo) VALUES (?, ?, ?, ?, ?)";
         $stmt_ruta = $conn1->prepare($sql_ruta);
         $stmt_ruta->bind_param("sssss", $nombre, $descripcion, $duracion, $imagen_destacada, $subtitulo);
@@ -47,7 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $id_ruta = $conn1->insert_id;
 
-        // Insertar sitios de la ruta
         if (isset($_POST['sitios']) && is_array($_POST['sitios'])) {
             $sql_sitio_ruta = "INSERT INTO sitios_ruta (id_ruta, id_sitio, orden, texto) VALUES (?, ?, ?, ?)";
             $stmt_sr = $conn1->prepare($sql_sitio_ruta);
@@ -67,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $_SESSION['msg'] = "Ruta creada correctamente.";
-        header("Location: select-sitios.php"); // o donde quieras redirigir
+        header("Location: select-sitios.php"); 
         exit();
 
     } catch (Exception $e) {
@@ -144,12 +142,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="form-container">
             <h2 class="mb-4 text-center"><i class="fas fa-route"></i> Crear Nueva Ruta</h2>
 
-            <?php if (isset($error)): ?>
-                <div class="alert alert-danger"><?= $error ?></div>
+            <?php if (!empty($error)): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i> <?= htmlspecialchars($error) ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
             <?php endif; ?>
 
             <form method="POST" id="form-ruta">
-                <!-- Datos generales -->
+               
                 <div class="mb-3">
                     <label class="form-label">Nombre *</label>
                     <input type="text" name="nombre" class="form-control" required>
@@ -173,12 +174,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <hr>
 
-                <!-- Sitios de la ruta -->
+                
                 <h5><i class="fas fa-map-marker-alt"></i> Sitios incluidos</h5>
                 <p class="text-muted">Agrega los sitios que formarán parte de esta ruta.</p>
 
                 <div id="sitios-container">
-                    <!-- Aquí se agregarán dinámicamente los sitios -->
+                   
                 </div>
 
                 <button type="button" class="add-sitio-btn mb-4" onclick="agregarSitio()">
@@ -226,7 +227,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             sitioIndex++;
         }
 
-        // Inicializar al menos un sitio
+   
         document.addEventListener('DOMContentLoaded', () => {
             agregarSitio();
         });
