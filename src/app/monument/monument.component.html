@@ -29,32 +29,13 @@
         </div>
         <div class="col-1"></div>
 
-        <div id="access" class="col-12 col-md-3 p-4 rounded">
+        <div id="access" class="col-12 col-md-3 p-4 rounded deleteBoxSizing">
             <h2>Accesibilidad</h2>
             <br>
-            <div class="d-inline-flex column-gap-2"> <!--iconos_sitio -->
-                <img src="icono_silla.svg">
-                <p class="m-0">Texto de base de datos</p>
-            </div>
-             <div class="d-inline-flex column-gap-2"> <!--iconos_sitio -->
-                <img src="icono_silla.svg">
-                <p class="m-0">Texto de base de datos</p>
-            </div>
-             <div class="d-inline-flex column-gap-2"> <!--iconos_sitio -->
-                <img src="icono_silla.svg">
-                <p  class="m-0">Texto de base de datos</p>
-            </div>
-              <div class="d-inline-flex column-gap-2"> <!--iconos_sitio -->
-                <img src="icono_silla.svg">
-                <p class="m-0">Texto de base de datos</p>
-            </div>
-              <div class="d-inline-flex column-gap-2"> <!--iconos_sitio -->
-                <img src="icono_silla.svg">
-                <p class="m-0">Texto de base de datos</p>
-            </div>
-              <div class="d-inline-flex column-gap-2"> <!--iconos_sitio -->
-                <img src="icono_silla.svg">
-                <p class="m-0">Texto de base de datos</p>
+            
+            <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 align-items-center justify-content-center mb-2">
+                <i [ngClass]="['fas', category.icon, 'text-light']"></i>
+                <p class="m-0">{{category.label}}</p>
             </div>
    
         </div>
