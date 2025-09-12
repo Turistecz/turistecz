@@ -176,7 +176,7 @@ sudo apt update && sudo apt upgrade
 6. Escribir "y" para decir que sí al mensaje que salga.
 7. Cuando termine salir de Linux escribiendo "exit" y, en la terminal de Windows, escribir:
 ``` bash
-wsl --set default-version 2
+wsl --set-default-version 2
 ```
 8. Descargar docker: https://docs.docker.com/desktop/setup/install/windows-install/
 9. Instalar, marcar las dos opciones si no lo están por defecto.
