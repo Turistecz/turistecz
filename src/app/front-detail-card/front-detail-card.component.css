@@ -1,9 +1,5 @@
-.sobreponer{
-    position: relative;
-}
-
 .route-title{
-    position: absolute;
+    bottom: 0;
     background-color: rgba(255, 255, 255, 0.7);
 }
 
@@ -23,3 +19,4 @@ img{
 .card-subtitle{
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
 }
+
