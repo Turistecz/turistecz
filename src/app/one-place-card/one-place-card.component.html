@@ -1,5 +1,7 @@
+
+  <div class="row"> 
 <a [routerLink]="['/sitios', data.id]" class="text-decoration-none text-reset">
-  <div class="card text-white col-12 col-md-3 overflow-hidden w-100 mw-100" id="cardPlace">
+  <div class="card text-white col-12 col-md-3 overflow-hidden w-100" id="cardPlace">
     <img [src]="data.url" class="card-img h-100 object-fit-cover" [alt]="data.nombre">
      <button class="btn btn-light favorito-btn position-absolute rounded-circle d-flex align-items-center justify-content-center z-2" (click)="toggleFavorito(data); $event.preventDefault(); $event.stopPropagation();"> 
        <i class="bi"[ngClass]="data.esFavorito ? 'bi-star-fill text-warning' : 'bi-star text-secondary'"></i>
@@ -9,3 +11,8 @@
     </div>    
   </div>
 </a>
+ </div>
+ 
+
+<!--<button class="mt-1 boton bi bi-star" (click)="toggleFavorito(data)"> 
+  {{ data.esFavorito ? 'Quitar de favoritos' : 'Añadir a favoritos' }}-->

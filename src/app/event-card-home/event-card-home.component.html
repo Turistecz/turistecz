@@ -1,8 +1,15 @@
 
+<<<<<<< HEAD
 <div class="main-card container mb-5">
   <div class="row">
     <div class="col-12">
       <h2 class="text-center py-3">Eventos</h2>
+=======
+<div class="main-card row justify-content-center">
+  <h3 class="text-center py-3"> Eventos</h3>
+    <div class="event-card-list col-12 col-md-6 col-lg-4 w-25 p-3" *ngFor="let event of pagedEvents.slice(0,3); let i = index">
+      <app-event-card [data]="event" [bg]="i % 2 === 0"></app-event-card>
+>>>>>>> 5e06b1d (fixes and improved responsivenes on the home page)
     </div>
   </div>
 
