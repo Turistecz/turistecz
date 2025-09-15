@@ -52,8 +52,8 @@ if (!$result) {
         body {
             background: #f4f6f9;
         }
-        .navbar {
-            background: #2c3e50;
+       .navbar {
+            background: #31927aff;
         }
         .navbar-brand, .nav-link {
             color: white !important;
@@ -236,6 +236,16 @@ if (!$result) {
                                 <?php endwhile; ?>
                             </tbody>
                         </table>
+                        <!-- Mensaje de paginación -->
+<div class="text-muted small text-center mb-3">
+    <?php
+    $inicio = ($pagina_actual - 1) * $por_pagina + 1;
+    $fin = min($pagina_actual * $por_pagina, $total_sitios);
+    ?>
+    Mostrando del <strong><?= number_format($inicio) ?></strong> al <strong><?= number_format($fin) ?></strong> 
+    de <strong><?= number_format($total_sitios) ?></strong> sitios
+    página <?= $pagina_actual ?> de <?= $total_paginas ?>
+</div>
                         <!-- Paginación -->
 <div class="pagination-container mt-4">
     <nav aria-label="Paginación">
