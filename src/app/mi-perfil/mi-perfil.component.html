@@ -1,32 +1,41 @@
 <div class="d-flex align-items-start">
   <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#v-pills-home">Mis Sitios</button>
-    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-routes">Mis Rutas</button>
-    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-events">Mis Eventos</button>
-    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#v-pills-chatbot">Chatbot</button>
+    <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Mis Sitios</button>
+    <button class="nav-link" id="v-pills-routes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-routes" type="button" role="tab" aria-controls="v-pills-routes" aria-selected="false">Mis Rutas</button>
+    <button class="nav-link" id="v-pills-events-tab" data-bs-toggle="pill" data-bs-target="#v-pills-events" type="button" role="tab" aria-controls="v-pills-events" aria-selected="false">Mis Eventos</button>
+    <button class="nav-link" id="v-pills-chatbot-tab" data-bs-toggle="pill" data-bs-target="#v-pills-chatbot" type="button" role="tab" aria-controls="v-pills-chatbot" aria-selected="false">Chatbot</button>
   </div>
 
-  <div class="tab-content flex-fill">
+  <div class="tab-content flex-fill" id="v-pills-tabContent">
+
     <!-- Mis Sitios -->
-    <div class="tab-pane fade show active" id="v-pills-home">
+    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
       <div class="container">
         <div class="row">
           <div *ngFor="let favorito of favoritos" class="col-12 col-md-3 mb-4">
-            <app-one-place-card [data]="favorito"></app-one-place-card>
+            <app-one-place-card 
+              [data]="favorito" 
+              (favoritoEliminado)="onFavoritoEliminado($event)">
+            </app-one-place-card>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Mis Rutas -->
-    <div class="tab-pane fade" id="v-pills-routes"><p>Aquí irán las rutas...</p></div>
+    <div class="tab-pane fade" id="v-pills-routes" role="tabpanel" aria-labelledby="v-pills-routes-tab">
+      <p>Aquí irán las rutas...</p>
+    </div>
 
     <!-- Mis Eventos -->
-    <div class="tab-pane fade" id="v-pills-events"><p>Aquí irán los eventos...</p></div>
+    <div class="tab-pane fade" id="v-pills-events" role="tabpanel" aria-labelledby="v-pills-events-tab">
+      <p>Aquí irán los eventos...</p>
+    </div>
 
     <!-- Chatbot -->
-    <div class="tab-pane fade" id="v-pills-chatbot">
+    <div class="tab-pane fade" id="v-pills-chatbot" role="tabpanel" aria-labelledby="v-pills-chatbot-tab">
       <div id="landbot-container" style="height:600px;"></div>
     </div>
+
   </div>
 </div>
