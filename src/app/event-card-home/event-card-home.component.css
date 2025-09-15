@@ -15,5 +15,11 @@ h3{
   @media (max-width: 767px){
     transform: scale(1);
   }
-
 }
+
+.carouselButton {
+  width: unset;
+  filter: unset;
+  opacity: unset;
+}
+
