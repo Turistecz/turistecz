@@ -8,20 +8,10 @@
   margin-bottom: 5px;  
 }
 
-.space-hr {
-  border: none;               /* quitamos el estilo por defecto */
-  height: 8px;                /* grosor */
-  background: linear-gradient(to right, #8ee3f7,#2a8dfb); /* degradado */
-  border-radius: 2px;          /* esquinas redondeadas */
-  width: 95%;                  /* más corto que el ancho total */
-  margin: 20px auto;           /* centrado y con espacio arriba/abajo */
-}
-
 .shapeHome {
   overflow: hidden;
   position: relative;
 }
-
 
 .shapeHome::before {
   content: '';
@@ -45,9 +35,9 @@
     right: 5px;  
     top: 40%;
   }
-  #titleHome   { font-size: 30px; }
-  #subtitleHome{ font-size: 12px; }
-  #sloganHome  { font-size: 8px; }
+  #titleHome   { font-size: 40px; }
+  #subtitleHome{ font-size: 18px; }
+  #sloganHome  { font-size: 10px; }
 }
 @media screen and (min-width: 575px) and (max-width: 1200px) {
   .shapeHome .text-box {
@@ -61,16 +51,16 @@
 @media screen and (min-width: 1200px) {
   .shapeHome .text-box {
     right: 10%;
-    top: 25%;
+    top: 30%;
   }
-  #titleHome   { font-size: 100px; }
-  #subtitleHome{ font-size: 50px; }
-  #sloganHome  { font-size: 34px; }
+  #titleHome   { font-size: 90px; }
+  #subtitleHome{ font-size: 45px; }
+  #sloganHome  { font-size: 30px; }
 }
 @media screen and (max-width: 575px) {
   .shapeHome::before {
-    height: 50px;                 /* bajamos altura */
-    background-size: 100% 50px;   /* adaptamos el tamaño */
+    height: 50px;                 
+    background-size: 100% 50px;   
   }
 }
 @media (min-width:2100px){
