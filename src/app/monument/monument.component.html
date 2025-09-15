@@ -29,10 +29,10 @@
         <div class="col-1"></div>
 
         <div id="access" class="col-12 col-md-3 p-4 rounded deleteBoxSizing">
-            <h2>Accesibilidad</h2>
+            <h2 class="text-light">Accesibilidad</h2>
             <br>
             
-            <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 align-items-center ps-4 justify-content-left mb-2">
+            <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 align-items-center ps-4justify-content-left mb-2">
                 <i [ngClass]="['fas', category.icon, 'text-light']"></i>
                 <p class="m-0 words">
                     {{category.label}}
