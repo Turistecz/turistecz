@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background: #f4f6f9;
         }
         .navbar {
-            background: #2c3e50;
+            background: #31927aff;
         }
         .form-label {
             font-weight: 500;

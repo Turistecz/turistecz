@@ -128,15 +128,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .add-sitio-btn:hover {
             background: #218838;
         }
+        .navbar {
+            background: #31927aff;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    
         <nav class="navbar navbar-expand-lg mb-4">
             <div class="container-fluid">
                 <a class="navbar-brand" href="select-sitios.php"><i class="fas fa-arrow-left"></i> Volver</a>
                 <span class="text-white bg-primary px-3 py-2 rounded">Crear Ruta</span>
-            </div>
+            
         </nav>
 
         <div class="form-container">
