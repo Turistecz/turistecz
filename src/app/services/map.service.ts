@@ -3,6 +3,7 @@ import { AdapParkingResponse, BiziResponse, BusInfoResponse, BusStopResponse, Fa
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as L from 'leaflet';
+import { mapRoute } from '../models/details-routes';
 
 @Injectable({
   providedIn: 'root'
@@ -93,8 +94,27 @@ export class MapService {
     const allCoords = (userCoords + ';' + siteCoords).toString();
 
     const url = host + '/' + service + '/' + version + '/' + profile + '/' + allCoords + '?overview=full&steps=true&geometries=geojson';
-
     return this.http.get<MapRouteItem>(url);
   }
 
+  getRouteSites (userLatLong: [number, number], coordsRouted:[[number, number]]):Observable <MapRouteItem> {
+    const service = 'route';
+    const version = 'v1';
+    const profile = 'foot';
+    const host = 'http://localhost:5000';
+  
+    const userCoords = [L.latLng(userLatLong).lng, L.latLng(userLatLong).lat];
+    let arrayR:[[number, number]]=[[0,0]]
+
+    arrayR.shift();
+    arrayR.push([userCoords[0], userCoords[1]])
+    coordsRouted.forEach((item: [number, number]) => {
+      arrayR.push([item[1], item[0]])
+    })
+
+    const allCoords = arrayR.join(";")
+    const url = host + '/' + service + '/' + version + '/' + profile + '/' + allCoords + '?overview=full&steps=true&geometries=geojson';
+
+    return this.http.get<MapRouteItem>(url);
+  }
 }

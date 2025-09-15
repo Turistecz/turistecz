@@ -17,7 +17,10 @@ import { mapRoute } from '../models/details-routes';
 })
 export class MapComponent implements AfterViewInit, OnInit{
 
-  constructor(private apiMapService: MapService, private http: HttpClient) {}
+  constructor(private apiMapService: MapService, private http: HttpClient, element: ElementRef) {
+    const isChildOf = this.hasParent(element, 'app-monument');
+    this.isChild = isChildOf;
+  }
 
   private map: any;
 
@@ -124,6 +127,16 @@ export class MapComponent implements AfterViewInit, OnInit{
 
   /* Rotue Sites*/
   @Input() routeSites:mapRoute[]=[]; 
+
+  isChild:boolean = true;
+
+  private hasParent(element: ElementRef, selector: string): boolean {
+      let parent = element.nativeElement;
+      while(parent = parent.parentElement) {
+          if (parent.matches(selector)) { return true; }
+      }
+      return false;
+  }
   
   // wait for map to load
   ngAfterViewInit(): void {
@@ -165,7 +178,7 @@ export class MapComponent implements AfterViewInit, OnInit{
 
 // function to initialize the map, set the location point
 private initMap(): void {
-  this.map = L.map('map').setView(this.getSiteCoords(), 15); // Zaragoza
+  this.map = L.map('map').setView(this.userLatLong, 15); // Zaragoza
 
   // Limits world map view and scroll to tiles outside the map
   let southWest = L.latLng(-200,-200);
@@ -186,10 +199,21 @@ async getRoute() {
   const latlng = this.getSiteCoords();
 
   try {
+    if (this.isChild) {
     const datos = await firstValueFrom(this.apiMapService.getRoute(latlng, this.userLatLong));
     this.route = datos;
     this.visualRouteLine();
-
+    } else {
+      let coords:[[number, number]] = [[0,0]];
+      coords.shift();
+      this.routeSites.forEach((item: mapRoute) => {
+        let lat = this.convertCoords(item.latitud, item.longitud);
+        coords.push([lat[1], lat[0]]);
+      });
+      const datos = await firstValueFrom(this.apiMapService.getRouteSites(this.userLatLong, coords));
+      this.route = datos;
+      this.visualRouteLine();
+    }
   } catch (error) {
     console.error('Error al cargar la ruta: ', error);
   }
@@ -198,35 +222,44 @@ async getRoute() {
 // creates markers for user and monument location and adjusts the map view to fit both
 //TODO: find alternative to get user location or solution/check for when it doesn't work
 makeLocationMarkers(){
-  const latlng = this.getSiteCoords();
 
-  let userMarker = L.marker(this.userLatLong).addTo(this.map)
-  .bindPopup("Estás aquí", {autoClose: false})
-  .openPopup();
+  if (this.isChild) {
+    const latlng = this.getSiteCoords();
 
-  let monumentMarker = L.marker(latlng).addTo(this.map)
-  .bindPopup(this.name, {autoClose: false})
-  .openPopup();
+    let userMarker = L.marker(this.userLatLong).addTo(this.map)
+    .bindPopup("Estás aquí", {autoClose: false})
+    .openPopup();
 
-  let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
+    let monumentMarker = L.marker(latlng).addTo(this.map)
+    .bindPopup(this.name, {autoClose: false})
+    .openPopup();
 
-  this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
+    let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
 
-  /* Route Sites */
+    this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
+    } else {
 
-  let markersRouteSites: L.Marker[] = 
-  this.routeSites.map((sitio) => {
-    const coords = this.convertCoords(sitio.latitud, sitio.longitud);
-    const latlng: L.LatLngExpression = [coords[1], coords[0]];
-    const marker = L.marker(latlng)
-      .addTo(this.map)
-      .bindPopup(sitio.nombre, {autoClose: false})
-      .openPopup();
-      return marker;
-  });
+    let userMarker = L.marker(this.userLatLong).addTo(this.map)
+    .bindPopup("Estás aquí", {autoClose: false})
+    .openPopup();
 
-  let markersRS = L.featureGroup(markersRouteSites).addTo(this.map);
-  this.map.fitBounds(markersRS.getBounds(), {paddingTopLeft: [-80, 0]});
+    /* Route Sites */
+
+    let markersRouteSites: L.Marker[] = 
+    this.routeSites.map((sitio) => {
+      const coords = this.convertCoords(sitio.latitud, sitio.longitud);
+      const latlng: L.LatLngExpression = [coords[1], coords[0]];
+      const marker = L.marker(latlng)
+        .addTo(this.map)
+        .bindPopup(sitio.nombre, {autoClose: false})
+        .openPopup();
+        return marker;
+    });
+
+    L.featureGroup([userMarker]).addTo(this.map);
+    let markersRS = L.featureGroup(markersRouteSites).addTo(this.map);
+    this.map.fitBounds(markersRS.getBounds(), {paddingTopLeft: [-80, 0]});
+  }
 
   /* ----- */
 
