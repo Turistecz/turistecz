@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             background: #f4f6f9;
         }
         .navbar {
-            background: #2c3e50;
+            background: #31927aff;
         }
         .form-label {
             font-weight: 500;
@@ -174,7 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
 
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="select-sitios.php" class="btn btn-secondary">Cancelar</a>
+                                <a href="select-sitios.php" class="btn btn-danger">Cancelar</a>
                                 <button type="submit" class="btn btn-success">Guardar cambios</button>
                             </div>
                         </form>

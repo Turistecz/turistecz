@@ -189,7 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </button>
 
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <a href="select-sitios.php" class="btn btn-secondary">Cancelar</a>
+                    <a href="select-sitios.php" class="btn btn-danger">Cancelar</a>
                     <button type="submit" class="btn btn-success">Guardar Ruta</button>
                 </div>
             </form>
