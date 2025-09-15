@@ -2,8 +2,6 @@ a{
     text-decoration: none;
 }
 
-<<<<<<< HEAD
-=======
 img{ 
     object-fit: cover;
     width: 100%;
@@ -31,7 +29,6 @@ img{
 
 /* faldon con opacidad para texto */
 
->>>>>>> 5e06b1d (fixes and improved responsivenes on the home page)
 .container-routes:hover{
     transform:scale(1.05);
     transition: transform 0.3s ease-in-out;
