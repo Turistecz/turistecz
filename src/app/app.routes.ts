@@ -66,7 +66,7 @@ export const routes: Routes = [
         loadComponent: () =>
                 import('./mi-perfil/mi-perfil.component').then(m => m.MiPerfilComponent)
     }, 
-      {
+    {
     path: 'alojamientos', 
         loadComponent: () =>
                 import('./accommodation/accommodation.component').then(m => m.AccommodationComponent)
@@ -74,6 +74,6 @@ export const routes: Routes = [
     {
     path: 'recuperar-contrasena',
     loadComponent: () => import('./recuperar-contrasena/recuperar-contrasena.component').then(m => m.RecuperarContrasenaComponent)
-    }     
-
+    }
+  
 ]

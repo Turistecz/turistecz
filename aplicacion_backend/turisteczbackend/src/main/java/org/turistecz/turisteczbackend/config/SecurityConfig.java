@@ -41,7 +41,8 @@ public class SecurityConfig {
                     "/auth/forgot-password",
                     "/auth/reset-password",
                     "/api/sitios/**",
-                    "/api/rutas/**",  
+                    "/api/rutas/**",
+                    "/api/favoritos/**",  
                     "/api/sitioCorrespondienteALaImagen/**",
                     "/api/rutaPorID/**",
                     "/api/sitiosRutaID/**"

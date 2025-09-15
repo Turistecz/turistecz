@@ -43,5 +43,9 @@ public interface SitioRepository extends JpaRepository<Sitio, Integer> {
 
 	@Query(value = "SELECT s.*, sr.texto AS sitio_ruta_texto FROM SITIO s JOIN sitios_ruta sr ON s.id = sr.id_sitio WHERE sr.id_ruta = :id ORDER BY sr.orden ASC", nativeQuery = true)
     List<Sitio> encontrarSitiosRuta(@Param("id") Integer id);
+
+	@Query("SELECT f.sitio FROM Favoritos f WHERE f.usuario.id = :usuarioId")
+	List<Sitio> findFavoritosByUsuarioId(@Param("usuarioId") int usuarioId);
+
 	
 }
