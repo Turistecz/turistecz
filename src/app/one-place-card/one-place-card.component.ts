@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FavoritosService } from '../services/favoritos.service';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -18,6 +18,8 @@ export class OnePlaceCardComponent {
     url: string;
     esFavorito?: boolean;
   };
+
+  @Output() favoritoEliminado: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(
     private favoritosService: FavoritosService,
@@ -43,8 +45,7 @@ export class OnePlaceCardComponent {
   toggleFavorito(sitio: any) {
     const usuarioStr = localStorage.getItem('usuario');
     if (!usuarioStr) {
-      const irLogin = confirm('⚠️ Debes iniciar sesión para añadir favoritos.\n\n¿Quieres ir a la página de login ahora?');
-      if (irLogin) {
+      if (confirm('⚠️ Debes iniciar sesión para añadir favoritos.\n\n¿Quieres ir a la página de login ahora?')) {
         this.router.navigate(['/login']);
       }
       return;
@@ -53,13 +54,14 @@ export class OnePlaceCardComponent {
     const usuario = JSON.parse(usuarioStr);
 
     if (sitio.esFavorito) {
-      // 🔹 Quitar favorito
-      console.log('Eliminando favorito', usuario.id, sitio.id);
+      // Quitar favorito
       this.favoritosService.removeFavorito(Number(usuario.id), Number(sitio.id))
         .subscribe({
           next: () => {
             sitio.esFavorito = false;
             console.log("🗑️ Eliminado de favoritos");
+            // Emitimos el id del favorito eliminado para que el padre lo remueva
+            this.favoritoEliminado.emit(sitio.id);
           },
           error: err => {
             console.error("❌ Error al eliminar de favoritos", err);
@@ -67,12 +69,10 @@ export class OnePlaceCardComponent {
           }
         });
     } else {
-      // 🔹 Añadir favorito
-      console.log('Añadiendo favorito', usuario.id, sitio.id);
+      // Añadir favorito
       this.favoritosService.addFavorito(Number(usuario.id), Number(sitio.id))
         .subscribe({
           next: (response) => {
-            console.log("📥 Respuesta backend:", response);
             sitio.esFavorito = true;
             console.log("✅ Añadido a favoritos");
           },
@@ -83,6 +83,7 @@ export class OnePlaceCardComponent {
         });
     }
   }
+  
 
   comprobarFavorito(usuarioId: number, sitioId: number) {
     this.favoritosService.comprobarFavorito(usuarioId, sitioId)
