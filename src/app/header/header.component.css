@@ -1,5 +1,6 @@
 #menu {
-  font-family: 'Inclusive', sans-serif;
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+  font-size: 1.7rem;
 }
 
 .navbar-brand img {
@@ -10,6 +11,7 @@
 .navbar-nav {
   gap: 6rem;
 }
+
 
 .loginContainer {
   width: 200px;

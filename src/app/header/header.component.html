@@ -14,11 +14,25 @@
     </a>
 
     <!-- Bloque derecho (login + hamburguesa en móviles) PEQUEÑO -->
-    <div class="d-flex align-items-center gap-2 ms-auto mt-lg-0 loginContainer d-lg-none">
+    <div class="d-flex align-items-center gap-2 ms-auto mt-lg-0 loginContainer d-lg-none px-1">
       <div *ngIf="!logueado; else logueadoTemplate">
         <a class="nav-link active" href="/login">
-          <i title="Acceso/Login" class="bi bi-person-circle fs-2"></i>
+          <svg title="Acceso/Login" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="25" height="22">
+            <defs>
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#184591"/>
+                <stop offset="100%" stop-color="#2A8BEA"/>
+              </linearGradient>
+            </defs>
+            <path fill="url(#grad1)"
+                  d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm0 48c-70.7
+                    0-224 35.8-224 107.5V480c0 17.7 14.3 32 32
+                    32h384c17.7 0 32-14.3 32-32v-68.5C448
+                    339.8 294.7 304 224 304z"/>
+          </svg>
+          <!-- <i title="Acceso/Login" class="fa-solid fa-user fa-sm gradient-icon"></i> -->
         </a>
+
       </div>
       <ng-template #logueadoTemplate>
         <div class="d-flex align-items-center gap-2">            
@@ -51,7 +65,22 @@
     <div class="d-flex align-items-center gap-2 ms-auto mt-2 mt-lg-0 justify-content-end loginContainer d-none d-lg-flex">
       <div *ngIf="!logueado; else logueadoTemplate">
         <a class="nav-link active" href="/login">
-          <i title="Acceso/Login" class="bi bi-person-circle fs-2"></i>
+          <!--Div para el icono de Login -->
+          <div class="d-none d-lg-flex align-items-center justify-content-center mt-4">
+            <svg class="login-icon pt-auto" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 992 1024" width="80" height="80" role="img" aria-label="Acceso/Login">
+              <defs>
+                <linearGradient id="loginGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#184591"/>
+                  <stop offset="100%" stop-color="#2A8BEA"/>
+                </linearGradient>
+              </defs>
+              <path fill="url(#loginGrad)"
+                    d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm0 48c-70.7
+                      0-224 35.8-224 107.5V480c0 17.7 14.3 32 32
+                      32h384c17.7 0 32-14.3 32-32v-68.5C448
+                      339.8 294.7 304 224 304z"/>
+            </svg>
+          </div>
         </a>
       </div>
       <ng-template #logueadoTemplate>
