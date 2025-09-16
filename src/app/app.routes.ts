@@ -1,3 +1,4 @@
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { pageRoutesComponent } from './page-routes/page-routes.component';
 import { Routes } from '@angular/router';
 
@@ -74,6 +75,11 @@ export const routes: Routes = [
     {
     path: 'recuperar-contrasena',
     loadComponent: () => import('./recuperar-contrasena/recuperar-contrasena.component').then(m => m.RecuperarContrasenaComponent)
+    },
+     {
+    path: 'migas-de-pan',
+    loadComponent: () =>
+               import('./breadcrumbs/breadcrumbs.component').then(m => m.BreadcrumbsComponent)
     }
   
 ]
