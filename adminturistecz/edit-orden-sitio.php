@@ -24,7 +24,7 @@ if (!$registro) {
     die("Registro no encontrado");
 }
 
-// --- 2) Procesar formulario (mejorado con swap) ---
+// --- 2) Procesar formulario (mejorado con swap + validación de duplicados) ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nuevo_orden = intval($_POST['orden']);
     $orden_actual = $registro['orden'];
@@ -32,14 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn1->begin_transaction();
 
     try {
-        // 1) Buscar si ya existe un sitio con ese orden en la misma ruta
+        // 1) Comprobamos si el orden ya existe en esta ruta
         $check = $conn1->prepare("SELECT id FROM sitios_ruta WHERE id_ruta = ? AND orden = ? AND id <> ?");
         $check->bind_param("iii", $id_ruta, $nuevo_orden, $id);
         $check->execute();
         $result_check = $check->get_result();
 
         if ($result_check->num_rows > 0) {
-            // 2) Si existe, intercambiamos orden
+            // Si existe, intercambiamos orden (swap)
             $row_swap = $result_check->fetch_assoc();
             $id_swap = $row_swap['id'];
 
@@ -48,10 +48,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $swap_stmt->execute();
         }
 
-        // 3) Ahora actualizamos el sitio actual al nuevo orden
+        // Actualizamos el sitio actual
         $update = $conn1->prepare("UPDATE sitios_ruta SET orden = ? WHERE id = ?");
         $update->bind_param("ii", $nuevo_orden, $id);
         $update->execute();
+
+        // Comprobamos si la actualización violó la restricción única
+        if ($conn1->errno === 1062) { // 1062 = error de clave duplicada
+            throw new Exception("Ya existe otro sitio con el mismo orden en esta ruta.");
+        }
 
         $conn1->commit();
 
@@ -60,45 +65,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     } catch (Exception $e) {
         $conn1->rollback();
-        die("Error al actualizar orden: " . $e->getMessage());
+        echo "<div class='alert alert-danger text-center'>⚠️ Error: " . htmlspecialchars($e->getMessage()) . "</div>";
     }
 }
 ?>
-<!-- <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar orden de sitio</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
-<div class="container mt-5">
-    <div class="card shadow-sm">
-        <div class="card-header bg-warning">
-            <strong>Editar orden de sitio</strong>
-        </div>
-        <div class="card-body">
-            <form method="POST">
-                <div class="mb-3">
-                    <label class="form-label">Sitio</label>
-                    <input type="text" class="form-control" value="<?= htmlspecialchars($registro['nombre']) ?>" disabled>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Orden</label>
-                    <input type="number" name="orden" class="form-control" value="<?= $registro['orden'] ?>" min="1" required>
-                </div>
-                <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i> Guardar
-                </button>
-                <a href="edit-ruta.php?id=<?= $registro['id_ruta'] ?>" class="btn btn-secondary">
-                    Cancelar
-                </a>
-            </form>
-        </div>
-    </div>
-</div>
-</body>
-</html> -->
 
 <!DOCTYPE html>
 <html lang="es">
