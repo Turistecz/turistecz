@@ -1,33 +1,8 @@
 .card-title {
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+  color: #184591;
 }
 
-.card-blue {
-  background-color: #2a8dfb;
+p, button{
   font-family: "inclusive", sans-serif;  
-}
-
-.cards-grid :nth-child(6n+4) .card-blue,
-.cards-grid :nth-child(6n+5) .card-blue, 
-.cards-grid :nth-child(6n+6) .card-blue {
-  background: #184591;
-}
-.cards-grid .card-blue .btn {
-  color: #030303;              
-  border: none;
-}
-
-.cards-grid :nth-child(6n+4) .card-blue .btn,
-.cards-grid :nth-child(6n+5) .card-blue .btn, 
-.cards-grid :nth-child(6n+6) .card-blue .btn {   
-  color: #fff;         
-}
-
-@media (max-width: 767px) {
-  .cards-grid :nth-child(even) .card {
-    background-color: #184591;
-  }
-  .cards-grid :nth-child(odd) .card {
-    background-color: #2a8dfb;
-  }
 }
