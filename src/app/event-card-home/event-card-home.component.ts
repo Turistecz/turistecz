@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { EventService } from '../services/event.service';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -22,10 +23,27 @@ export class EventCardHomeComponent {
 events: EventItem[] = [];
 sortedEvents: EventItem[] = [];
 
-ngOnInit() {
-  this.events = this.eventService.getEvents();
+async ngOnInit() {
+  //this.events = this.eventService.getEvents();
+  await this.loadEvents();
   this.sortedEvents = this.events.slice(); // ordénalos si quieres
 }
+
+async loadEvents(): Promise<void> {
+    try {
+      if (localStorage.getItem('eventGlobal')) {
+        this.events = JSON.parse(localStorage.getItem('eventGlobal') || '{}');
+      } else {
+        const datos = await firstValueFrom(this.eventService.getEvents());
+        const rawEvents = datos?.features ?? [];
+        this.events = rawEvents.map((f: any) => f.properties);
+        console.log(datos.features)
+        localStorage.setItem('eventGlobal', JSON.stringify(rawEvents.map((f: any) => f.properties)));
+      }
+    } catch (error) {
+      console.error('Error al cargar eventos:', error);
+    }
+  }
 
 get eventGroups(): EventItem[][] { // Esta funcion para recorrer el array de eventos y los divido en grupos de 3
   const groupito: EventItem[][] = [];

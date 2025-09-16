@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { FilterComponent } from '../filter/filter.component';
 import { EventService } from '../services/event.service';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-event-card-list',
@@ -44,14 +45,19 @@ export class EventCardListComponent {
   }
 
   async loadEvents(): Promise<void> {
-    try {
-      this.events = await this.eventService.getEvents();
-      this.sortedEvents = this.events.slice();
-      this.eventsFiltered = this.events.slice();
-    } catch (error) {
-      console.error('Error al cargar eventos:', error);
+      try {
+        if (localStorage.getItem('eventGlobal')) {
+          this.events = JSON.parse(localStorage.getItem('eventGlobal') || '{}');
+        } else {
+          const datos = await firstValueFrom(this.eventService.getEvents());
+          const rawEvents = datos?.features ?? [];
+          this.events = rawEvents.map((f: any) => f.properties);
+          localStorage.setItem('eventGlobal', JSON.stringify(rawEvents.map((f: any) => f.properties)));
+        }
+      } catch (error) {
+        console.error('Error al cargar eventos:', error);
+      }
     }
-  }
 
   onPageChange(newPage: number) {
     this.page = newPage;

@@ -3,6 +3,7 @@ import { Component} from '@angular/core';
 import { AccommodationService } from '../services/accommodation.service';
 import { Accommodation } from '../models/accommodation.models';
 import { AccommodationListComponent } from '../accommodation-list/accommodation-list.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-accommodation',
@@ -16,20 +17,41 @@ export class AccommodationComponent {
 
   constructor(private accommodationService: AccommodationService) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.cargando = true;
+    await this.loadAccommodation();
+    this.cargando = false;
 
-    this.accommodationService.getAccommodations(5000).subscribe({
-      next: (data) => {
+    // this.accommodationService.getAccommodations(5000).subscribe({
+    //   next: (data) => {
+    //     // Filtrar por solo "HOTEL"
+    //     const soloHoteles = data.filter(a => {
+    //       const titulo = (a.title ?? '').toUpperCase();
+    //       return titulo.includes('HOTEL');
+    //     });
+
+    //     this.accommodations = soloHoteles;
+    //     this.cargando = false;
+    //   }
+    // });
+  }
+
+  async loadAccommodation(): Promise<void> {
+    try {
+      if (localStorage.getItem('accommdationGlobal')) {
+        this.accommodations = JSON.parse(localStorage.getItem('accommdationGlobal') || '{}');
+      } else {
+        const datos = await firstValueFrom(this.accommodationService.getAccommodations(500));
         // Filtrar por solo "HOTEL"
-        const soloHoteles = data.filter(a => {
+        const soloHoteles = datos.filter(a => {
           const titulo = (a.title ?? '').toUpperCase();
           return titulo.includes('HOTEL');
         });
-
         this.accommodations = soloHoteles;
-        this.cargando = false;
+        localStorage.setItem('accommdationGlobal', JSON.stringify(datos));
       }
-    });
+    } catch (error) {
+      console.error('Error al cargar alojamientos:', error);
+    }
   }
 }
