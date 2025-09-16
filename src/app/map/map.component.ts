@@ -195,7 +195,6 @@ private initMap(): void {
 }
 
 //connect to local OSRM server and insert route data in route variable
-//TODO: see and move this function to map service
 async getRoute() {
   const latlng = this.getSiteCoords();
 
@@ -515,9 +514,13 @@ async loadBizis(): Promise<void> {
 
 async loadTaxiStops(): Promise<void> {
   try {
-    const datos = await firstValueFrom(this.apiMapService.getTaxisStops());
-    this.taxiStops = datos.features;
-
+    if (localStorage.getItem('taxiGlobal')) {
+      this.taxiStops = JSON.parse(localStorage.getItem('taxiGlobal') || '{}');
+    } else {
+      const datos = await firstValueFrom(this.apiMapService.getTaxisStops());
+      this.taxiStops = datos.features;
+      localStorage.setItem('taxiGlobal', JSON.stringify(datos.features));
+    }
   } catch (error) {
     console.error('Error al cargar paradas de taxi:', error);
   }
@@ -535,9 +538,13 @@ async loadTramStops(): Promise<void> {
 
 async loadBusStops(): Promise<void> {
   try {
-    const datos = await firstValueFrom(this.apiMapService.getBusesStation());
-    this.busStops = datos.features;
-
+    if (localStorage.getItem('busStopGlobal')) {
+      this.busStops = JSON.parse(localStorage.getItem('busStopGlobal') || '{}');
+    } else {
+      const datos = await firstValueFrom(this.apiMapService.getBusesStation());
+      this.busStops = datos.features;
+      localStorage.setItem('busStopGlobal', JSON.stringify(datos.features));
+    }
   } catch (error) {
     console.error('Error al cargar paradas de bus:', error);
   }
@@ -545,9 +552,13 @@ async loadBusStops(): Promise<void> {
 
 async loadAdapParking(): Promise<void> {
   try {
-    const datos = await firstValueFrom(this.apiMapService.getAdapParking());
-    this.adapParking = datos.features;
-
+    if (localStorage.getItem('adapParkGlobal')) {
+      this.adapParking = JSON.parse(localStorage.getItem('adapParkGlobal') || '{}');
+    } else {
+      const datos = await firstValueFrom(this.apiMapService.getAdapParking());
+      this.adapParking = datos.features;
+      localStorage.setItem('adapParkGlobal', JSON.stringify(datos.features));
+    }
   } catch (error) {
     console.error('Error al cargar parkings adaptados:', error);
   }
@@ -555,9 +566,13 @@ async loadAdapParking(): Promise<void> {
 
 async loadFarmacia(): Promise<void> {
   try {
-    const datos = await firstValueFrom(this.apiMapService.getFarmacia());
-    this.farmacias = datos.features;
-
+    if (localStorage.getItem('farmaciaGlobal')) {
+      this.farmacias = JSON.parse(localStorage.getItem('farmaciaGlobal') || '{}');
+    } else {
+      const datos = await firstValueFrom(this.apiMapService.getFarmacia());
+      this.farmacias = datos.features;
+      localStorage.setItem('farmaciaGlobal', JSON.stringify(datos.features));
+    }
   } catch (error) {
     console.error('Error al cargar farmacias:', error);
   }

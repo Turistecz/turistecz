@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { cardsHome, cardsHomeResponse } from '../place-card/place-card.model';
+import { Component } from '@angular/core';
+import { cardsHome } from '../place-card/place-card.model';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { OnePlaceCardComponent } from "../one-place-card/one-place-card.component";
-import { MonumentServiceService } from '../services/monument-service.service';
 import { MonumentItem } from '../models/monument.model';
 import { FilterComponent } from '../filter/filter.component';
 import { PaginationComponent } from '../pagination/pagination.component';
@@ -21,20 +20,20 @@ import { PaginationComponent } from '../pagination/pagination.component';
 
 export class PlaceCardListComponent {
 
- constructor(private http: HttpClient, private apiConnectService: MonumentServiceService) {}
+ constructor(private http: HttpClient) {}
  
   page: number = 1;
   pageSize: number = 21;
   
  
-noResultsPlaces: boolean = false;
-cards: cardsHome[]=[];
-sortedCards: cardsHome[]=[];
+  noResultsPlaces: boolean = false;
+  cards: cardsHome[]=[];
+  sortedCards: cardsHome[]=[];
 
-monumentsNames: string[] = [];
-monumentos: MonumentItem[] = [];
+  monumentsNames: string[] = [];
+  monumentos: MonumentItem[] = [];
 
-categoriesSites: string[] = [
+  categoriesSites: string[] = [
     'Museos/Exposiciones',
     'Monumentos/Esculturas',
     'Zonas verdes',
@@ -72,19 +71,16 @@ categoriesSites: string[] = [
     this.page = newPage;
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
+
   get pagedPlaces(): cardsHome[] {
-  const start = (this.page - 1) * this.pageSize;
-  return this.sortedCards.slice(start, start + this.pageSize);
-}
+    const start = (this.page - 1) * this.pageSize;
+    return this.sortedCards.slice(start, start + this.pageSize);
+  }
 
-
-async ngOnInit(): Promise<void> {
-  await this.loadImages();
-  console.log('Monumentos cargados:', this.monumentos);
-  console.log('Cards cargadas:', this.sortedCards);
-}
+  async ngOnInit(): Promise<void> {
+    await this.loadImages();
+  }
  
-
  async loadImages(): Promise<void> {
   try {
       const datos = await firstValueFrom(this.http.get<MonumentItem[]>(
@@ -127,12 +123,6 @@ async ngOnInit(): Promise<void> {
       );
 
       this.sortedCards = this.cards;
-
-      // Log detallado
-      console.log(`Se cargaron ${this.monumentos.length} monumentos`);
-      this.monumentos.forEach((m, index) => {
-        console.log(`Monumento ${index + 1}:`, m);
-      });
 
     } catch (error) {
       console.error('Error al cargar monumentos:', error);

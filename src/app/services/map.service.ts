@@ -74,13 +74,12 @@ export class MapService {
   }
 
   getFarmacia():Observable<FarmaciaResponse> {
-    const farmacia = "";
     const Params = new HttpParams().set('rf', 'html').set('srsname', 'wgs84').set('tipo', 'guardia').set('start', '0').set('rows', '50').set('distance', '500');
     const Headers = new HttpHeaders({
       Accept: 'application/geo+json', 
     });
     
-    return this.http.get<FarmaciaResponse>(this.farmacia+farmacia,{params: Params, headers: Headers});
+    return this.http.get<FarmaciaResponse>(this.farmacia,{params: Params, headers: Headers});
   }
 
   getRoute(latLng: L.LatLngExpression, userLatLong: [number, number]):Observable <MapRouteItem> {

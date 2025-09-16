@@ -94,12 +94,19 @@ export class MonumentComponent implements OnInit {
 
   async loadMonuments(): Promise<void> {
     try {
-      const datos = await firstValueFrom(this.apiConnectService.getMonuments());
-      this.monuments = datos.result;
-      this.apiConnectService.filterTopMonuments(this.monuments).subscribe(filtrados => {
-        this.monumentsFiltered = filtrados;
-      });
-    
+      if (localStorage.getItem('monumentGlobal')) {
+        this.monuments = JSON.parse(localStorage.getItem('monumentGlobal') || '{}');
+        this.apiConnectService.filterTopMonuments(this.monuments).subscribe(filtrados => {
+          this.monumentsFiltered = filtrados;
+        });
+      } else {
+        const datos = await firstValueFrom(this.apiConnectService.getMonuments());
+        this.monuments = datos.result;
+        this.apiConnectService.filterTopMonuments(this.monuments).subscribe(filtrados => {
+          this.monumentsFiltered = filtrados;
+        });
+        localStorage.setItem('monumentGlobal', JSON.stringify(datos.result));
+      }
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
     }
