@@ -11,21 +11,6 @@ export class MonumentServiceService {
 
   constructor(private http: HttpClient) {}
 
-   monuments: MonumentItem[] = [];
-
-   topMonuments: string[] = ['basílica de nuestra señora del pilar', 'palacio de la aljafería', 'Catedral del Salvador o La Seo y Museo de Tapices', 'Puente de Piedra', 
-     'Puerta del Carmen', 'Monumento a los Sitios', 'Monumento a Agustina Zaragoza y a las Heroínas', 'Torreon de la Zuda', 'Murallas romanas', 'Mercado Central', 
-     'Museo de Zaragoza: Secciones de Antiguedad y Bellas Artes', 'Museo Goya - Coleccion Ibercaja', 'Parque Grande Jose Antonio Labordeta', 'Monumento a Goya', 
-     'Escultura El Alma del Ebro', 'Estatua del Emperador Augusto', 'Palacio de los Condes de Morata o Luna', 'Palacio de los Condes de Sastago', 'Casa de los Sitios' ];
-
-   topMonumentsEmpty: string[] = [];
-   topMonumentsEmpty2: string[] = [];
-
-    
-   filteredMonuments: MonumentItem[] = [];
-   orderFilteredMonuments: MonumentItem[] = [];
-
-
   getMonuments(): Observable<MonumentResponse> {
      const monument = "https://www.zaragoza.es/sede/servicio/monumento.json";
     const Params = new HttpParams().set('rf', 'html').set('srsname', 'utm30n').set('start', '0').set('rows', '500').set('distance', '500').set('locale', 'es');
@@ -99,34 +84,5 @@ filterTopMonuments(monumentArray: MonumentItem[]): Observable<MonumentItem[]> {
     })
   );
 }
-
-  // filterTopMonuments(monumentArray: MonumentItem[]) {
-  //   const map = new Map<string, MonumentItem>();
-
-  //   monumentArray.forEach(m => {
-  //     const key = this.normalize(m.title);
-  //     map.set(key, m);
-  //   });
-
-  //   console.log(map);
-
-  //   this.getMonumentsNames().subscribe(data => {
-  //     data.map(monumento => this.topMonumentsEmpty.push(monumento.nombre));
-  //   });  
-
-
-
-  //   console.log(this.topMonumentsEmpty);
-
-
-  //   return this.topMonumentsEmpty
-  //     .map(name => map.get(this.normalize(name)))
-  //     .filter((m): m is MonumentItem => !!m); // elimina nulls
-  // }
-
-  
- //array private y luego funciones get para acceder a los elementos
-//añadirmetodo split para añadir monumentos al array en una posicion especifica cuando queramos
-//añadir metodo para modificar posicion de un determinado monumento
 
 }
