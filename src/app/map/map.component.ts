@@ -35,28 +35,28 @@ export class MapComponent implements AfterViewInit, OnInit{
   farmacias: FarmaciaItem[] = [];
 
   biziIcon = L.icon({
-    iconUrl: 'media/bizi-icon.png',
-    iconSize: [30, 30],
+    iconUrl: 'media/bizi-icon.svg',
+    iconSize: [35, 35],
     iconAnchor: [12, 20],
     popupAnchor: [3, -20],
   });
 
   busIcon = L.icon({
-    iconUrl: 'media/bus-icon.png',
-    iconSize: [22, 32],
+    iconUrl: 'media/bus-icon.svg',
+    iconSize: [30, 30],
     iconAnchor: [12, 20],
     popupAnchor: [0, -20],
   });
 
   taxiIcon = L.icon({
-    iconUrl: 'media/taxi-icon.png',
-    iconSize: [25, 30],
+    iconUrl: 'media/taxi-icon.svg',
+    iconSize: [30, 30],
     iconAnchor: [12, 20],
     popupAnchor: [0, -20],
   });
 
   tramIcon = L.icon({
-    iconUrl: 'media/tram-icon.png',
+    iconUrl: 'media/tram-icon.svg',
     iconSize: [30, 30],
     iconAnchor: [12, 20],
     popupAnchor: [0, -20],
@@ -64,14 +64,15 @@ export class MapComponent implements AfterViewInit, OnInit{
 
  AdapParkingIcon = L.icon({
     iconUrl: 'media/parking-adap.svg',
-    iconSize: [22, 32], //medidas por ajustar
+    iconSize: [35, 35], 
     iconAnchor: [12, 20],
     popupAnchor: [0, -20],
+    
   });
 
   FarmaciaIcon = L.icon({
     iconUrl: 'media/farmacia-icon.svg',
-     iconSize: [22, 32], //medidas por ajustar
+    iconSize: [35, 35], 
     iconAnchor: [12, 20],
     popupAnchor: [0, -20],
   })
@@ -251,7 +252,7 @@ makeLocationMarkers(){
       const latlng: L.LatLngExpression = [coords[1], coords[0]];
       const marker = L.marker(latlng)
         .addTo(this.map)
-        .bindPopup(sitio.nombre, {autoClose: false})
+        .bindPopup(sitio.nombre, {autoClose: true})
         .openPopup();
         return marker;
     });
