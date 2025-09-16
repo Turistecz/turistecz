@@ -1,18 +1,24 @@
-
-<div class="container my-5 ">
-  <div class="row cards-grid g-4 text-center"> 
-    <div class="col-12 col-md-6 col-lg-4 d-flex " *ngFor="let a of pagedItems">
-     <div class="card card-blue text-light flex-fill p-3">
-      <h4 class="card-title text-light mb-2 fw-bold">{{ a.title }}</h4>
-        <div class="card-body fw-semibold mt-3 mt-3">
-          <p *ngIf="a.streetAddress" class="mb-2"><i class="bi bi-geo-alt"></i> {{ a.streetAddress }}</p>
-          <p *ngIf="a.telefonos" class="mb-2"><i class="bi bi-telephone"></i> {{ a.telefonos }}</p>
-          <p *ngIf="a.email" class="mb-2"><i class="bi bi-envelope"></i> {{ a.email }}</p>
+<div class="container">
+  <div class="row g-4 justify-content-center align-items-stretch">
+    <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 d-flex" *ngFor="let a of pagedItems">
+      <div class="card h-100 d-flex flex-column w-100 border-top-0 border-start-0 shadow bg-body rounded">
+        <div class="row g-0 h-100">
+          <div class="col-5 col-md-5 d-flex align-items-center justify-content-center">
+            <img src="imagenAlojamientos/hotel.png" class="w-100 h-100 img-fluid" alt="{{a.title}}">
+          </div>
+          <div class="card-body col-7 col-md-7 d-flex flex-column justify-content-center text-center fw-bold">
+           <h4 class="card-title fw-bold fs-4 m-auto ">{{a.title}}</h4>
+            <p *ngIf="a.streetAddress" class="card-text mt-0 px-auto text-truncate address"><i class="fa-solid fa-location-dot fa-3xs px-1" style="color: #1765a1;"></i> {{a.streetAddress}}</p>
+            <p class="mt-0" *ngIf="a.telefonos">
+              <i class="fa-solid fa-phone px-1" style="color: #1765a1;"></i> {{a.telefonos}}
+            </p>
+          <button class="btn btn-primary fw-semibold mt-auto fs-6 text-center justify-content-center mx-2" (click)="abrirEnlace(a.link)" 
+              (keydown.enter)="abrirEnlace(a.link)">Visitar web <i class="fa-solid fa-up-right-from-square mx-1"></i>
+        </button>
         </div>
-        <div class="btn btn-none fw-semibold" (click)="abrirEnlace(a.link)" (keydown.enter)="abrirEnlace(a.link)">Visitar Web <i class="bi bi-arrow-right"></i> </div>
+      </div>
     </div>
-   </div>
-</div>
+  </div>
 </div>
 
 <!-- 🔹 Paginador -->

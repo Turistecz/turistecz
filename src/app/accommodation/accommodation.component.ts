@@ -11,7 +11,7 @@ import { AccommodationListComponent } from '../accommodation-list/accommodation-
   styleUrl: './accommodation.component.css'
 })
 export class AccommodationComponent {
- accommodations: Accommodation[] = [];
+  accommodations: Accommodation[] = [];
   cargando = false;
 
   constructor(private accommodationService: AccommodationService) {}
