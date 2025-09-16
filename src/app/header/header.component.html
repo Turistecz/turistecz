@@ -1,25 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top flex-column p-0">
+  
+  <!-- Weather -->
+  <div class="w-100 bg-light border-bottom">
+    <app-weather></app-weather>
+  </div>
 
-  <app-weather></app-weather>
+  <!--  navbar -->
+  <div class="container-fluid h4 mb-0 position-relative d-flex align-items-center w-100" id="menu">
 
-
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
-  <div class="container-fluid h4 mb-0 mx-4 position-relative d-flex align-items-center" id="menu">
-
-    <!-- Logo izquierda -->
+    <!-- Logo -->
     <a class="navbar-brand me-0" href="#">
       <img src="turistecz_logo.png" alt="Logo" width="200">
     </a>
 
- <!-- Bloque derecho (login + hamburguesa en móviles) PEQUEÑO -->
+    <!-- Bloque derecho (login + hamburguesa en móviles) PEQUEÑO -->
     <div class="d-flex align-items-center gap-2 ms-auto mt-lg-0 loginContainer d-lg-none">
-      <!-- No logueado -->
       <div *ngIf="!logueado; else logueadoTemplate">
         <a class="nav-link active" href="/login">
           <i title="Acceso/Login" class="bi bi-person-circle fs-2"></i>
         </a>
       </div>
-
-      <!-- Logueado -->
       <ng-template #logueadoTemplate>
         <div class="d-flex align-items-center gap-2">            
           <span class="nav-link active fw-bold">
@@ -31,10 +31,11 @@
         </div>
       </ng-template>
     </div>
+
     <!-- Botón hamburguesa a la derecha -->
-      <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
     <!-- Menú centrado horizontal -->
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
@@ -48,14 +49,11 @@
 
     <!-- Bloque derecho (login + hamburguesa en móviles) GRANDE -->
     <div class="d-flex align-items-center gap-2 ms-auto mt-2 mt-lg-0 justify-content-end loginContainer d-none d-lg-flex">
-      <!-- No logueado -->
       <div *ngIf="!logueado; else logueadoTemplate">
         <a class="nav-link active" href="/login">
           <i title="Acceso/Login" class="bi bi-person-circle fs-2"></i>
         </a>
       </div>
-
-      <!-- Logueado -->
       <ng-template #logueadoTemplate>
         <div class="d-flex align-items-center gap-2">            
           <span class="nav-link active fw-bold">
@@ -67,5 +65,6 @@
         </div>
       </ng-template>
     </div>
+
   </div>
 </nav>

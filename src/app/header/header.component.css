@@ -1,27 +1,9 @@
 #menu {
   font-family: 'Inclusive', sans-serif;
-  /* font-size: 25px; */
-  /* background-color: white; */
 }
 
-/* #logo {
-  margin-right: 30px;
-} */
-
-/* .nav-center {
-  justify-content: space-around;
-  gap: 3.5rem;
-  flex-wrap: nowrap;
-} 
-
-/* .search-responsive {
-  width: 100%;
-  max-width: 300px;
-  margin-left: 10px;
-} */
-
 .navbar-brand img {
-  max-width: 40vw; /* el logo nunca ocupará más del 40% del ancho */
+  max-width: 40vw;
   height: auto;
 }
 
