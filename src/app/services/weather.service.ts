@@ -16,7 +16,7 @@ export class WeatherService {
     let params = new HttpParams()
       .set('latitude', lat)
       .set('longitude', lon)
-      .set('current', ['temperature_2m', 'precipitation', 'rain'].join(','))
+      .set('current', ['temperature_2m', 'precipitation', 'rain', "wind_speed_10m", "cloudcover"].join(','))
       .set('timezone', 'auto')
       .set('forecast_days', 1);
 
@@ -28,7 +28,9 @@ export class WeatherService {
             time: new Date(current.time),
             temperature_2m: current.temperature_2m,
             precipitation: current.precipitation,
-            rain: current.rain
+            rain: current.rain,
+            wind: current.wind_speed_10m,
+            cloud_cover: current.cloud_cover
           }
         };
         return weatherData;
