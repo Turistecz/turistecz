@@ -97,11 +97,7 @@ $result = $stmt->get_result();
                                     <!-- Botón Editar -->
                                     <a href="edit-ruta.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-warning me-1" title="Editar">
                                         <i class="fas fa-edit"></i>
-                                    </a>
-                                    <!-- Botón Ver Sitios -->
-                                    <a href="sitios-ruta.php?id_ruta=<?= $row['id'] ?>" class="btn btn-sm btn-info me-1" title="Ver sitios">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </a>
+                                    </a>                                                        
                                     <!-- Botón Eliminar -->
                                     <button onclick="confirmarEliminar(<?= $row['id'] ?>)" class="btn btn-sm btn-danger" title="Eliminar">
                                         <i class="fas fa-trash"></i>

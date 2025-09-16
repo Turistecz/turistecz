@@ -24,17 +24,82 @@ if (!$registro) {
     die("Registro no encontrado");
 }
 
-// --- 2) Procesar formulario ---
+// --- 2) Procesar formulario (mejorado con swap) ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nuevo_orden = intval($_POST['orden']);
-    $update = $conn1->prepare("UPDATE sitios_ruta SET orden = ? WHERE id = ?");
-    $update->bind_param("ii", $nuevo_orden, $id);
-    $update->execute();
+    $orden_actual = $registro['orden'];
 
-    header("Location: edit-ruta.php?id={$registro['id_ruta']}");
-    exit();
+    $conn1->begin_transaction();
+
+    try {
+        // 1) Buscar si ya existe un sitio con ese orden en la misma ruta
+        $check = $conn1->prepare("SELECT id FROM sitios_ruta WHERE id_ruta = ? AND orden = ? AND id <> ?");
+        $check->bind_param("iii", $id_ruta, $nuevo_orden, $id);
+        $check->execute();
+        $result_check = $check->get_result();
+
+        if ($result_check->num_rows > 0) {
+            // 2) Si existe, intercambiamos orden
+            $row_swap = $result_check->fetch_assoc();
+            $id_swap = $row_swap['id'];
+
+            $swap_stmt = $conn1->prepare("UPDATE sitios_ruta SET orden = ? WHERE id = ?");
+            $swap_stmt->bind_param("ii", $orden_actual, $id_swap);
+            $swap_stmt->execute();
+        }
+
+        // 3) Ahora actualizamos el sitio actual al nuevo orden
+        $update = $conn1->prepare("UPDATE sitios_ruta SET orden = ? WHERE id = ?");
+        $update->bind_param("ii", $nuevo_orden, $id);
+        $update->execute();
+
+        $conn1->commit();
+
+        header("Location: edit-ruta.php?id={$registro['id_ruta']}&msg=orden_actualizado");
+        exit();
+
+    } catch (Exception $e) {
+        $conn1->rollback();
+        die("Error al actualizar orden: " . $e->getMessage());
+    }
 }
 ?>
+<!-- <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar orden de sitio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-warning">
+            <strong>Editar orden de sitio</strong>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3">
+                    <label class="form-label">Sitio</label>
+                    <input type="text" class="form-control" value="<?= htmlspecialchars($registro['nombre']) ?>" disabled>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Orden</label>
+                    <input type="number" name="orden" class="form-control" value="<?= $registro['orden'] ?>" min="1" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                <a href="edit-ruta.php?id=<?= $registro['id_ruta'] ?>" class="btn btn-secondary">
+                    Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html> -->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
