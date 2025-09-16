@@ -21,19 +21,6 @@ export class AccommodationComponent {
     this.cargando = true;
     await this.loadAccommodation();
     this.cargando = false;
-
-    // this.accommodationService.getAccommodations(5000).subscribe({
-    //   next: (data) => {
-    //     // Filtrar por solo "HOTEL"
-    //     const soloHoteles = data.filter(a => {
-    //       const titulo = (a.title ?? '').toUpperCase();
-    //       return titulo.includes('HOTEL');
-    //     });
-
-    //     this.accommodations = soloHoteles;
-    //     this.cargando = false;
-    //   }
-    // });
   }
 
   async loadAccommodation(): Promise<void> {
