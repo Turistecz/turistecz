@@ -20,6 +20,7 @@ export class WeatherComponent implements OnInit{
     this.weatherService.getWeather(41.662246,-1.025696).subscribe(data => {
          
           this.current = data.current;
+    
   })};
 
 getWeatherIcon(current: any): string{
@@ -27,7 +28,8 @@ getWeatherIcon(current: any): string{
     let icon = 'fa-cloud-rain text-primary'
     return icon;
 
-  }else{
+  }
+  else{
     let icon = 'fa-sun text-warning'
     return icon;
   }

@@ -1,11 +1,11 @@
 <!--prueba de temperatura-->
-<div class="container">
-  <div class="row">
-    <div class="col-2 d-flex m-2 p-2">
-      <button type="button" class="d-flex btn btn-dark text-light align-items-center"> 
-        <p class="me-2 mb-0" *ngIf="current">{{current.temperature_2m}} ºC </p>
-        <i class="fas {{getWeatherIcon(current)}}"></i>
-      </button>
-    </div> 
-  </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 d-flex weather p-2 justify-content-end">
+        <div class= "d-flex text-light align-items-center mx-2"> 
+            <p class="me-2 mb-0" *ngIf="current">Zaragoza, {{current.temperature_2m}} ºC </p>
+            <i class="fas {{getWeatherIcon(current)}}"></i>
+        </div>
+        </div>
+    </div>
 </div>
