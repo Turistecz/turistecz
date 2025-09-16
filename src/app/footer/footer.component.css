@@ -1,18 +1,13 @@
 /* Shape que aparece al final del footer */
-.footer-shape-bottom {
-  /* position: relative; */
-  /* width: 100%; */
-  height: 150px;
-  /* overflow: hidden; */
-}
+.textFooter{
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+  color: #184591;
 
-/* .footer-shape-bottom svg {
-  position: absolute; 
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-} */
+}
+.footer-shape-bottom {
+
+  height: 150px;
+}
 
 .footer-shape-bottom::before {
   content: '';
