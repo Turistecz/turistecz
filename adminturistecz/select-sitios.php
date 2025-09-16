@@ -148,6 +148,8 @@ if (!$result) {
                 <a href="insert-sitios.php" class="btn btn-primary">
                     <i class="fas fa-map-marker-alt"></i> Nuevo sitio
                 </a>
+                <a href="select-rutas.php" class="btn btn-primary ms-2">
+                    <i class="fas fa-route"></i> Editar Rutas</a>
             </div>
         </div>
                 
