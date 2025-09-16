@@ -136,9 +136,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     
         <nav class="navbar navbar-expand-lg mb-4">
-            <div class="container-fluid">
+            <div class="container">
                 <a class="navbar-brand" href="select-sitios.php"><i class="fas fa-arrow-left"></i> Volver</a>
-                <span class="text-white bg-primary px-3 py-2 rounded">Crear Ruta</span>
+                <span class="text-white px-3 py-2 rounded">Crear Ruta</span>
             
         </nav>
 
@@ -195,7 +195,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
-
+                    
     <script>
         let sitioIndex = 0;
         const sitiosData = <?= json_encode($sitios) ?>;

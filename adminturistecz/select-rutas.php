@@ -48,11 +48,7 @@ $result = $stmt->get_result();
 <body>
     <nav class="navbar navbar-expand-lg mb-4" style="background:#31927aff">
         <div class="container">
-            <a class="navbar-brand text-white" href="dashboard.php">AdminTuristeCZ</a>
-            <div class="d-flex">
-                <span class="text-white me-3">Hola, <?= htmlspecialchars($_SESSION['user']) ?></span>
-                <a href="logout.php" class="btn btn-outline-light btn-sm">Cerrar sesión</a>
-            </div>
+             <a class="navbar-brand" href="select-sitios.php"><i class="fas fa-arrow-left"></i> Volver</a>
         </div>
     </nav>
 
@@ -66,7 +62,7 @@ $result = $stmt->get_result();
 
         <div class="d-flex justify-content-between mb-4">
             <h2><i class="fas fa-route"></i> Rutas</h2>
-            <a href="insert-ruta.php" class="btn btn-primary">
+            <a href="insert-ruta.php" class="btn btn-success">
                 <i class="fas fa-plus"></i> Nueva ruta
             </a>
         </div>
