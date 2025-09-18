@@ -11,7 +11,7 @@
 }
 .breadcrumb-item.active,
 .breadcrumb-item .current {
-  color: #0c4363;
+  color: #184591;;
   font-weight: 600;
 }
 @media (max-width: 576px) {

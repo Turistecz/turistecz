@@ -20,7 +20,6 @@ export const routes: Routes = [
             path: ':id', 
             loadComponent: () =>
                 import('./monument/monument.component').then(m => m.MonumentComponent),
-            data: { breadcrumb: 'Detalle del sitio' }
     }
         ]
     },   
@@ -73,7 +72,6 @@ export const routes: Routes = [
       path: ':id',
       loadComponent: () =>
         import('./detail-route/detail-route.component').then(m => m.DetailRouteComponent),
-      data: { breadcrumb: 'Detalle de Ruta' }
     }
       ]
    },
