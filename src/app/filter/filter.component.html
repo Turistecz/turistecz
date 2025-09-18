@@ -1,8 +1,8 @@
-<div id="buscador" class="row text-white py-3  mb-4">
+<div id="buscador" class="row text-white py-3 mb-4">
 
-  <!-- FILA 1: Input + Botones -->
+  <!-- FILA 1: Título y botón expand/collapse -->
   <div class="buscador-top mb-3">
-    <h2 class="text-center my-2 ">Filtros</h2>
+    <h2 class="text-center my-2">Filtros</h2>
   </div>
 
   <button class="filter-toggle-btn mb-2 show-button" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
@@ -10,51 +10,64 @@
     {{ filtersExpanded ? 'Ocultar filtros' : 'Mostrar filtros' }}
   </button>
 
-
+  <!-- Contenedor colapsable de filtros -->
   <div class="filters-collapsible" [class.expanded]="filtersExpanded">
 
-    <div class="d-flex align-items-center mx-4">
-      <input type="text" class="form-control " placeholder="Buscar" [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
-      <button class="btn btn-outline-light mx-2 my-1 justify-content-end" (click)="onSearch()"><i class="bi bi-search"></i> </button>
-      <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i> </button>
+    <!-- Buscador -->
+    <div class="d-flex align-items-center mx-4 mb-3">
+      <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
+      <button class="btn btn-outline-light mx-2 my-1" (click)="onSearch()"><i class="bi bi-search"></i></button>
+      <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i></button>
     </div>
-  <!-- FILA 2: Ordenar -->
-    <div class="mx-3" *ngIf="showOrder">
-      <label class="" for="filterOption">Ordenar:</label>
-      <select id="filterOption" class="form-select" [(ngModel)]="filterOption" (change)="applyEventFilters()" (change)="applyPlaceFilters()">
+
+    <!-- Ordenar -->
+    <div class="mx-3 mb-3" *ngIf="showOrder">
+      <label for="filterOption">Ordenar:</label>
+      <select id="filterOption" class="form-select" [(ngModel)]="filterOption" (change)="applyEventFilters(); applyPlaceFilters()">
         <option value="future">Cronológicamente</option>
         <option value="alpha">(A-Z)</option>
         <option value="month">Solo mes actual</option>
       </select>
     </div>
- 
-        
+
+    <!-- Filtros de categorías -->
     <div class="mx-4 mt-4 filtro-lista">
       <h5>Categorías</h5>
-    
       <div class="form-check mb-1" *ngFor="let cat of categories">
-        <input class="form-check-input" type="checkbox" [checked]="selectedEventsCategoriesMap[cat]" (change)="toggleCategory(cat)" id="check-{{ cat }}"/>
-        <label class="form-check-label fs-5" [for]="'check-' + cat">{{ cat }}</label>
+        <input
+          class="form-check-input"
+          type="checkbox"
+          [checked]="selectedEventsCategoriesMap[cat.type]"
+          (change)="toggleCategory(cat.type)"
+          id="check-{{ cat.type }}"
+        />
+        <label class="form-check-label fs-5" [for]="'check-' + cat.type">
+          <i *ngIf="cat.icon" [class]="cat.icon"></i>
+          {{ cat.name }}
+        </label>
       </div>
 
       <br>
-      <ng-container *ngIf="showAdaptability">
 
+      <!-- Filtros de accesibilidad -->
+      <ng-container *ngIf="showAdaptability">
         <div *ngFor="let group of groups" class="adaptability-group mb-4">
           <h5>{{ group | titlecase }}</h5>
-
           <div class="form-check mb-1" *ngFor="let option of getOptionsByGroup(group)">
-            <input class="form-check-input"
-                  type="checkbox"
-                  [checked]="selectedAccesibilityCategoriesMap[option.key]"
-                  (change)="toggleAccessibility(option.key)"
-                  id="acc-{{ option.key }}" />
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [checked]="selectedAccesibilityCategoriesMap[option.key]"
+              (change)="toggleAccessibility(option.key)"
+              id="acc-{{ option.key }}"
+            />
             <label class="form-check-label fs-5" [for]="'acc-' + option.key">
               {{ option.label }}
             </label>
           </div>
         </div>
-
       </ng-container>
+
     </div>
   </div>
+</div>

@@ -2,15 +2,15 @@
 <div class="container">
   <div class="row ">
     <div class="col-12 col-md-3">
-      <app-filter [places]="cards" [categories]="categoriesSites" [categoryKeywords]="categorySitesKeywords" 
+      <app-filter [places]="cards" [categories]="categories" 
       (filteredCards)="updatePlaces($event)" (noResultsPlacesEvent)="noResultsPlaces = $event"></app-filter>
     </div>
 
     <div class="containerCard col-12 col-md-9" *ngIf="sortedCards.length > 0">
-  <div *ngFor="let cardHome of pagedPlaces">
-    <app-one-place-card [data]="cardHome"></app-one-place-card>
-  </div>
-</div>
+      <div *ngFor="let cardHome of pagedPlaces">
+        <app-one-place-card [data]="cardHome"></app-one-place-card>
+      </div>
+    </div>
 
     <div class="containerCard col-12 col-lg-9 d-block justify-content-center" *ngIf="noResultsPlaces">
       <div class="text-center p-4 border rounded bg-light shadow-sm w-100">
