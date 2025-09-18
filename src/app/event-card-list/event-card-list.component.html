@@ -10,9 +10,7 @@
   <div class="row mx-2">
     <!-- FILTROS -->
     <div class="col-12 col-lg-3 mb-4 mb-lg-0">
-      <app-filter [events]="events" 
-                  [categories]="categoriesEvents" 
-                  (filteredEvents)="updateEvents($event)">
+      <app-filter [events]="events" [categories]="categoriesEvents" (filteredEvents)="updateEvents($event)">
       </app-filter>
     </div>
 
