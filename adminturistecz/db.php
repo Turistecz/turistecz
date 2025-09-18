@@ -11,7 +11,7 @@ $user1 = "rooteador" ;
 $pass1 = "msTrky2obX1TpYc";
 $db1 = "turistecz";
 
-$conn1 = new mysqli($host1, $user1, $pass1, $db1);
+$conn1 = new mysqli($host1, $user1, $pass1, $db1, 3306);
 
     // Verificar conexión
     if ($conn->connect_error) {
