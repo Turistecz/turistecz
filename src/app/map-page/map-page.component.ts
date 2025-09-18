@@ -12,6 +12,7 @@ import { Category } from '../models/filter.model';
 export class MapPageComponent {
 
 
-  
+
  @Input() categories:Category[]=[]
+ 
 }
