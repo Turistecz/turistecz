@@ -350,7 +350,7 @@ VALUES
  'SI', 'SI', 'NO', 'NO', 'SI',
  'SI'),
 
-(29, 'Iglesia Parroquial de Santa Maria Magdalena', 605468.942, 4639913.157, NULL, 
+(29, 'Iglesia Parroquial de Santa Maria Magdalena', 677040.585, 4613371.969, NULL, 
  NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
  'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
  'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
@@ -465,55 +465,38 @@ más representativas de la ciudad.","2 horas", 'images/rutas/portada_ruta_mudeja
 
 
 -- -- Insert data into sitios_ruta
-INSERT INTO sitios_ruta (id_ruta, id_sitio, orden, texto) VALUES 
+INSERT INTO `sitios_ruta` VALUES 
+
 -- RUTA MUDEJAR
-(1,28,1,"En el barrio de El Gancho,
-próximo al casco histórico,
-se encuentra este símbolo
-del encuentro multicultural
-de la capital aragonesa.
-De estilo gótico-mudéjar, 
-la catedral se ha ampliado
-múltiples veces
-integrando nuevos
-elementos decorativos
-y arquitectónicos.
- "),
-(1,2,2,"Utilizado como residencia. 
-De estilo gótico-mudéjar, 
-la catedral se ha ampliado
-múltiples veces
-integrando nuevos
-elementos decorativos
-y arquitectónicos."),
-(1,3,3,"Conocida como La Seo, es una joya del arte mudéjar, gótico, renacentista y barroco en pleno corazón de Zaragoza. Su imponente fachada y su interior lleno de historia la convierten en un lugar único, declarado Patrimonio de la Humanidad."),
-(1,29,4,"Uno de los mejores ejemplos del arte mudéjar en Zaragoza. Su torre, de ladrillo decorado con motivos geométricos, se alza elegante como un testimonio vivo de la fusión entre culturas."),
+(1,1,28,2,'En el barrio de El Gancho,\npróximo al casco histórico,\nse encuentra este símbolo\ndel encuentro multicultural\nde la capital aragonesa.\nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.\n '),
+(2,1,2,1,'Utilizado como residencia. \nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.'),
+(3,1,3,3,'Conocida como La Seo, es una joya del arte mudéjar, gótico, renacentista y barroco en pleno corazón de Zaragoza. Su imponente fachada y su interior lleno de historia la convierten en un lugar único, declarado Patrimonio de la Humanidad.'),
+(4,1,29,4,'Uno de los mejores ejemplos del arte mudéjar en Zaragoza. Su torre, de ladrillo decorado con motivos geométricos, se alza elegante como un testimonio vivo de la fusión entre culturas.'),
 
 -- RUTA ROMANA
-(2,21,1,"LA MEJOR ruta romana"),
-(2,20,2,"LA ruta romana"),
-(2,9,3,"LA MEJOR muralla"),
-(2,34,4,"LA MEJOR muralla"),
-(2,35,5,"LA MEJOR muralla"),
+(5,2,21,5,'LA MEJOR ruta romana'),
+(6,2,20,2,'LA ruta romana'),
+(7,2,9,1,'LA MEJOR muralla'),
+(8,2,34,4,'LA MEJOR muralla'),
+(9,2,35,3,'LA MEJOR muralla'),
 
 -- RUTA HISTÓRICA
-(3,1,1,"LA MEJOR  HISTORIA"),
-(3,3,2,"LA MEJOR HISTORIA"),
-(3,4,3,"LA MEJOR HISTORIA"),
-(3,10,4,"LA MEJOR HISTORIA"),
-(3,24,5,"LA MEJOR HISTORIA"),
+(10,3,1,3,'LA MEJOR  HISTORIA'),
+(11,3,3,5,'LA MEJOR HISTORIA'),
+(12,3,4,4,'LA MEJOR HISTORIA'),
+(13,3,10,1,'LA MEJOR HISTORIA'),
+(14,3,24,2,'LA MEJOR HISTORIA'),
 
 -- RUTA AL AIRE LIBRE
-(4,13,1,"el mejor aire"),
-(4,32,2,"el mejor aire"),
-(4,36,3,"el mejor aire"),
-
+(15,4,13,2,'el mejor aire'),
+(16,4,32,1,'el mejor aire'),
+(17,4,36,3,'el mejor aire'),
 
 -- RUTA FAMILIAR
-(5,30,1,"LA MEJOR FAMILIA"),
-(5,13,2,"LA MEJOR FAMILIA"),
-(5,31,4,"LA MEJOR FAMILIA"), 
-(5,33,5,"LA MEJOR FAMILIA");
+(18,5,30,2,'LA MEJOR FAMILIA'),
+(19,5,13,1,'LA MEJOR FAMILIA'),
+(20,5,31,4,'LA MEJOR FAMILIA'),
+(21,5,33,5,'LA MEJOR FAMILIA');
 
 
 INSERT INTO usuario (nombre, apellido, email, contrasena, activo, fecha_creacion) VALUES 
