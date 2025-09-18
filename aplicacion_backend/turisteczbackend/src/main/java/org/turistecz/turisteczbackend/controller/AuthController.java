@@ -12,6 +12,8 @@ import org.turistecz.turisteczbackend.service.UsuarioService;
 import org.turistecz.turisteczbackend.service.VerificationTokenService;
 import org.turistecz.turisteczbackend.security.JwtUtil;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -54,20 +56,20 @@ public class AuthController {
         return ResponseEntity.ok(new LoginResponse(accessToken, usuario));
     }
 
-
     @GetMapping("/verify")
     public ResponseEntity<?> verificarCuenta(@RequestParam String token) {
-        boolean resultado = verificationTokenService.validateToken(token).isPresent();
-        if (resultado) {
-            VerificationToken vToken = verificationTokenService.validateToken(token).get();
+        Optional<VerificationToken> vTokenOpt = verificationTokenService.validateToken(token, "ACTIVACION");
+
+        if (vTokenOpt.isPresent()) {
+            VerificationToken vToken = vTokenOpt.get();
             Usuario usuario = vToken.getUsuario();
             usuario.setActivo(true);
             usuarioService.save(usuario);
             verificationTokenService.deleteToken(vToken);
             return ResponseEntity.ok("Cuenta activada correctamente");
-        } else {
-            return ResponseEntity.badRequest().body("Token inválido o expirado");
         }
+
+        return ResponseEntity.badRequest().body("Token inválido o expirado");
     }
 
     @PutMapping("/change-email")
@@ -99,36 +101,42 @@ public class AuthController {
     }
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(@RequestBody UsuarioDto dto) {
+    public ResponseEntity<?> forgotPassword(@RequestBody Recuperar_contrasenaDto dto) {
         Usuario usuario = usuarioService.buscarPorEmail(dto.getEmail());
         if (usuario == null) {
             return ResponseEntity.badRequest().body("Correo no registrado");
         }
 
-        VerificationToken token = verificationTokenService.crearToken(usuario);
+        VerificationToken token = verificationTokenService.crearToken(usuario, "RECOVERY");
         String enlace = "http://localhost:4200/reset-password?token=" + token.getToken();
-        usuarioService.enviarCorreoRecuperacion(usuario.getEmail(), enlace);
 
+        usuarioService.enviarCorreoRecuperacion(usuario.getEmail(), enlace);
         return ResponseEntity.ok("Se ha enviado un enlace de recuperación a tu correo");
     }
 
-   @PostMapping("/reset-password")
-    public ResponseEntity<?> resetPassword(@RequestParam String token, @RequestParam String nuevaContrasena) {
-        var vTokenOpt = verificationTokenService.validateToken(token);
+    @PostMapping("/reset-password")
+    public ResponseEntity<?> resetPassword(
+            @RequestParam String token,
+            @RequestBody Resetear_contrasenaDto dto) {
+
+        Optional<VerificationToken> vTokenOpt = verificationTokenService.validateToken(token, "RECOVERY");
         if (vTokenOpt.isEmpty()) {
             return ResponseEntity.badRequest().body("Token inválido o expirado");
+        }
+
+        if (!dto.getNuevaContrasena().equals(dto.getConfirmarContrasena())) {
+            return ResponseEntity.badRequest().body("Las contraseñas no coinciden");
         }
 
         VerificationToken vToken = vTokenOpt.get();
         Usuario usuario = vToken.getUsuario();
 
-        usuarioService.actualizarContrasena(usuario.getId(), nuevaContrasena);
+        usuarioService.actualizarContrasena(usuario.getId(), dto.getNuevaContrasena());
         verificationTokenService.deleteToken(vToken);
 
         return ResponseEntity.ok("Contraseña actualizada correctamente.");
-
     }
-    
+
     public static class LoginResponse {
         private String accessToken;
         private Usuario usuario;
