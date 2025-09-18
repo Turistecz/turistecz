@@ -2,10 +2,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 d-flex weather p-2 justify-content-end">
-        <div class= "d-flex text-light align-items-center mx-2"> 
-            <p class="me-2 mb-0" *ngIf="current"> Zaragoza,{{current.temperature_2m}} ºC </p>
-            <i class="fas {{getWeatherIcon(current)}}"></i>
-        </div>
+            <div class= "d-flex text-light align-items-center mx-2"> 
+                <p class="m-2 mb-0 " *ngIf="current"> Zaragoza, {{current.temperature_2m}} ºC</p>
+                <i class="fas {{getWeatherIcon(current)}}"></i>
+            </div>
         </div>
     </div>
 </div>
