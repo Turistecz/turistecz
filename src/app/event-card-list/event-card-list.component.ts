@@ -1,4 +1,4 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EventCardComponent } from '../event-card/event-card.component';
 import { CommonModule } from '@angular/common';
@@ -8,6 +8,7 @@ import { FilterComponent } from '../filter/filter.component';
 import { EventService } from '../services/event.service';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { firstValueFrom } from 'rxjs';
+import { Category } from '../models/filter.model';
 
 @Component({
   selector: 'app-event-card-list',
@@ -18,46 +19,60 @@ import { firstValueFrom } from 'rxjs';
 export class EventCardListComponent {
   noResultsEvents: boolean = false;
   events: EventItem[] = [];
-  eventsFiltered: EventItem[] = [];
   sortedEvents: EventItem[] = [];
-
-  @Input() categoryKeywords: { [key: string]: string[] } = {};
-
-  categoriesEvents: string[] = ['Actividades', 'Turismo', 'Cultura', 'Ocio y entretenimiento'];
-
-  categoryEventsKeywords: { [key: string]: string[] } = {
-    'Actividades': ['actividad', 'evento', 'taller', 'zumba', 'charla', 'concurso', 'funcional', 'torneo'],
-    'Turismo': ['turismo', 'visita', 'guía', 'monumento', 'histórico', 'museo', 'patrimonio', 'expo'],
-    'Cultura': ['cultural', 'museo', 'teatro', 'exposición', 'concierto', 'arte', 'cine', 'festival'],
-    'Ocio y entretenimiento': ['feria', 'show', 'tapeo', 'zumba', 'mercado', 'baile', 'juego', 'fiesta']
-  };
 
   selectedCategoriesMap: { [key: string]: boolean } = {};
 
   page: number = 1;
   pageSize: number = 21;
 
+  // Ahora es Category[]
+  categoriesEvents: Category[] = [
+    { 
+      type: 'actividades', 
+      name: 'Actividades', 
+      keywords: ['actividad','evento','taller','zumba','charla','concurso','funcional','torneo'] 
+    },
+    { 
+      type: 'turismo', 
+      name: 'Turismo', 
+      keywords: ['turismo','visita','guía','monumento','histórico','museo','patrimonio','expo'] 
+    },
+    { 
+      type: 'cultura', 
+      name: 'Cultura', 
+      keywords: ['cultural','museo','teatro','exposición','concierto','arte','cine','festival'] 
+    },
+    { 
+      type: 'ocio', 
+      name: 'Ocio y entretenimiento', 
+      keywords: ['feria','show','tapeo','zumba','mercado','baile','juego','fiesta'] 
+    }
+  ];
+
   constructor(private eventService: EventService) {}
 
   async ngOnInit(): Promise<void> {
-    this.categoriesEvents.forEach(cat => this.selectedCategoriesMap[cat] = false);
+    // Inicializar los checkboxes
+    this.categoriesEvents.forEach(cat => this.selectedCategoriesMap[cat.type] = false);
     await this.loadEvents(); 
   }
 
   async loadEvents(): Promise<void> {
-      try {
-        if (localStorage.getItem('eventGlobal')) {
-          this.events = JSON.parse(localStorage.getItem('eventGlobal') || '{}');
-        } else {
-          const datos = await firstValueFrom(this.eventService.getEvents());
-          const rawEvents = datos?.features ?? [];
-          this.events = rawEvents.map((f: any) => f.properties);
-          localStorage.setItem('eventGlobal', JSON.stringify(rawEvents.map((f: any) => f.properties)));
-        }
-      } catch (error) {
-        console.error('Error al cargar eventos:', error);
+    try {
+      if (localStorage.getItem('eventGlobal')) {
+        this.events = JSON.parse(localStorage.getItem('eventGlobal') || '[]');
+      } else {
+        const datos = await firstValueFrom(this.eventService.getEvents());
+        const rawEvents = datos?.features ?? [];
+        this.events = rawEvents.map((f: any) => f.properties);
+        localStorage.setItem('eventGlobal', JSON.stringify(this.events));
       }
+      this.sortedEvents = [...this.events];
+    } catch (error) {
+      console.error('Error al cargar eventos:', error);
     }
+  }
 
   onPageChange(newPage: number) {
     this.page = newPage;
@@ -72,6 +87,6 @@ export class EventCardListComponent {
   updateEvents(filteredEvents: EventItem[]) {
     this.sortedEvents = filteredEvents;
     this.page = 1; // resetear página al cambiar filtros
+    this.noResultsEvents = filteredEvents.length === 0;
   }
- 
 }

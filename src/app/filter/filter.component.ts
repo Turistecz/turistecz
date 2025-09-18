@@ -6,6 +6,7 @@ import { EventItem } from '../models/event-card.model';
 import { HttpClient } from '@angular/common/http';
 import { cardsHome } from '../place-card/place-card.model';
 import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
+import { Category } from '../models/filter.model';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class FilterComponent {
 
   @Input() events: EventItem[] = [];
   @Input() places: cardsHome[] = [];
-  @Input() categories: string[] = [];
+  @Input() categories: Category[] = [];
   @Input() categoryKeywords: { [key: string]: string[] } = {};
   @Output() filteredEvents = new EventEmitter<any[]>(); 
   @Output() filteredCards = new EventEmitter<any[]>();
@@ -81,19 +82,19 @@ getOptionsByGroup(group: string) {
 }
 
 
-  constructor(private router: Router){
-    router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd){
-        if (val.url === '/sitios'){
-          this.showAdaptability = true;
-          this.showOrder = false;
-        }else {
-          this.showAdaptability = false;
-          this.showOrder= true
-        }
+constructor(private router: Router){
+  router.events.subscribe((val) => {
+    if (val instanceof NavigationEnd){
+      if (val.url === '/sitios' || val.url === '/mapa'){
+        this.showAdaptability = true;
+        this.showOrder = false;
+      }else{
+        this.showAdaptability = false;
+        this.showOrder= true
       }
-    })
-  }
+    }
+  })
+}
 
 
 categoriesAdaptability: string[] = [
@@ -125,8 +126,8 @@ categoriesAdaptability: string[] = [
   ngOnInit() {
     // Inicializar todos los checkboxes como false
     this.categories.forEach(cat => {
-      this.selectedEventsCategoriesMap[cat] = false;
-      this.selectedPlacesCategoriesMap[cat] = false;
+      this.selectedEventsCategoriesMap[cat.type] = false;
+      this.selectedPlacesCategoriesMap[cat.type] = false;
       
     });
 
@@ -212,10 +213,6 @@ categoriesAdaptability: string[] = [
       });
     }
 
-
-
-
-
     if (this.searchText.trim()) {
       const search = this.normalize(this.searchText);
       filtered = filtered.filter(event =>
@@ -271,9 +268,9 @@ categoriesAdaptability: string[] = [
      this.noResultsPlacesEvent.emit(this.noResultsPlaces);
 };
   
-  toggleCategory(cat: string) {
-    this.selectedEventsCategoriesMap[cat] = !this.selectedEventsCategoriesMap[cat];
-    this.selectedPlacesCategoriesMap[cat] = !this.selectedPlacesCategoriesMap[cat];
+  toggleCategory(catType: string) {
+    this.selectedEventsCategoriesMap[catType] = !this.selectedEventsCategoriesMap[catType];
+    this.selectedPlacesCategoriesMap[catType] = !this.selectedPlacesCategoriesMap[catType];
     // this.selectedAccesibilityCategoriesMap[cat] = !this.selectedAccesibilityCategoriesMap[cat];
     this.applyEventFilters();
     this.applyPlaceFilters();
@@ -294,8 +291,8 @@ categoriesAdaptability: string[] = [
     this.searchText = '';
     this.filterOption = 'future';
     this.categories.forEach(cat => {
-      this.selectedEventsCategoriesMap[cat] = false;
-      this.selectedPlacesCategoriesMap[cat] = false;
+      this.selectedEventsCategoriesMap[cat.type] = false;
+      this.selectedPlacesCategoriesMap[cat.type] = false;
     });
     this.applyEventFilters();
     this.applyPlaceFilters();

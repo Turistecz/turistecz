@@ -75,10 +75,17 @@ export const routes: Routes = [
     }
       ]
    },
-{
-  path: '**',
-  loadComponent: () =>
-    import('./not-found/not-found.component').then(m => m.NotFoundComponent),
-  data: { breadcrumb: 'Error 404' }
-}
+    {
+      path: '**',
+      loadComponent: () =>
+        import('./not-found/not-found.component').then(m => m.NotFoundComponent),
+      data: { breadcrumb: 'Error 404' }
+    },
+
+    {
+      path: 'mapa', 
+          loadComponent: () =>
+          import('./map-page/map-page.component').then(m => m.MapPageComponent)
+    },
+  
 ]

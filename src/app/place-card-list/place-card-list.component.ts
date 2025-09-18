@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 import { cardsHome } from '../place-card/place-card.model';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
@@ -8,17 +8,21 @@ import { OnePlaceCardComponent } from "../one-place-card/one-place-card.componen
 import { MonumentItem } from '../models/monument.model';
 import { FilterComponent } from '../filter/filter.component';
 import { PaginationComponent } from '../pagination/pagination.component';
+import { Category } from '../models/filter.model';
+import { categories } from '../models/filter.data';
 
 
 
 @Component({
   selector: 'app-place-card-list',
+  standalone: true,
   imports: [CommonModule, RouterModule, OnePlaceCardComponent, FilterComponent, PaginationComponent],
   templateUrl: './place-card-list.component.html',
   styleUrl: './place-card-list.component.css'
 })
 
 export class PlaceCardListComponent {
+ categories: Category[] = categories;
 
  constructor(private http: HttpClient) {}
  
@@ -33,40 +37,7 @@ export class PlaceCardListComponent {
   monumentsNames: string[] = [];
   monumentos: MonumentItem[] = [];
 
-  categoriesSites: string[] = [
-    'Museos/Exposiciones',
-    'Monumentos/Esculturas',
-    'Zonas verdes',
-    'Arquitectura',
-    'Arte mudéjar',
-    'Arte romano',
 
-  ];
-
-  // Palabras clave asociadas a cada categoria
- categorySitesKeywords: { [key: string]: string[] } = {
-  'Museos/Exposiciones': [
-    'museo',  'museum', 'lonja',
-    'caixaforum', 'infanta', 'historias', 'acuario'
-  ],
-  'Monumentos/Esculturas': [
-    'puerta', 'estatua', 'monumento', 'murallas',
-    'escultura'
-  ],
-  'Zonas verdes': [
-    'parque', 'canal'
-  ],
-  'Arquitectura': [
-    'basilica', 'iglesia', 'palacio', 'casa',
-    'catedral', 'puente', 'zuda', 'mercado'
-  ],
-  'Arte mudéjar': [
-    'aljaferia', 'la seo', 'san pablo', 'magdalena'
-  ],
-  'Arte romano':[
-    'murallas', 'caesaraugusta',
-  ]
-};
   onPageChange(newPage: number) {
     this.page = newPage;
     window.scrollTo({ top: 0, behavior: 'instant' });
