@@ -6,8 +6,7 @@ export const routes: Routes = [
     {
         path: '', 
         loadComponent: () =>
-                import('./home/home.component').then(m => m.HomeComponent),
-           data: { breadcrumb: 'Home' }
+                import('./home/home.component').then(m => m.HomeComponent),      
     },   
     {
         path: 'sitios',     
@@ -35,8 +34,7 @@ export const routes: Routes = [
     {
         path: 'eventos', 
         loadComponent: () =>
-                import('./event-card-list/event-card-list.component').then(m => m.EventCardListComponent),
-           data: { breadcrumb: 'Eventos' }
+                import('./event-card-list/event-card-list.component').then(m => m.EventCardListComponent),     
     }, 
     {
         path: 'signin', 
@@ -58,7 +56,6 @@ export const routes: Routes = [
     path: 'alojamientos', 
         loadComponent: () =>
                 import('./accommodation/accommodation.component').then(m => m.AccommodationComponent),
-            data: { breadcrumb: 'Alojamientos' }
     },
     {
     path: 'recuperar-contrasena',
@@ -79,5 +76,11 @@ export const routes: Routes = [
       data: { breadcrumb: 'Detalle de Ruta' }
     }
       ]
-   }
+   },
+{
+  path: '**',
+  loadComponent: () =>
+    import('./not-found/not-found.component').then(m => m.NotFoundComponent),
+  data: { breadcrumb: 'Error 404' }
+}
 ]
