@@ -30,15 +30,16 @@ public class UsuarioService {
     public Usuario registrarUsuarioDesdeDto(UsuarioDto dto) {
         Usuario usuario = new Usuario();
         usuario.setEmail(dto.getEmail());
-        usuario.setContrasena(passwordEncoder.encode(dto.getContrasena())); // usar "password"
+        usuario.setContrasena(passwordEncoder.encode(dto.getContrasena()));
         usuario.setNombre(dto.getNombre());
         usuario.setActivo(false);
 
         Usuario guardado = usuarioRepository.save(usuario);
 
-        // Generar token y enviar correo de activación
-        VerificationToken token = verificationTokenService.crearToken(guardado);
+        // Generar token de activación
+        VerificationToken token = verificationTokenService.crearToken(guardado, "ACTIVACION");
         String enlace = "http://localhost:8080/auth/verify?token=" + token.getToken();
+
         emailService.enviarCorreo(
                 guardado.getEmail(),
                 "Activa tu cuenta",
@@ -72,7 +73,7 @@ public class UsuarioService {
         });
     }
 
-    // 🔹 Cambiar contraseña (requiere contraseña actual)
+    // 🔹 Cambiar contraseña (con validación de la actual)
     public void cambiarContrasena(Integer id, String actual, String nueva) {
         usuarioRepository.findById(id).ifPresent(usuario -> {
             if (passwordEncoder.matches(actual, usuario.getContrasena())) {
