@@ -81,12 +81,16 @@ export const routes: Routes = [
           loadComponent: () =>
           import('./map-page/map-page.component').then(m => m.MapPageComponent)
     },
-
+    {
+     path: 'reset-password', 
+     loadComponent: () => import('./reset-password/reset-password.component').then(m => m.ResetPasswordComponent)   
+    },
     {
       path: '**',
       loadComponent: () =>
         import('./not-found/not-found.component').then(m => m.NotFoundComponent),
       data: { breadcrumb: 'Error 404' }
     }
+    
   
 ]
