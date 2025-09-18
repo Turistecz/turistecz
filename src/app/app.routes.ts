@@ -1,5 +1,3 @@
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { pageRoutesComponent } from './page-routes/page-routes.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [   
@@ -8,24 +6,24 @@ export const routes: Routes = [
     {
         path: '', 
         loadComponent: () =>
-                import('./home/home.component').then(m => m.HomeComponent)
+                import('./home/home.component').then(m => m.HomeComponent),
+           data: { breadcrumb: 'Home' }
     },   
-       
     {
-        path: 'sitios', 
+        path: 'sitios',     
         children: [
-           { 
+   { 
             path: '',
             loadComponent: () =>
-                import('./place-card-list/place-card-list.component').then(m => m.PlaceCardListComponent)
-           },
-           {
+                import('./place-card-list/place-card-list.component').then(m => m.PlaceCardListComponent),
+    },
+    {
             path: ':id', 
             loadComponent: () =>
-                import('./monument/monument.component').then(m => m.MonumentComponent)
-            }
+                import('./monument/monument.component').then(m => m.MonumentComponent),
+            data: { breadcrumb: 'Detalle del sitio' }
+    }
         ]
-    
     },   
       
     {
@@ -37,13 +35,8 @@ export const routes: Routes = [
     {
         path: 'eventos', 
         loadComponent: () =>
-                import('./event-card-list/event-card-list.component').then(m => m.EventCardListComponent)
-    },
-    
-    {
-        path: 'rutas', 
-        loadComponent: () =>
-                import('./page-routes/page-routes.component').then(m => m.pageRoutesComponent)
+                import('./event-card-list/event-card-list.component').then(m => m.EventCardListComponent),
+           data: { breadcrumb: 'Eventos' }
     }, 
     {
         path: 'signin', 
@@ -57,12 +50,6 @@ export const routes: Routes = [
 
     },  
     {
-    path: 'detalle-ruta/:id', 
-        loadComponent: () =>
-                import('./detail-route/detail-route.component').then(m => m.DetailRouteComponent)
-    },
-  
-     {
     path: 'mi-perfil', 
         loadComponent: () =>
                 import('./mi-perfil/mi-perfil.component').then(m => m.MiPerfilComponent)
@@ -70,16 +57,27 @@ export const routes: Routes = [
     {
     path: 'alojamientos', 
         loadComponent: () =>
-                import('./accommodation/accommodation.component').then(m => m.AccommodationComponent)
+                import('./accommodation/accommodation.component').then(m => m.AccommodationComponent),
+            data: { breadcrumb: 'Alojamientos' }
     },
     {
     path: 'recuperar-contrasena',
     loadComponent: () => import('./recuperar-contrasena/recuperar-contrasena.component').then(m => m.RecuperarContrasenaComponent)
     },
-     {
-    path: 'migas-de-pan',
-    loadComponent: () =>
-               import('./breadcrumbs/breadcrumbs.component').then(m => m.BreadcrumbsComponent)
+    {
+  path: 'rutas',
+  children: [
+    {
+      path: '',
+      loadComponent: () =>
+        import('./page-routes/page-routes.component').then(m => m.pageRoutesComponent),
+    },
+    {
+      path: ':id',
+      loadComponent: () =>
+        import('./detail-route/detail-route.component').then(m => m.DetailRouteComponent),
+      data: { breadcrumb: 'Detalle de Ruta' }
     }
-  
+      ]
+   }
 ]
