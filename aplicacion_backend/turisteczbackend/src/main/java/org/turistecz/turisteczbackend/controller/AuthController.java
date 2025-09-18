@@ -40,12 +40,19 @@ public class AuthController {
         return ResponseEntity.ok("Registro exitoso. Revisa tu correo para activar tu cuenta.");
     }
 
-    @PostMapping("/login")
+   @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Usuario usuario = usuarioService.buscarPorEmail(request.getEmail());
         if (usuario == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuario no encontrado");
         }
+
+                // 🔹 Verificar si el usuario está activo
+        if (!usuario.isActivo()) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                    .body("La cuenta no está verificada. Revisa tu correo para activarla.");
+        }
+
 
         if (!passwordEncoder.matches(request.getContrasena(), usuario.getContrasena())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Contraseña incorrecta");
