@@ -497,7 +497,7 @@ INSERT INTO usuario (nombre, apellido, email, contrasena, activo, fecha_creacion
 ('Alvaro', 'Samcho', 'asfswgew@gmail.com', 'contrasena', true, CURRENT_DATE),
 ('Alvaro', 'sdgsdgsd', 'sdhshshs@gmail.com', 'contrasenaa', true, current_date),
 ('Alvaro', 'gsdgdsgsgds', 'hrhsrhsrd@gmail.com', 'contraseena', true, current_date),
-('Alvaro', 'Sancho', 'alvarosanva6@gmail.com', '$10$sxdMK9EZUH1MVLnJbKYQMu3XK86XzlORsP258SlkHZHDF7WyYCQYm', true, current_date);
+('Alvaro', 'Sancho', 'alvarosanvaa6@gmail.com', '$10$VrkN281yRz.GcR5yjK6v4.ayujUkUsm3mi0Rrs8FQlT3LyXNOb9oW', true, current_date);
 
 
 -- Insert data into caracteristica
