@@ -44,7 +44,10 @@ export class ResetPasswordComponent implements OnInit {
   private passwordsCoinciden(form: FormGroup) {
     const nueva = form.get('nuevaContrasena')?.value;
     const confirmar = form.get('confirmarContrasena')?.value;
-    return nueva && confirmar && nueva !== confirmar
+
+    if(!confirmar) return null;
+
+    return nueva !== confirmar
       ? { noCoinciden: true }
       : null;
   }
@@ -53,6 +56,7 @@ export class ResetPasswordComponent implements OnInit {
     if (this.form.invalid) return;
 
     this.cargando = true;
+
     this.http.post(`http://localhost:8080/auth/reset-password?token=${this.token}`, this.form.value)
       .subscribe({
         next: () => {
@@ -62,7 +66,13 @@ export class ResetPasswordComponent implements OnInit {
           setTimeout(() => this.router.navigate(['/login']), 2500);
         },
         error: (err) => {
-          this.mensaje = err.error || 'Error al actualizar la contraseña';
+          if(typeof err.error === 'string'){
+            this.mensaje = err.error;
+          }else if(err.error?.mesagge){
+            this.mensaje = err.error.message;
+          }else{
+            this.mensaje = 'Error al actualizar la contraseña';
+          }  
           this.tipoMensaje = 'error';
           this.cargando = false;
         }

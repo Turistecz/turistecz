@@ -12,6 +12,7 @@ import org.turistecz.turisteczbackend.service.UsuarioService;
 import org.turistecz.turisteczbackend.service.VerificationTokenService;
 import org.turistecz.turisteczbackend.security.JwtUtil;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -106,7 +107,6 @@ public class AuthController {
 
         return ResponseEntity.ok("Contraseña actualizada correctamente");
     }
-
     @PostMapping("/forgot-password")
     public ResponseEntity<?> forgotPassword(@RequestBody Recuperar_contrasenaDto dto) {
         Usuario usuario = usuarioService.buscarPorEmail(dto.getEmail());
@@ -117,8 +117,14 @@ public class AuthController {
         VerificationToken token = verificationTokenService.crearToken(usuario, "RECOVERY");
         String enlace = "http://localhost:4200/reset-password?token=" + token.getToken();
 
+        // 🔹 Enviar correo (MailHog o SendGrid)
         usuarioService.enviarCorreoRecuperacion(usuario.getEmail(), enlace);
-        return ResponseEntity.ok("Se ha enviado un enlace de recuperación a tu correo");
+
+        // 🔹 DEV: devolver el enlace en la respuesta para pruebas locales
+        return ResponseEntity.ok(Map.of(
+            "mensaje", "Se ha enviado un enlace de recuperación a tu correo",
+            "enlace", enlace
+        ));
     }
 
     @PostMapping("/reset-password")
@@ -126,7 +132,8 @@ public class AuthController {
             @RequestParam String token,
             @RequestBody Resetear_contrasenaDto dto) {
 
-        Optional<VerificationToken> vTokenOpt = verificationTokenService.validateToken(token, "RECOVERY");
+        var vTokenOpt = verificationTokenService.findByTokenAndTipo(token, "RECOVERY");
+
         if (vTokenOpt.isEmpty()) {
             return ResponseEntity.badRequest().body("Token inválido o expirado");
         }
