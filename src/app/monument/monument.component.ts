@@ -77,6 +77,8 @@ export class MonumentComponent implements OnInit {
     longitud: 0
   };
 
+  name:string = 'app-monument';
+
   async loadImages(): Promise<void> {
     const variableNumero = this.route.snapshot.paramMap.get('id'); 
     try {

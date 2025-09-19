@@ -17,9 +17,7 @@ import { mapRoute } from '../models/details-routes';
 })
 export class MapComponent implements AfterViewInit, OnInit{
 
-  constructor(private apiMapService: MapService, private http: HttpClient, element: ElementRef) {
-    const isChildOf = this.hasParent(element, 'app-monument');
-    this.isChild = isChildOf;
+  constructor(private apiMapService: MapService, private http: HttpClient) {
   }
 
   private map: any;
@@ -83,6 +81,7 @@ export class MapComponent implements AfterViewInit, OnInit{
   taxiMarkerGroup = new L.MarkerClusterGroup();
   adapParkingMarkerGroup = new L.MarkerClusterGroup();
   farmaciaMarkerGroup = new L.MarkerClusterGroup();
+  sitesMarkerGroup = new L.MarkerClusterGroup();
 
   route: MapRouteItem = {
     routes: [
@@ -126,18 +125,13 @@ export class MapComponent implements AfterViewInit, OnInit{
 
   name = input("");
 
+    // Map page
+  @Input() datos: any[] = [];
+
   /* Rotue Sites*/
   @Input() routeSites:mapRoute[]=[]; 
 
-  isChild:boolean = true;
-
-  private hasParent(element: ElementRef, selector: string): boolean {
-      let parent = element.nativeElement;
-      while(parent = parent.parentElement) {
-          if (parent.matches(selector)) { return true; }
-      }
-      return false;
-  }
+  @Input() parent: string ='';
   
   // wait for map to load
   ngAfterViewInit(): void {
@@ -152,7 +146,7 @@ export class MapComponent implements AfterViewInit, OnInit{
     await this.loadTramStops();
     await this.loadAdapParking();
     await this.loadFarmacia();
-    this.makeLocationMarkers();
+    await this.makeLocationMarkers();
     await this.getRoute();
     
     //TODO: queda la de bus info
@@ -199,20 +193,25 @@ async getRoute() {
   const latlng = this.getSiteCoords();
 
   try {
-    if (this.isChild) {
-    const datos = await firstValueFrom(this.apiMapService.getRoute(latlng, this.userLatLong));
-    this.route = datos;
-    this.visualRouteLine();
-    } else {
-      let coords:[[number, number]] = [[0,0]];
-      coords.shift();
-      this.routeSites.forEach((item: mapRoute) => {
-        let lat = this.convertCoords(item.latitud, item.longitud);
-        coords.push([lat[1], lat[0]]);
-      });
-      const datos = await firstValueFrom(this.apiMapService.getRouteSites(this.userLatLong, coords));
-      this.route = datos;
-      this.visualRouteLine();
+    switch (this.parent) {
+      case 'app-monument': {
+        const datos = await firstValueFrom(this.apiMapService.getRoute(latlng, this.userLatLong));
+        this.route = datos;
+        this.visualRouteLine();
+        break;
+      }
+      case 'app-detail-route': {
+        let coords:[[number, number]] = [[0,0]];
+        coords.shift();
+        this.routeSites.forEach((item: mapRoute) => {
+          let lat = this.convertCoords(item.latitud, item.longitud);
+          coords.push([lat[1], lat[0]]);
+        });
+        const datos = await firstValueFrom(this.apiMapService.getRouteSites(this.userLatLong, coords));
+        this.route = datos;
+        this.visualRouteLine();
+        break;
+      }
     }
   } catch (error) {
     console.error('Error al cargar la ruta: ', error);
@@ -221,44 +220,72 @@ async getRoute() {
 
 // creates markers for user and monument location and adjusts the map view to fit both
 //TODO: find alternative to get user location or solution/check for when it doesn't work
-makeLocationMarkers(){
+async makeLocationMarkers(){
 
-  if (this.isChild) {
-    const latlng = this.getSiteCoords();
+  switch (this.parent) {
+      case 'app-monument': {
+        const latlng = this.getSiteCoords();
 
-    let userMarker = L.marker(this.userLatLong).addTo(this.map)
-    .bindPopup("Estás aquí", {autoClose: false})
-    .openPopup();
-
-    let monumentMarker = L.marker(latlng).addTo(this.map)
-    .bindPopup(this.name, {autoClose: false})
-    .openPopup();
-
-    let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
-
-    this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
-    } else {
-
-    let userMarker = L.marker(this.userLatLong).addTo(this.map)
-    .bindPopup("Estás aquí", {autoClose: false})
-    .openPopup();
-
-    /* Route Sites */
-
-    let markersRouteSites: L.Marker[] = 
-    this.routeSites.map((sitio) => {
-      const coords = this.convertCoords(sitio.latitud, sitio.longitud);
-      const latlng: L.LatLngExpression = [coords[1], coords[0]];
-      const marker = L.marker(latlng)
-        .addTo(this.map)
-        .bindPopup(sitio.nombre, {autoClose: true})
+        let userMarker = L.marker(this.userLatLong).addTo(this.map)
+        .bindPopup("Estás aquí", {autoClose: false})
         .openPopup();
-        return marker;
-    });
 
-    L.featureGroup([userMarker]).addTo(this.map);
-    let markersRS = L.featureGroup(markersRouteSites).addTo(this.map);
-    this.map.fitBounds(markersRS.getBounds(), {paddingTopLeft: [-80, 0]});
+        let monumentMarker = L.marker(latlng).addTo(this.map)
+        .bindPopup(this.name, {autoClose: false})
+        .openPopup();
+
+        let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
+
+        this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
+        break;
+      } 
+      case 'app-detail-route': {
+        let userMarker = L.marker(this.userLatLong).addTo(this.map)
+        .bindPopup("Estás aquí", {autoClose: false})
+        .openPopup();
+
+        /* Route Sites */
+
+        let markersRouteSites: L.Marker[] = 
+        this.routeSites.map((sitio) => {
+          const coords = this.convertCoords(sitio.latitud, sitio.longitud);
+          const latlng: L.LatLngExpression = [coords[1], coords[0]];
+          const marker = L.marker(latlng)
+            .addTo(this.map)
+            .bindPopup(sitio.nombre, {autoClose: true})
+            .openPopup();
+            return marker;
+        });
+
+        L.featureGroup([userMarker]).addTo(this.map);
+        let markersRS = L.featureGroup(markersRouteSites).addTo(this.map);
+        this.map.fitBounds(markersRS.getBounds(), {paddingTopLeft: [-80, 0]});
+        break;
+      }
+      case 'app-map-page': {
+        let userMarker = L.marker(this.userLatLong).addTo(this.map)
+        .bindPopup("Estás aquí", {autoClose: false})
+        .openPopup();
+
+        L.featureGroup([userMarker]).addTo(this.map);
+
+        let markers: L.Marker[] = [];
+
+        this.datos.forEach((elem) => {
+          const coords = this.convertCoords(elem.latitud, elem.longitud);
+          const latlng: L.LatLngExpression = [coords[1], coords[0]];
+          console.log(latlng);
+          let siteMarker = L.marker(latlng, { icon: this.biziIcon }).addTo(this.map)
+        .bindPopup(elem.nombre, {autoClose: false});
+          markers.push(siteMarker);
+        });
+
+        let markersS = L.featureGroup(markers).addTo(this.map);
+        this.map.fitBounds(markersS.getBounds(), {paddingTopLeft: [-80, 0]});
+
+        break;
+      }
+
   }
 
   /* ----- */
