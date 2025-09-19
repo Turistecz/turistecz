@@ -25,6 +25,13 @@
   color: #1f57b9;
 }
 
+@media (max-width: 1024px) {
+  .navbar-nav {
+    gap: 0.5rem; 
+    font-size: 1.3rem;
+    padding-left: 10px;
+  }
+}
 @media (max-width: 1400px) {
   .loginContainer {
    width: auto;
@@ -35,15 +42,4 @@
    font-size: 1.6rem;
   }
 }
-
-
-
-@media (max-width: 960px) {
-  .navbar-nav {
-    gap: 0.5rem; 
-    font-size: 1.3rem;
-    padding-left: 10px;
-  }
-}
-
 }
