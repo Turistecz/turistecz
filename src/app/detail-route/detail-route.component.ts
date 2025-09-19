@@ -32,6 +32,8 @@ export class DetailRouteComponent {
 
   idRuta!:number;
 
+  name:string = 'app-detail-route';
+
   /* SITE & TEXT DETAIL */
   routeText: textoDetails [] =[];
 
