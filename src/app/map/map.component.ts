@@ -39,6 +39,13 @@ export class MapComponent implements AfterViewInit, OnInit{
     popupAnchor: [3, -20],
   });
 
+    monumentIcon = L.icon({
+    iconUrl: 'media/monument-icon.png',
+    iconSize: [35, 35],
+    iconAnchor: [12, 20],
+    popupAnchor: [3, -20],
+  });
+
   busIcon = L.icon({
     iconUrl: 'media/bus-icon.svg',
     iconSize: [30, 30],
@@ -274,8 +281,7 @@ async makeLocationMarkers(){
         this.datos.forEach((elem) => {
           const coords = this.convertCoords(elem.latitud, elem.longitud);
           const latlng: L.LatLngExpression = [coords[1], coords[0]];
-          console.log(latlng);
-          let siteMarker = L.marker(latlng, { icon: this.biziIcon }).addTo(this.map)
+          let siteMarker = L.marker(latlng, { icon: this.monumentIcon }).addTo(this.map)
         .bindPopup(elem.nombre, {autoClose: false});
           markers.push(siteMarker);
         });
