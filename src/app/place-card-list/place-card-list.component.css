@@ -15,7 +15,6 @@
   grid-auto-rows: min-content;
 }
 
-
 .card-img {
     height: 100%;
     object-fit: cover;
@@ -39,7 +38,6 @@
     font-family: "Baloo Bhaijaan 2 variable", system-ui;
     color:#112f64
 }
-
 
 .grid-item {
   width: 100%;
