@@ -12,8 +12,8 @@
 }
 
 .navbar-brand img {
-  max-width: 40vw;
-  height: auto; 
+  max-width: 300px;
+
 }
 
 .navbar-nav {
@@ -25,7 +25,6 @@
   width: 200px;
   color: #1f57b9;
 }
-
 
 @media (max-width: 1400px) {
   .loginContainer {
