@@ -30,8 +30,6 @@ export interface cardsHome {
 
 }
 
-
-
 export interface cardsHomeResponse {
   id: string;
   imagenes: cardsHome[];
