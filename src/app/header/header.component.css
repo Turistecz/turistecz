@@ -17,6 +17,7 @@
 }
 
 .navbar-nav {
+  display: flex;
   gap: 6rem;
 }
 
@@ -25,21 +26,27 @@
   color: #1f57b9;
 }
 
-@media (max-width: 1024px) {
-  .navbar-nav {
-    gap: 0.5rem; 
-    font-size: 1.3rem;
-    padding-left: 10px;
-  }
-}
+
 @media (max-width: 1400px) {
   .loginContainer {
    width: auto;
    font-size: 1.5rem; 
   }
    .navbar-nav {
-   gap: 2rem; 
    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .navbar-nav {
+    gap: 3rem;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar-nav {
+    gap: 0.5rem;
   }
 }
 }
