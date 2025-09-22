@@ -1,7 +1,6 @@
 export interface Accommodation {
  title: string;
   streetAddress?: string;
-  email?: string;
   telefonos?: string;
   link?: string;
 }

@@ -24,12 +24,7 @@
 <!-- 🔹 Paginador -->
   <div class="row">
     <div class="col-12 d-flex justify-content-center mt-4">
-      <app-pagination
-        [page]="page"
-        [pageSize]="pageSize"
-        [totalItems]="items.length"
-        (pageChange)="onPageChange($event)">
-      </app-pagination>
+      <app-pagination [page]="page" [pageSize]="pageSize" [totalItems]="items.length" (pageChange)="onPageChange($event)"> </app-pagination>
     </div>
   </div>
 

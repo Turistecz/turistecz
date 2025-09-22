@@ -25,8 +25,9 @@ export class AccommodationComponent {
 
   async loadAccommodation(): Promise<void> {
     try {
-      if (localStorage.getItem('accommdationGlobal')) {
-        this.accommodations = JSON.parse(localStorage.getItem('accommdationGlobal') || '{}');
+      const cache = localStorage.getItem('accommodationGlobal');
+      if (cache) {
+        this.accommodations = JSON.parse(cache);
       } else {
         const datos = await firstValueFrom(this.accommodationService.getAccommodations(500));
         // Filtrar por solo "HOTEL"
@@ -35,7 +36,7 @@ export class AccommodationComponent {
           return titulo.includes('HOTEL');
         });
         this.accommodations = soloHoteles;
-        localStorage.setItem('accommdationGlobal', JSON.stringify(datos));
+        localStorage.setItem('accommodationGlobal', JSON.stringify(soloHoteles));
       }
     } catch (error) {
       console.error('Error al cargar alojamientos:', error);
