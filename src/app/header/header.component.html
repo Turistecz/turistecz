@@ -10,15 +10,16 @@
     
 
     <!-- Logo -->
-    <a class="navbar-brand me-0" href="#">
-      <img src="logo2.png" alt="Logo" width="300">
+    <a class="navbar-brand me-0 " href="#">
+      <img src="logo2.png" alt="Logo">
     </a>
 
     <!-- Bloque derecho (login + hamburguesa en móviles) PEQUEÑO -->
     <div class="d-flex align-items-center gap-2 ms-auto mt-lg-0 loginContainer d-lg-none px-1">
       <div *ngIf="!logueado; else logueadoTemplate">
         <a class="nav-link active" href="/login">
-          <svg title="Acceso/Login" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="25" height="22">
+          <!--icono-->
+          <svg title="Acceso/Login" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="25" height="30">
             <defs>
               <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#184591"/>
@@ -31,7 +32,6 @@
                     32h384c17.7 0 32-14.3 32-32v-68.5C448
                     339.8 294.7 304 224 304z"/>
           </svg>
-        
         </a>
 
       </div>
@@ -68,7 +68,7 @@
         <a class="nav-link active" href="/login">
           <!--Div para el icono de Login -->
           <div class="d-none d-lg-flex align-items-center justify-content-center p-1 mt-2">
-            <svg class="login-icon pt-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 992 1024" width="80" height="80" role="img" aria-label="Acceso/Login">
+            <svg class="login-icon pt-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 992 1024" width="80" height="90" role="img" aria-label="Acceso/Login">
               <defs>
                 <linearGradient id="loginGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stop-color="#184591"/>
