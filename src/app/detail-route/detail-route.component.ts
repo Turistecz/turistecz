@@ -38,13 +38,11 @@ export class DetailRouteComponent {
   routeText: textoDetails [] =[];
 
   /* MAP */
-  idsSitiosRuta:any[]=[];
-  todosSitios:any[]=[];
-  mapRoutes:mapRoute[]=[];
+  idsSitiosRuta:any[]=[]; // Almacena los ids de los sitios de la ruta
+  todosSitios:any[]=[]; // Almacena todos los sitios
+  mapRoutes:mapRoute[]=[]; // Almacena los datos concretos que se envian al mapa
 
   /* FRONT DETAIL */
-  /*Carga la ruta segun el id */
-  /* El id se coloca en el oninit de abajo */
   async loadRoutebyId(id: number): Promise<any> {
     try {
       const datos = await firstValueFrom(this.routeService.getRouteById(id));
@@ -53,50 +51,52 @@ export class DetailRouteComponent {
       return this.oneRoute;
     } 
     catch (error) {
-      console.error('Error al cargar ruta por ID:', error);
+      console.error('Error al cargar ruta por IDRuta:', error);
       throw error;
     }
   }
 
   /* SITE & TEXT DETAIL */
-  // /*Carga el sitio segun el id */
-  /* El id se coloca en el oninit de abajo */
-  
   async loadRoutesSite(id: number): Promise<any> {
     try {
       const datos = await firstValueFrom(this.routeService.getRouteSites(id));
       this.routeText = datos;
-      /* MAP → recuperar id sitios de la ruta */
+      /* MAP */
+      /* idsSitiosRuta → guarda el id sitios de la ruta ORDENADOS en un array */
       this.idsSitiosRuta = datos.map((item: any) => item.idSitio);
     } 
     catch (error) {
-      console.error('Error al cargar ruta por ID:', error);
+      console.error('Error al cargar los sitios de la ruta por IDRuta:', error);
       throw error;
     }
   }
 
-  /* MAP → traer todos los sitos */
+  /* MAP */
+  /* loadSite() → trae TODOS los sitios de la ruta */
   async loadSite(): Promise<void> {
     try {
       const datos = await firstValueFrom(this.monumentService.getMonumentsNames());
       this.todosSitios = datos; 
     } 
     catch (error) {
-      console.error('Error al cargar ruta por ID:', error);
+      console.error('Error al cargar los sitios:', error);
       throw error;
     }
   }
 
-  /* Filtrar sitios de la ruta */
-  async filtrarSitiosRuta(){
-    this.mapRoutes = this.todosSitios
-    .filter(sitio => this.idsSitiosRuta.includes(sitio.id)) 
-    .map(sitio => ({                                      
-      idSitio: sitio.id,
-      nombre: sitio.nombre,
-      longitud: sitio.longitud,
-      latitud: sitio.latitud
-    }));
+  // filtrarSitiosRuta() → crea una nueva array de objetos con los datos necesarios de cada sitio de la ruta en el orden correcto. 
+  // Se guarda en mapRoutes
+  async filtrarSitiosRuta() {
+    this.mapRoutes = this.idsSitiosRuta 
+    .map(id => {
+      const sitio = this.todosSitios.find(site => site.id === id)
+      return {
+        idSitio: sitio.id,
+        nombre: sitio.nombre,
+        longitud: sitio.longitud,
+        latitud: sitio.latitud,
+      };
+    })
   }
 
   async ngOnInit(): Promise<void> {
@@ -109,7 +109,6 @@ export class DetailRouteComponent {
     await this.loadSite();
     await this.filtrarSitiosRuta();
   }
-
 }
     
 
