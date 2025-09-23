@@ -466,38 +466,32 @@ más representativas de la ciudad.","2 horas", 'images/rutas/portada_ruta_mudeja
 
 -- -- Insert data into sitios_ruta
 INSERT INTO `sitios_ruta` VALUES 
-
--- RUTA MUDEJAR
-(1,1,28,2,'En el barrio de El Gancho,\npróximo al casco histórico,\nse encuentra este símbolo\ndel encuentro multicultural\nde la capital aragonesa.\nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.\n '),
-(2,1,2,1,'Utilizado como residencia. \nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.'),
+--Ruta Mudejar
+(1,1,28,1,'En el barrio de El Gancho,\npróximo al casco histórico,\nse encuentra este símbolo\ndel encuentro multicultural\nde la capital aragonesa.\nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.\n '),
+(2,1,2,2,'Utilizado como residencia. \nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.'),
 (3,1,3,3,'Conocida como La Seo, es una joya del arte mudéjar, gótico, renacentista y barroco en pleno corazón de Zaragoza. Su imponente fachada y su interior lleno de historia la convierten en un lugar único, declarado Patrimonio de la Humanidad.'),
 (4,1,29,4,'Uno de los mejores ejemplos del arte mudéjar en Zaragoza. Su torre, de ladrillo decorado con motivos geométricos, se alza elegante como un testimonio vivo de la fusión entre culturas.'),
-
--- RUTA ROMANA
-(5,2,21,5,'LA MEJOR ruta romana'),
-(6,2,20,2,'LA ruta romana'),
-(7,2,9,1,'LA MEJOR muralla'),
-(8,2,34,4,'LA MEJOR muralla'),
-(9,2,35,3,'LA MEJOR muralla'),
-
--- RUTA HISTÓRICA
-(10,3,1,3,'LA MEJOR  HISTORIA'),
-(11,3,3,5,'LA MEJOR HISTORIA'),
-(12,3,4,4,'LA MEJOR HISTORIA'),
-(13,3,10,1,'LA MEJOR HISTORIA'),
-(14,3,24,2,'LA MEJOR HISTORIA'),
-
--- RUTA AL AIRE LIBRE
-(15,4,13,2,'el mejor aire'),
-(16,4,32,1,'el mejor aire'),
-(17,4,36,3,'el mejor aire'),
-
--- RUTA FAMILIAR
-(18,5,30,2,'LA MEJOR FAMILIA'),
-(19,5,13,1,'LA MEJOR FAMILIA'),
-(20,5,31,4,'LA MEJOR FAMILIA'),
-(21,5,33,5,'LA MEJOR FAMILIA');
-
+--Ruta Romana
+(5,2,21,1,'Construido en la primera mitad del siglo I d.C. fue uno de los teatros más grandes de la Hispania romana. Explora la arquitectura, cultura y espectáculos de la antigua ciudad romana de Caesaraugusta.'),
+(6,2,20,2,'Sumérgete en el corazón de la ciudad romana: el foro social, económico, religioso y político de Caesaraugusta. Aquí podrás ver restos arqueológicos del foro y conocer cómo era la vida cotidiana en el centro neurálgico de Caesaraugusta.'),
+(7,2,9,3,'Camina junto a los vestigios de una de las defensas más imponentes de Caesaraugusta. Construidas durante los siglos I al III d.C., bajo el mandato de Tiberio, se estima que la muralla rodeaba por completo la ciudad romana, con unos 3 km de longitud y cerca de 120 torres.'),
+(8,2,34,4,'Camina junto a los vestigios de una de las defensas más imponentes de Caesaraugusta. Construidas durante los siglos I al III d.C., bajo el mandato de Tiberio, se estima que la muralla rodeaba por completo la ciudad romana, con unos 3 km de longitud y cerca de 120 torres.'),
+(9,2,35,5,'Imagina el Ebro como una arteria vital: este puerto fluvial, construido a finales del siglo I a.C., conectaba Zaragoza con el Mediterráneo y Roma, siendo clave en el comercio fluvial del valle del Ebro.'),
+-- Ruta Histórica
+(10,3,1,1,'Construida entre los siglos XVII y XVIII, la Basílica del Pilar es un símbolo religioso y cultural de Zaragoza y España. Destaca su espectacular arquitectura barroca y sus torres que dominan el skyline de la ciudad. En su interior podrás admirar frescos realizados por el pintor Francisco de Goya, y es uno de los principales destinos de peregrinación mariana en el mundo.'),
+(11,3,3,2,'Levantada sobre una antigua mezquita, La Seo refleja la historia de Zaragoza en su mezcla única de estilos: románico, gótico, mudéjar y barroco. Su imponente fachada y el interior albergan el Museo de Tapices, que conserva una de las colecciones más importantes de tejidos históricos de Europa, con piezas que datan de los siglos XV al XVIII.'),
+(12,3,4,3,'Este puente, construido en el siglo XV sobre restos romanos, es el más antiguo de Zaragoza y ha sido testigo de numerosos acontecimientos históricos, incluyendo inundaciones y batallas. Su estructura de piedra conecta el casco histórico con la margen izquierda del Ebro y ofrece unas vistas impresionantes del río y la Basílica del Pilar.'),
+(13,3,10,4,'Inaugurado en 1903, el Mercado Central es un magnífico ejemplo de la arquitectura modernista aplicada a espacios públicos. Su estructura de hierro y cristal crea un espacio luminoso donde los zaragozanos disfrutan del comercio tradicional de productos frescos. Además de su valor arquitectónico, el mercado es un lugar vivo que refleja la cultura y gastronomía local.'),
+(14,3,24,5,'Construida a mediados del siglo XVI, es el mejor ejemplo de arquitectura civil renacentista en Zaragoza. Originalmente fue un espacio para el comercio y las reuniones de mercaderes. Hoy funciona como sala de exposiciones y conserva su elegante interior de columnas y techos artesonados. Un lugar donde la historia y el arte se encuentran.'),
+-- Ruta Al Aire Libre
+(15,4,13,1,'Uno de los espacios más queridos de Zaragoza. Ofrece amplios paseos, jardines, zonas infantiles, tren turístico y miradores. Perfecto para descansar, jugar o desconectar sin salir de la ciudad.'),
+(16,4,32,2,'Nacido con la Expo 2008, es un parque moderno junto al Ebro con áreas infantiles, canales navegables, zonas deportivas, lagos y una playa fluvial. Ideal para pasar el día en familia o con amigos.'),
+(17,4,36,3,'Construido en el siglo XVIII, este canal histórico atraviesa Zaragoza y ofrece un entorno ideal para pasear a pie o en bici bajo la sombra de los árboles. Es una ruta tranquila y natural para disfrutar en familia mientras se descubre un patrimonio hidráulico único.'),
+-- Ruta Familiar
+(18,5,30,1,'Inaugurado en 2008 para la Expo, es el acuario fluvial más grande de Europa. Un viaje fascinante al mundo acuático con más de 140 especies. Un plan ideal para que los peques aprendan sobre ríos, mares y ecosistemas mientras se divierten.'),
+(19,5,13,2,'Este parque combina historia y naturaleza. Con amplios jardines y zonas de juego, es el lugar perfecto para que toda la familia disfrute y se relacione con la ciudad.'),
+(20,5,31,4,'Situado en un edificio histórico, este museo muestra la evolución del cuerpo de bomberos de Zaragoza desde el siglo XIX. Descubre la historia de los bomberos de Zaragoza a través de sus vehículos, herramientas y curiosidades. Una visita entretenida para los niños con ganas de aventuras y aprendizaje.'),
+(21,5,33,5,'Fundado en el siglo XIX, este museo ofrece exposiciones que acercan la naturaleza y la ciencia a todas las edades. Un espacio para despertar la curiosidad de grandes y pequeños con exposiciones sobre la naturaleza, animales y el medio ambiente. Ideal para aprender y divertirse juntos.');
 
 INSERT INTO usuario (nombre, apellido, email, contrasena, activo, fecha_creacion) VALUES 
 ('Alvaro', 'Samcho', 'asfswgew@gmail.com', 'contrasena', true, CURRENT_DATE),

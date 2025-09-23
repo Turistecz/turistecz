@@ -1,6 +1,7 @@
 #menu {
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  padding-block: 10px;
 
 #logueadoTemplate {
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
@@ -12,8 +13,7 @@
 }
 
 .navbar-brand img {
-  max-width: 300px;
-
+  max-width: 230px;
 }
 
 .navbar-nav {
@@ -29,7 +29,7 @@
 @media (max-width: 1400px) {
   .loginContainer {
    width: auto;
-   font-size: 1.5rem; 
+  
   }
    .navbar-nav {
    font-size: 1.6rem;
@@ -39,7 +39,7 @@
 @media (max-width: 1024px) {
   .navbar-nav {
     gap: 3rem;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
   }
 }
 
@@ -47,5 +47,8 @@
   .navbar-nav {
     gap: 0.5rem;
   }
+  .navbar-brand img {
+    width: 150px
+}
 }
 }

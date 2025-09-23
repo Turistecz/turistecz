@@ -5,15 +5,15 @@ Este panel de administración ha sido desarrollado en PHP con conexión a MySQL 
 
 Permite:
 
-Iniciar sesión en el panel de administración.
+- Iniciar sesión en el panel de administración.
 
-Registrar nuevos administradores.
+- Registrar nuevos administradores.
 
-Visualizar todos los sitios registrados.
+- Visualizar todos los sitios registrados.
 
-Editar la información de cada sitio existente.
+- Editar la información de cada sitio existente.
 
-Insertar nuevos sitios en la base de datos.
+- Insertar nuevos sitios en la base de datos.
 
 ⚙️ Configuración Inicial en XAMPP
 1. Arrancar Apache y MySQL

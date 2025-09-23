@@ -42,7 +42,7 @@ $stmt_sr->execute();
 $sitios_ruta = $stmt_sr->get_result();
 
 // --- 4) Obtener sitios disponibles para añadir ---
-$sql_disponibles = "SELECT id, nombre FROM sitio WHERE id NOT IN (SELECT id_sitio FROM sitios_ruta WHERE id_ruta = ?)";
+$sql_disponibles = "SELECT id, nombre FROM sitio WHERE id NOT IN (SELECT id_sitio FROM sitios_ruta sr WHERE id_ruta = ?)";
 $stmt_disp = $conn1->prepare($sql_disponibles);
 $stmt_disp->bind_param("i", $id);
 $stmt_disp->execute();
