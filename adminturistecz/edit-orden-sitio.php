@@ -10,7 +10,7 @@ if (!isset($_SESSION['user'])) {
 $id = intval($_GET['id']);       // ID del registro en sitios_ruta
 $id_ruta = intval($_GET['id_ruta']);
 
-$sql = "SELECT sr.id, sr.id_ruta, sr.id_sitio, sr.orden, s.nombre 
+$sql = "SELECT sr.id, sr.id_ruta, sr.id_sitio, sr.orden, s.nombre, sr.texto 
         FROM sitios_ruta sr 
         INNER JOIN sitio s ON sr.id_sitio = s.id
         WHERE sr.id = ?";
@@ -28,6 +28,7 @@ if (!$registro) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nuevo_orden = intval($_POST['orden']);
     $orden_actual = $registro['orden'];
+    $textoSitio = $_POST['textoSitio'];
 
     $conn1->begin_transaction();
 
@@ -43,14 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $row_swap = $result_check->fetch_assoc();
             $id_swap = $row_swap['id'];
 
-            $swap_stmt = $conn1->prepare("UPDATE sitios_ruta SET orden = ? WHERE id = ?");
+
+            $swap_stmt = $conn1->prepare("UPDATE sitios_ruta SET orden = ? WHERE id = ? ");
             $swap_stmt->bind_param("ii", $orden_actual, $id_swap);
             $swap_stmt->execute();
         }
 
         // Actualizamos el sitio actual
-        $update = $conn1->prepare("UPDATE sitios_ruta SET orden = ? WHERE id = ?");
-        $update->bind_param("ii", $nuevo_orden, $id);
+        $update = $conn1->prepare("UPDATE sitios_ruta SET orden = ? , texto = ? WHERE id = ?");
+        var_dump($textoSitio);
+        $update->bind_param("isi", $nuevo_orden, $textoSitio, $id);
         $update->execute();
 
         // Comprobamos si la actualización violó la restricción única
@@ -92,6 +95,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="mb-3">
                     <label class="form-label">Orden</label>
                     <input type="number" name="orden" class="form-control" value="<?= $registro['orden'] ?>" min="1" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Texto del Sitio</label>
+                    <input type="text" name="textoSitio" class="form-control" value="<?= $registro['texto'] ?>" required>
                 </div>
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save"></i> Guardar
