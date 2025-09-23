@@ -16,6 +16,16 @@ export class AccommodationListComponent {
   page: number = 1;
   pageSize: number = 18; // ajusta al número de tarjetas por página que quieras
 
+  images: string[] = [
+    '/imagenAlojamientos/hotel.png',
+    '/imagenAlojamientos/hotel4.png',
+    '/imagenAlojamientos/hotel6.png',
+  ];
+  getRandomImage(): string {
+    let index = Math.floor(Math.random() * this.images.length);
+    return this.images [index];
+  }
+
   get pagedItems(): Accommodation[] {
     const start = (this.page - 1) * this.pageSize;
     return this.items.slice(start, start + this.pageSize);
