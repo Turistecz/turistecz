@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class CustomRouteComponent {
   
   formMyRoute:any;
+  tituloRutaBBDD!:any;
 
   constructor(private http: HttpClient, private customRouteService: CustomRouteService, private formB: FormBuilder) {
     this.formMyRoute = this.formB.group({
@@ -20,10 +21,11 @@ export class CustomRouteComponent {
     });
   } 
 
-  submitForm(){
+  submitForm() {
     const valor = this.formMyRoute.value.titulo_ruta;
     console.log("info formulario:", valor);
     this.enviarABack(valor);
+    window.location.reload();
   }
 
   enviarABack(valorForm:any){
@@ -35,6 +37,22 @@ export class CustomRouteComponent {
         console.error('Error al enviar el título de la ruta.', error);
       }
     });
+  }
+
+  mostrarRutasUsuario(){
+    this.customRouteService.getTituloRutaUsuario().subscribe({
+      next: (response2) => {
+        console.log('Rutas del usuario:', response2);
+        return this.tituloRutaBBDD = response2; 
+      },
+      error: (error) => {
+        console.error('Error al obtener las rutas del usuario.', error);
+      }
+    });
+  }
+
+  ngOnInit(){
+    this.mostrarRutasUsuario();
   }
 
 }

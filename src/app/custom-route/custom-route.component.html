@@ -1,6 +1,16 @@
 <div class="container">
   <h2>Mis rutas</h2>
-  <p>Todavía no has creado ninguna ruta</p>
+  <p>Todavía no has creado ninguna ruta ¡Anímate a crear la primera!</p>
+
+  <!-- Mostrar rutas del usuario -->
+  <div class="row">
+    <div class="col-3" *ngFor="let titulo of tituloRutaBBDD">
+      <div class="card" >
+        <p>titulo: {{titulo.titulo_ruta}}</p>
+      </div>
+    </div>
+  </div>
+ 
 
   <!-- Formulario crear rutas -->
   <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseFormNewRoute" aria-expanded="false" aria-controls="collapseExample">Crear Nueva Ruta</button>

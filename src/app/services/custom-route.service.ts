@@ -11,14 +11,6 @@ export class CustomRouteService {
 
   constructor(private http: HttpClient) { }
 
-  // private getAuthHeaders(): HttpHeaders {
-  //   const token = localStorage.getItem('token');
-  //   return new HttpHeaders({
-  //     'Authorization': `Bearer ${token}`,
-  //     'Content-Type': 'application/json'
-  //   });
-  // }
-
   private getAuthHeaders(): HttpHeaders | undefined {
   const token = localStorage.getItem('token');
   if (!token) return undefined;
@@ -29,18 +21,24 @@ export class CustomRouteService {
 }
 
   /* URL */
-  private titleRouteURL = 'http://localhost:8080/auth/tituloRutaUsuario';
+  private postTitleRouteURL = 'http://localhost:8080/auth/tituloRutaUsuario';
+  private getTitleRouteURL = 'http://localhost:8080/auth/rutasUsuario';
 
   postTituloRutaUsuario(titulo: string): Observable<any> {
     const enviar = { titulo_ruta: titulo };
     const headers = this.getAuthHeaders();
     if (headers) {
-      return this.http.post<RutaUsuario>(this.titleRouteURL, enviar, { headers })
+      return this.http.post<RutaUsuario>(this.postTitleRouteURL, enviar, { headers })
       .pipe(catchError(this.handleError));
     } else {
-      return this.http.post<RutaUsuario>(this.titleRouteURL, enviar)
+      return this.http.post<RutaUsuario>(this.postTitleRouteURL, enviar)
       .pipe(catchError(this.handleError));
     }
+  }
+
+  getTituloRutaUsuario(){
+    return this.http.get(this.getTitleRouteURL)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: any): Observable<never> {
