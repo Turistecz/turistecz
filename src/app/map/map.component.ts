@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, input, OnInit, ElementRef, ViewChild} from '@angular/core';
+import { Component, AfterViewInit, Input, input, OnInit, ElementRef, ViewChild, OnChanges, SimpleChanges} from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import 'leaflet.markercluster';
@@ -15,7 +15,7 @@ import { mapRoute } from '../models/details-routes';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit, OnInit{
+export class MapComponent implements AfterViewInit, OnInit, OnChanges{
 
   constructor(private apiMapService: MapService, private http: HttpClient) {
   }
@@ -89,6 +89,8 @@ export class MapComponent implements AfterViewInit, OnInit{
   adapParkingMarkerGroup = new L.MarkerClusterGroup();
   farmaciaMarkerGroup = new L.MarkerClusterGroup();
   sitesMarkerGroup = new L.MarkerClusterGroup();
+  allmarkersGroup = L.featureGroup();
+
 
   route: MapRouteItem = {
     routes: [
@@ -125,7 +127,7 @@ export class MapComponent implements AfterViewInit, OnInit{
 
   sortedRouteCoords: [[number, number]] = [[0,0]];
 
-  @Input() data = {
+ @Input() data = {
     latitud: 0,
     longitud: 0
   };
@@ -139,9 +141,8 @@ export class MapComponent implements AfterViewInit, OnInit{
   @Input() routeSites:mapRoute[]=[]; 
 
   @Input() parent: string ='';
-  
   // wait for map to load
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     this.initMap();
   };
 
@@ -163,6 +164,35 @@ export class MapComponent implements AfterViewInit, OnInit{
     this.createTaxiMarkers();
     this.createAdapParkingMarkers();
     this.createFarmaciaMarkers();
+  }
+
+   ngOnChanges(changes: SimpleChanges): void {
+    if (this.map) { // Solo actúa si el mapa ya está inicializado
+      if (changes['data'] && !changes['data'].firstChange) {
+        this.makeLocationMarkers();
+        this.getRoute();
+      }
+
+      if (changes['parent'] && !changes['parent'].firstChange) {
+        // this.getRoute();
+        // this.makeLocationMarkers();
+      }
+
+      if (changes['routeSites'] && !changes['routeSites'].firstChange) {
+        this.makeLocationMarkers();
+        this.getRoute();
+      }
+
+      if (changes['datos'] && !changes['datos'].firstChange && this.parent === 'app-map-page') {
+        //this.makeLocationMarkers();
+        if (this.allmarkersGroup.getLayers().length > 0) {
+          this.map.removeLayer(this.allmarkersGroup)
+          
+        } else {
+          this.makeLocationMarkers();
+        }
+      }
+    }
   }
 
   getUserCoords(){
@@ -270,36 +300,41 @@ async makeLocationMarkers(){
         break;
       }
       case 'app-map-page': {
-        let userMarker = L.marker(this.userLatLong).addTo(this.map)
-        .bindPopup("Estás aquí", {autoClose: false})
-        .openPopup();
+        try {
+          console.log("Z")
+          // Marcador del usuario
+          let userMarker = L.marker(this.userLatLong)
+            .addTo(this.map)
+            .bindPopup("Estás aquí", { autoClose: false }) //hace que el popup se abra directamente
+            .openPopup();
 
-        L.featureGroup([userMarker]).addTo(this.map);
+          L.featureGroup([userMarker]).addTo(this.map);
 
-        let markers: L.Marker[] = [];
+          // Marcadores de sitios
+          let markers: L.Marker[] = [];
+          //crea marcadores para cada sitio y los mete en el array
+          this.datos.forEach((elem) => {
+            const coords = this.convertCoords(elem.latitud, elem.longitud);
+            const latlng: L.LatLngExpression = [coords[1], coords[0]];
 
-        this.datos.forEach((elem) => {
-          const coords = this.convertCoords(elem.latitud, elem.longitud);
-          const latlng: L.LatLngExpression = [coords[1], coords[0]];
-          console.log(latlng);
-          let siteMarker = L.marker(latlng, { icon: this.monumentIcon})
-          //para que al hacer click en el enlace/botón lleve al detalle de ese monumento
-          .bindPopup( `${elem.nombre}<br><a href="http://localhost:4200/sitios/${elem.id}" id='button'> Ver más</a>`);
-          siteMarker.addTo(this.map);
-          markers.push(siteMarker)
-        });
+            let siteMarker = L.marker(latlng, { icon: this.monumentIcon })
+              .bindPopup(`${elem.nombre}<br><a href="http://localhost:4200/sitios/${elem.id}" id='button'> Ver más</a>`);
 
-        let markersS = L.featureGroup(markers).addTo(this.map);
-        this.map.fitBounds(markersS.getBounds(), {paddingTopLeft: [-80, 0]});
+            markers.push(siteMarker);
+          });
 
-        //Para proteger los bounds y no "rompa"
-        if (markers.length > 0) {
-          let markersS = L.featureGroup(markers).addTo(this.map);
-          this.map.fitBounds(markersS.getBounds(), {paddingTopLeft: [-80, 0]});
-      }
+          if (markers.length > 0) {
+             this.allmarkersGroup = L.featureGroup(markers).addTo(this.map);
+            this.map.fitBounds(this.allmarkersGroup.getBounds(), { paddingTopLeft: [-80, 0] });
+          }
 
-        break;
-      }
+        } catch (error) {
+          console.error('Error al cargar los sitios en el mapa: ', error);
+        }
+
+  break;
+}
+
 
   }
 

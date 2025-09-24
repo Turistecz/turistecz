@@ -2,7 +2,10 @@
   <div><h2 class="titleMapPage pb-5">Mapa</h2></div>
   <div class="row ">
     <div class="col-12 col-md-3">
-      <app-filter  [categories]="categories" (filteredCards)="updatePlaces($event)"></app-filter>
+      <!--places manda todos los lugares a filtros
+      categories manda las categorias que va a usar el filtro
+      (filteredCards)="updatePlaces($event)" hace que los filtros emitan la lista actualizada -->
+      <app-filter [places]="places" [categories]="categories" (filteredCards)="updatePlaces($event)"></app-filter>
     </div>
     <div class="col-12 col-md-9">
         <app-map [datos]="sitiosFiltrados" [parent]="name">

@@ -8,6 +8,7 @@ import { firstValueFrom } from 'rxjs';
 import { MonumentServiceService } from '../services/monument-service.service';
 import { HttpClient } from '@angular/common/http';
 import { MonumentItem } from '../models/monument.model';
+import { NgClass } from "../../../node_modules/@angular/common/common_module.d-NEF7UaHr";
 
 @Component({
   selector: 'app-map-page',
