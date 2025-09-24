@@ -8,7 +8,6 @@
   <!--  navbar -->
   <div class="container-fluid h4 mb-0 position-relative d-flex align-items-center w-100" id="menu">
     
-
     <!-- Logo -->
     <a class="navbar-brand me-0 " href="#">
       <img src="turistecz_logo.png" alt="Logo">
@@ -33,13 +32,12 @@
                     339.8 294.7 304 224 304z"/>
           </svg>
         </a>
-
       </div>
       <ng-template #logueadoTemplate>
-        <div class="d-flex align-items-center gap-2">            
-          <span class="nav-link active fw-bold">
-            <a class="text-reset text-decoration-none px-1" href="/mi-perfil">Perfil</a>
-          </span>
+        <div class="d-flex align-items-center">            
+            <a class="d-inline-flex align-items-center justify-content-center" href="/mi-perfil">
+              <img src="iconoLogin.png" class="imgLogin pe-2 " alt="Acceso/login">
+            </a>
           <button class="btn btn-outline-primary btn-sm  py-1" (click)="onLogout()">
             <i class="bi bi-box-arrow-right"></i>
           </button>
@@ -84,17 +82,6 @@
           </div>
         </a>
       </div>
-      <ng-template #logueadoTemplate>
-        <div class="d-flex align-items-center gap-2 px-2">            
-          <span class="nav-link active fw-bold">
-            <a class="text-reset text-decoration-none" href="/mi-perfil">Perfil</a>
-          </span>
-          <button class="btn btn-outline-primary btn-sm" (click)="onLogout()">
-            <i class="bi bi-box-arrow-right"></i>
-          </button>
-        </div>
-      </ng-template>
     </div>
-
   </div>
 </nav>

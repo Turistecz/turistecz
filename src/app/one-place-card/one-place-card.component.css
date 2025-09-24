@@ -53,5 +53,9 @@
   #cardPlace {
     border-radius: 30px;
     max-height: 430px;
+    max-width: 400px;
+  }
+  .card-title{
+    font-size: 1.8rem;
   }
 }
