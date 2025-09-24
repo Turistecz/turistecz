@@ -1,1 +1,28 @@
-<p>custom-route works!</p>
+<div class="container">
+  <h2>Mis rutas</h2>
+  <p>Todavía no has creado ninguna ruta</p>
+
+  <!-- Formulario crear rutas -->
+  <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseFormNewRoute" aria-expanded="false" aria-controls="collapseExample">Crear Nueva Ruta</button>
+  <div class="collapse" id="collapseFormNewRoute">
+    <div class="card card-body mt-3 mb-3">
+
+      <form [formGroup]="formMyRoute" (ngSubmit)="submitForm()">
+
+        <!-- Titulo ruta -->
+        <label for="titulo_ruta" class="form-label">Título de la Ruta</label>
+        <input type="text" id="titulo_ruta" class="form-control" formControlName="titulo_ruta">
+        <div *ngIf="formMyRoute.get('titulo_ruta')?.invalid && formMyRoute.get('titulo_ruta')?.touched">
+          El titulo es obligatorio
+        </div>
+
+        <!-- Botones -->
+        <button type="reset" class="btn btn-primary mt-3 me-3">Cancelar</button>
+        <button type="submit" [disabled]="formMyRoute.invalid" class="btn btn-primary mt-3">Guardar</button>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
