@@ -1,21 +1,12 @@
 @import '@fontsource-variable/baloo-bhaijaan-2';
 
-/* .imagen-bg-routes {
-    background-image: url('/routesImage/bg-imagen.png');
-    position: relative;
-    display: flex;
-    background-size:cover;
-    padding-top: 4rem;
-    padding-bottom:  10rem;
-    
-} */
-
 .cardRoutes{
    display: block;
    justify-content: space-between; 
    position: relative;
    margin-top: 1rem;
-   @media (max-width: 767px) {
+
+@media (max-width: 767px) {
     display: block;
     justify-content: center;
 }
@@ -40,14 +31,13 @@ h3{
     font-weight:700;
     font-size: 4rem;
     text-align: center;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
+    margin-bottom: 0;
 }
  
 .btn-routes {   
     background: linear-gradient( #184591, #2A8BEA);
     font-family: "inclusive", system-ui;
-    /* font-weight: 500;    */
 }  
 
 .btn-routes:hover {
