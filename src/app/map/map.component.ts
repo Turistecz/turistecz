@@ -282,13 +282,21 @@ async makeLocationMarkers(){
           const coords = this.convertCoords(elem.latitud, elem.longitud);
           const latlng: L.LatLngExpression = [coords[1], coords[0]];
           console.log(latlng);
-          let siteMarker = L.marker(latlng, { icon: this.monumentIcon}).addTo(this.map)
+          let siteMarker = L.marker(latlng, { icon: this.monumentIcon})
           //para que al hacer click en el enlace/botón lleve al detalle de ese monumento
-        .bindPopup( `${elem.nombre}<br><a href="http://localhost:4200/sitios/${elem.id}" id='button'> Ver más</a>`)
+          .bindPopup( `${elem.nombre}<br><a href="http://localhost:4200/sitios/${elem.id}" id='button'> Ver más</a>`);
+          siteMarker.addTo(this.map);
+          markers.push(siteMarker)
         });
 
         let markersS = L.featureGroup(markers).addTo(this.map);
         this.map.fitBounds(markersS.getBounds(), {paddingTopLeft: [-80, 0]});
+
+        //Para proteger los bounds y no "rompa"
+        if (markers.length > 0) {
+          let markersS = L.featureGroup(markers).addTo(this.map);
+          this.map.fitBounds(markersS.getBounds(), {paddingTopLeft: [-80, 0]});
+      }
 
         break;
       }
