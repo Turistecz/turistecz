@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../services/weather.service';
 import { CommonModule } from '@angular/common';
+import { cardsHome } from '../place-card/place-card.model';
 
 @Component({
   selector: 'app-weather',
@@ -12,6 +13,8 @@ import { CommonModule } from '@angular/common';
 export class WeatherComponent implements OnInit{
 
   current: any;
+
+
 
 
   constructor(private weatherService: WeatherService){}
@@ -34,4 +37,6 @@ getWeatherIcon(current: any): string{
     return icon;
   }
   }
+
+ 
 }
