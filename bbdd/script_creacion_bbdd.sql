@@ -150,6 +150,42 @@ CREATE TABLE filtro (
 );
 
 
+
+-- Crear tabla de configuración (única, flexible)
+CREATE TABLE IF NOT EXISTS configuracioncolor (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    clave VARCHAR(50) UNIQUE NOT NULL,  
+    valor TEXT,
+    descripcion VARCHAR(255)
+);
+
+-- Insertar el tema 'default' como JSON (paleta completa)
+INSERT INTO configuracioncolor (clave, valor, descripcion) 
+VALUES (
+  'tema_activo',
+  '{
+    "name": "default",
+    "color_primary": "#184591",
+    "color_secondary": "#2A8BEA",
+    "color_accent": "#42D5A5",
+    "gradient_primary_start": "#1f57b9",
+    "gradient_primary_end": "#8adff5",
+    "gradient_home_start": "#8ee3f7",
+    "gradient_home_end": "#478ed1",
+    "gradient_footer_start": "#6dd5ed",
+    "gradient_footer_end": "#2A8BEA",
+    "bg_primary": "#ffffff",
+    "bg_secondary": "#f0f0f0",
+    "text_primary": "#03080a",
+    "text_secondary": "#495057",
+    "text_light": "#ffffff"
+  }',
+  'Tema activo de la app (paleta completa en JSON)'
+)
+ON DUPLICATE KEY UPDATE 
+  valor = VALUES(valor),
+  descripcion = VALUES(descripcion);
+
 -- Inserción de datos en sitio
 
 INSERT INTO sitio (id, nombre, latitud, longitud, direccion, 
@@ -437,7 +473,6 @@ más representativas de la ciudad.","2 horas", 'images/rutas/portada_ruta_mudeja
 
 -- -- Insert data into sitios_ruta
 INSERT INTO `sitios_ruta` VALUES 
-
 -- Ruta Mudejar
 (1,1,28,1,'En el barrio de El Gancho,\npróximo al casco histórico,\nse encuentra este símbolo\ndel encuentro multicultural\nde la capital aragonesa.\nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.\n '),
 (2,1,2,2,'Utilizado como residencia. \nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.'),
@@ -488,6 +523,7 @@ INSERT INTO caracteristica (nombre) VALUES
 (2, 2),
 (3, 1),
 (3, 3);
+
 
 -- Creacion de Vista para mostrar detalles ruta:
 
