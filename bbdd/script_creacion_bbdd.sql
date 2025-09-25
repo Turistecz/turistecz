@@ -115,15 +115,50 @@ CREATE TABLE favoritos (
     UNIQUE (usuario_id, sitios_id) 
 );
 
+
+CREATE TABLE filtro (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	museos_exposiciones BOOLEAN,
+    monumentos_esculturas BOOLEAN,
+    zonas_verdes BOOLEAN,
+    arquitectura BOOLEAN,
+    arte_mudejar BOOLEAN,
+    arte_romano BOOLEAN,
+    rampas BOOLEAN,
+    ascensores BOOLEAN,
+    puertas_automaticas BOOLEAN,
+    escaleras_mecanicas BOOLEAN,
+    servicios_adaptados BOOLEAN,
+    parking_adaptado BOOLEAN,
+    mostrador_adaptado BOOLEAN,
+    sin_barreras_arquitectonicas BOOLEAN,
+    braille BOOLEAN,
+    interprete_lengua_signos BOOLEAN,
+    videos_subtitulados BOOLEAN,
+    ayudas_visuales BOOLEAN,
+    bancos BOOLEAN,
+    ayuda_movilidad BOOLEAN,
+    lenguaje_simple BOOLEAN,
+    acceso_perros_guias BOOLEAN,
+    acceso_perros_asistencia BOOLEAN,
+    sala_lactancia BOOLEAN,
+    cambiador BOOLEAN,
+    visitas_grupales BOOLEAN,
+    guias_turisticos_multiidioma BOOLEAN,
+    elementos_audiovisuales_multiidioma BOOLEAN,
+    documentacion_multiidioma BOOLEAN
+);
+
+
 -- Inserción de datos en sitio
 
-
-INSERT INTO sitio (id, nombre, latitud, longitud, direccion, horario_visita,
-telefono, enlace_web, rampas, ascensores, puertas_automaticas, escaleras_mecanicas,
-servicios_adaptados, sala_lactancia, cambiador, parking_adaptado, bancos, mostrador_adaptado,
-sin_barreras_arquitectonicas, braille, interprete_lengua_signos, videos_subtitulos, ayudas_visuales,
-guias_turisticos_multiidioma, elementos_audiovisuales_multiidioma, documentacion_multiidioma, 
-visitas_grupales, ayuda_movilidad, lenguaje_simple, acceso_perros_guias, acceso_perros_asistencia)
+INSERT INTO sitio (id, nombre, latitud, longitud, direccion, 
+horario_visita, telefono, enlace_web, rampas, ascensores, 
+puertas_automaticas, escaleras_mecanicas, servicios_adaptados, sala_lactancia, cambiador, 
+parking_adaptado, bancos, mostrador_adaptado, sin_barreras_arquitectonicas, braille, 
+interprete_lengua_signos, videos_subtitulos, ayudas_visuales, guias_turisticos_multiidioma, elementos_audiovisuales_multiidioma, 
+documentacion_multiidioma, visitas_grupales, ayuda_movilidad, lenguaje_simple, acceso_perros_guias, 
+acceso_perros_asistencia)
 
 VALUES 
 (1, 'Basílica de Nuestra Señora del Pilar', 676641.359, 4613843.186,'Plaza del Pilar, s/n, Casco Antiguo, 50003 Zaragoza',	
@@ -400,12 +435,12 @@ más representativas de la ciudad.","2 horas", 'images/rutas/portada_ruta_mudeja
 
 -- -- Insert data into sitios_ruta
 INSERT INTO `sitios_ruta` VALUES 
---Ruta Mudejar
+-- Ruta Mudejar
 (1,1,28,1,'En el barrio de El Gancho,\npróximo al casco histórico,\nse encuentra este símbolo\ndel encuentro multicultural\nde la capital aragonesa.\nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.\n '),
 (2,1,2,2,'Utilizado como residencia. \nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.'),
 (3,1,3,3,'Conocida como La Seo, es una joya del arte mudéjar, gótico, renacentista y barroco en pleno corazón de Zaragoza. Su imponente fachada y su interior lleno de historia la convierten en un lugar único, declarado Patrimonio de la Humanidad.'),
 (4,1,29,4,'Uno de los mejores ejemplos del arte mudéjar en Zaragoza. Su torre, de ladrillo decorado con motivos geométricos, se alza elegante como un testimonio vivo de la fusión entre culturas.'),
---Ruta Romana
+-- Ruta Romana
 (5,2,21,1,'Construido en la primera mitad del siglo I d.C. fue uno de los teatros más grandes de la Hispania romana. Explora la arquitectura, cultura y espectáculos de la antigua ciudad romana de Caesaraugusta.'),
 (6,2,20,2,'Sumérgete en el corazón de la ciudad romana: el foro social, económico, religioso y político de Caesaraugusta. Aquí podrás ver restos arqueológicos del foro y conocer cómo era la vida cotidiana en el centro neurálgico de Caesaraugusta.'),
 (7,2,9,3,'Camina junto a los vestigios de una de las defensas más imponentes de Caesaraugusta. Construidas durante los siglos I al III d.C., bajo el mandato de Tiberio, se estima que la muralla rodeaba por completo la ciudad romana, con unos 3 km de longitud y cerca de 120 torres.'),
@@ -465,3 +500,11 @@ JOIN sitios_ruta sr ON s.id = sr.id_sitio
 JOIN imagen_sitio imgs ON s.id = imgs.id
 ORDER BY sr.orden ASC;
 
+
+INSERT INTO filtro VALUES 
+(NULL, false, true, false, true, true, false, false, false, false, false, false, false, false, false, false, false,
+ false, false, false, false, false, false, false, false, false, false, false, false, false), 
+(NULL, false, true, true, false, false, true, false, false, false, false, false, true, false, false, true, false,
+ false, false, false, true, true, false, true, false, true, false, false, false, false),
+ (NULL, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false,
+ false, false, false, false, false, false, false, false, false, false, false, false, false);

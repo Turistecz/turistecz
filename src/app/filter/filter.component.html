@@ -37,7 +37,7 @@
         <input
           class="form-check-input"
           type="checkbox"
-          [checked]="selectedEventsCategoriesMap[cat.type]"
+          [checked]="selectedEventsCategoriesMap[cat.name]"
           (change)="toggleCategory(cat.type)"
           id="check-{{ cat.type }}"
         />
