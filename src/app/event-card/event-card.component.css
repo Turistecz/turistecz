@@ -52,4 +52,10 @@
     transform: translateY(50%);
 }  
    
-
+h2 {
+    display: -webkit-box;
+    font-size: 28px !important;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
