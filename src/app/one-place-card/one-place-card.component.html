@@ -1,10 +1,10 @@
 <div class="row"> 
   <a [routerLink]="['/sitios', data.id]" class="text-decoration-none text-reset">
-    <div class="card text-white col-12 col-md-3 overflow-hidden w-100 position-relative" id="cardPlace">
+    <div class="card text-white col-12 col-md-3 overflow-hidden w-100 position-relative card-place">
       <img [src]="data.url" class="card-img h-100 object-fit-cover" [alt]="data.nombre">
 
-      <!-- Iconos de accesibilidad: solo en pantallas pequeñas -->
-      <div class="accessibility-icons-bottom d-flex justify-content-center align-items-center gap-2">
+      <!-- Iconos de accesibilidad -->
+      <div class="accessibility-icons-bottom justify-content-center align-items-center gap-2">
         <ng-container *ngFor="let servicio of getServiciosDisponibles()">
           <i [class]="servicio.icon" title="{{ servicio.label }}"></i>
         </ng-container>
