@@ -1,3 +1,4 @@
+import { CalendarComponent } from './calendar/calendar.component';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [   
@@ -75,8 +76,12 @@ export const routes: Routes = [
     }
       ]
    },
-
-    {
+ {
+  path: 'calendar',
+  loadComponent: () =>
+    import('./calendar-padre/calendar-padre.component').then(m => m.CalendarPadreComponent),
+}
+,    {
       path: 'mapa', 
           loadComponent: () =>
           import('./map-page/map-page.component').then(m => m.MapPageComponent)
