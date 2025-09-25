@@ -21,10 +21,11 @@ public class RutaUsuarioController {
     private RutaUsuarioService rutaUsuarioService;
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping("/tituloRutaUsuario")
-    public RutaUsuario nuevoTituloRutaUsuario(@RequestBody RutaUsuarioDto dto) {
-        return rutaUsuarioService.crearTituloRutaUsuario(dto.getTitulo_ruta());
+    @PostMapping("/nuevaRutaUsuario")
+    public RutaUsuario nuevaRutaUsuario(@RequestBody RutaUsuarioDto dto) {
+        return rutaUsuarioService.crearRutaUsuario(dto.getTitulo_ruta(), dto.getDescripcion_ruta());
     }
+
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/rutasUsuario")

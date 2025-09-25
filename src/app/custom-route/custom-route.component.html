@@ -3,21 +3,22 @@
   <p>Todavía no has creado ninguna ruta ¡Anímate a crear la primera!</p>
 
   <!-- Mostrar rutas del usuario -->
-  <div class="row">
-    <div class="col-3" *ngFor="let titulo of tituloRutaBBDD">
+  <div class="row mb-3">
+    <div class="col-3" *ngFor="let dato of datosRutaBBDD">
       <div class="card" >
-        <p>titulo: {{titulo.titulo_ruta}}</p>
+        <p> titulo: {{ dato.titulo_ruta }}</p>
+        <p> descripcion: {{ dato.descripcion_ruta }}</p>
+        <!-- <img [src]="dato.imagen_destacada" class="" alt="..."> -->
       </div>
     </div>
   </div>
- 
 
   <!-- Formulario crear rutas -->
-  <button class="btn btn-primary" data-bs-toggle="collapse" data-bs-target="#collapseFormNewRoute" aria-expanded="false" aria-controls="collapseExample">Crear Nueva Ruta</button>
+  <button class="btn btn-primary mb-3" data-bs-toggle="collapse" data-bs-target="#collapseFormNewRoute" aria-expanded="false" aria-controls="collapseExample">Crear Nueva Ruta</button>
   <div class="collapse" id="collapseFormNewRoute">
-    <div class="card card-body mt-3 mb-3">
+    <div class="card card-body mb-3">
 
-      <form [formGroup]="formMyRoute" (ngSubmit)="submitForm()">
+      <form [formGroup]="formMyRoute" (ngSubmit)="onSubmit()">
 
         <!-- Titulo ruta -->
         <label for="titulo_ruta" class="form-label">Título de la Ruta</label>
@@ -25,6 +26,22 @@
         <div *ngIf="formMyRoute.get('titulo_ruta')?.invalid && formMyRoute.get('titulo_ruta')?.touched">
           El titulo es obligatorio
         </div>
+
+        <!-- Imagen ruta -->
+        <!-- <div class="card col-4 mt-3">
+          <img [src]="imagenRuta" class="img-fluid my-3 p-2" style="object-fit: cover;" alt="Imagen de la ruta">
+        </div>
+        <div class="col-4">
+          <input type="file" class="form-control file-upload my-3" (change)="onFileSelected($event)">
+        </div> -->
+
+        <!-- Descripcion ruta -->
+        <label for="descripcion_ruta" class="form-label">Descripcion</label>
+        <input type="text" id="descripcion_ruta" class="form-control" formControlName="descripcion_ruta">
+
+        <!-- Seleccionar sitios -->
+        <!-- Orden sitios -->
+        <!-- texto sitio -->
 
         <!-- Botones -->
         <button type="reset" class="btn btn-primary mt-3 me-3">Cancelar</button>

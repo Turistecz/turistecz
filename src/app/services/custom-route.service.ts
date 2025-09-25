@@ -21,23 +21,23 @@ export class CustomRouteService {
 }
 
   /* URL */
-  private postTitleRouteURL = 'http://localhost:8080/auth/tituloRutaUsuario';
-  private getTitleRouteURL = 'http://localhost:8080/auth/rutasUsuario';
+  private newRouteURL = 'http://localhost:8080/auth/nuevaRutaUsuario';
+  private allRouteURL = 'http://localhost:8080/auth/rutasUsuario';
 
-  postTituloRutaUsuario(titulo: string): Observable<any> {
-    const enviar = { titulo_ruta: titulo };
+  postRutaUsuario(titulo: string, descripcion:string): Observable<any> {
+    const enviar = { titulo_ruta: titulo, descripcion_ruta: descripcion, };
     const headers = this.getAuthHeaders();
     if (headers) {
-      return this.http.post<RutaUsuario>(this.postTitleRouteURL, enviar, { headers })
+      return this.http.post<RutaUsuario>(this.newRouteURL, enviar, { headers })
       .pipe(catchError(this.handleError));
     } else {
-      return this.http.post<RutaUsuario>(this.postTitleRouteURL, enviar)
+      return this.http.post<RutaUsuario>(this.newRouteURL, enviar)
       .pipe(catchError(this.handleError));
     }
   }
 
   getTituloRutaUsuario(){
-    return this.http.get(this.getTitleRouteURL)
+    return this.http.get(this.allRouteURL)
       .pipe(catchError(this.handleError));
   }
 

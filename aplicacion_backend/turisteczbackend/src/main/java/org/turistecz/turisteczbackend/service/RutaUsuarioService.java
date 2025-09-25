@@ -13,9 +13,10 @@ public class RutaUsuarioService {
     @Autowired
     RutaUsuarioRepository repositorioRutaUsuario;
 
-    public RutaUsuario crearTituloRutaUsuario(String titulo) {
+    public RutaUsuario crearRutaUsuario(String titulo, String descripcion) {
         RutaUsuario ruta = new RutaUsuario();
         ruta.setTitulo_ruta(titulo);
+        ruta.setDescripcion_ruta(descripcion);
         return repositorioRutaUsuario.save(ruta);
     }
 

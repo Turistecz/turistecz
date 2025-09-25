@@ -13,23 +13,28 @@ import { HttpClient } from '@angular/common/http';
 export class CustomRouteComponent {
   
   formMyRoute:any;
-  tituloRutaBBDD!:any;
+  datosRutaBBDD!:any;
+  imagenRuta = 'userRoute/img.svg';
+  
 
   constructor(private http: HttpClient, private customRouteService: CustomRouteService, private formB: FormBuilder) {
     this.formMyRoute = this.formB.group({
-      titulo_ruta: ['', Validators.required]
+      titulo_ruta: ['', Validators.required],
+      descripcion_ruta: ['']
     });
   } 
 
-  submitForm() {
+  // Envio de datos a la BBDD
+  onSubmit() {
     const valor = this.formMyRoute.value.titulo_ruta;
-    console.log("info formulario:", valor);
-    this.enviarABack(valor);
+    const valor2 = this.formMyRoute.value.descripcion_ruta;
+    console.log("titulo:", valor, "descripcion", valor2);
+    this.enviarABack(valor, valor2);
     window.location.reload();
   }
-
-  enviarABack(valorForm:any){
-    this.customRouteService.postTituloRutaUsuario(valorForm).subscribe({
+  
+  enviarABack(valorForm:any, valorForm2:any) {
+    this.customRouteService.postRutaUsuario(valorForm, valorForm2).subscribe({
       next: (response) => {
         console.log('Respuesta del servidor:', response);
       },
@@ -38,12 +43,13 @@ export class CustomRouteComponent {
       }
     });
   }
-
+  
+  // Mostrar rutas del usuario, ubicadas en la BBDD
   mostrarRutasUsuario(){
     this.customRouteService.getTituloRutaUsuario().subscribe({
       next: (response2) => {
         console.log('Rutas del usuario:', response2);
-        return this.tituloRutaBBDD = response2; 
+        return this.datosRutaBBDD = response2; 
       },
       error: (error) => {
         console.error('Error al obtener las rutas del usuario.', error);
