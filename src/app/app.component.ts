@@ -5,6 +5,7 @@ import { FooterComponent } from "./footer/footer.component";
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { TemaService } from './services/tema.service';
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,11 @@ export class AppComponent {
   title = 'turistecz';
   isModalOpen = false;
   showBreadcrumbs = false; 
-
+  
   //Para que, al entrar en el enlace, el scroll aparezca arriba del todo
-   constructor(private router: Router) { 
+   constructor(private router: Router
+    , private temaService: TemaService
+   ) { 
     this.router.events
       .pipe(filter((e) => e instanceof NavigationEnd))
       .subscribe((event: any) => {
