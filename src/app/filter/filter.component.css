@@ -60,9 +60,9 @@
   }
   
   /* Header siempre visible */
-  .buscador-top {
+  /* .buscador-top {
     padding-bottom: clamp(0.5rem, 2vw, 1rem);
-  }
+  } */
   
   /* Contenido colapsable por defecto oculto */
   .filters-collapsible {

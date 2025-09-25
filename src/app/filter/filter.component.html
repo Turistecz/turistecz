@@ -1,8 +1,8 @@
 <div id="buscador" class="row text-white p-4">
 
   <!-- FILA 1: Título y botón expand/collapse -->
-  <div class="buscador-top">
-    <h2 class="text-center mb-2">Filtros</h2>
+  <div class="buscador-top p-0">
+    <h2 class="text-center">Filtros</h2>
   </div>
 
   <button class="filter-toggle-btn mb-2 show-button" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
@@ -11,7 +11,7 @@
   </button>
 
   <!-- Contenedor colapsable de filtros -->
-  <div class="filters-collapsible" [class.expanded]="filtersExpanded">
+  <div class="filters-collapsible p-0" [class.expanded]="filtersExpanded">
 
     <!-- Buscador -->
     <div class="d-flex align-items-center">
