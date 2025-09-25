@@ -24,11 +24,9 @@ export class MapPageComponent {
  sortedCards: cardsHome[]=[];
  monumentos: MonumentItem[] = [];
  sitiosFiltrados: any[] = [];
- 
-
  name:string = 'app-map-page';
 
-  constructor(private http: HttpClient, private monumentService: MonumentServiceService) {}
+constructor(private http: HttpClient, private monumentService: MonumentServiceService) {}
 
 
   async loadSite(): Promise<void> {
@@ -56,8 +54,6 @@ export class MapPageComponent {
       // Guardamos todos los monumentos en el array
       this.monumentos = datos;
      
-
-
       // Creamos las cards a partir de todas las imágenes de todos los monumentos
       this.places = datos.flatMap(sitio =>
         sitio.imagenes.map((img: any) => ({
@@ -91,8 +87,6 @@ export class MapPageComponent {
       );
 
       this.sortedCards = this.places;
-      console.log("info de places")
-      console.log(this.places)
 
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
@@ -109,7 +103,6 @@ export class MapPageComponent {
 
   updatePlaces(filteredPlaces: cardsHome[]) {
     this.sortedCards = filteredPlaces;
-
     const idsFiltrados = filteredPlaces.map(p => p.id);
     this.sitiosFiltrados = this.sitios.filter(s => idsFiltrados.includes(s.id));
 }

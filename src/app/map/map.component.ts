@@ -187,6 +187,7 @@ export class MapComponent implements AfterViewInit, OnInit, OnChanges{
         //this.makeLocationMarkers();
         if (this.allmarkersGroup.getLayers().length > 0) {
           this.map.removeLayer(this.allmarkersGroup)
+          this.refreshDatosMarkers();
           
         } else {
           this.makeLocationMarkers();
@@ -301,7 +302,6 @@ async makeLocationMarkers(){
       }
       case 'app-map-page': {
         try {
-          console.log("Z")
           // Marcador del usuario
           let userMarker = L.marker(this.userLatLong)
             .addTo(this.map)
@@ -310,33 +310,15 @@ async makeLocationMarkers(){
 
           L.featureGroup([userMarker]).addTo(this.map);
 
-          // Marcadores de sitios
-          let markers: L.Marker[] = [];
-          //crea marcadores para cada sitio y los mete en el array
-          this.datos.forEach((elem) => {
-            const coords = this.convertCoords(elem.latitud, elem.longitud);
-            const latlng: L.LatLngExpression = [coords[1], coords[0]];
-
-            let siteMarker = L.marker(latlng, { icon: this.monumentIcon })
-              .bindPopup(`${elem.nombre}<br><a href="http://localhost:4200/sitios/${elem.id}" id='button'> Ver más</a>`);
-
-            markers.push(siteMarker);
-          });
-
-          if (markers.length > 0) {
-             this.allmarkersGroup = L.featureGroup(markers).addTo(this.map);
-            this.map.fitBounds(this.allmarkersGroup.getBounds(), { paddingTopLeft: [-80, 0] });
-          }
+          this.refreshDatosMarkers();
 
         } catch (error) {
           console.error('Error al cargar los sitios en el mapa: ', error);
         }
 
   break;
-}
-
-
   }
+}
 
   /* ----- */
 
@@ -662,6 +644,34 @@ public showHideMarkers(event: Event, group: L.FeatureGroup): void {
     this.map.removeLayer(group);
   }
 }
+
+//esto refresca y genera los markers updateados
+private refreshDatosMarkers(): void {
+  if (!this.map) return;
+
+  // Eliminar el grupo viejo si existe
+  if (this.allmarkersGroup && this.map.hasLayer(this.allmarkersGroup)) {
+    this.map.removeLayer(this.allmarkersGroup);
+  }
+
+  const markers: L.Marker[] = [];
+
+  this.datos.forEach((elem) => {
+    const coords = this.convertCoords(elem.latitud, elem.longitud);
+    const latlng: L.LatLngExpression = [coords[1], coords[0]];
+
+    let siteMarker = L.marker(latlng, { icon: this.monumentIcon })
+      .bindPopup(`${elem.nombre}<br><a href="/sitios/${elem.id}">Ver más</a>`);
+
+    markers.push(siteMarker);
+  });
+
+  if (markers.length > 0) {
+    this.allmarkersGroup = L.featureGroup(markers).addTo(this.map);
+    this.map.fitBounds(this.allmarkersGroup.getBounds(), { paddingTopLeft: [-80, 0] });
+  }
+}
+
 
 private createBiziMarkers(): void {
 this.createMarkers(this.biziIcon, this.bizisMarkerGroup, this.bizis, "bizis");
