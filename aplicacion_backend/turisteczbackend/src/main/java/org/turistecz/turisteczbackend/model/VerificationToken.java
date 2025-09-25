@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "verification_tokens")
+@Table(name = "verification_token")
 public class VerificationToken {
 
     @Id
@@ -18,11 +18,11 @@ public class VerificationToken {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    @Column(nullable = false)
+    @Column(name = "fecha_expiracion", nullable = false)
     private LocalDateTime fechaExpiracion;
 
     @Column(nullable = false)
-    private String tipo; // "ACTIVACION" o "RECOVERY"
+    private String tipo;
 
     public VerificationToken() {}
 
@@ -33,43 +33,19 @@ public class VerificationToken {
         this.tipo = tipo;
     }
 
-    public Long getId() {
-        return id;
-    }
+    // Getters y setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getToken() { return token; }
+    public void setToken(String token) { this.token = token; }
 
-    public String getToken() {
-        return token;
-    }
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
+    public LocalDateTime getFechaExpiracion() { return fechaExpiracion; }
+    public void setFechaExpiracion(LocalDateTime fechaExpiracion) { this.fechaExpiracion = fechaExpiracion; }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public LocalDateTime getFechaExpiracion() {
-        return fechaExpiracion;
-    }
-
-    public void setFechaExpiracion(LocalDateTime fechaExpiracion) {
-        this.fechaExpiracion = fechaExpiracion;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
 }

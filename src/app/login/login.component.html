@@ -5,7 +5,6 @@
       <div class="card-body">
         <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" novalidate>
 
-          <!-- Email -->
           <div class="form-group mt-3">
             <label for="email">Email</label>
             <input
@@ -23,7 +22,6 @@
             </div>
           </div>
 
-          <!-- Contraseña -->
           <div class="form-group mt-3">
             <label for="contrasena">Contraseña</label>
             <input
@@ -40,12 +38,10 @@
             </div>
           </div>
 
-          <!-- Botón de Login -->
           <div class="text-center mt-4">
             <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
           </div>
 
-          <!-- Links extras -->
           <div class="text-center mt-3">
             <p>¿No tienes cuenta? 
               <a href="#" (click)="irARegistro($event)">Regístrate</a>

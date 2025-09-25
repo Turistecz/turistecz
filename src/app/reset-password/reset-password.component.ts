@@ -40,7 +40,6 @@ export class ResetPasswordComponent implements OnInit {
     }, { validators: this.passwordsCoinciden });
   }
 
-  // Validador personalizado para comprobar que ambas contraseñas coinciden
   private passwordsCoinciden(form: FormGroup) {
     const nueva = form.get('nuevaContrasena')?.value;
     const confirmar = form.get('confirmarContrasena')?.value;
@@ -66,7 +65,7 @@ export class ResetPasswordComponent implements OnInit {
           setTimeout(() => this.router.navigate(['/login']), 2500);
         },
         error: (err) => {
-          if(typeof err.error === 'string'){
+         if(typeof err.error === 'string'){
             this.mensaje = err.error;
           }else if(err.error?.mesagge){
             this.mensaje = err.error.message;
