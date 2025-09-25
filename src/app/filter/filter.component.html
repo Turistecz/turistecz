@@ -1,8 +1,8 @@
-<div id="buscador" class="row text-white py-3 mb-4">
+<div id="buscador" class="row text-white p-4">
 
   <!-- FILA 1: Título y botón expand/collapse -->
-  <div class="buscador-top mb-3">
-    <h2 class="text-center my-2">Filtros</h2>
+  <div class="buscador-top">
+    <h2 class="text-center mb-2">Filtros</h2>
   </div>
 
   <button class="filter-toggle-btn mb-2 show-button" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
@@ -14,15 +14,15 @@
   <div class="filters-collapsible" [class.expanded]="filtersExpanded">
 
     <!-- Buscador -->
-    <div class="d-flex align-items-center mx-4 mb-3">
+    <div class="d-flex align-items-center">
       <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
       <button class="btn btn-outline-light mx-2 my-1" (click)="onSearch()"><i class="bi bi-search"></i></button>
       <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i></button>
     </div>
 
     <!-- Ordenar -->
-    <div class="mx-3 mb-3" *ngIf="showOrder">
-      <label for="filterOption">Ordenar:</label>
+    <div class="mt-3" *ngIf="showOrder">
+      <h5 for="filterOption">Ordenar:</h5>
       <select id="filterOption" class="form-select" [(ngModel)]="filterOption" (change)="applyEventFilters(); applyPlaceFilters()">
         <option value="future">Cronológicamente</option>
         <option value="alpha">(A-Z)</option>
@@ -31,7 +31,7 @@
     </div>
 
     <!-- Filtros de categorías -->
-    <div class="mx-4 mt-4 filtro-lista">
+    <div class="mt-3 filtro-lista">
       <h5>Categorías</h5>
       <div class="form-check mb-1" *ngFor="let cat of categories">
         <input
@@ -45,8 +45,6 @@
           {{ cat.name }}
         </label>
       </div>
-
-      <br>
 
       <!-- Filtros de accesibilidad -->
       <ng-container *ngIf="showAdaptability">

@@ -6,11 +6,11 @@
 }
 
 .filtro-lista > .adaptability-group:last-child{
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .filtro-lista > .adaptability-group:last-child > .form-check:last-child{
-    margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .filtro-lista h5 {
@@ -68,22 +68,16 @@
   .filters-collapsible {
     max-height: 0;
     opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
     margin-top: 0;
     margin-bottom: 0;
   }
 
-  
   /* Contenido expandido */
   .filters-collapsible.expanded {
     max-height: 100vh;
     overflow-y: auto; /*Para que pueda hacer scroll*/
     opacity: 1;
-    padding-top: clamp(0.75rem, 3vw, 1.5rem);
-    /* padding-bottom: clamp(0.75rem, 3vw, 1.5rem); */
-    margin-top: clamp(0.5rem, 2vw, 1rem);
-    /* margin-bottom: clamp(0.5rem, 2vw, 1rem); */
   }
   
   /* Ajustes para mejor UX en móvil */
@@ -109,4 +103,3 @@
   }
 
 }
-
