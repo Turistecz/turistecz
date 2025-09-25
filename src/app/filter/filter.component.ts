@@ -6,7 +6,8 @@ import { EventItem } from '../models/event-card.model';
 import { HttpClient } from '@angular/common/http';
 import { cardsHome } from '../place-card/place-card.model';
 import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
-import { Category } from '../models/filter.model';
+import { Category, FilterItem } from '../models/filter.model';
+import { firstValueFrom, map } from 'rxjs';
 
 
 @Component({
@@ -58,7 +59,7 @@ export class FilterComponent {
     { key: 'parking_adaptado', label: 'Parking adaptado', groups: ['accesibilidad'] },
     { key: 'bancos', label: 'Bancos/asientos', groups: ['servicios'] },
     { key: 'mostrador_adaptado', label: 'Mostrador adaptado', groups: ['accesibilidad'] },
-    { key: 'sin_barreras_arquitectónicas', label: 'Sin barreras arquitectónicas', groups: ['accesibilidad'] },
+    { key: 'sin_barreras_arquitectonicas', label: 'Sin barreras arquitectónicas', groups: ['accesibilidad'] },
     { key: 'braille', label: 'Braille', groups: ['accesibilidad' ] },
     { key: 'interprete_lengua_signos', label: 'Intérprete de lengua de signos', groups: ['accesibilidad'] },
     { key: 'videos_subtitulados', label: 'Vídeos subtitulados', groups: ['accesibilidad'] },
@@ -73,30 +74,6 @@ export class FilterComponent {
     { key: 'acceso_perros_asistencia', label: 'Acceso a perros de asistencia', groups: ['servicios'] },
 
   ];
-
-  toggleFilters(): void {
-    this.filtersExpanded = !this.filtersExpanded;
-  }
-
-  getOptionsByGroup(group: string) {
-    return this.accesibilityOptions.filter(option => option.groups.includes(group));
-  }
-
-
-  constructor(private router: Router){
-    router.events.subscribe((val) => {
-      if (val instanceof NavigationEnd){
-        if (val.url === '/sitios' || val.url === '/mapa'){
-          this.showAdaptability = true;
-          this.showOrder = false;
-        }else{
-          this.showAdaptability = false;
-          this.showOrder= true
-        }
-      }
-    })
-  }
-
 
   categoriesAdaptability: string[] = [
     'Rampas',
@@ -125,13 +102,110 @@ export class FilterComponent {
 
   ];
 
-  ngOnInit() {
-    
+  inputs: HTMLInputElement[] = [];
+  favFilters: FilterItem[] = [];
+  sortedFilter: FilterItem[] = [];
+  @Input() userFavFilter: FilterItem = {
+    features: [
+      {id: false},
+      {museosExposiciones: false},
+      {monumentosEsculturas: false},
+      {zonasVerdes: false},
+      {arquitectura: false},
+      {arteMudejar: false},
+      {arteRomano: false},
+      {rampas: false},
+      {ascensores: false},
+      {puertasAutomaticas: false},
+      {escalerasMecanicas: false},
+      {serviciosAdaptados: false},
+      {parkingAdaptado: false},
+      {mostradorAdaptado: false},
+      {sinBarrerasArquitectonicas: false},
+      {braille: false},
+      {interpreteLenguaSignos: false},
+      {videosSubtitulados: false},
+      {ayudasVisuales: false},
+      {bancos: false},
+      {ayudaMovilidad: false},
+      {lenguajeSimple: false},
+      {accesoPerrosGuias: false},
+      {accesoPerrosAsistencia: false},
+      {salaLactancia: false},
+      {cambiador: false},
+      {visitasGrupales: false},
+      {guiasTuristicosMultiidioma: false},
+      {elementosAudiovisualesMultiidioma: false},
+      {documentacionMultiidioma: false},
+    ]
+  };
+  orderFilter: FilterItem = {
+    features: [
+      {id: false},
+      {museosExposiciones: false},
+      {monumentosEsculturas: false},
+      {zonasVerdes: false},
+      {arquitectura: false},
+      {arteMudejar: false},
+      {arteRomano: false},
+      {rampas: false},
+      {ascensores: false},
+      {puertasAutomaticas: false},
+      {escalerasMecanicas: false},
+      {serviciosAdaptados: false},
+      {parkingAdaptado: false},
+      {mostradorAdaptado: false},
+      {sinBarrerasArquitectonicas: false},
+      {braille: false},
+      {interpreteLenguaSignos: false},
+      {videosSubtitulados: false},
+      {ayudasVisuales: false},
+      {bancos: false},
+      {ayudaMovilidad: false},
+      {lenguajeSimple: false},
+      {accesoPerrosGuias: false},
+      {accesoPerrosAsistencia: false},
+      {salaLactancia: false},
+      {cambiador: false},
+      {visitasGrupales: false},
+      {guiasTuristicosMultiidioma: false},
+      {elementosAudiovisualesMultiidioma: false},
+      {documentacionMultiidioma: false},
+    ]
+  };
+  orderMap = new Map();
+  inputNames: String[] = [];
+  inputIndex: Number[] = [];
+  orderedArray: [any, boolean][] = [];
+  allCategoriesArray: string[] = [];
+
+  constructor(private router: Router, private http: HttpClient){
+    router.events.subscribe((val) => {
+      if (val instanceof NavigationEnd){
+        if (val.url === '/sitios' || val.url === '/mapa' || val.url === '/mi-perfil'){
+          this.showAdaptability = true;
+          this.showOrder = false;
+        }else{
+          this.showAdaptability = false;
+          this.showOrder= true
+        }
+      }
+    })
+  }
+
+  toggleFilters(): void {
+    this.filtersExpanded = !this.filtersExpanded;
+  }
+
+  getOptionsByGroup(group: string) {
+    return this.accesibilityOptions.filter(option => option.groups.includes(group));
+  }
+
+  async ngOnInit() {
     // Inicializar todos los checkboxes como false
     this.categories.forEach(cat => {
       this.selectedEventsCategoriesMap[cat.type] = false;
       this.selectedPlacesCategoriesMap[cat.type] = false;
-      
     });
 
     this.accesibilityOptions.forEach(option => {
@@ -140,7 +214,9 @@ export class FilterComponent {
 
     this.applyEventFilters();
     this.applyPlaceFilters();
-  
+
+    //await this.loadUserFilter();
+    //this.applyUserFilters();
   }
 
     //Para que los eventos se carguen al inicio de la página. Antes no funcionaba porque se ejecutaba primero 
@@ -153,7 +229,56 @@ export class FilterComponent {
       this.applyPlaceFilters();
   }
 
-  
+  applyUserFilters() {
+    this.inputs = Array.from(document.querySelectorAll('input'));
+
+    this.inputs.forEach((elem, index) => {
+      this.allCategoriesArray.push(this.camelToUnderscore(this.inputNames[index].toString()));
+      if (this.orderedArray[index][1]) {
+        elem.checked = true;
+      }
+    });
+    this.orderedArray.forEach((elem, index) => {
+      if(elem[1]){
+        if (index > 0 && index < 7){
+          this.toggleCategory(this.camelToUnderscore(elem[0].toString()));
+        }
+        else if (index >= 7){
+          this.toggleAccessibility(this.camelToUnderscore(elem[0].toString()));
+        }
+      }
+    })
+  }
+
+  async loadUserFilter() {
+    const datos = await firstValueFrom(this.http.get<FilterItem[]>('http://localhost:8080/api/filtros'));
+    this.favFilters = datos;
+    this.userFavFilter = this.favFilters[2];
+
+    Object.entries(this.orderFilter.features).forEach(elem => {
+      let key = Object.keys(elem[1])[0];
+      this.inputNames.push(key);
+    });
+
+    Object.entries(this.userFavFilter).forEach(elem => {
+      let key = elem[0];
+      let value = elem[1];
+      this.orderMap.set(key, value);
+      let index = this.inputNames.findIndex((element) => element === key);
+      this.inputIndex.push(index);
+    });
+
+    let mapArray = Array.from(this.orderMap);
+    this.orderedArray = Array.from(this.orderMap);
+
+    mapArray.forEach((elem, index) => {
+      this.orderedArray.splice(Number(this.inputIndex[index]), 1, elem);
+    });
+  }
+
+  camelToUnderscore(key: string) {
+    return key.replace( /([A-Z])/g, "_$1").toLowerCase();
+  }
 
   extractDateFromText(text: string): number {
     const regex = /(\d{2})[-\/](\d{2})[-\/](\d{4})/; // regex patrones para manipular texto
@@ -233,9 +358,7 @@ export class FilterComponent {
 
   //Sirve la misma funcion para el componente map-page
   applyPlaceFilters(){
-      
     let filteredPlaces = [...this.places];
-
     const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap)
     .filter(cat => this.selectedPlacesCategoriesMap[cat]);
 
@@ -271,15 +394,42 @@ export class FilterComponent {
     this.filteredCards.emit(filteredPlaces);
      this.noResultsPlacesEvent.emit(this.noResultsPlaces);
   };
-
-
   
   toggleCategory(catType: string) {
-    this.selectedEventsCategoriesMap[catType] = !this.selectedEventsCategoriesMap[catType];
-    this.selectedPlacesCategoriesMap[catType] = !this.selectedPlacesCategoriesMap[catType];
-    // this.selectedAccesibilityCategoriesMap[cat] = !this.selectedAccesibilityCategoriesMap[cat];
-    this.applyEventFilters();
-    this.applyPlaceFilters();
+    switch(catType) {
+      case "id":
+        break;
+      case "museos_exposiciones":
+        this.selectedPlacesCategoriesMap["museos"] = !this.selectedPlacesCategoriesMap["museos"];
+        this.applyPlaceFilters();
+        break;
+      case "monumentos_esculturas":
+        this.selectedPlacesCategoriesMap["monumentos"] = !this.selectedPlacesCategoriesMap["monumentos"];
+        this.applyPlaceFilters();
+        break;
+      case "zonas_verdes":
+        this.selectedPlacesCategoriesMap["zonas-verdes"] = !this.selectedPlacesCategoriesMap["zonas-verdes"];
+        this.applyPlaceFilters();
+        break;
+      case "arquitectura":
+        this.selectedPlacesCategoriesMap["arquitectura"] = !this.selectedPlacesCategoriesMap["arquitectura"];
+        this.applyPlaceFilters();
+        break;
+      case "arte_mudejar":
+        this.selectedPlacesCategoriesMap["mudejar"] = !this.selectedPlacesCategoriesMap["mudejar"];
+        this.applyPlaceFilters();
+        break;
+      case "arte_romano":
+        this.selectedPlacesCategoriesMap["romano"] = !this.selectedPlacesCategoriesMap["romano"];
+        this.applyPlaceFilters();
+        break;
+      default:
+        this.selectedEventsCategoriesMap[catType] = !this.selectedEventsCategoriesMap[catType];
+        this.selectedPlacesCategoriesMap[catType] = !this.selectedPlacesCategoriesMap[catType];
+        this.applyEventFilters();
+        this.applyPlaceFilters();
+        break;
+      }    
   }
 
   onSearch() {
