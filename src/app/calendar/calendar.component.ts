@@ -1,53 +1,40 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, OnChanges, SimpleChanges, input, OnInit } from '@angular/core';
 import { CalendarEvent } from './calendar-event';
 import { CommonModule } from '@angular/common';
+import { IgxButtonDirective, IgxCalendarComponent, IgxDialogComponent, DateRangeType } from "igniteui-angular";
 
 @Component({
   selector: 'app-calendar',
-  imports: [CommonModule],
+  imports: [CommonModule, IgxCalendarComponent],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
 export class CalendarComponent  {
-  
-   @Input() items: CalendarEvent ={
-  
-    title: "",
-    description: "", 
-    category: "",
-    location: "",
-    link: "",
-    icon: ""
+
+@ViewChild('calendar', { static: true }) public calendar!: IgxCalendarComponent;
+
+  @Input() ev: CalendarEvent[] = [];    
+  eventsOfDay: CalendarEvent[] = [];
+  selectedDate: Date | null = null;
+
+  onDateSelected(date: Date | Date[]) {
+    this.selectedDate = date instanceof Date ? date : date[0];
+    this.filterEventsForDate();
+  }
+
+  private filterEventsForDate() {
+    if (!this.selectedDate) {
+      this.eventsOfDay = [];
+      return;
+    }
+
+    const selected = this.selectedDate;
+
+    this.eventsOfDay = this.ev.filter(ev => {
+      const start = new Date(ev.startDate);
+      const end = ev.endDate ? new Date(ev.endDate) : start;
+      return selected >= start && selected <= end;
+    });
+  }
 }
-  
 
-
-  // calendarOptions: any = {
-  //   initialView: 'dayGridMonth',
-  //   plugins: [dayGridPlugin, interactionPlugin],
-  //   selectable: true,
-  //   editable: true,
-  //   dateClick: (info: any) => {
-  //     this.dateSelected.emit(info.dateStr);
-  //   }
-  // };
-
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if (changes['events'] && this.fullCalendar) {
-  //     this.refreshEvents();
-  //   }
-  // }
-
-  // refreshEvents() {
-  //   const calendarApi = this.fullCalendar.getApi();
-  //   calendarApi.removeAllEvents();
-  //   calendarApi.addEventSource(
-  //     this.events.map(ev => ({
-  //       title: ev.title,
-  //       date: ev.date,
-  //       backgroundColor: ev.color || '#1976d2'
-  //     }))
-  //   );
-  // }
-}

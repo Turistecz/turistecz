@@ -1,10 +1,6 @@
 h2 {
   color: #1976d2;
   font-weight: bold;
+ font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
 }
 
-p {
-  font-size: 1rem;
-  margin-top: 10px;
-  color: #333;
-}

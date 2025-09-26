@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
@@ -5,10 +6,12 @@ import { FooterComponent } from "./footer/footer.component";
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { IgxCalendarModule } from 'igniteui-angular';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent,CommonModule, BreadcrumbsComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent,CommonModule, BreadcrumbsComponent,IgxCalendarModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

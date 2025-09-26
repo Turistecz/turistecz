@@ -12,6 +12,8 @@ export class EventService {
 
   private apiUrl = 'https://www.zaragoza.es/sede/servicio/puntos-interes';
 
+  private apiCalendar = 'https://www.zaragoza.es/sede/servicio/actividades';
+
   constructor(private http: HttpClient ) {}
 
   eventos: EventItem[] = [];
@@ -26,21 +28,36 @@ export class EventService {
     }
 
   getEventsCalendar(): Observable<CalendarEvent[]> {
-    return this.http.get<any>(this.apiUrl).pipe(
-      map(response => {
-        console.log('🌐 Respuesta cruda de la API:', response);
+  const params = new HttpParams()
+    .set('rf', 'json')
+    .set('srsname', 'utm30n')
+    .set('start', '0')
+    .set('rows', '20')
+    .set('distance', '500');
 
-        return response.features.map((f: any) => {
-          const ev: CalendarEvent = {
-            title: f.properties.title,
-            description: f.properties.description,
-            category: f.properties.category,
-            location: f.properties.description,
-            link: f.properties.link,
-            icon: response.properties?.icon
-          };
-        });
-      })
-    );
+  const headers = new HttpHeaders({
+    Accept: 'application/json'
+  });
+
+  return this.http.get<any>(this.apiCalendar, { params, headers }).pipe(
+    map(response => {
+      const events = response?.featuredEvents ?? [];
+      if (!Array.isArray(events)) return [];
+
+      return events.flatMap((ev: any) =>
+        (ev.subEvent ?? []).map((sub: any) => ({
+          title: sub.location?.title ?? sub.title ?? 'Sin título',
+          startDate: sub.startDate,   // ya viene como ISO string
+          endDate: sub.endDate,       // ya viene como ISO string
+          openingHours: (sub.openingHours ?? []).map((h: any) => ({
+            dayOfWeek: h.dayOfWeek,
+            startTime: h.startTime
+          }))
+        })) 
+      ) ;
+    })
+  );
 }
+
+
 }

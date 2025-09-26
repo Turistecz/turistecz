@@ -1,7 +1,7 @@
 import { CalendarEvent } from './../calendar/calendar-event';
-import { Component, Input, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CalendarComponent } from '../calendar/calendar.component';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EventService } from '../services/event.service';
 
@@ -30,5 +30,4 @@ export class CalendarPadreComponent {
     });
   }
 
- 
 }
