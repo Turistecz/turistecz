@@ -20,19 +20,23 @@ export class CustomRouteService {
   });
 }
 
-  /* URL */
+  /* URLs RUTA */
   private newRouteURL = 'http://localhost:8080/auth/nuevaRutaUsuario';
   private allRouteURL = 'http://localhost:8080/auth/rutasUsuario';
 
+  /* URLs SITIO RUTA */
+  private newSitioRutaURL = 'http://localhost:8080/auth/nuevoSitioRutaUsuario';
+
+  /* RUTA */
   postRutaUsuario(titulo: string, descripcion:string): Observable<any> {
-    const enviar = { titulo_ruta: titulo, descripcion_ruta: descripcion, };
+    const enviar = { titulo_ruta: titulo, descripcion_ruta: descripcion, }; // SE TIENE QUE LLAMAR IGUAL QUE EN LA BBDD
     const headers = this.getAuthHeaders();
     if (headers) {
       return this.http.post<RutaUsuario>(this.newRouteURL, enviar, { headers })
-      .pipe(catchError(this.handleError));
+        .pipe(catchError(this.handleError));
     } else {
       return this.http.post<RutaUsuario>(this.newRouteURL, enviar)
-      .pipe(catchError(this.handleError));
+        .pipe(catchError(this.handleError));
     }
   }
 
@@ -41,8 +45,24 @@ export class CustomRouteService {
       .pipe(catchError(this.handleError));
   }
 
+  /* SITIOS RUTA */
+
+  postSitioRutaUsuario(id_sitio: number): Observable<any> {
+    const enviar = { id_sitio_fav: id_sitio }
+    const headers = this.getAuthHeaders();
+    if (headers) {
+      return this.http.post<RutaUsuario>(this.newSitioRutaURL, enviar, { headers })
+        .pipe(catchError(this.handleError));
+    } else {
+      return this.http.post<RutaUsuario>(this.newSitioRutaURL, enviar)
+        .pipe(catchError(this.handleError));
+    }
+  }
+
+  /* CONTROL ERRORES */
   private handleError(error: any): Observable<never> {
-      console.error('Ocurrió un error en RoutesService:', error);
-      return throwError(() => new Error('Error al obtener datos. Inténtalo de nuevo más tarde.'));
-    } 
+    console.error('Ocurrió un error en RoutesService:', error);
+    return throwError(() => new Error('Error al obtener datos. Inténtalo de nuevo más tarde.'));
+  } 
+
 }
