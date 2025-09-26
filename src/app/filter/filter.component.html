@@ -37,7 +37,6 @@
         <input
           class="form-check-input"
           type="checkbox"
-          [checked]="selectedEventsCategoriesMap[cat.name]"
           (change)="toggleCategory(cat.type)"
           id="check-{{ cat.type }}"
         />
@@ -54,7 +53,6 @@
             <input
               class="form-check-input"
               type="checkbox"
-              [checked]="selectedAccesibilityCategoriesMap[option.key]"
               (change)="toggleAccessibility(option.key)"
               id="acc-{{ option.key }}"
             />
