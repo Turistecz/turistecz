@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output, ViewChild, OnChanges, SimpleChanges, input, OnInit } from '@angular/core';
-import { CalendarEvent } from './calendar-event';
+import { Component, Input, ViewChild } from '@angular/core';
+import { CalendarTest } from '../models/calendar-event.models';
 import { CommonModule } from '@angular/common';
-import { IgxButtonDirective, IgxCalendarComponent, IgxDialogComponent, DateRangeType } from "igniteui-angular";
+import { IgxCalendarComponent } from "igniteui-angular";
 
 @Component({
   selector: 'app-calendar',
@@ -13,8 +13,8 @@ export class CalendarComponent  {
 
 @ViewChild('calendar', { static: true }) public calendar!: IgxCalendarComponent;
 
-  @Input() ev: CalendarEvent[] = [];    
-  eventsOfDay: CalendarEvent[] = [];
+  @Input() ev: CalendarTest[] = [];    
+  eventsOfDay: CalendarTest[] = [];
   selectedDate: Date | null = null;
 
   onDateSelected(date: Date | Date[]) {
@@ -27,14 +27,12 @@ export class CalendarComponent  {
       this.eventsOfDay = [];
       return;
     }
-
-    const selected = this.selectedDate;
-
-    this.eventsOfDay = this.ev.filter(ev => {
-      const start = new Date(ev.startDate);
-      const end = ev.endDate ? new Date(ev.endDate) : start;
-      return selected >= start && selected <= end;
-    });
-  }
+ const selected = new Date(this.selectedDate);
+  
+  this.eventsOfDay = this.ev.filter(ev => {
+    const start = new Date(ev.startDate);
+    const end = ev.endDate ? new Date(ev.endDate) : start;
+    return selected >= start && selected <= end;
+  });
 }
-
+}

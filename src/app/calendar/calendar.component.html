@@ -1,40 +1,29 @@
 <div class="container-fluid calendar-container">
   <div class="row">
-    <!-- 📅 Calendario -->
     <div class="col-12 col-lg-6">
       <article class="calendar-card shadow-sm">
-
-        <igx-calendar 
-          #calendar 
-          [weekStart]="1" 
-          selection="single" 
-          (selected)="onDateSelected($event)">
-        </igx-calendar>
+         <igx-calendar #calendar [weekStart]="1"  selection="single"  (selected)="onDateSelected($event)"></igx-calendar>
       </article>
     </div>
-
-    <!-- 📋 Lista de eventos -->
-    <div class="col-12 col-lg-6 mt-4 mt-lg-0" *ngIf="eventsOfDay.length > 0">
-      <div class="calendar-card shadow-sm">
-        <h4 class="calendar-title">
-          Eventos para {{ selectedDate | date:'fullDate':'':'es' }}
-        </h4>
-
-        <div *ngFor="let ev of eventsOfDay" class="event-item">
-          <h5>{{ ev.title }}</h5>
-
-          <!-- Mostrar horarios -->
-          <ul *ngIf="ev.openingHours?.length">
-            <li *ngFor="let oh of ev.openingHours">
-              {{ oh.dayOfWeek }} a las {{ oh.startTime }}
+  <div class="col-12 col-lg-6 mt-4 mt-lg-0 mb-3" *ngIf="eventsOfDay.length > 0">
+    <div class="calendar-card shadow-sm events-container overflow-y-auto ">
+        <div class="title-events p-4 container-fluid">
+          <h4 class="calendar-title fw-bold text-center fs-2 mt-1">
+            Eventos del {{ selectedDate | date:'fullDate':'':'es' }}
+          </h4>
+        </div>
+       <div *ngFor="let ev of eventsOfDay" class="event-item text-center shadow-sm">
+        <h5 class="eventTitle">{{ ev.title }}</h5>
+        <div *ngFor="let sub of ev.subEvent" class="subevent-item">
+          <ul *ngIf="sub.openingHours && sub.openingHours.length > 0">
+            <li *ngFor="let oh of sub.openingHours"> 
+              {{ oh.dayOfWeek }} a las {{ oh.startTime }} hasta las {{oh.endTime}}
             </li>
           </ul>
-          <hr>
-        </div>
+        </div>  
       </div>
     </div>
-
-    <!-- 📋 Mensaje si no hay eventos -->
+ </div>
     <div class="col-12 col-lg-6 mt-4 mt-lg-0" *ngIf="selectedDate && eventsOfDay.length === 0">
       <div class="calendar-card shadow-sm text-center">
         <h5>No hay eventos para {{ selectedDate | date:'fullDate' }}</h5>
