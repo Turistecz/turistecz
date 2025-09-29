@@ -236,7 +236,7 @@ exit
 
 # MailHog
 
-Para poder recebir correos tanto de verificacion, como de recuperación de contraseña, tendremos qe descargar MalHog, un servicio que permite obtener 
+Para poder recibir correos tanto de verificacion, como de recuperación de contraseña, tendremos qe descargar MalHog, un servicio que permite obtener 
 correos unicamente en local, para testear las funciones de la aplicacion antes de lanzarla al publico.
 
 1. En el siguiente enlace, buscamos y descargamos el fichero acorde con nuestro sistema operativo.
