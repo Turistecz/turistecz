@@ -32,6 +32,9 @@ export class MonumentComponent implements OnInit {
   monumento: MonumentItem = {
     id: 0,
     title: "",
+    nombre: "",
+    latitud: 0,
+    longitud: 0,
     description: "",
     address: "",
     horario: "",
@@ -189,7 +192,7 @@ export class MonumentComponent implements OnInit {
     await this.loadAdaptabilityCategories();
    
     this.apiConnectService.getMonumentsNames().subscribe(data => {
-      data.map(monumento => this.monumentsNames.push(monumento.nombre));
+      data.map(monumento => this.monumentsNames.push(monumento.title));
     });  
 
     this.monumentNumber = Number(this.route.snapshot.paramMap.get('id'));

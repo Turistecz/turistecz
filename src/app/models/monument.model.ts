@@ -4,6 +4,9 @@ import { EnumServiciosAdaptabilidad } from "../place-card-list/EnumServiciosAdap
 export interface MonumentItem {
   id: number;
   title: string;
+  nombre: string;
+  latitud: number;
+  longitud: number;
   description: string;
   address: string;
   horario: string;

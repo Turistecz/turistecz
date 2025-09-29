@@ -8,6 +8,7 @@ import { cardsHome } from '../place-card/place-card.model';
 import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
 import { Category, FilterItem } from '../models/filter.model';
 import { firstValueFrom, map } from 'rxjs';
+import { MonumentItem } from '../models/monument.model';
 
 
 @Component({
@@ -27,9 +28,10 @@ export class FilterComponent {
   @Input() places: cardsHome[] = [];
   @Input() categories: Category[] = [];
   @Input() categoryKeywords: { [key: string]: string[] } = {};
+  @Input() datos: MonumentItem[]=[];
+
   @Output() filteredEvents = new EventEmitter<any[]>(); 
   @Output() filteredCards = new EventEmitter<any[]>();
-
   @Output() filtersAdaptability = new EventEmitter<string[]>();
   @Output() noResultsPlacesEvent = new EventEmitter<boolean>();
   @Output() noResultsEventsEvent = new EventEmitter<boolean>();
