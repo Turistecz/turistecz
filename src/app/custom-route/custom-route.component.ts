@@ -48,7 +48,8 @@ export class CustomRouteComponent {
     this.enviarARutaUsuario(tituloRuta, descripcionRuta);
   }
   
-  async enviarARutaUsuario(titulo:any, descripcion:any) {
+  
+  enviarARutaUsuario(titulo:any, descripcion:any) {
     this.customRouteService.postRutaUsuario(titulo, descripcion).subscribe({
       next: (response) => {
         console.log('Respuesta del servidor:', response);
