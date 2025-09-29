@@ -233,3 +233,17 @@ wsl
 ``` bash
 exit
 ```
+
+# MailHog
+
+Para poder recebir correos tanto de verificacion, como de recuperación de contraseña, tendremos qe descargar MalHog, un servicio que permite obtener 
+correos unicamente en local, para testear las funciones de la aplicacion antes de lanzarla al publico.
+
+1. En el siguiente enlace, buscamos y descargamos el fichero acorde con nuestro sistema operativo.
+   https://we.tl/t-s7zRXBg4WJ
+
+2. Se nos descargara un archivo .exe, que al ser un programa autoejecutable, simlemente lo abriremos. Nos aparecera la consola de comandos. 
+   !!Importante no cerrarla, MailHog solo funciona si la consola esta abierta!!.
+
+3. Por ultimo escribimos en el navegador 'localhost:8025', que es el puerto que utiliza. Y probamos el correcto funcionamiento de las funciones del
+   usuario.
