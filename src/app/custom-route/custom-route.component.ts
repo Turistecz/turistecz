@@ -48,7 +48,6 @@ export class CustomRouteComponent {
     this.enviarARutaUsuario(tituloRuta, descripcionRuta);
   }
   
-  
   enviarARutaUsuario(titulo:any, descripcion:any) {
     this.customRouteService.postRutaUsuario(titulo, descripcion).subscribe({
       next: (response) => {
@@ -106,7 +105,7 @@ export class CustomRouteComponent {
   // Mostrar sitios favoritos del usuario
   
   mostrarSitiosFavoritos(){
-    this.favoritosService.getMisFavoritos(5).subscribe({
+    this.favoritosService.getMisFavoritos(4).subscribe({
       next: (response) => {
         console.log('Sitios favoritos del usuario:', response);
         return this.favoritosUsuario = response;
