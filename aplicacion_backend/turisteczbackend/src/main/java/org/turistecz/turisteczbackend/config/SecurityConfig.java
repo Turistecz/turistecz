@@ -48,7 +48,8 @@ public class SecurityConfig {
                     "/api/sitiosRutaID/**",
                     "/auth/nuevaRutaUsuario",
                     "/auth/rutasUsuario",
-                    "/auth/nuevoSitioRutaUsuario"
+                    "/auth/nuevoSitioRutaUsuario",
+                    "/auth/ultimaRutaUsuario"
                 ).permitAll()
                 .anyRequest().authenticated()
             );

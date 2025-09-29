@@ -23,13 +23,14 @@ export class CustomRouteService {
   /* URLs RUTA */
   private newRouteURL = 'http://localhost:8080/auth/nuevaRutaUsuario';
   private allRouteURL = 'http://localhost:8080/auth/rutasUsuario';
+  private lastRouteURL = 'http://localhost:8080/auth/ultimaRutaUsuario'
 
   /* URLs SITIO RUTA */
   private newSitioRutaURL = 'http://localhost:8080/auth/nuevoSitioRutaUsuario';
 
   /* RUTA */
   postRutaUsuario(titulo: string, descripcion:string): Observable<any> {
-    const enviar = { titulo_ruta: titulo, descripcion_ruta: descripcion, }; // SE TIENE QUE LLAMAR IGUAL QUE EN LA BBDD
+    const enviar = { titulo_ruta: titulo, descripcion_ruta: descripcion }; // SE TIENE QUE LLAMAR IGUAL QUE EN LA BBDD
     const headers = this.getAuthHeaders();
     if (headers) {
       return this.http.post<RutaUsuario>(this.newRouteURL, enviar, { headers })
@@ -40,15 +41,23 @@ export class CustomRouteService {
     }
   }
 
-  getTituloRutaUsuario(){
+  getRutasUsuario(){
     return this.http.get(this.allRouteURL)
       .pipe(catchError(this.handleError));
   }
 
+  // getUltimaRutaUsuario(){
+  //   return this.http.get(this.lastRouteURL)
+  //     .pipe(catchError(this.handleError));
+  // }
+
   /* SITIOS RUTA */
 
-  postSitioRutaUsuario(id_sitio: number): Observable<any> {
-    const enviar = { id_sitio_fav: id_sitio }
+  postSitioRutaUsuario(ruta:number, sitio:number): Observable<any> {
+    const enviar = { 
+      id_ruta: ruta,
+      id_sitio_fav: sitio 
+    }
     const headers = this.getAuthHeaders();
     if (headers) {
       return this.http.post<RutaUsuario>(this.newSitioRutaURL, enviar, { headers })
@@ -61,7 +70,7 @@ export class CustomRouteService {
 
   /* CONTROL ERRORES */
   private handleError(error: any): Observable<never> {
-    console.error('Ocurrió un error en RoutesService:', error);
+    console.error('Ocurrió un error en CustomRouteService:', error);
     return throwError(() => new Error('Error al obtener datos. Inténtalo de nuevo más tarde.'));
   } 
 

@@ -24,4 +24,8 @@ public class RutaUsuarioService {
 	    return repositorioRutaUsuario.findAll();
 	}
 
+    // public RutaUsuario mostrarUltimaRutaUsuario(){
+    //     return repositorioRutaUsuario.buscarUltimaRutaUsuario();
+    // }
+
 }

@@ -26,11 +26,16 @@ public class RutaUsuarioController {
         return rutaUsuarioService.crearRutaUsuario(dto.getTitulo_ruta(), dto.getDescripcion_ruta());
     }
 
-
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/rutasUsuario")
     public List<RutaUsuario> listarRutas() {
         return rutaUsuarioService.mostrarRutas();
     }
+
+    // @CrossOrigin(origins = "http://localhost:4200")
+    // @GetMapping("/ultimaRutaUsuario")
+    // public RutaUsuario ultimaRutaUsuario(){
+    //     return rutaUsuarioService.mostrarUltimaRutaUsuario();
+    // }
 
 }

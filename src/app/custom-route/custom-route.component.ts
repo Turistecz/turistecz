@@ -18,7 +18,7 @@ export class CustomRouteComponent {
   // imagenRuta = 'userRoute/img.svg';
   favoritosUsuario:any; // sitios favoritos seleccionados por el usuario
   sitios:number[]=[]; // Array para guardar los id de los sitios seleccionados
-     
+  ultimaRuta!:any;
 
   constructor(
     private http: HttpClient, 
@@ -34,7 +34,6 @@ export class CustomRouteComponent {
       });
     } 
 
-  
   // Al seleccionar un checkbox, se añade el id del sitio al array "sitios"
   onCheckboxChange(event: any, idSitio: number) {
     if (event.target.checked) {
@@ -46,44 +45,44 @@ export class CustomRouteComponent {
   onSubmit() {
     const tituloRuta = this.formMyRoute.value.titulo_ruta;
     const descripcionRuta = this.formMyRoute.value.descripcion_ruta;
-
     this.enviarARutaUsuario(tituloRuta, descripcionRuta);
-
-    this.sitios.forEach(sitioRuta => {
-      this.enviarASitiosRutaUsuario(sitioRuta)
-    })
-
-    window.location.reload();
   }
   
-  enviarARutaUsuario(titulo:any, descripcion:any) {
+  async enviarARutaUsuario(titulo:any, descripcion:any) {
     this.customRouteService.postRutaUsuario(titulo, descripcion).subscribe({
       next: (response) => {
         console.log('Respuesta del servidor:', response);
+        this.ultimaRuta = response;
+        const idRuta = this.ultimaRuta.id;
+        this.sitios.forEach(sitioRuta => {
+          this.enviarASitiosRutaUsuario(idRuta, sitioRuta)
+        })
       },
       error: (error) => {
-        console.error('Error al enviar el título de la ruta.', error);
+        console.error('Error al enviar la ruta.', error);
       }
     });
   }
 
-  enviarASitiosRutaUsuario(sitio:any){
-    this.customRouteService.postSitioRutaUsuario(sitio).subscribe({
+  enviarASitiosRutaUsuario(ruta:number, sitio:number){
+    console.log("Ruta" + ruta);
+    console.log("Sitio" + sitio)
+    this.customRouteService.postSitioRutaUsuario(ruta, sitio).subscribe({
       next: (response) => {
         console.log('Respuesta del servidor:', response);
       },
       error: (error) => {
-        console.error('Error al enviar el título de la ruta.', error);
+        console.error('Error al enviar el sitio de la ruta.', error);
       }
     })
   }
   
   // Mostrar rutas del usuario, ubicadas en la BBDD
   mostrarRutasUsuario(){
-    this.customRouteService.getTituloRutaUsuario().subscribe({
-      next: (response2) => {
-        console.log('Rutas del usuario:', response2);
-        return this.datosRutaBBDD = response2; 
+    this.customRouteService.getRutasUsuario().subscribe({
+      next: (response) => {
+        console.log('Rutas del usuario:', response);
+        return this.datosRutaBBDD = response; 
       },
       error: (error) => {
         console.error('Error al obtener las rutas del usuario.', error);
@@ -91,7 +90,20 @@ export class CustomRouteComponent {
     });
   }
 
+  // mostrarUltimaRutaUsuario(){
+  //   this.customRouteService.getUltimaRutaUsuario().subscribe({
+  //     next: (response) => {
+  //       console.log('Ultima ruta Usuario:', response);
+  //       this.ultimaRuta = response;
+  //     },
+  //     error: (error) => {
+  //       console.error('Error al obtener los sitios favoritos del usuario.', error);
+  //     }
+  //   });
+  // }
+
   // Mostrar sitios favoritos del usuario
+  
   mostrarSitiosFavoritos(){
     this.favoritosService.getMisFavoritos(5).subscribe({
       next: (response) => {
