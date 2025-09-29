@@ -8,6 +8,7 @@ import { AdapParkingItem, BiziItem, BusStopItem, TaxiStopItem, TramStopItem, Map
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { mapRoute } from '../models/details-routes';
+import { MonumentItem } from '../models/monument.model';
 
 
 @Component({
@@ -135,7 +136,7 @@ export class MapComponent implements AfterViewInit, OnInit, OnChanges{
   name = input("");
 
     // Map page
-  @Input() datos: any[] = [];
+  @Input() datos: MonumentItem[] = [];
 
   /* Rotue Sites*/
   @Input() routeSites:mapRoute[]=[]; 
@@ -655,7 +656,8 @@ private refreshDatosMarkers(): void {
   }
 
   const markers: L.Marker[] = [];
-
+  console.log("los dato")
+  console.log(this.datos)
   this.datos.forEach((elem) => {
     const coords = this.convertCoords(elem.latitud, elem.longitud);
     const latlng: L.LatLngExpression = [coords[1], coords[0]];

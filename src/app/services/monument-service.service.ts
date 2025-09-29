@@ -20,6 +20,7 @@ export class MonumentServiceService {
     return this.http.get<MonumentResponse>(monument,{params: Params, headers: Headers});
   }
 
+  //devuelve el observable para que pueda ser utilizado en un componente
   getMonumentsNames(): Observable<any[]> {
     return this.http.get<any[]>('http://localhost:8080/api/sitios');
 

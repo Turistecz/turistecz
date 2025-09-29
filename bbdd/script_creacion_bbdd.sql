@@ -329,11 +329,13 @@ NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFO
 'NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION', 
 'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION'),
 
-(28, 'Iglesia de San Pablo', 676025.981, 4613754.514, 
-' C. de San Pablo, 42, Casco Antiguo, 50003 Zaragoza', NULL, NULL, NULL, 'BAJO_PETICIÓN', 'NO', 'NO', 'NO', 'NO', 
-'NO', 'NO', 'NO', 'SI', 'SI', 'NO', 'NO', 
-'NO','NO','NO','SI','SI','SI','SI',
-'NO','NO', 'SI', 'SI'),
+(28, 'Iglesia de San Pablo', 677040.585, 4613371.969, 'C. de San Pablo, 42, Casco Antiguo, 50003 Zaragoza',
+ NULL, NULL, NULL, 'BAJO_PETICION', 'NO',
+ 'NO', 'NO', 'NO', 'NO', 'NO',
+ 'NO', 'SI', 'SI', 'NO', 'NO',
+ 'NO', 'NO', 'NO', 'SI', 'SI',
+ 'SI', 'SI', 'NO', 'NO', 'SI',
+ 'SI'),
 
 (29, 'Iglesia Parroquial de Santa Maria Magdalena', 677040.585, 4613371.969, NULL, 
  NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
@@ -435,6 +437,7 @@ más representativas de la ciudad.","2 horas", 'images/rutas/portada_ruta_mudeja
 
 -- -- Insert data into sitios_ruta
 INSERT INTO `sitios_ruta` VALUES 
+
 -- Ruta Mudejar
 (1,1,28,1,'En el barrio de El Gancho,\npróximo al casco histórico,\nse encuentra este símbolo\ndel encuentro multicultural\nde la capital aragonesa.\nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.\n '),
 (2,1,2,2,'Utilizado como residencia. \nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.'),
