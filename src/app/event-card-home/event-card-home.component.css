@@ -1,5 +1,5 @@
 h3{
-    color: #184591;
+    color: var(--color-primary);
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
     font-weight:700;
     font-size: 4rem;
