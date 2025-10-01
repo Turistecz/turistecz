@@ -29,7 +29,6 @@
 @media (max-width: 1400px) {
   .loginContainer {
    width: auto;
-  
   }
    .navbar-nav {
    font-size: 1.6rem;
@@ -56,5 +55,5 @@
   .imgLogin {
   width: 35px;
   height: 30px;
-}
+  }
 }
