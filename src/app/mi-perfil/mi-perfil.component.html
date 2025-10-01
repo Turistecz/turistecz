@@ -3,6 +3,7 @@
     <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Mis Sitios</button>
     <button class="nav-link " id="v-pills-routes-tab" data-bs-toggle="pill" data-bs-target="#v-pills-routes" type="button" role="tab" aria-controls="v-pills-routes" aria-selected="false">Mis Rutas</button>
     <button class=" nav-link " id="v-pills-events-tab" data-bs-toggle="pill" data-bs-target="#v-pills-events" type="button" role="tab" aria-controls="v-pills-events" aria-selected="false">Mis Eventos</button>
+    <!-- <button class=" nav-link " id="v-pills-filter-tab" data-bs-toggle="pill" data-bs-target="#v-pills-filter" type="button" role="tab" aria-controls="v-pills-filter" aria-selected="false">Mi Filtro</button> -->
     <button class="nav-link" id="v-pills-chatbot-tab" data-bs-toggle="pill" data-bs-target="#v-pills-chatbot" type="button" role="tab" aria-controls="v-pills-chatbot" aria-selected="false">Chatbot</button>
   </div>
   
@@ -31,6 +32,17 @@
     <div class="tab-pane fade" id="v-pills-events" role="tabpanel" aria-labelledby="v-pills-events-tab">
       <p>Aquí irán los eventos...</p>
     </div>
+
+    <!-- Mi Filtro -->
+    <!-- <div class="tab-pane fade" id="v-pills-filter" role="tabpanel" aria-labelledby="v-pills-filter-tab">
+      <div class="col-5 offset-3 mt-3">
+        <app-filter [categories]="categories" [categoryKeywords]="categorySitesKeywords" [userFavFilter]="userFavFilter"></app-filter>
+        <div class="align-content-center d-flex justify-content-center justify-content-lg-around mt-3 mb-2">
+          <button class="btn btn-success" (click)="test()">Guardar</button>
+          <button class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div> -->
 
     <!-- Chatbot -->
     <div class="tab-pane fade" id="v-pills-chatbot" role="tabpanel" aria-labelledby="v-pills-chatbot-tab">
