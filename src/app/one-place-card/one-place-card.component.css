@@ -20,7 +20,7 @@
 
 .card-title {
   font-family: "Baloo Bhaijaan 2 variable", system-ui;
-  color: #112f64;
+  color: var(--color-primary);
   margin-bottom: 15px;
 }
 

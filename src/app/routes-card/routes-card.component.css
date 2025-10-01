@@ -8,13 +8,13 @@ img{
 }
 
 .card-title {
-    color: #184591;
+    color: var(--color-primary);
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
     text-align: center; 
 }
 
 .card-subtitle{
-    color: #ffffff;
+    color: var(--text-light);
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
 }
 
@@ -29,7 +29,7 @@ img{
 }
 
 .card-body-r{
-    background-color: #184591;;
+    background-color: var(--color-primary);
 }
 
 @media (max-width: 430px){ 

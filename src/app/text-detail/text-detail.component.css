@@ -11,7 +11,7 @@ a:hover{
 }
 
 .titulo{
-    color: #184591;
+    color: var(--color-primary);
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
     font-weight:bold;
     font-size: 1.8rem;
@@ -22,7 +22,7 @@ a:hover{
 }
 
  .bg-txt{
-    background-color: #f0f0f0;
+    background-color: var(--text-light);
  }
 
  p{

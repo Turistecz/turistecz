@@ -7,7 +7,7 @@ h3{
 }
 
 .btn-routes {   
-    background: linear-gradient( #184591, #2A8BEA);
+    background: linear-gradient( var(--color-primary), var(--color-secondary));
     font-family: "inclusive", system-ui;
 }  
 
