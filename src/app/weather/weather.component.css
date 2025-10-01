@@ -1,7 +1,11 @@
 .weather{
+<<<<<<< HEAD
     background: linear-gradient(135deg, var(--gradient-primary-end)  0%, var(--gradient-primary-start) 100%); 
+=======
+    background: linear-gradient(135deg, #adf3f8 0%, #1f57b9 100%); 
+>>>>>>> 3fe1116 (color changed in header home)
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui; 
-    
+    gap: 10px;
 }
 
 .icon-map{
