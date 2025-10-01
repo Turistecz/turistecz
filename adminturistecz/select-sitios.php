@@ -145,6 +145,9 @@ if (!$result) {
                 <a href="insert-ruta.php" class="btn btn-primary me-2">
                     <i class="fas fa-route"></i> Nueva ruta
                 </a>
+                 <a href="configurar-tema.php" class="btn btn-primary me-2">
+                    <i class="fas fa-paint-brush"></i> Cambiar tema
+                </a>
                 <a href="insert-sitios.php" class="btn btn-primary">
                     <i class="fas fa-map-marker-alt"></i> Nuevo sitio
                 </a>
