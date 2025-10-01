@@ -14,18 +14,19 @@ export class TemaService {
     this.cargarTema();
   }
   
-  cargarTema() {
-    this.http.get<any>(this.apiUrl).subscribe(
-      res => {
-        if (res.status === 'success') {
-          this.tema$.next(res.data);
-          this.aplicarTema(res.data);
-          console.log(res.data);
-        }
-      },
-      err => console.error('Error cargando tema:', err)
-    );
-  }
+ cargarTema() {
+  this.http.get<any>(this.apiUrl).subscribe(
+    res => {
+      if (res.status === 'success') {
+        const tema = res.data; 
+        this.tema$.next(tema);
+        this.aplicarTema(tema); 
+        console.log('Tema aplicado:', tema);
+      }
+    },
+    err => console.error('Error cargando tema:', err)
+  );
+}
 
   getTema() {
     return this.tema$.asObservable();

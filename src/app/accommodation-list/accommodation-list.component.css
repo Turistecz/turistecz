@@ -1,6 +1,6 @@
 .card-title {
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-  color: #184591;
+  color: var(--color-primary);
 }
 
 p, button{
