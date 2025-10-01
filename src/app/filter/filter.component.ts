@@ -6,9 +6,11 @@ import { EventItem } from '../models/event-card.model';
 import { HttpClient } from '@angular/common/http';
 import { cardsHome } from '../place-card/place-card.model';
 import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
-import { Category, FilterItem } from '../models/filter.model';
-import { firstValueFrom, map } from 'rxjs';
+import { Category, CleanFilter, FilterItem } from '../models/filter.model';
+import { firstValueFrom, map, Subscription } from 'rxjs';
 import { MonumentItem } from '../models/monument.model';
+import { FilterService } from '../services/filter.service';
+import { LoginService } from '../services/login.service';
 
 
 @Component({
@@ -182,7 +184,11 @@ export class FilterComponent {
   orderedArray: [any, boolean][] = [];
   allCategoriesArray: string[] = [];
 
-  constructor(private router: Router, private http: HttpClient){
+  logueado: boolean = false;
+  private sub!: Subscription;
+
+  constructor(private router: Router, private http: HttpClient, private apiFilterService: FilterService,
+    public loginService: LoginService){
     router.events.subscribe((val) => {
       if (val instanceof NavigationEnd){
         if (val.url === '/sitios' || val.url === '/mapa' || val.url === '/mi-perfil'){
@@ -205,6 +211,10 @@ export class FilterComponent {
   }
 
   async ngOnInit() {
+    this.sub = this.loginService.getUsuarioObservable().subscribe(usuario => {
+      this.logueado = !!usuario;
+    });
+
     // Inicializar todos los checkboxes como false
     this.categories.forEach(cat => {
       this.selectedEventsCategoriesMap[cat.type] = false;
@@ -218,7 +228,8 @@ export class FilterComponent {
     this.applyEventFilters();
     this.applyPlaceFilters();
     this.applyMapFilters();
-  
+    await this.loadUserFilter();
+    this.applyUserFilters();
   }
 
     //Para que los eventos se carguen al inicio de la página. Antes no funcionaba porque se ejecutaba primero 
@@ -254,11 +265,13 @@ export class FilterComponent {
   }
 
   async loadUserFilter() {
-    const datos = await firstValueFrom(this.http.get<FilterItem[]>('http://localhost:8080/api/filtros'));
-    this.favFilters = datos;
-    this.userFavFilter = this.favFilters[2];
-
-    Object.entries(this.orderFilter.features).forEach(elem => {
+    const usuarioStr = localStorage.getItem('usuario');
+    if (!usuarioStr){
+      //const usuario = JSON.parse(usuarioStr);
+      const datos = await firstValueFrom(this.apiFilterService.getFilters());
+      this.favFilters = datos;
+      this.userFavFilter = this.favFilters[2];
+      Object.entries(this.orderFilter.features).forEach(elem => {
       let key = Object.keys(elem[1])[0];
       this.inputNames.push(key);
     });
@@ -277,6 +290,10 @@ export class FilterComponent {
     mapArray.forEach((elem, index) => {
       this.orderedArray.splice(Number(this.inputIndex[index]), 1, elem);
     });
+    } else {
+      console.log(this.userFavFilter);
+    }
+
   }
 
   camelToUnderscore(key: string) {
@@ -511,9 +528,68 @@ applyMapFilters(){
     this.applyPlaceFilters();
     this.applyMapFilters();
 
-     this.accesibilityOptions.forEach(option => {
+    this.accesibilityOptions.forEach(option => {
       this.selectedAccesibilityCategoriesMap[option.key] = false;
     });
+  }
+
+  saveFilters() {
+    const usuarioStr = localStorage.getItem('usuario');
+    if (!usuarioStr){
+      //const usuario = JSON.parse(usuarioStr);
+      let boolArray: boolean[] = [];
+      this.inputs.forEach((elem, index) => {
+        if(elem.checked){
+          this.orderedArray[index][1] = true;
+          boolArray.push(this.orderedArray[index][1]);
+        } else {
+          this.orderedArray[index][1] = false;
+          boolArray.push(this.orderedArray[index][1]);
+        }
+      });
+      let newFilter: CleanFilter = {
+        id: null,
+        museosExposiciones: boolArray[1],
+        monumentosEsculturas: boolArray[2],
+        zonasVerdes: boolArray[3],
+        arquitectura: boolArray[4],
+        arteMudejar: boolArray[5],
+        arteRomano: boolArray[6],
+        rampas: boolArray[7],
+        ascensores: boolArray[8],
+        puertasAutomaticas: boolArray[9],
+        escalerasMecanicas: boolArray[10],
+        serviciosAdaptados: boolArray[11],
+        parkingAdaptado: boolArray[12],
+        mostradorAdaptado: boolArray[13],
+        sinBarrerasArquitectonicas: boolArray[14],
+        braille: boolArray[15],
+        interpreteLenguaSignos: boolArray[16],
+        videosSubtitulados: boolArray[17],
+        ayudasVisuales: boolArray[18],
+        bancos: boolArray[19],
+        ayudaMovilidad: boolArray[20],
+        lenguajeSimple: boolArray[21],
+        accesoPerrosGuias: boolArray[22],
+        accesoPerrosAsistencia: boolArray[23],
+        salaLactancia: boolArray[24],
+        cambiador: boolArray[25],
+        visitasGrupales: boolArray[26],
+        guiasTuristicosMultiidioma: boolArray[27],
+        elementosAudiovisualesMultiidioma: boolArray[28],
+        documentacionMultiidioma: boolArray[29],
+      };
+      
+      //let currentFiltroId = Object.entries(this.userFavFilter)[0][1];
+
+      //this.apiFilterService.removeFilter(currentFiltroId).subscribe();
+
+      // this.apiFilterService.addNewFilter(newFilter).subscribe({
+      //   next: () => {
+      //     console.log(newFilter)
+      //   }
+      // });
+    } 
   }
 
   // getDifferentColor(): boolean {
