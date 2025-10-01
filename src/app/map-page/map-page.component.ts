@@ -8,7 +8,6 @@ import { firstValueFrom } from 'rxjs';
 import { MonumentServiceService } from '../services/monument-service.service';
 import { HttpClient } from '@angular/common/http';
 import { MonumentItem } from '../models/monument.model';
-import { NgClass } from "../../../node_modules/@angular/common/common_module.d-NEF7UaHr";
 
 @Component({
   selector: 'app-map-page',
@@ -27,7 +26,7 @@ constructor(private http: HttpClient, private monumentService: MonumentServiceSe
   async loadSite(): Promise<void> {
     try {
       if (localStorage.getItem('monumentDDBBGlobal')) {
-        this.sitiosFiltrados = JSON.parse(localStorage.getItem('monumentDDBBGlobal') || '{}');
+       this.sitiosFiltrados = JSON.parse(localStorage.getItem('monumentDDBBGlobal') || '{}');
       } else {
         this.sitiosFiltrados = await firstValueFrom(this.monumentService.getMonumentsNames()); 
         localStorage.setItem('monumentDDBBGlobal', JSON.stringify(this.sitiosFiltrados));
@@ -43,7 +42,7 @@ constructor(private http: HttpClient, private monumentService: MonumentServiceSe
     await this.loadSite();
   }
 
-  updatePlaces(filteredPlaces: cardsHome[]) {
+  updatePlaces(filteredPlaces: MonumentItem[]) {
     const idsFiltrados = filteredPlaces.map(p => p.id);
     this.sitiosFiltrados = this.sitiosFiltrados.filter(s => idsFiltrados.includes(s.id));
   }
