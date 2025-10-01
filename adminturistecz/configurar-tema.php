@@ -6,12 +6,12 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-$error = $success = '';
+ $error = $success = '';
 
 // Leer el tema actual desde la base de datos
-$sql = "SELECT valor FROM configuracioncolor WHERE clave = 'tema_activo'";
-$result = $conn1->query($sql);
-$tema = [
+ $sql = "SELECT valor FROM configuracioncolor WHERE clave = 'tema_activo'";
+ $result = $conn1->query($sql);
+ $tema = [
     'name' => 'default',
     'color_primary' => '#184591',
     'color_secondary' => '#2A8BEA',
@@ -114,15 +114,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="alert alert-success"><?= htmlspecialchars($success) ?></div>
         <?php endif; ?>
 
-        <form method="POST">
+        <form method="POST" id="themeForm">
             <!-- Nombre del tema -->
             <div class="mb-3">
-                <label class="form-label">Nombre del Tema</label>
-                <select name="name" class="form-select" required>
+                <label for="themeSelector" class="form-label">Selecciona un Tema Predefinido</label>
+                <select name="name" id="themeSelector" class="form-select" required>
                     <option value="default" <?= $tema['name'] === 'default' ? 'selected' : '' ?>>Default</option>
-                    <option value="halloween" <?= $tema['name'] === 'halloween' ? 'selected' : '' ?>>Halloween 🎃</option>
-                    <option value="navidad" <?= $tema['name'] === 'navidad' ? 'selected' : '' ?>>Navidad 🎄</option>
-                    <option value="primavera" <?= $tema['name'] === 'primavera' ? 'selected' : '' ?>>Primavera 🌸</option>
+                    <option value="christmas" <?= $tema['name'] === 'christmas' ? 'selected' : '' ?>>Navidad 🎄</option>
+                    <option value="autumn" <?= $tema['name'] === 'autumn' ? 'selected' : '' ?>>Otoño 🍂</option>
+                    <option value="spring" <?= $tema['name'] === 'spring' ? 'selected' : '' ?>>Primavera 🌸</option>
                 </select>
             </div>
 
@@ -132,18 +132,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h5>Colores Principales</h5>
                     <div class="color-input-group">
                         <label style="width:150px">Color principal</label>
-                        <input type="color" name="color_primary" value="<?= htmlspecialchars($tema['color_primary']) ?>" class="form-control form-control-color">
-                        <div class="color-preview" style="background:<?= $tema['color_primary'] ?>"></div>
+                        <input type="color" id="color_primary" name="color_primary" value="<?= htmlspecialchars($tema['color_primary']) ?>" class="form-control form-control-color">
+                        <div class="color-preview" id="preview_color_primary" style="background:<?= $tema['color_primary'] ?>"></div>
                     </div>
                     <div class="color-input-group">
                         <label style="width:150px">Color secundario</label>
-                        <input type="color" name="color_secondary" value="<?= htmlspecialchars($tema['color_secondary']) ?>" class="form-control form-control-color">
-                        <div class="color-preview" style="background:<?= $tema['color_secondary'] ?>"></div>
+                        <input type="color" id="color_secondary" name="color_secondary" value="<?= htmlspecialchars($tema['color_secondary']) ?>" class="form-control form-control-color">
+                        <div class="color-preview" id="preview_color_secondary" style="background:<?= $tema['color_secondary'] ?>"></div>
                     </div>
                     <div class="color-input-group">
                         <label style="width:150px">Color acento</label>
-                        <input type="color" name="color_accent" value="<?= htmlspecialchars($tema['color_accent']) ?>" class="form-control form-control-color">
-                        <div class="color-preview" style="background:<?= $tema['color_accent'] ?>"></div>
+                        <input type="color" id="color_accent" name="color_accent" value="<?= htmlspecialchars($tema['color_accent']) ?>" class="form-control form-control-color">
+                        <div class="color-preview" id="preview_color_accent" style="background:<?= $tema['color_accent'] ?>"></div>
                     </div>
                 </div>
 
@@ -151,23 +151,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <h5>Fondos y Texto</h5>
                     <div class="color-input-group">
                         <label style="width:150px">Fondo principal</label>
-                        <input type="color" name="bg_primary" value="<?= htmlspecialchars($tema['bg_primary']) ?>" class="form-control form-control-color">
-                        <div class="color-preview" style="background:<?= $tema['bg_primary'] ?>; border:1px solid #ccc"></div>
+                        <input type="color" id="bg_primary" name="bg_primary" value="<?= htmlspecialchars($tema['bg_primary']) ?>" class="form-control form-control-color">
+                        <div class="color-preview" id="preview_bg_primary" style="background:<?= $tema['bg_primary'] ?>; border:1px solid #ccc"></div>
                     </div>
                     <div class="color-input-group">
                         <label style="width:150px">Fondo secundario</label>
-                        <input type="color" name="bg_secondary" value="<?= htmlspecialchars($tema['bg_secondary']) ?>" class="form-control form-control-color">
-                        <div class="color-preview" style="background:<?= $tema['bg_secondary'] ?>; border:1px solid #ccc"></div>
+                        <input type="color" id="bg_secondary" name="bg_secondary" value="<?= htmlspecialchars($tema['bg_secondary']) ?>" class="form-control form-control-color">
+                        <div class="color-preview" id="preview_bg_secondary" style="background:<?= $tema['bg_secondary'] ?>; border:1px solid #ccc"></div>
                     </div>
                     <div class="color-input-group">
                         <label style="width:150px">Texto principal</label>
-                        <input type="color" name="text_primary" value="<?= htmlspecialchars($tema['text_primary']) ?>" class="form-control form-control-color">
-                        <div class="color-preview" style="background:<?= $tema['text_primary'] ?>; border:1px solid #ccc"></div>
+                        <input type="color" id="text_primary" name="text_primary" value="<?= htmlspecialchars($tema['text_primary']) ?>" class="form-control form-control-color">
+                        <div class="color-preview" id="preview_text_primary" style="background:<?= $tema['text_primary'] ?>; border:1px solid #ccc"></div>
                     </div>
                     <div class="color-input-group">
                         <label style="width:150px">Texto claro</label>
-                        <input type="color" name="text_light" value="<?= htmlspecialchars($tema['text_light']) ?>" class="form-control form-control-color">
-                        <div class="color-preview" style="background:<?= $tema['text_light'] ?>; border:1px solid #ccc"></div>
+                        <input type="color" id="text_light" name="text_light" value="<?= htmlspecialchars($tema['text_light']) ?>" class="form-control form-control-color">
+                        <div class="color-preview" id="preview_text_light" style="background:<?= $tema['text_light'] ?>; border:1px solid #ccc"></div>
                     </div>
                 </div>
             </div>
@@ -179,25 +179,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="col-md-6">
                         <div class="color-input-group">
                             <label style="width:180px">Inicio gradiente principal</label>
-                            <input type="color" name="gradient_primary_start" value="<?= htmlspecialchars($tema['gradient_primary_start']) ?>" class="form-control form-control-color">
-                            <div class="color-preview" style="background:<?= $tema['gradient_primary_start'] ?>"></div>
+                            <input type="color" id="gradient_primary_start" name="gradient_primary_start" value="<?= htmlspecialchars($tema['gradient_primary_start']) ?>" class="form-control form-control-color">
+                            <div class="color-preview" id="preview_gradient_primary_start" style="background:<?= $tema['gradient_primary_start'] ?>"></div>
                         </div>
                         <div class="color-input-group">
                             <label style="width:180px">Fin gradiente principal</label>
-                            <input type="color" name="gradient_primary_end" value="<?= htmlspecialchars($tema['gradient_primary_end']) ?>" class="form-control form-control-color">
-                            <div class="color-preview" style="background:<?= $tema['gradient_primary_end'] ?>"></div>
+                            <input type="color" id="gradient_primary_end" name="gradient_primary_end" value="<?= htmlspecialchars($tema['gradient_primary_end']) ?>" class="form-control form-control-color">
+                            <div class="color-preview" id="preview_gradient_primary_end" style="background:<?= $tema['gradient_primary_end'] ?>"></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="color-input-group">
                             <label style="width:180px">Inicio gradiente home</label>
-                            <input type="color" name="gradient_home_start" value="<?= htmlspecialchars($tema['gradient_home_start']) ?>" class="form-control form-control-color">
-                            <div class="color-preview" style="background:<?= $tema['gradient_home_start'] ?>"></div>
+                            <input type="color" id="gradient_home_start" name="gradient_home_start" value="<?= htmlspecialchars($tema['gradient_home_start']) ?>" class="form-control form-control-color">
+                            <div class="color-preview" id="preview_gradient_home_start" style="background:<?= $tema['gradient_home_start'] ?>"></div>
                         </div>
                         <div class="color-input-group">
                             <label style="width:180px">Fin gradiente home</label>
-                            <input type="color" name="gradient_home_end" value="<?= htmlspecialchars($tema['gradient_home_end']) ?>" class="form-control form-control-color">
-                            <div class="color-preview" style="background:<?= $tema['gradient_home_end'] ?>"></div>
+                            <input type="color" id="gradient_home_end" name="gradient_home_end" value="<?= htmlspecialchars($tema['gradient_home_end']) ?>" class="form-control form-control-color">
+                            <div class="color-preview" id="preview_gradient_home_end" style="background:<?= $tema['gradient_home_end'] ?>"></div>
                         </div>
                     </div>
                 </div>
@@ -213,13 +213,133 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- Previsualización -->
         <div class="mt-4">
             <h6>Previsualización del tema:</h6>
-            <div class="preview-box" style="background:linear-gradient(135deg, <?= $tema['gradient_primary_start'] ?>, <?= $tema['gradient_primary_end'] ?>); color:<?= $tema['text_light'] ?>">
+            <div id="mainPreview" class="preview-box" style="background:linear-gradient(135deg, <?= $tema['gradient_primary_start'] ?>, <?= $tema['gradient_primary_end'] ?>); color:<?= $tema['text_light'] ?>">
                 Botón principal • Fondo con gradiente
             </div>
-            <div class="preview-box" style="background:<?= $tema['bg_secondary'] ?>; color:<?= $tema['text_primary'] ?>; border:1px solid #ddd">
+            <div id="secondaryPreview" class="preview-box" style="background:<?= $tema['bg_secondary'] ?>; color:<?= $tema['text_primary'] ?>; border:1px solid #ddd">
                 Tarjeta • Fondo secundario
             </div>
         </div>
     </div>
+
+    <script>
+        // 1. DEFINICIÓN DE TODOS LOS TEMAS EN UN OBJETO JAVASCRIPT
+        const temas = {
+            'default': {
+                'name': 'default',
+                'color_primary': '#184591',
+                'color_secondary': '#2A8BEA',
+                'color_accent': '#42D5A5',
+                'gradient_primary_start': '#1f57b9',
+                'gradient_primary_end': '#8adff5',
+                'gradient_home_start': '#8ee3f7',
+                'gradient_home_end': '#478ed1',
+                'bg_primary': '#ffffff',
+                'bg_secondary': '#f0f0f0',
+                'text_primary': '#03080a',
+                'text_light': '#ffffff'
+            },
+            'christmas': {
+                'name': 'christmas',
+                'color_primary': '#9D2A2A',
+                'color_secondary': '#3A5F0B',
+                'color_accent': '#C9B037',
+                'gradient_primary_start': '#9D2A2A',
+                'gradient_primary_end': '#D14E4E',
+                'gradient_home_start': '#0F2027',
+                'gradient_home_end': '#2C5364',
+                'bg_primary': '#ffffff',
+                'bg_secondary': '#f8f4f4',
+                'text_primary': '#333333',
+                'text_light': '#ffffff'
+            },
+            'autumn': {
+                'name': 'autumn',
+                'color_primary': '#A95C32',
+                'color_secondary': '#8B6F47',
+                'color_accent': '#E6A817',
+                'gradient_primary_start': '#A95C32',
+                'gradient_primary_end': '#D4A574',
+                'gradient_home_start': '#F4E4C1',
+                'gradient_home_end': '#E8B4A0',
+                'bg_primary': '#ffffff',
+                'bg_secondary': '#f5f2ed',
+                'text_primary': '#3D2C1D',
+                'text_light': '#ffffff'
+            },
+            'spring': {
+                'name': 'spring',
+                'color_primary': '#4A9D5D',
+                'color_secondary': '#9B7EBD',
+                'color_accent': '#F4D03F',
+                'gradient_primary_start': '#4A9D5D',
+                'gradient_primary_end': '#A8E6CF',
+                'gradient_home_start': '#FEF5E7',
+                'gradient_home_end': '#FADBD8',
+                'bg_primary': '#ffffff',
+                'bg_secondary': '#f0f7f2',
+                'text_primary': '#4A4A4A',
+                'text_light': '#ffffff'
+            }
+        };
+
+        // 2. EL "MOTOR" DE CAMBIO
+        const themeSelector = document.getElementById('themeSelector');
+        const themeForm = document.getElementById('themeForm');
+
+        themeSelector.addEventListener('change', function() {
+            const selectedThemeName = this.value;
+            const colors = temas[selectedThemeName];
+
+            if (colors) {
+                // Itera sobre todas las claves del tema seleccionado
+                for (const key in colors) {
+                    if (key === 'name') continue; // No necesitamos actualizar el select
+
+                    // Actualiza el valor del input de color
+                    const input = document.getElementById(key);
+                    if (input) {
+                        input.value = colors[key];
+                    }
+
+                    // Actualiza la vista previa pequeña al lado del input
+                    const preview = document.getElementById('preview_' + key);
+                    if (preview) {
+                        preview.style.background = colors[key];
+                    }
+                }
+
+                // Actualiza las vistas previas grandes al final
+                updateMainPreviews(colors);
+            }
+        });
+
+        function updateMainPreviews(colors) {
+            const mainPreview = document.getElementById('mainPreview');
+            const secondaryPreview = document.getElementById('secondaryPreview');
+
+            if (mainPreview) {
+                mainPreview.style.background = `linear-gradient(135deg, ${colors.gradient_primary_start}, ${colors.gradient_primary_end})`;
+                mainPreview.style.color = colors.text_light;
+            }
+
+            if (secondaryPreview) {
+                secondaryPreview.style.background = colors.bg_secondary;
+                secondaryPreview.style.color = colors.text_primary;
+            }
+        }
+        
+        // También actualizamos las vistas previas si un usuario cambia un color manualmente
+        themeForm.addEventListener('input', function(e) {
+            if (e.target && e.target.type === 'color') {
+                const preview = document.getElementById('preview_' + e.target.id);
+                if (preview) {
+                    preview.style.background = e.target.value;
+                }
+                // Opcional: actualizar la vista previa principal también al cambiar un color
+                // updateMainPreviews( ... ); // Esto requeriría reconstruir el objeto de colores desde el formulario
+            }
+        });
+    </script>
 </body>
 </html>
