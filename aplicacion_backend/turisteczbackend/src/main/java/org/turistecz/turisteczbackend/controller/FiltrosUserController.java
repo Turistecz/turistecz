@@ -12,16 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.turistecz.turisteczbackend.dto.FavoriteDto;
 import org.turistecz.turisteczbackend.dto.FiltrosUserDto;
-import org.turistecz.turisteczbackend.model.Favoritos;
 import org.turistecz.turisteczbackend.model.Filtro;
 import org.turistecz.turisteczbackend.model.Filtros_user;
-import org.turistecz.turisteczbackend.model.Sitio;
 import org.turistecz.turisteczbackend.model.Usuario;
 import org.turistecz.turisteczbackend.repository.FiltroRepository;
 import org.turistecz.turisteczbackend.repository.UsuarioRepository;
-import org.turistecz.turisteczbackend.service.FiltroService;
 import org.turistecz.turisteczbackend.service.FiltrosUserService;
 
 @RestController
@@ -37,9 +33,6 @@ public class FiltrosUserController {
 
     @Autowired
     private FiltroRepository filtroRepo;
-
-    @Autowired
-    private FiltroService filtroService;
 
     @GetMapping("/comprobar/{usuarioId}/{filtroId}")
     public ResponseEntity<Boolean> comprobarFavorito(

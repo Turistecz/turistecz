@@ -1,6 +1,5 @@
 package org.turistecz.turisteczbackend.controller;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.turistecz.turisteczbackend.dto.FiltrosUserDto;
 import org.turistecz.turisteczbackend.model.Filtro;
-import org.turistecz.turisteczbackend.model.Filtros_user;
-import org.turistecz.turisteczbackend.model.Usuario;
 import org.turistecz.turisteczbackend.service.FiltroService;
 
 
