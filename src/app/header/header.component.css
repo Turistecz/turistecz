@@ -9,7 +9,7 @@
 }
 
 #navbarNav a{
-  color: #0c0c0cb4;
+  color: var(--text-primary);
 }
 
  .imgLogin {

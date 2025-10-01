@@ -17,7 +17,7 @@ img{
 }
 
 .card-title-r {
-    color: #2A8BEA;
+    color: var(--color-secondary);
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
     font-weight:700;
     /* font-size: 3rem; */
