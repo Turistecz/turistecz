@@ -23,11 +23,9 @@ export class CustomRouteComponent {
   usuario:any;
 
   constructor(
-    private http: HttpClient, 
     private customRouteService: CustomRouteService, 
     private formB: FormBuilder,
     private favoritosService: FavoritosService, 
-    private loginService: LoginService
 ) 
     {
       /* CONSTRUCTOR DEL FORMULARIO REACTIVO */
@@ -36,8 +34,6 @@ export class CustomRouteComponent {
         descripcion_ruta: [''],
       });
     } 
-
- 
 
   // Al seleccionar un checkbox, se añade el id del sitio al array "sitios"
   onCheckboxChange(event: any, idSitio: number) {
@@ -50,11 +46,11 @@ export class CustomRouteComponent {
   onSubmit() {
     const tituloRuta = this.formMyRoute.value.titulo_ruta;
     const descripcionRuta = this.formMyRoute.value.descripcion_ruta;
-    this.enviarARutaUsuario(tituloRuta, descripcionRuta);
+    this.enviarARutaUsuario(this.usuario.id, tituloRuta, descripcionRuta);
   }
   
-  enviarARutaUsuario(titulo:any, descripcion:any) {
-    this.customRouteService.postRutaUsuario(titulo, descripcion).subscribe({
+  enviarARutaUsuario(id_usuario:number, titulo:any, descripcion:any) {
+    this.customRouteService.postRutaUsuario(id_usuario, titulo, descripcion).subscribe({
       next: (response) => {
         console.log('Respuesta del servidor:', response);
         this.ultimaRuta = response;
@@ -84,10 +80,10 @@ export class CustomRouteComponent {
   
   // Mostrar rutas del usuario, ubicadas en la BBDD
   mostrarRutasUsuario(){
-    this.customRouteService.getRutasUsuario().subscribe({
+    this.customRouteService.getRutasUsuario(this.usuario.id).subscribe({
       next: (response) => {
         console.log('Rutas del usuario:', response);
-        return this.datosRutaBBDD = response; 
+        this.datosRutaBBDD = response; 
       },
       error: (error) => {
         console.error('Error al obtener las rutas del usuario.', error);
@@ -95,20 +91,7 @@ export class CustomRouteComponent {
     });
   }
 
-  // mostrarUltimaRutaUsuario(){
-  //   this.customRouteService.getUltimaRutaUsuario().subscribe({
-  //     next: (response) => {
-  //       console.log('Ultima ruta Usuario:', response);
-  //       this.ultimaRuta = response;
-  //     },
-  //     error: (error) => {
-  //       console.error('Error al obtener los sitios favoritos del usuario.', error);
-  //     }
-  //   });
-  // }
-
   // Mostrar sitios favoritos del usuario
-
   mostrarSitiosFavoritos(){
     this.favoritosService.getMisFavoritos(this.usuario.id).subscribe({
       next: (response) => {
@@ -130,6 +113,7 @@ export class CustomRouteComponent {
       console.error('No hay usuario logueado');
       return;
     }
+
     this.mostrarRutasUsuario();
     this.mostrarSitiosFavoritos();
   }

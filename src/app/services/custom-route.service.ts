@@ -22,15 +22,18 @@ export class CustomRouteService {
 
   /* URLs RUTA */
   private newRouteURL = 'http://localhost:8080/auth/nuevaRutaUsuario';
-  private allRouteURL = 'http://localhost:8080/auth/rutasUsuario';
+  private allRouteURL = 'http://localhost:8080/auth/rutasUsuario?id_usuario=';
   // private lastRouteURL = 'http://localhost:8080/auth/ultimaRutaUsuario'
 
   /* URLs SITIO RUTA */
   private newSitioRutaURL = 'http://localhost:8080/auth/nuevoSitioRutaUsuario';
 
   /* RUTA */
-  postRutaUsuario(titulo: string, descripcion:string): Observable<any> {
-    const enviar = { titulo_ruta: titulo, descripcion_ruta: descripcion }; // SE TIENE QUE LLAMAR IGUAL QUE EN LA BBDD
+  postRutaUsuario(id:number, titulo: string, descripcion:string): Observable<any> {
+    const enviar = { 
+      id_usuario: id,
+      titulo_ruta: titulo, 
+      descripcion_ruta: descripcion }; // SE TIENE QUE LLAMAR IGUAL QUE EN LA BBDD
     const headers = this.getAuthHeaders();
     if (headers) {
       return this.http.post<RutaUsuario>(this.newRouteURL, enviar, { headers })
@@ -41,9 +44,15 @@ export class CustomRouteService {
     }
   }
 
-  getRutasUsuario(){
-    return this.http.get(this.allRouteURL)
-      .pipe(catchError(this.handleError));
+  getRutasUsuario(id:number){
+    const headers = this.getAuthHeaders();
+    if (headers) {
+      return this.http.get<RutaUsuario>(this.allRouteURL + id, { headers })
+        .pipe(catchError(this.handleError));
+    } else {
+      return this.http.get<RutaUsuario>(this.allRouteURL + id)
+        .pipe(catchError(this.handleError));
+    }
   }
 
   // getUltimaRutaUsuario(){
