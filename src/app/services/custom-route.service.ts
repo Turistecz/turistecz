@@ -23,7 +23,7 @@ export class CustomRouteService {
   /* URLs RUTA */
   private newRouteURL = 'http://localhost:8080/auth/nuevaRutaUsuario';
   private allRouteURL = 'http://localhost:8080/auth/rutasUsuario';
-  private lastRouteURL = 'http://localhost:8080/auth/ultimaRutaUsuario'
+  // private lastRouteURL = 'http://localhost:8080/auth/ultimaRutaUsuario'
 
   /* URLs SITIO RUTA */
   private newSitioRutaURL = 'http://localhost:8080/auth/nuevoSitioRutaUsuario';

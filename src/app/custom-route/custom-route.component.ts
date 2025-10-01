@@ -4,6 +4,7 @@ import { CustomRouteService } from '../services/custom-route.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { FavoritosService } from '../services/favoritos.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-custom-route',
@@ -19,12 +20,14 @@ export class CustomRouteComponent {
   favoritosUsuario:any; // sitios favoritos seleccionados por el usuario
   sitios:number[]=[]; // Array para guardar los id de los sitios seleccionados
   ultimaRuta!:any;
+  usuario:any;
 
   constructor(
     private http: HttpClient, 
     private customRouteService: CustomRouteService, 
     private formB: FormBuilder,
-    private favoritosService: FavoritosService
+    private favoritosService: FavoritosService, 
+    private loginService: LoginService
 ) 
     {
       /* CONSTRUCTOR DEL FORMULARIO REACTIVO */
@@ -33,6 +36,8 @@ export class CustomRouteComponent {
         descripcion_ruta: [''],
       });
     } 
+
+ 
 
   // Al seleccionar un checkbox, se añade el id del sitio al array "sitios"
   onCheckboxChange(event: any, idSitio: number) {
@@ -103,9 +108,9 @@ export class CustomRouteComponent {
   // }
 
   // Mostrar sitios favoritos del usuario
-  
+
   mostrarSitiosFavoritos(){
-    this.favoritosService.getMisFavoritos(4).subscribe({
+    this.favoritosService.getMisFavoritos(this.usuario.id).subscribe({
       next: (response) => {
         console.log('Sitios favoritos del usuario:', response);
         return this.favoritosUsuario = response;
@@ -117,6 +122,14 @@ export class CustomRouteComponent {
   }
 
   ngOnInit(){
+    const usuarioLS = localStorage.getItem('usuario');
+    if (usuarioLS) {
+      this.usuario = JSON.parse(usuarioLS);
+      console.log("usuario", this.usuario.id)
+    } else {
+      console.error('No hay usuario logueado');
+      return;
+    }
     this.mostrarRutasUsuario();
     this.mostrarSitiosFavoritos();
   }
