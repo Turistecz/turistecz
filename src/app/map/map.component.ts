@@ -185,7 +185,6 @@ export class MapComponent implements AfterViewInit, OnInit, OnChanges{
       }
 
       if (changes['datos'] && !changes['datos'].firstChange && this.parent === 'app-map-page') {
-        //this.makeLocationMarkers();
         if (this.allmarkersGroup.getLayers().length > 0) {
           this.map.removeLayer(this.allmarkersGroup)
           this.refreshDatosMarkers();
@@ -310,7 +309,7 @@ async makeLocationMarkers(){
             .openPopup();
 
           L.featureGroup([userMarker]).addTo(this.map);
-
+          // removeLayer(L.featureGroup);
           this.refreshDatosMarkers();
 
         } catch (error) {
@@ -656,8 +655,6 @@ private refreshDatosMarkers(): void {
   }
 
   const markers: L.Marker[] = [];
-  console.log("los dato")
-  console.log(this.datos)
   this.datos.forEach((elem) => {
     const coords = this.convertCoords(elem.latitud, elem.longitud);
     const latlng: L.LatLngExpression = [coords[1], coords[0]];

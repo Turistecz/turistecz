@@ -39,6 +39,7 @@ export class FilterComponent {
 
   selectedEventsCategoriesMap: { [key: string]: boolean } = {};
   selectedPlacesCategoriesMap: { [key: string]: boolean } = {};
+  selectedMapCategoriesMap: { [key: string]: boolean } = {};
   selectedAccesibilityCategoriesMap: { [key: string]: boolean } = {}; //Mirar si esto va aquí o en places
   groups = ['accesibilidad', 'servicios', 'familiar', 'multiidioma'];
 
@@ -208,6 +209,8 @@ export class FilterComponent {
     this.categories.forEach(cat => {
       this.selectedEventsCategoriesMap[cat.type] = false;
       this.selectedPlacesCategoriesMap[cat.type] = false;
+      this.selectedMapCategoriesMap[cat.type] = false;
+      
     });
 
     this.accesibilityOptions.forEach(option => {
@@ -216,9 +219,8 @@ export class FilterComponent {
 
     this.applyEventFilters();
     this.applyPlaceFilters();
-
-    //await this.loadUserFilter();
-    //this.applyUserFilters();
+    this.applyMapFilters();
+  
   }
 
     //Para que los eventos se carguen al inicio de la página. Antes no funcionaba porque se ejecutaba primero 
@@ -227,8 +229,9 @@ export class FilterComponent {
     if (changes['events'] && changes['events'].currentValue) {
       this.applyEventFilters();
     }
-    if (changes['places'] && changes ['places'].currentValue)
+    if (changes['places'] && changes['places'].currentValue){
       this.applyPlaceFilters();
+    }
   }
 
   applyUserFilters() {
@@ -303,7 +306,18 @@ export class FilterComponent {
 
   toggleAccessibility(key: string) {
   this.selectedAccesibilityCategoriesMap[key] = !this.selectedAccesibilityCategoriesMap[key];
-  this.applyPlaceFilters();
+  console.log("places", this.places);
+  console.log("datos", this.datos);
+
+  if (this.datos.length > 0){
+    this.applyMapFilters();
+  } if (this.places.length > 0){
+    this.applyPlaceFilters();
+  }else{
+    console.log("no carga datos ni places")
+  }
+    
+  // this.applyMapFilters();
   }
 
   applyEventFilters() {
@@ -396,6 +410,46 @@ export class FilterComponent {
     this.filteredCards.emit(filteredPlaces);
      this.noResultsPlacesEvent.emit(this.noResultsPlaces);
   };
+
+applyMapFilters(){
+      
+    let filteredPlaces = [...this.datos];
+
+    const selectedMapCategories = Object.keys(this.selectedMapCategoriesMap)
+    .filter(cat => this.selectedMapCategoriesMap[cat]);
+
+    if (selectedMapCategories.length > 0) {
+      filteredPlaces = filteredPlaces.filter(dato => {
+        const texto = dato.nombre.toLowerCase();
+        return selectedMapCategories.some(cat =>
+          this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
+        );
+      });
+    }
+
+    const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
+    .filter(key => this.selectedAccesibilityCategoriesMap[key]);
+
+    if (selectedAccessibilityKeys.length > 0) {
+    filteredPlaces = filteredPlaces.filter(place =>
+      selectedAccessibilityKeys.every(key =>
+        place[key as keyof MonumentItem] === EnumServiciosAdaptabilidad.si ||
+        place[key as keyof MonumentItem] === EnumServiciosAdaptabilidad.bajo_peticion
+      )
+      );
+    }
+
+    if (this.searchText.trim()) {
+      const search = this.normalize(this.searchText);
+      filteredPlaces = filteredPlaces.filter(place =>
+        this.normalize(place.nombre).includes(search)
+      );
+    }
+    this.noResultsPlaces = filteredPlaces.length === 0;
+
+    this.filteredCards.emit(filteredPlaces);
+     this.noResultsPlacesEvent.emit(this.noResultsPlaces);
+  };
   
   toggleCategory(catType: string) {
     switch(catType) {
@@ -437,6 +491,7 @@ export class FilterComponent {
   onSearch() {
     this.applyEventFilters();
     this.applyPlaceFilters();
+    this.applyMapFilters();
   }
 
   setFilter(option: 'month' | 'future' | 'alpha') {
@@ -451,9 +506,11 @@ export class FilterComponent {
     this.categories.forEach(cat => {
       this.selectedEventsCategoriesMap[cat.type] = false;
       this.selectedPlacesCategoriesMap[cat.type] = false;
+      this.selectedMapCategoriesMap[cat.type] = false;
     });
     this.applyEventFilters();
     this.applyPlaceFilters();
+    this.applyMapFilters();
 
      this.accesibilityOptions.forEach(option => {
       this.selectedAccesibilityCategoriesMap[option.key] = false;
