@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.turistecz.turisteczbackend.model.Filtro;
-import org.turistecz.turisteczbackend.model.Filtros_user;
 import org.turistecz.turisteczbackend.repository.FiltroRepository;
 
 @Service
