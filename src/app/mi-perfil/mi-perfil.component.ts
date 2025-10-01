@@ -68,4 +68,6 @@ export class MiPerfilComponent implements OnInit {
     this.favoritos = this.favoritos.filter(f => f.id !== favoritoId);
   }
 
+
+
 }

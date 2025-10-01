@@ -251,11 +251,11 @@ public class Filtro {
        this.sin_barreras_arquitectonicas = sin_barreras_arquitectonicas;
     }
 
-    public void  setbraille(Boolean braille) {
+    public void  setBraille(Boolean braille) {
        this.braille = braille;
     }
 
-    public void  setInterpreteDeLenguaDeSignos(Boolean interprete_lengua_signos) {
+    public void  setInterpreteLenguaSignos(Boolean interprete_lengua_signos) {
        this.interprete_lengua_signos = interprete_lengua_signos;
     }
 
@@ -271,7 +271,7 @@ public class Filtro {
        this.bancos = bancos;
     }
 
-    public void  setAyudaALaMovilidad(Boolean ayuda_movilidad) {
+    public void  setAyudaMovilidad(Boolean ayuda_movilidad) {
        this.ayuda_movilidad = ayuda_movilidad;
     }
 
@@ -279,15 +279,15 @@ public class Filtro {
        this.lenguaje_simple = lenguaje_simple;
     }
 
-    public void  setAccesoAPerrosGuias(Boolean acceso_perros_guias) {
+    public void  setAccesoPerrosGuias(Boolean acceso_perros_guias) {
        this.acceso_perros_guias = acceso_perros_guias;
     }
 
-    public void  setAccesoAPerrosDeAsistencia(Boolean acceso_perros_asistencia) {
+    public void  setAccesoPerrosAsistencia(Boolean acceso_perros_asistencia) {
        this.acceso_perros_asistencia = acceso_perros_asistencia;
     }
 
-    public void  setSalaDeLactancia(Boolean sala_lactancia) {
+    public void  setSalaLactancia(Boolean sala_lactancia) {
        this.sala_lactancia = sala_lactancia;
     }
 
@@ -310,5 +310,44 @@ public class Filtro {
     public void  setDocumentacionMultiidioma(Boolean documentacion_multiidioma) {
        this.documentacion_multiidioma = documentacion_multiidioma;
     }
+
+   //  public void setAll(Boolean museos_exposiciones, Boolean monumentos_esculturas, Boolean zonas_verdes, Boolean arquitectura
+   //    , Boolean arte_mudejar, Boolean arte_romano, Boolean rampas, Boolean ascensores, Boolean puertas_automaticas
+   //    , Boolean escaleras_mecanicas, Boolean servicios_adaptados, Boolean parking_adaptado, Boolean mostrador_adaptado, 
+   //    Boolean sin_barreras_arquitectonicas, Boolean braille, Boolean interprete_lengua_signos, Boolean videos_subtitulados
+   //    , Boolean ayudas_visuales, Boolean bancos, Boolean ayuda_movilidad, Boolean lenguaje_simple
+   //    , Boolean acceso_perros_guias, Boolean acceso_perros_asistencia, Boolean sala_lactancia, Boolean cambiador, 
+   //    Boolean visitas_grupales, Boolean guias_turisticos_multiidioma, Boolean elementos_audiovisuales_multiidioma, 
+   //    Boolean documentacion_multiidioma){
+   //       setMuseosExposiciones(museos_exposiciones);
+   //       setMonumentosEsculturas(monumentos_esculturas);
+   //       setZonasVerdes(zonas_verdes);
+   //       setArquitectura(arquitectura);
+   //       setArteMudejar(arte_mudejar);
+   //       setArteRomano(arte_romano);
+   //       setRampas(rampas);
+   //       setAscensores(ascensores);
+   //       setPuertasAutomaticas(puertas_automaticas);
+   //       setEscalerasMecanicas(escaleras_mecanicas);
+   //       setServiciosAdaptados(servicios_adaptados);
+   //       setParkingAdaptado(parking_adaptado);
+   //       setMostradorAdaptado(mostrador_adaptado);
+   //       setSinBarrerasArquitectonicas(sin_barreras_arquitectonicas);
+   //       setBraille(braille);
+   //       setInterpreteDeLenguaDeSignos(interprete_lengua_signos);
+   //       setVideosSubtitulados(videos_subtitulados);
+   //       setAyudasVisuales(ayudas_visuales);
+   //       setBancosAsientos(bancos);
+   //       setAyudaALaMovilidad(ayuda_movilidad);
+   //       setLenguajeSimple(lenguaje_simple);
+   //       setAccesoAPerrosGuias(acceso_perros_guias);
+   //       setAccesoAPerrosDeAsistencia(acceso_perros_asistencia);
+   //       setSalaLactancia(sala_lactancia);
+   //       setCambiador(cambiador);
+   //       setVisitasGrupales(visitas_grupales);
+   //       setGuiasTuristicosMultiidioma(guias_turisticos_multiidioma);
+   //       setElementosAudiovisualesMultiidioma(elementos_audiovisuales_multiidioma);
+   //       setDocumentacionMultiidioma(documentacion_multiidioma);
+   //  }
 
 }
