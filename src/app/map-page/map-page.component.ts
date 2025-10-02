@@ -18,6 +18,7 @@ import { MonumentItem } from '../models/monument.model';
 export class MapPageComponent {
 
  globalCategories:Category[]= categories;
+ sitios:MonumentItem[] = [];
  sitiosFiltrados: MonumentItem[] = [];
  name:string = 'app-map-page';
 
@@ -28,7 +29,8 @@ constructor(private http: HttpClient, private monumentService: MonumentServiceSe
       if (localStorage.getItem('monumentDDBBGlobal')) {
       //  this.sitiosFiltrados = JSON.parse(localStorage.getItem('monumentDDBBGlobal') || '{}');
       } else {
-        this.sitiosFiltrados = await firstValueFrom(this.monumentService.getMonumentsNames()); 
+        this.sitios = await firstValueFrom(this.monumentService.getMonumentsNames());
+        this.sitiosFiltrados = this.sitios; 
         // localStorage.setItem('monumentDDBBGlobal', JSON.stringify(this.sitiosFiltrados));
       }
     } 
@@ -43,7 +45,6 @@ constructor(private http: HttpClient, private monumentService: MonumentServiceSe
   }
 
   updatePlaces(filteredPlaces: MonumentItem[]) {
-    const idsFiltrados = filteredPlaces.map(p => p.id);
-    this.sitiosFiltrados = this.sitiosFiltrados.filter(s => idsFiltrados.includes(s.id));
+    this.sitiosFiltrados = filteredPlaces;
   }
 }
