@@ -1,0 +1,256 @@
+/* Encabezado del calendario */
+:host ::ng-deep .igx-calendar__header {
+  background: linear-gradient(90deg, #0e3d89, #1e6bf5);
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Cuerpo del calendario */
+/* :host ::ng-deep .igx-calendar__body {
+  display: grid;
+} */
+
+
+/* Estructura principal */
+:host ::ng-deep .igx-calendar,
+:host ::ng-deep .igx-calendar--vertical
+:host ::ng-deep .igx-days-view {
+  display: flex;
+  gap: 0.55rem;
+  flex-flow: column nowrap;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Selector de fecha */
+:host ::ng-deep .igx-calendar-picker {
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #0e3d89;
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 3.5rem;
+  padding: 0 1rem;
+  width: 100%;
+  margin-bottom: 0.8rem;
+}
+
+:host ::ng-deep .igx-calendar-picker__date{
+  padding: 0.2rem;
+}
+
+:host ::ng-deep .igx-calendar-picker__date:hover {
+  background: #143eb12a;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+:host ::ng-deep .igx-days-view__date--current .igx-days-view__date-inner {
+    color: rgb(45, 0, 128);
+    border-color: #0e3d89 !important;
+    
+}
+/* Meses */
+:host ::ng-deep .igx-calendar-view__item {
+  background: #f0f4ff !important;
+  color: #0e3d89 !important;
+  padding: 0.25rem 0.5rem;
+  margin: 4px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  border: .0625rem solid transparent;
+  width: 100%;  
+}
+
+/* Item seleccionado */
+:host ::ng-deep .igx-calendar-view__item--selected {
+  color: #0e3d89 !important;
+  font-weight: bold;
+}
+
+/* Items grid */
+:host ::ng-deep .igx-calendar-view__items {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: .5rem;
+}
+
+
+:host ::ng-deep .igx-calendar__wrapper {
+    outline-style: none;
+}
+
+/* Navegación */
+:host ::ng-deep .igx-calendar-picker__nav {
+  display: flex;
+  gap: 0.5rem;
+  position: absolute;
+  right: 1rem;
+}
+
+/* Oculta elementos de accesibilidad */
+:host ::ng-deep .igx-calendar__aria-off-screen {
+  display: none;
+}
+
+
+/* Día */
+:host ::ng-deep .igx-days-view__date-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.5rem;
+  border: .0625rem solid transparent;
+  cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 2px;
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+  
+
+}
+
+/* Día seleccionado */
+:host ::ng-deep .igx-days-view__date--selected .igx-days-view__date-inner {
+  background: #0e3d89 !important;
+  color: #fff !important;
+  border-color: #1e6bf5 !important;
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+}
+
+/* Día inactivo */
+:host ::ng-deep .igx-days-view__date--inactive .igx-days-view__date-inner {
+  color: #0e3d8993
+}
+
+/* Oculta el año en el header */
+:host ::ng-deep .igx-calendar__header-year span {
+  display: none !important;
+}
+
+/* Iconos de navegación */
+:host ::ng-deep igx-icon.igx-icon.material-icons {
+  color: #0e3d89;
+  padding: 0.5rem;
+}
+
+/* Fila de días */
+:host ::ng-deep .igx-days-view__row {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Etiquetas de días */
+:host ::ng-deep .igx-days-view__label {
+  color: #01060fc0 !important;
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0.5rem;
+}
+
+/* Eventos */
+.events-container {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.events-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.events-container::-webkit-scrollbar-thumb {
+  background-color: #0e3d89;
+  border-radius: 4px;
+}
+
+.events-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.calendar-title {
+  color: #e6ebf1 !important;
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 2px 0 1rem 0;
+}
+
+.title-events {
+  background: linear-gradient(90deg, #1e6bf5, #0e3d89);
+  border-radius: 8px;
+  padding: 1px;
+}
+
+.event-item {
+  padding: 0.5rem 0;
+  transition: background 0.2s;
+}
+
+.event-item:hover {
+  background-color: #a1b6d579;
+}
+
+.event-item h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.event-item p {
+  margin: 0.2rem 0;
+  color: #4b5563;
+}
+
+.calendar-container {
+  padding: 1rem;
+}
+
+.calendar-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0.2rem 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .calendar-card {
+   padding: 0.5rem;
+  }
+  .title-events {
+   padding: 3px !important;
+  }
+  h4 {
+   padding-inline: 10px;
+   padding-block: 5px;
+  }
+  :host ::ng-deep .igx-calendar-view__items {
+   grid-template-columns: repeat(3, 1fr);
+   column-gap: 0.25rem;
+   row-gap: 0.15rem;
+   width: 100%;
+   max-width: 100%;
+  }
+  :host ::ng-deep .igx-days-view__date-inner {
+   width: 2rem;
+   height: 2rem;
+   font-size: 0.95rem;
+  }
+  :host ::ng-deep .igx-days-view__row {
+   gap: 10px;
+   flex-wrap: wrap;
+  }
+}
