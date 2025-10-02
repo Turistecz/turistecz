@@ -14,7 +14,7 @@ public class RutaUsuarioDto {
     private String descripcion_ruta;
 
     public RutaUsuarioDto(RutaUsuario ruta) {
-        this.id_usuario = ruta.getId_usuario();
+        this.id_usuario = ruta.getUsuario().getId();
         this.titulo_ruta = ruta.getTitulo_ruta();
         this.descripcion_ruta = ruta.getDescripcion_ruta();
     }

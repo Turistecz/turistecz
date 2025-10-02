@@ -1,66 +1,51 @@
 package org.turistecz.turisteczbackend.model;
 
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Table(name = "`ruta_usuario`")
+@Data
+@NoArgsConstructor
 public class RutaUsuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
+    @Column(name="id")
     private int id;
 
-    @Column
-    private Integer id_usuario;
+    // @Column(name="id_usuario")
+    // private Integer id_usuario;
 
-    @Column(length = 255)
+    @ManyToOne
+    @JoinColumn(name="id_usuario", referencedColumnName = "id")
+    private Usuario usuario;
+
+    @Column(name="titulo_ruta", length = 255)
     private String titulo_ruta;
 
-    @Column(length = 255)
+    @Column(name="descripcion_ruta",length = 255)
     private String descripcion_ruta;
 
-    @Column(length = 255)
+    @Column(name="imagen_destacada",length = 255)
     private String imagen_destacada;
 
-    // Getters and Setters
-
-    public int getId() {
-        return id;
-    }
-
-    public Integer getId_usuario() {
-        return id_usuario;
-    }
-
-    public void setId_usuario(Integer id_usuario) {
-        this.id_usuario = id_usuario;
-    }
-
-    public String getTitulo_ruta() {
-        return titulo_ruta;
-    }
-
-    public void setTitulo_ruta(String titulo_ruta) {
-        this.titulo_ruta = titulo_ruta;
-    }
-
-    public String getDescripcion_ruta() {
-        return descripcion_ruta;
-    }
-
-    public void setDescripcion_ruta(String descripcion_ruta) {
-        this.descripcion_ruta = descripcion_ruta;
-    }
-
-    public String getImagen_destacada() {
-        return imagen_destacada;
-    }
-
-    public void setImagen_destacada(String imagen_destacada) {
-        this.imagen_destacada = imagen_destacada;
-    }
+    @OneToMany(mappedBy = "rutaUsuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SitiosRutaUsuario> sitios_ruta_usuario;
 
 }

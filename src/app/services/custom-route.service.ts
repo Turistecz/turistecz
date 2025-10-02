@@ -29,9 +29,9 @@ export class CustomRouteService {
   private newSitioRutaURL = 'http://localhost:8080/auth/nuevoSitioRutaUsuario';
 
   /* RUTA */
-  postRutaUsuario(id:number, titulo: string, descripcion:string): Observable<any> {
+  postRutaUsuario(usuario:number, titulo: string, descripcion:string): Observable<any> {
     const enviar = { 
-      id_usuario: id,
+      id_usuario: usuario,
       titulo_ruta: titulo, 
       descripcion_ruta: descripcion }; // SE TIENE QUE LLAMAR IGUAL QUE EN LA BBDD
     const headers = this.getAuthHeaders();
@@ -62,10 +62,10 @@ export class CustomRouteService {
 
   /* SITIOS RUTA */
 
-  postSitioRutaUsuario(ruta:number, sitio:number): Observable<any> {
+  postSitioRutaUsuario(ruta:number, favoritos:number): Observable<any> {
     const enviar = { 
       id_ruta: ruta,
-      id_sitio_fav: sitio 
+      id_favoritos: favoritos 
     }
     const headers = this.getAuthHeaders();
     if (headers) {

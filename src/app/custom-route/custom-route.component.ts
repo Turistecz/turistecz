@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomRouteService } from '../services/custom-route.service';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { FavoritosService } from '../services/favoritos.service';
-import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-custom-route',

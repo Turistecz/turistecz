@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 public class SitioRutaUsuarioDto {
     
     private Integer id_ruta;
-    private Integer id_sitio_fav;
+    private Integer id_favoritos;
 
     public SitioRutaUsuarioDto(SitiosRutaUsuario sitio) {
-        this.id_ruta = sitio.getId_ruta();
-        this.id_sitio_fav = sitio.getId_sitio_fav();
+        this.id_ruta = sitio.getRutaUsuario().getId();
+        this.id_favoritos = sitio.getFavoritos().getId();
     };
 }
