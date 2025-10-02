@@ -26,7 +26,6 @@ export class PlaceCardComponent implements OnInit {
     try {
       // 🔹 Recuperar JWT de localStorage (lo guardas tras login)
       const token = localStorage.getItem('token');
-      console.log("JWT desde localStorage", token);
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}` // enviar token al backend
       });
@@ -44,8 +43,6 @@ export class PlaceCardComponent implements OnInit {
           id: img.id
         }))
       );
-
-      console.log(this.cards);
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
     }

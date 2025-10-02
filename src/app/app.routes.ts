@@ -86,11 +86,14 @@ export const routes: Routes = [
      loadComponent: () => import('./reset-password/reset-password.component').then(m => m.ResetPasswordComponent)   
     },
     {
+    path: 'calendar',
+    loadComponent: () => import('./calendar-main/calendar-main.component').then(m => m.CalendarMainComponent)
+    },
+    /*El not-found siempre va de último*/ 
+    {
       path: '**',
       loadComponent: () =>
         import('./not-found/not-found.component').then(m => m.NotFoundComponent),
       data: { breadcrumb: 'Error 404' }
-    }
-    
-  
+    }, 
 ]

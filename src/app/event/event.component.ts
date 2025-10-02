@@ -30,6 +30,6 @@ export class EventComponent {
   // call the function on start
   ngOnInit() {
     this.data.description = this.removeHTMLTags(this.data.description);
-    
+   
   };
 }
