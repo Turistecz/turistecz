@@ -51,7 +51,7 @@ export interface FilterUser {
 }
 
 export interface CleanFilter {
-  id: null,
+  id: number,
   museosExposiciones: boolean,
   monumentosEsculturas: boolean,
   zonasVerdes: boolean,

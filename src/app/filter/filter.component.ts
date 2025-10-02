@@ -266,34 +266,80 @@ export class FilterComponent {
 
   async loadUserFilter() {
     const usuarioStr = localStorage.getItem('usuario');
-    if (!usuarioStr){
-      //const usuario = JSON.parse(usuarioStr);
+    if (usuarioStr){
+      const usuario = JSON.parse(usuarioStr);
       const datos = await firstValueFrom(this.apiFilterService.getFilters());
       this.favFilters = datos;
-      this.userFavFilter = this.favFilters[2];
+
+      //coger ya solo el del id que nos interesa en Filtro Controller
+      Object.entries(this.favFilters).forEach((elem, index) => {
+        if (Number(usuario.id) == Object.entries(elem[1])[0][1]) {
+          this.userFavFilter = this.favFilters[index];
+        }
+      });
+
       Object.entries(this.orderFilter.features).forEach(elem => {
-      let key = Object.keys(elem[1])[0];
-      this.inputNames.push(key);
-    });
+          let key = Object.keys(elem[1])[0];
+          this.inputNames.push(key);
+      });
+      
+      //comprobar si ya tiene filtro
+      if (this.userFavFilter.features == undefined) {
+        Object.entries(this.userFavFilter).forEach(elem => {
+          let key = elem[0];
+          let value = elem[1];
+          this.orderMap.set(key, value);
+          let index = this.inputNames.findIndex((element) => element === key);
+          this.inputIndex.push(index);
+        });
 
-    Object.entries(this.userFavFilter).forEach(elem => {
-      let key = elem[0];
-      let value = elem[1];
-      this.orderMap.set(key, value);
-      let index = this.inputNames.findIndex((element) => element === key);
-      this.inputIndex.push(index);
-    });
+        let mapArray = Array.from(this.orderMap);
+        this.orderedArray = Array.from(this.orderMap);
 
-    let mapArray = Array.from(this.orderMap);
-    this.orderedArray = Array.from(this.orderMap);
-
-    mapArray.forEach((elem, index) => {
-      this.orderedArray.splice(Number(this.inputIndex[index]), 1, elem);
-    });
-    } else {
-      console.log(this.userFavFilter);
+        mapArray.forEach((elem, index) => {
+          this.orderedArray.splice(Number(this.inputIndex[index]), 1, elem);
+        });
+      } else {
+        let newFilter: CleanFilter = {
+          id: Number(usuario.id),
+          museosExposiciones: false,
+          monumentosEsculturas: false,
+          zonasVerdes: false,
+          arquitectura: false,
+          arteMudejar: false,
+          arteRomano: false,
+          rampas: false,
+          ascensores: false,
+          puertasAutomaticas: false,
+          escalerasMecanicas: false,
+          serviciosAdaptados: false,
+          parkingAdaptado: false,
+          mostradorAdaptado: false,
+          sinBarrerasArquitectonicas: false,
+          braille: false,
+          interpreteLenguaSignos: false,
+          videosSubtitulados: false,
+          ayudasVisuales: false,
+          bancos: false,
+          ayudaMovilidad: false,
+          lenguajeSimple: false,
+          accesoPerrosGuias: false,
+          accesoPerrosAsistencia: false,
+          salaLactancia: false,
+          cambiador: false,
+          visitasGrupales: false,
+          guiasTuristicosMultiidioma: false,
+          elementosAudiovisualesMultiidioma: false,
+          documentacionMultiidioma: false,
+        };
+        Object.entries(newFilter).forEach(elem => {
+          let key = elem[0];
+          let value = elem[1];
+          this.orderMap.set(key, value);
+        });
+        this.orderedArray = Array.from(this.orderMap);
+      }
     }
-
   }
 
   camelToUnderscore(key: string) {
@@ -535,8 +581,8 @@ applyMapFilters(){
 
   saveFilters() {
     const usuarioStr = localStorage.getItem('usuario');
-    if (!usuarioStr){
-      //const usuario = JSON.parse(usuarioStr);
+    if (usuarioStr){
+      const usuario = JSON.parse(usuarioStr);
       let boolArray: boolean[] = [];
       this.inputs.forEach((elem, index) => {
         if(elem.checked){
@@ -547,8 +593,9 @@ applyMapFilters(){
           boolArray.push(this.orderedArray[index][1]);
         }
       });
+
       let newFilter: CleanFilter = {
-        id: null,
+        id: Number(usuario.id),
         museosExposiciones: boolArray[1],
         monumentosEsculturas: boolArray[2],
         zonasVerdes: boolArray[3],
@@ -579,16 +626,8 @@ applyMapFilters(){
         elementosAudiovisualesMultiidioma: boolArray[28],
         documentacionMultiidioma: boolArray[29],
       };
-      
-      //let currentFiltroId = Object.entries(this.userFavFilter)[0][1];
 
-      //this.apiFilterService.removeFilter(currentFiltroId).subscribe();
-
-      // this.apiFilterService.addNewFilter(newFilter).subscribe({
-      //   next: () => {
-      //     console.log(newFilter)
-      //   }
-      // });
+      this.apiFilterService.addNewFilter(newFilter).subscribe();
     } 
   }
 
