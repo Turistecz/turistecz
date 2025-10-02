@@ -1,9 +1,9 @@
 .weather{
     background: linear-gradient(135deg, var(--gradient-primary-end)  0%, var(--gradient-primary-start) 100%); 
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui; 
-    gap: 10px;
+    gap: 10px; 
 }
 
-.icon-map{
-    font-size: 1.5rem;
+.icon-map, .icon-calendar{
+    font-size: 1.2rem;
 }

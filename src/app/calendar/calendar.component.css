@@ -14,12 +14,6 @@ h1 {
   padding: 10px;
 }
 
-/* Cuerpo del calendario */
-/* :host ::ng-deep .igx-calendar__body {
-  display: grid;
-} */
-
-
 /* Estructura principal */
 :host ::ng-deep .igx-calendar,
 :host ::ng-deep .igx-calendar--vertical
@@ -35,6 +29,7 @@ h1 {
 :host ::ng-deep .igx-calendar-picker {
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
   font-size: 1.3rem;
+  
   font-weight: 600;
   color: #0e3d89;
   display: flex;
@@ -48,6 +43,7 @@ h1 {
 
 :host ::ng-deep .igx-calendar-picker__date{
   padding: 0.2rem;
+  text-transform: capitalize;
 }
 
 :host ::ng-deep .igx-calendar-picker__date:hover {

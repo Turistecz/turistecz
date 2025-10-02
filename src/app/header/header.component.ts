@@ -4,13 +4,14 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { WeatherComponent } from "../weather/weather.component";
+import { CalendarComponent } from "../calendar/calendar.component";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   standalone: true,
-  imports: [CommonModule, WeatherComponent]
+  imports: [CommonModule, WeatherComponent, CalendarComponent]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   logueado = false;
