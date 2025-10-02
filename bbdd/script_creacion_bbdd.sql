@@ -149,6 +149,14 @@ CREATE TABLE filtro (
     documentacion_multiidioma BOOLEAN
 );
 
+CREATE TABLE filtros_user (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id INT NOT NULL,
+    filtro_id INT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    FOREIGN KEY (filtro_id) REFERENCES filtro(id)
+);
+
 
 
 -- Crear tabla de configuración (única, flexible)
@@ -538,12 +546,3 @@ FROM SITIO s
 JOIN sitios_ruta sr ON s.id = sr.id_sitio
 JOIN imagen_sitio imgs ON s.id = imgs.id
 ORDER BY sr.orden ASC;
-
-
-INSERT INTO filtro VALUES 
-(1, false, true, false, true, true, false, false, false, false, false, false, false, false, false, false, false,
- false, false, false, false, false, false, false, false, false, false, false, false, false), 
-(2, false, true, true, false, false, true, false, false, false, false, false, true, false, false, true, false,
- false, false, false, true, true, false, true, false, true, false, false, false, false),
- (3, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false,
- false, false, false, false, false, false, false, false, false, false, false, false, false);
