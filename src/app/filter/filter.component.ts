@@ -209,8 +209,6 @@ export class FilterComponent {
     this.categories.forEach(cat => {
       this.selectedEventsCategoriesMap[cat.type] = false;
       this.selectedPlacesCategoriesMap[cat.type] = false;
-      this.selectedMapCategoriesMap[cat.type] = false;
-      
     });
 
     this.accesibilityOptions.forEach(option => {
@@ -305,19 +303,19 @@ export class FilterComponent {
   }
 
   toggleAccessibility(key: string) {
-  this.selectedAccesibilityCategoriesMap[key] = !this.selectedAccesibilityCategoriesMap[key];
-  console.log("places", this.places);
-  console.log("datos", this.datos);
+    this.selectedAccesibilityCategoriesMap[key] = !this.selectedAccesibilityCategoriesMap[key];
 
-  if (this.datos.length > 0){
-    this.applyMapFilters();
-  } if (this.places.length > 0){
-    this.applyPlaceFilters();
-  }else{
-    console.log("no carga datos ni places")
-  }
-    
-  // this.applyMapFilters();
+    if (this.datos.length > 0){
+      this.applyMapFilters();
+      console.log("aplica map");
+    } else if (this.places.length > 0){
+      this.applyPlaceFilters();
+      console.log("aplica places");
+    }else{
+      console.log("no carga datos ni places");
+    }
+      
+    // this.applyMapFilters();
   }
 
   applyEventFilters() {
@@ -389,6 +387,7 @@ export class FilterComponent {
 
     const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
+    console.log("accesibility selected. function apply place filters", this.selectedAccesibilityCategoriesMap)
 
     if (selectedAccessibilityKeys.length > 0) {
     filteredPlaces = filteredPlaces.filter(place =>
@@ -412,16 +411,15 @@ export class FilterComponent {
   };
 
 applyMapFilters(){
-      
     let filteredPlaces = [...this.datos];
+    const selectedPlaceCategories = Object.keys(this.selectedPlacesCategoriesMap)
+    .filter(cat => this.selectedPlacesCategoriesMap[cat]);
+      console.log( "categorias seleccionadas", selectedPlaceCategories);
 
-    const selectedMapCategories = Object.keys(this.selectedMapCategoriesMap)
-    .filter(cat => this.selectedMapCategoriesMap[cat]);
-
-    if (selectedMapCategories.length > 0) {
+    if (selectedPlaceCategories.length > 0) {
       filteredPlaces = filteredPlaces.filter(dato => {
         const texto = dato.nombre.toLowerCase();
-        return selectedMapCategories.some(cat =>
+        return selectedPlaceCategories.some(cat =>
           this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
         );
       });
@@ -429,6 +427,8 @@ applyMapFilters(){
 
     const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
+    //selectedAccesibilityCategoriesMap guarda el estado de todas las categorías de accesibilidad (seleccionadas o no)
+    console.log("accesibility selected in map:", this.selectedAccesibilityCategoriesMap)
 
     if (selectedAccessibilityKeys.length > 0) {
     filteredPlaces = filteredPlaces.filter(place =>
