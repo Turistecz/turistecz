@@ -117,7 +117,7 @@ CREATE TABLE favoritos (
 
 
 CREATE TABLE filtro (
-	id INT PRIMARY KEY AUTO_INCREMENT,
+	id INT PRIMARY KEY,
 	museos_exposiciones BOOLEAN,
     monumentos_esculturas BOOLEAN,
     zonas_verdes BOOLEAN,
@@ -541,9 +541,9 @@ ORDER BY sr.orden ASC;
 
 
 INSERT INTO filtro VALUES 
-(NULL, false, true, false, true, true, false, false, false, false, false, false, false, false, false, false, false,
+(1, false, true, false, true, true, false, false, false, false, false, false, false, false, false, false, false,
  false, false, false, false, false, false, false, false, false, false, false, false, false), 
-(NULL, false, true, true, false, false, true, false, false, false, false, false, true, false, false, true, false,
+(2, false, true, true, false, false, true, false, false, false, false, false, true, false, false, true, false,
  false, false, false, true, true, false, true, false, true, false, false, false, false),
- (NULL, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false,
+ (3, false, false, false, false, false, false, true, true, false, false, false, false, false, false, false, false,
  false, false, false, false, false, false, false, false, false, false, false, false, false);

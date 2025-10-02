@@ -14,7 +14,7 @@ export class FilterService {
   constructor(private http: HttpClient) { }
 
   getFilters():Observable<FilterItem[]>  {
-    return this.http.get<FilterItem[]>('http://localhost:8080/api/filtros');
+    return this.http.get<FilterItem[]>(this.filtroUrl);
   }
 
   addNewFilter(filter: CleanFilter) {
@@ -25,16 +25,17 @@ export class FilterService {
     return this.http.delete<void>(`${this.filtroUrl}/${id}`);
   }
 
-  addFavorito(usuarioId: number, filtroId: number): Observable<FilterUser> {
+
+  addUserFilter(usuarioId: number, filtroId: number): Observable<FilterUser> {
     const dto = { usuarioId, filtroId };
     return this.http.post<FilterUser>(this.apiUrl, dto);
   }
 
-  removeFavorito(usuarioId: number, filtroId: number): Observable<void> {
+  removeUserFilter(usuarioId: number, filtroId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${usuarioId}/${filtroId}`);
   }
 
-  comprobarFavorito(usuarioId: number, filtroId: number): Observable<boolean> {
+  comprobarUserFilter(usuarioId: number, filtroId: number): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/comprobar/${usuarioId}/${filtroId}`);
   }
 
