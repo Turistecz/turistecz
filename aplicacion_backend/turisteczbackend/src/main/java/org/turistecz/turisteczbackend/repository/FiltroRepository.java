@@ -11,6 +11,8 @@ public interface FiltroRepository extends JpaRepository<Filtro, Integer> {
 
     boolean existsById(int id);
 
-    Optional<Filtro> findById(int id);
+    //Optional<Filtro> findById(int id);
+
+    Filtro findById(int id);
 
 }

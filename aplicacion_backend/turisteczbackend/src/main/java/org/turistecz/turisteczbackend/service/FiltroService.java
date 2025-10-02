@@ -17,13 +17,17 @@ public class FiltroService {
         return filtroRepository.findAll();
     }
 
+    public Filtro getFiltroById(int id) {
+        return filtroRepository.findById(id);
+    }
+
     public Filtro addNewFiltro(Filtro filtro) {
         return filtroRepository.save(filtro);
     }
 
     public void removeFiltro(int id) {
-        Filtro filtro = filtroRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Favorito no encontrado"));
+        Filtro filtro = filtroRepository.findById(id);
+            //.orElseThrow(() -> new RuntimeException("Favorito no encontrado"));
         filtroRepository.delete(filtro);
     }
     

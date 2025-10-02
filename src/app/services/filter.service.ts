@@ -17,6 +17,10 @@ export class FilterService {
     return this.http.get<FilterItem[]>(this.filtroUrl);
   }
 
+  getFilter(id: number):Observable<CleanFilter>  {
+    return this.http.get<CleanFilter>(this.filtroUrl + "/user/" + id);
+  }
+
   addNewFilter(filter: CleanFilter) {
     return this.http.post<CleanFilter>(this.filtroUrl, filter);
   }
