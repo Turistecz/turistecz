@@ -307,12 +307,8 @@ export class FilterComponent {
 
     if (this.datos.length > 0){
       this.applyMapFilters();
-      console.log("aplica map");
     } else if (this.places.length > 0){
       this.applyPlaceFilters();
-      console.log("aplica places");
-    }else{
-      console.log("no carga datos ni places");
     }
       
     // this.applyMapFilters();
@@ -373,21 +369,23 @@ export class FilterComponent {
   //Sirve la misma funcion para el componente map-page
   applyPlaceFilters(){
     let filteredPlaces = [...this.places];
-    const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap)
-    .filter(cat => this.selectedPlacesCategoriesMap[cat]);
+    // const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap)
+    // .filter(cat => this.selectedPlacesCategoriesMap[cat]);
+    // console.log("selectedPlacesCategories: ", selectedPlacesCategories)
 
-    if (selectedPlacesCategories.length > 0) {
-      filteredPlaces = filteredPlaces.filter(place => {
-        const texto = place.nombre.toLowerCase();
-        return selectedPlacesCategories.some(cat =>
-          this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
-        );
-      });
-    }
+    // if (selectedPlacesCategories.length > 0) {
+    //   filteredPlaces = filteredPlaces.filter(place => {
+    //     const texto = place.nombre.toLowerCase();
+    //     return selectedPlacesCategories.some(cat =>
+    //       this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
+    //     );
+    //   });
+    // } else{
+    //    console.log("selectedPlaceCategories has nothing inside");
+    // }
 
     const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
-    console.log("accesibility selected. function apply place filters", this.selectedAccesibilityCategoriesMap)
 
     if (selectedAccessibilityKeys.length > 0) {
     filteredPlaces = filteredPlaces.filter(place =>
@@ -412,23 +410,24 @@ export class FilterComponent {
 
 applyMapFilters(){
     let filteredPlaces = [...this.datos];
-    const selectedPlaceCategories = Object.keys(this.selectedPlacesCategoriesMap)
-    .filter(cat => this.selectedPlacesCategoriesMap[cat]);
-      console.log( "categorias seleccionadas", selectedPlaceCategories);
+    // const selectedMapCategories = Object.keys(this.selectedMapCategoriesMap)
+    // .filter(cat => this.selectedMapCategoriesMap[cat]);
+    //   console.log( "categorias seleccionadas", selectedMapCategories);
 
-    if (selectedPlaceCategories.length > 0) {
-      filteredPlaces = filteredPlaces.filter(dato => {
-        const texto = dato.nombre.toLowerCase();
-        return selectedPlaceCategories.some(cat =>
-          this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
-        );
-      });
-    }
+    // if (selectedMapCategories.length > 0) {
+    //   filteredPlaces = filteredPlaces.filter(dato => {
+    //     const texto = dato.nombre.toLowerCase();
+    //     return selectedMapCategories.some(cat =>
+    //       this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
+    //     );
+    //   });
+    // }else {
+    //   console.log("selectedMapCategories has nothing inside")
+    // }
 
     const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
     //selectedAccesibilityCategoriesMap guarda el estado de todas las categorías de accesibilidad (seleccionadas o no)
-    console.log("accesibility selected in map:", this.selectedAccesibilityCategoriesMap)
 
     if (selectedAccessibilityKeys.length > 0) {
     filteredPlaces = filteredPlaces.filter(place =>
