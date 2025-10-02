@@ -8,12 +8,11 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { Category, FilterItem } from '../models/filter.model';
 import { categories } from '../models/filter.data';
-import { FilterComponent } from '../filter/filter.component';
 
 @Component({
   selector: 'app-mi-perfil',
   standalone: true,
-  imports: [CommonModule, RouterModule, OnePlaceCardComponent, FilterComponent],
+  imports: [CommonModule, RouterModule, OnePlaceCardComponent],
   templateUrl: './mi-perfil.component.html',
   styleUrls: ['./mi-perfil.component.css']
 })
