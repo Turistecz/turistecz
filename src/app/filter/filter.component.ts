@@ -178,6 +178,38 @@ export class FilterComponent {
       {documentacionMultiidioma: false},
     ]
   };
+  newUserFavFilter: CleanFilter = {
+    id: -1,
+    museosExposiciones: false,
+    monumentosEsculturas: false,
+    zonasVerdes: false,
+    arquitectura: false,
+    arteMudejar: false,
+    arteRomano: false,
+    rampas: false,
+    ascensores: false,
+    puertasAutomaticas: false,
+    escalerasMecanicas: false,
+    serviciosAdaptados: false,
+    parkingAdaptado: false,
+    mostradorAdaptado: false,
+    sinBarrerasArquitectonicas: false,
+    braille: false,
+    interpreteLenguaSignos: false,
+    videosSubtitulados: false,
+    ayudasVisuales: false,
+    bancos: false,
+    ayudaMovilidad: false,
+    lenguajeSimple: false,
+    accesoPerrosGuias: false,
+    accesoPerrosAsistencia: false,
+    salaLactancia: false,
+    cambiador: false,
+    visitasGrupales: false,
+    guiasTuristicosMultiidioma: false,
+    elementosAudiovisualesMultiidioma: false,
+    documentacionMultiidioma: false,
+  }
   orderMap = new Map();
   inputNames: String[] = [];
   inputIndex: Number[] = [];
@@ -246,19 +278,26 @@ export class FilterComponent {
   applyUserFilters() {
     this.inputs = Array.from(document.querySelectorAll('input'));
 
-    this.inputs.forEach((elem, index) => {
-      this.allCategoriesArray.push(this.camelToUnderscore(this.inputNames[index].toString()));
-      if (this.orderedArray[index][1]) {
-        elem.checked = true;
+    let trueArray: [String, any] = ["", -1];
+    trueArray.shift();
+    trueArray.shift();
+
+    Object.entries(this.newUserFavFilter).forEach((elem) => {
+      if (elem[1] == true){
+        trueArray.push(this.camelToUnderscore(elem[0]));
       }
     });
-    this.orderedArray.forEach((elem, index) => {
-      if(elem[1]){
-        if (index > 0 && index < 7){
-          this.toggleCategory(this.camelToUnderscore(elem[0].toString()));
-        }
-        else if (index >= 7){
-          this.toggleAccessibility(this.camelToUnderscore(elem[0].toString()));
+
+    this.inputs.forEach((elem) => {
+      let endIndex = elem.id.indexOf("-") + 1;
+      let catAcc = elem.id.slice(0, endIndex);
+      let newId = elem.id.slice(endIndex);
+      if(trueArray.indexOf(newId) >= 0) {
+        elem.checked = true
+        if (catAcc == "check-"){
+          this.toggleCategory(newId);
+        } else {
+          this.toggleAccessibility(newId)
         }
       }
     })
@@ -268,82 +307,16 @@ export class FilterComponent {
     const usuarioStr = localStorage.getItem('usuario');
     if (usuarioStr){
       const usuario = JSON.parse(usuarioStr);
-      const datos = await firstValueFrom(this.apiFilterService.getFilters());
-      this.favFilters = datos;
-
-      //coger ya solo el del id que nos interesa en Filtro Controller
-      Object.entries(this.favFilters).forEach((elem, index) => {
-        if (Number(usuario.id) == Object.entries(elem[1])[0][1]) {
-          this.userFavFilter = this.favFilters[index];
-        }
-      });
-
-      Object.entries(this.orderFilter.features).forEach(elem => {
-          let key = Object.keys(elem[1])[0];
-          this.inputNames.push(key);
-      });
-      
-      //comprobar si ya tiene filtro
-      if (this.userFavFilter.features == undefined) {
-        Object.entries(this.userFavFilter).forEach(elem => {
-          let key = elem[0];
-          let value = elem[1];
-          this.orderMap.set(key, value);
-          let index = this.inputNames.findIndex((element) => element === key);
-          this.inputIndex.push(index);
-        });
-
-        let mapArray = Array.from(this.orderMap);
-        this.orderedArray = Array.from(this.orderMap);
-
-        mapArray.forEach((elem, index) => {
-          this.orderedArray.splice(Number(this.inputIndex[index]), 1, elem);
-        });
-      } else {
-        let newFilter: CleanFilter = {
-          id: Number(usuario.id),
-          museosExposiciones: false,
-          monumentosEsculturas: false,
-          zonasVerdes: false,
-          arquitectura: false,
-          arteMudejar: false,
-          arteRomano: false,
-          rampas: false,
-          ascensores: false,
-          puertasAutomaticas: false,
-          escalerasMecanicas: false,
-          serviciosAdaptados: false,
-          parkingAdaptado: false,
-          mostradorAdaptado: false,
-          sinBarrerasArquitectonicas: false,
-          braille: false,
-          interpreteLenguaSignos: false,
-          videosSubtitulados: false,
-          ayudasVisuales: false,
-          bancos: false,
-          ayudaMovilidad: false,
-          lenguajeSimple: false,
-          accesoPerrosGuias: false,
-          accesoPerrosAsistencia: false,
-          salaLactancia: false,
-          cambiador: false,
-          visitasGrupales: false,
-          guiasTuristicosMultiidioma: false,
-          elementosAudiovisualesMultiidioma: false,
-          documentacionMultiidioma: false,
-        };
-        Object.entries(newFilter).forEach(elem => {
-          let key = elem[0];
-          let value = elem[1];
-          this.orderMap.set(key, value);
-        });
-        this.orderedArray = Array.from(this.orderMap);
-      }
+      this.newUserFavFilter = await firstValueFrom(this.apiFilterService.getFilter(Number(usuario.id)));
     }
   }
 
-  camelToUnderscore(key: string) {
+  camelToUnderscore(key: String) {
     return key.replace( /([A-Z])/g, "_$1").toLowerCase();
+  }
+
+  snakeToCamel(str: String){
+    return str.replace(/_([a-z])/g, (g) =>  g[1].toUpperCase());
   }
 
   extractDateFromText(text: string): number {
@@ -582,52 +555,21 @@ applyMapFilters(){
   saveFilters() {
     const usuarioStr = localStorage.getItem('usuario');
     if (usuarioStr){
-      const usuario = JSON.parse(usuarioStr);
-      let boolArray: boolean[] = [];
-      this.inputs.forEach((elem, index) => {
+      this.inputs.forEach((elem) => {
+        let endIndex = elem.id.indexOf("-") + 1;
+        let newId = elem.id.slice(endIndex);
         if(elem.checked){
-          this.orderedArray[index][1] = true;
-          boolArray.push(this.orderedArray[index][1]);
+          if (Object.entries(this.newUserFavFilter).indexOf([this.snakeToCamel(newId) as string, true])) {
+            this.newUserFavFilter[this.snakeToCamel(newId)] = true;
+          }
         } else {
-          this.orderedArray[index][1] = false;
-          boolArray.push(this.orderedArray[index][1]);
+          if (Object.entries(this.newUserFavFilter).indexOf([this.snakeToCamel(newId) as string, false])) {
+            this.newUserFavFilter[this.snakeToCamel(newId)] = false;
+          }
         }
       });
 
-      let newFilter: CleanFilter = {
-        id: Number(usuario.id),
-        museosExposiciones: boolArray[1],
-        monumentosEsculturas: boolArray[2],
-        zonasVerdes: boolArray[3],
-        arquitectura: boolArray[4],
-        arteMudejar: boolArray[5],
-        arteRomano: boolArray[6],
-        rampas: boolArray[7],
-        ascensores: boolArray[8],
-        puertasAutomaticas: boolArray[9],
-        escalerasMecanicas: boolArray[10],
-        serviciosAdaptados: boolArray[11],
-        parkingAdaptado: boolArray[12],
-        mostradorAdaptado: boolArray[13],
-        sinBarrerasArquitectonicas: boolArray[14],
-        braille: boolArray[15],
-        interpreteLenguaSignos: boolArray[16],
-        videosSubtitulados: boolArray[17],
-        ayudasVisuales: boolArray[18],
-        bancos: boolArray[19],
-        ayudaMovilidad: boolArray[20],
-        lenguajeSimple: boolArray[21],
-        accesoPerrosGuias: boolArray[22],
-        accesoPerrosAsistencia: boolArray[23],
-        salaLactancia: boolArray[24],
-        cambiador: boolArray[25],
-        visitasGrupales: boolArray[26],
-        guiasTuristicosMultiidioma: boolArray[27],
-        elementosAudiovisualesMultiidioma: boolArray[28],
-        documentacionMultiidioma: boolArray[29],
-      };
-
-      this.apiFilterService.addNewFilter(newFilter).subscribe();
+      this.apiFilterService.addNewFilter(this.newUserFavFilter).subscribe();
     } 
   }
 

@@ -50,7 +50,11 @@ export interface FilterUser {
   sitio: FilterItem;
 }
 
-export interface CleanFilter {
+interface IObjectKeys {
+  [key: string]: boolean | number;
+}
+
+export interface CleanFilter extends IObjectKeys {
   id: number,
   museosExposiciones: boolean,
   monumentosEsculturas: boolean,
