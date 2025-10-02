@@ -1,11 +1,12 @@
 package org.turistecz.turisteczbackend.model;
 
-
 import java.time.LocalDate;
 import jakarta.persistence.*;
-import java.util.Objects;
-import java.util.Set;
 
+import java.util.List;
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "usuario")
@@ -33,8 +34,9 @@ public class Usuario {
     @Column(name = "fecha_creacion")
     private LocalDate fechaCreacion = LocalDate.now();
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<RutaUsuario> rutaUsuario;
+    private List<RutaUsuario> rutaUsuario;
 
     public Usuario() {}
 

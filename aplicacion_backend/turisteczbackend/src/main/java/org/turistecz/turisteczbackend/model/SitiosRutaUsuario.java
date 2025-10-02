@@ -1,5 +1,7 @@
 package org.turistecz.turisteczbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,7 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "`sitios_ruta_usuario`")
+@Table(name = "sitios_ruta_usuario")
 @Data
 @NoArgsConstructor
 public class SitiosRutaUsuario {
@@ -21,10 +23,12 @@ public class SitiosRutaUsuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="id_ruta", referencedColumnName = "id")
     private RutaUsuario rutaUsuario;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="id_favoritos", referencedColumnName = "id")
     private Favoritos favoritos;

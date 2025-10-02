@@ -3,6 +3,8 @@ package org.turistecz.turisteczbackend.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class Favoritos {
    @JoinColumn(name = "sitios_id")
    private Sitio sitio;
 
+   @JsonManagedReference
    @OneToMany(mappedBy = "favoritos", cascade = CascadeType.ALL, orphanRemoval = true)
    private Set<SitiosRutaUsuario> sitios_ruta_usuario;
 

@@ -15,9 +15,9 @@ export class CustomRouteComponent {
   formMyRoute:any; // Formulario reactivo
   datosRutaBBDD!:any; // Rutas del usuario de la BBDD
   // imagenRuta = 'userRoute/img.svg';
-  favoritosUsuario:any; // sitios favoritos seleccionados por el usuario
+  sitiosFavoritosUsuario:any; // sitios favoritos seleccionados por el usuario
   sitios:number[]=[]; // Array para guardar los id de los sitios seleccionados
-  ultimaRuta!:any;
+  ultimaRuta:any;
   usuario:any;
 
   constructor(
@@ -94,7 +94,7 @@ export class CustomRouteComponent {
     this.favoritosService.getMisFavoritos(this.usuario.id).subscribe({
       next: (response) => {
         console.log('Sitios favoritos del usuario:', response);
-        return this.favoritosUsuario = response;
+        this.sitiosFavoritosUsuario = response;
       },
       error: (error) => {
         console.error('Error al obtener los sitios favoritos del usuario.', error);

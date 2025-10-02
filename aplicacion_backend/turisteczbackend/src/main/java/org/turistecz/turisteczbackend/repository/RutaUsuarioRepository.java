@@ -9,9 +9,7 @@ import org.turistecz.turisteczbackend.model.RutaUsuario;
 
 public interface RutaUsuarioRepository extends JpaRepository<RutaUsuario, Integer> {
 
-    // @Query("SELECT ru FROM RutaUsuario ru ORDER BY ru.id DESC LIMIT 1")
-    // RutaUsuario buscarUltimaRutaUsuario();
+    @Query("SELECT ru FROM RutaUsuario ru WHERE ru.usuario.id = :id")
+    List<RutaUsuario> encontrarRutasUsuario(@Param("id") Integer id);
 
-    @Query("SELECT ru FROM RutaUsuario ru WHERE ru.usuario.id = :id_usuario")
-    List<RutaUsuario> encontrarRutasUsuario(@Param("id_usuario") Integer id_usuario);
 }

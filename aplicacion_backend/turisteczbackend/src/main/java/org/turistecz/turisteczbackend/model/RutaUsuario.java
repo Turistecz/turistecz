@@ -1,6 +1,10 @@
 package org.turistecz.turisteczbackend.model;
 
+import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -18,7 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "`ruta_usuario`")
+@Table(name = "ruta_usuario")
 @Data
 @NoArgsConstructor
 public class RutaUsuario {
@@ -29,9 +33,7 @@ public class RutaUsuario {
     @Column(name="id")
     private int id;
 
-    // @Column(name="id_usuario")
-    // private Integer id_usuario;
-
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name="id_usuario", referencedColumnName = "id")
     private Usuario usuario;
@@ -45,7 +47,8 @@ public class RutaUsuario {
     @Column(name="imagen_destacada",length = 255)
     private String imagen_destacada;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "rutaUsuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<SitiosRutaUsuario> sitios_ruta_usuario;
+    private List<SitiosRutaUsuario> sitios_ruta_usuario;
 
 }

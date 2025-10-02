@@ -41,9 +41,9 @@
 
         <!-- Seleccionar sitios -->
         <label class="form-label mt-3">Selecciona los sitios que quieres incluir en tu ruta:</label>
-        <div *ngFor="let favorito of favoritosUsuario" class="mt-3">
-          <input class="form-check-input me-2" type="checkbox" [value]="favorito.id" (change)="onCheckboxChange($event, favorito.id)">
-          <label class="form-check-label">{{ favorito.nombre }}</label> 
+        <div *ngFor="let sitio of sitiosFavoritosUsuario" class="mt-3">
+          <input class="form-check-input me-2" type="checkbox" [value]="sitio.id" (change)="onCheckboxChange($event, sitio.id)">
+          <label class="form-check-label">{{ sitio.nombre }}</label> 
         </div>
         
         <!-- Orden sitios -->

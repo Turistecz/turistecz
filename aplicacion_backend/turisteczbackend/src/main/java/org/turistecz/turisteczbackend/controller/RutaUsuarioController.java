@@ -33,10 +33,4 @@ public class RutaUsuarioController {
         return rutaUsuarioService.mostrarRutasUsuario(id_usuario);
     }
 
-    // @CrossOrigin(origins = "http://localhost:4200")
-    // @GetMapping("/ultimaRutaUsuario")
-    // public RutaUsuario ultimaRutaUsuario(){
-    //     return rutaUsuarioService.mostrarUltimaRutaUsuario();
-    // }
-
 }

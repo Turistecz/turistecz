@@ -33,8 +33,4 @@ public class RutaUsuarioService {
 	    return repositorioRutaUsuario.encontrarRutasUsuario(id_usuario);
 	}
 
-    // public RutaUsuario mostrarUltimaRutaUsuario(){
-    //     return repositorioRutaUsuario.buscarUltimaRutaUsuario();
-    // }
-
 }
