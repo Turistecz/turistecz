@@ -569,8 +569,19 @@ applyMapFilters(){
         }
       });
 
-      this.apiFilterService.addNewFilter(this.newUserFavFilter).subscribe();
+      this.apiFilterService.addNewFilter(this.newUserFavFilter).subscribe({
+        next: res => {
+          alert("Los filtros se han guardado correctamente.");
+        },
+        error: (error: any) => {
+          alert("Ocurrió un error al intentar guardar los filtros, vuelve a intentarlo más adelante.");
+        }
+      });
     } 
+  }
+
+  noLogSaveFilters() {
+    alert("Inicia sesión si quieres guardar los filtros.");
   }
 
   // getDifferentColor(): boolean {
