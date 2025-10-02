@@ -2,17 +2,17 @@ import { Category } from "./filter.model";
 
 export const categories: Category[] = [
     {
-        type: 'museos',
+        type: 'museos_exposiciones',
         name: 'Museos/Exposiciones',
         keywords: ['museo', 'museum', 'lonja'],
     },
     {
-        type: 'monumentos',
+        type: 'monumentos_esculturas',
         name: 'Monumentos/Esculturas',
         keywords: ['puerta', 'estatua', 'murallas'],
     },
     {
-        type: 'zonas-verdes',
+        type: 'zonas_verdes',
         name: 'Zonas verdes',
         keywords: ['parque', 'canal'],
     },
@@ -22,13 +22,13 @@ export const categories: Category[] = [
         keywords: ['basilica', 'iglesia', 'palacio', 'casa', 'catedral', 'puente', 'zuda', 'mercado'],
     },
     {
-        type: 'mudejar',
+        type: 'arte_mudejar',
         name: 'Arte mudéjar',
         keywords: ['aljaferia', 'la seo', 'san pablo', 'magdalena'],
 
     },
     {
-        type: 'romano',
+        type: 'arte_romano',
         name: 'Arte romano',
         keywords: ['murallas', 'caesaraugusta'],
 

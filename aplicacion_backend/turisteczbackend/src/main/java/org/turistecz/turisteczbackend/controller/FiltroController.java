@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.turistecz.turisteczbackend.model.Filtro;
 import org.turistecz.turisteczbackend.service.FiltroService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -28,6 +30,13 @@ public class FiltroController {
     public List<Filtro> listFiltros() {
         return filtroService.buscarTodosFiltros();
     }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<Filtro> getFilter(@PathVariable int id) {
+        Filtro filtro = filtroService.getFiltroById(id);
+        return ResponseEntity.ok(filtro);
+    }
+    
 
     @PostMapping
     public ResponseEntity<Filtro> addNewFilter(@RequestBody Filtro filter) {
