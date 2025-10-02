@@ -1,10 +1,13 @@
 <!--prueba de temperatura-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 d-flex weather justify-content-end">
+        <div class="col-12 d-flex weather justify-content-end py-1">
             <div class= "d-flex text-light align-items-center"> 
+                <a href="http://localhost:4200/calendar" class="link-light pe-2 icon-calendar">
+                    <i class="fa-regular fa-calendar-days"></i>
+                </a>
                 <a href="http://localhost:4200/mapa" class="link-light">
-                    <p class="mb-0 fas fa-map-location-dot icon-map"></p>
+                    <p class="mb-0 fas fa-map-location-dot icon-map pe-1"></p>
                 </a>
                 <p class="m-1" *ngIf="current"> Zaragoza, {{current.temperature_2m}} ºC</p>
                 <i class="fas {{getWeatherIcon(current)}}"></i>

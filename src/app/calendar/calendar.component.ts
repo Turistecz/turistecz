@@ -1,6 +1,6 @@
-import { Component, Input, ViewChild} from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IFormattingViews, IgxCalendarComponent } from "igniteui-angular";
+import { IgxCalendarComponent } from "igniteui-angular";
 import { CalendarTest } from '../models/calendar.model';
 import { EventService } from '../services/event.service';
 
