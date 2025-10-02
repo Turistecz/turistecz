@@ -1,3 +1,9 @@
+
+h1 {
+  color: #1976d2;
+  font-weight: bold;
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+}
 /* Encabezado del calendario */
 :host ::ng-deep .igx-calendar__header {
   background: linear-gradient(90deg, #0e3d89, #1e6bf5);

@@ -87,7 +87,7 @@ export const routes: Routes = [
     },
     {
     path: 'calendar',
-    loadComponent: () => import('./calendar-main/calendar-main.component').then(m => m.CalendarMainComponent)
+    loadComponent: () => import('./calendar/calendar.component').then(m => m.CalendarComponent)
     },
     /*El not-found siempre va de último*/ 
     {
