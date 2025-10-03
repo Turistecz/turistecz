@@ -247,3 +247,311 @@ correos unicamente en local, para testear las funciones de la aplicacion antes d
 
 3. Por ultimo escribimos en el navegador 'localhost:8025', que es el puerto que utiliza. Y probamos el correcto funcionamiento de las funciones del
    usuario.
+
+
+
+Funcionamiento del cambio de colores y temas desde el  panel de administración.
+
+# 🚀 Turistecz - Panel de Administración & Sistema de Temas Dinámicos
+
+Este proyecto permite gestionar rutas turísticas y sitios culturales de Zaragoza mediante un panel de administración, y ofrece un sistema avanzado de **temas dinámicos** que permite cambiar los colores de la app (web y móvil) desde una interfaz web, ideal para eventos especiales como Halloween, Navidad o campañas promocionales.
+
+---
+
+## 🗂️ Estructura del Proyecto
+turistecz/
+├── adminturistecz/ # Panel de administración (PHP)
+│ ├── db.php # Conexión a la base de datos
+│ ├── select-sitios.php # Listado de sitios con paginación
+│ ├── insert-sitios.php # Formulario para añadir nuevos sitios
+│ ├── insert-ruta.php # Crear nuevas rutas seleccionando sitios
+│ ├── select-rutas.php # Listado de rutas con detalles desplegables
+│ ├── configurar-tema.php # Configurar el tema visual de la app
+│ └── api/
+│ └── tema.php # API REST para obtener el tema activo
+│
+└── src/ # App Angular (frontend público)
+├── styles.css # Variables CSS globales
+└── services/tema.service.ts # Servicio que aplica el tema dinámicamente
+
+---
+
+## 💾 Base de Datos: `turistecz`
+
+### Tablas principales
+
+| Tabla | Descripción |
+|------|-------------|
+| `sitio` | Información detallada de cada sitio turístico (accesibilidad, contacto, ubicación...) |
+| `ruta` | Rutas temáticas (Mudéjar, Romana, Familiar, etc.) |
+| `sitios_ruta` | Relación muchos a muchos entre rutas y sitios |
+| `configuracioncolor` | Almacena el tema activo como JSON |
+
+---
+
+### 🎨 Tabla: `configuracioncolor`
+
+Almacena el tema actual de la app. Solo se usa la clave `tema_activo`.
+
+| campo | valor |
+|------|-------|
+| `clave` | `tema_activo` |
+| `valor` | `{ "name": "default", "color_primary": "#184591", ... }` (JSON válido) |
+
+> ⚠️ El `valor` debe ser un **objeto JSON válido**, no un string escapado (`"{...}"`).  
+> ✅ Así se puede consumir directamente desde la app.
+
+---
+
+## 🔧 Panel de Administración (PHP)
+
+Interfaz web para gestionar contenidos y temas.
+
+### Funcionalidades principales:
+
+- ✅ Listado de sitios con **paginación (20 por página)** y filtro de búsqueda implícito
+- ✅ Detalles ocultos por sitio (accesibilidad, servicios, etc.)
+- ✅ Crear y editar rutas seleccionando sitios existentes
+- ✅ Sistema de temas: cambiar colores globales desde un formulario
+
+### Archivos clave:
+- `select-sitios.php`: muestra todos los sitios con paginación y mensaje de rango ("Mostrando 1-20 de 57")
+- `insert-ruta.php`: permite crear rutas arrastrando sitios y definiendo orden y descripción
+- `configurar-tema.php`: editor visual de temas con previsualización
+
+---
+
+## 🌐 API REST: `/api/tema.php`
+
+Endpoint que devuelve el tema activo en formato JSON.
+
+### URL
+profile
+Qwen3-235B-A22B-2507
+2:49 pm
+¡Claro! Aquí tienes un archivo README.md completo, profesional y bien estructurado, que incluye todo lo que hemos hecho juntos: desde la base de datos hasta el sistema de temas dinámicos, pasando por el panel de administración y la integración con Angular.
+
+Puedes copiarlo directamente y subirlo a tu repositorio en GitHub para que tu equipo entienda claramente cómo funciona el sistema.
+
+markdown
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+⌄
+# 🚀 Turistecz - Panel de Administración & Sistema de Temas Dinámicos
+
+Este proyecto permite gestionar rutas turísticas y sitios culturales de Zaragoza mediante un panel de administración, y ofrece un sistema avanzado de **temas dinámicos** que permite cambiar los colores de la app (web y móvil) desde una interfaz web, ideal para eventos especiales como Halloween, Navidad o campañas promocionales.
+
+---
+
+## 🗂️ Estructura del Proyecto
+
+turistecz/
+├── adminturistecz/ # Panel de administración (PHP)
+│ ├── db.php # Conexión a la base de datos
+│ ├── select-sitios.php # Listado de sitios con paginación
+│ ├── insert-sitios.php # Formulario para añadir nuevos sitios
+│ ├── insert-ruta.php # Crear nuevas rutas seleccionando sitios
+│ ├── select-rutas.php # Listado de rutas con detalles desplegables
+│ ├── configurar-tema.php # Configurar el tema visual de la app
+│ └── api/
+│ └── tema.php # API REST para obtener el tema activo
+│
+└── src/ # App Angular (frontend público)
+├── styles.css # Variables CSS globales
+└── services/tema.service.ts # Servicio que aplica el tema dinámicamente
+
+
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+
+---
+
+## 💾 Base de Datos: `turistecz`
+
+### Tablas principales
+
+| Tabla | Descripción |
+|------|-------------|
+| `sitio` | Información detallada de cada sitio turístico (accesibilidad, contacto, ubicación...) |
+| `ruta` | Rutas temáticas (Mudéjar, Romana, Familiar, etc.) |
+| `sitios_ruta` | Relación muchos a muchos entre rutas y sitios |
+| `configuracioncolor` | Almacena el tema activo como JSON |
+
+---
+
+### 🎨 Tabla: `configuracioncolor`
+
+Almacena el tema actual de la app. Solo se usa la clave `tema_activo`.
+
+| campo | valor |
+|------|-------|
+| `clave` | `tema_activo` |
+| `valor` | `{ "name": "default", "color_primary": "#184591", ... }` (JSON válido) |
+
+> ⚠️ El `valor` debe ser un **objeto JSON válido**, no un string escapado (`"{...}"`).  
+> ✅ Así se puede consumir directamente desde la app.
+
+---
+
+## 🔧 Panel de Administración (PHP)
+
+Interfaz web para gestionar contenidos y temas.
+
+### Funcionalidades principales:
+
+- ✅ Listado de sitios con **paginación (20 por página)** y filtro de búsqueda implícito
+- ✅ Detalles ocultos por sitio (accesibilidad, servicios, etc.)
+- ✅ Crear y editar rutas seleccionando sitios existentes
+- ✅ Sistema de temas: cambiar colores globales desde un formulario
+
+### Archivos clave:
+- `select-sitios.php`: muestra todos los sitios con paginación y mensaje de rango ("Mostrando 1-20 de 57")
+- `insert-ruta.php`: permite crear rutas arrastrando sitios y definiendo orden y descripción
+- `configurar-tema.php`: editor visual de temas con previsualización
+
+---
+
+## 🌐 API REST: `/api/tema.php`
+
+Endpoint que devuelve el tema activo en formato JSON.
+
+### URL
+http://localhost/api/tema.php
+
+
+### Respuesta ejemplo
+```json
+{
+  "status": "success",
+  "data": {
+    "name": "halloween",
+    "color_primary": "#e74c3c",
+    "color_secondary": "#8e44ad",
+    "color_accent": "#42D5A5",
+    "gradient_primary_start": "#d35400",
+    "gradient_primary_end": "#e67e22",
+    "bg_primary": "#000000",
+    "bg_secondary": "#1a1a1a",
+    "text_primary": "#ffffff",
+    "text_light": "#ffffff"
+  }
+}
+ Este endpoint es llamado por la app Angular al iniciar.
+
+📱 App Angular: Aplicación del Tema
+
+La app pública consume el tema desde PHP y lo aplica dinámicamente usando variables CSS.
+
+✅ TemaService (tema.service.ts)
+
+Se inyecta en AppComponent.
+
+Llama a api/tema.php al cargar.
+
+document.documentElement.style.setProperty('--color-primary', 'rgba(231, 76, 60, 1)');
+
+
+ Flujo de Cambio de Tema
+
+El administrador entra a configurar-tema.php.
+
+Edita los colores y guarda.
+
+El nuevo tema se guarda como JSON en configuracioncolor.valor.
+
+La app Angular, al recargar, llama a api/tema.php.
+
+Recibe el JSON y aplica las variables CSS.
+
+Todos los elementos que usen var(--...) actualizan su estilo automáticamente.
+
+Buenas Prácticas Implementadas
+
+✅ Variables CSS
+
+Temas dinámicos sin recargar componentes
+✅ JSON en BD
+
+Fácil de mantener y extender
+
+✅ Paginación
+
+Mejora rendimiento y UX
+
+✅ Sin colores fijos
+
+Total consistencia visual
+
+✅ Previsualización en panel
+
+Confianza al cambiar el tema
+
+Cómo crear un nuevo tema?
+
+Accede a configurar-tema.php desde el panel.
+
+Cambia los colores según el evento (ej: naranja/negro para Halloween).
+
+Guarda los cambios.
+
+En la app → recarga → ¡el tema cambia!
