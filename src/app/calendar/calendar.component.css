@@ -8,7 +8,7 @@ h1 {
 :host ::ng-deep .igx-calendar__header {
   background: linear-gradient(90deg, #0e3d89, #1e6bf5);
   color: #fff;
-  font-weight: bold;
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
   text-align: center;
   border-radius: 10px;
   padding: 10px;
@@ -114,7 +114,6 @@ h1 {
   height: 2.5rem;
   margin: 2px;
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-  
 
 }
 
@@ -188,6 +187,7 @@ h1 {
   background: linear-gradient(90deg, #1e6bf5, #0e3d89);
   border-radius: 8px;
   padding: 1px;
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
 }
 
 .event-item {
@@ -212,6 +212,7 @@ h1 {
 
 .calendar-container {
   padding: 1rem;
+  
 }
 
 .calendar-card {
@@ -219,6 +220,7 @@ h1 {
   border-radius: 12px;
   padding: 1.5rem;
   border: 1px solid #e5e7eb;
+  
 }
 
 ul {
@@ -227,17 +229,29 @@ ul {
   margin: 0.2rem 0;
 }
 
-/* Responsive */
+@media (max-width: 1024px) {
+  .title-events {
+   padding-block: 8px !important ;
+  }
+  h2 {
+    font-size: 1.6rem !important;
+    padding-block: 2px !important ;
+  }
+}
+
 @media (max-width: 768px) {
   .calendar-card {
    padding: 0.5rem;
+   margin-left: 2rem;
+   margin-right: 1rem;
   }
   .title-events {
-   padding: 3px !important;
+   padding-block: 5px !important;
   }
-  h4 {
-   padding-inline: 10px;
-   padding-block: 5px;
+  h2{
+    font-size: 1.4rem !important;
+    padding-block: 5px;
+   
   }
   :host ::ng-deep .igx-calendar-view__items {
    grid-template-columns: repeat(3, 1fr);
@@ -255,4 +269,7 @@ ul {
    gap: 10px;
    flex-wrap: wrap;
   }
+
 }
+
+
