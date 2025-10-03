@@ -35,10 +35,11 @@ getEventstest(date:string): Observable<CalendarTest[]> {
   return this.http.get<any>(this.apiInfo, {params, headers}).pipe(
     map(response => {
       const results = response?.result ?? [];
-      
       if (!Array.isArray(results)) return [];
       return results.map((ev: any) => ({
         title: ev.title,
+        id: ev.id ?? '',
+        location: ev.location ?? '',
         startDate: ev.startDate ?? '',
         endDate: ev.endDate ?? '',
         subEvent: (ev.subEvent ?? []).map((sub: any) => ({

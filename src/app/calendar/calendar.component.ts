@@ -26,17 +26,27 @@ constructor(private eventService: EventService, ) {}
     this.filterEventsForDate();
   }
 
-  private filterEventsForDate() {
-    if (!this.selectedDate) {
-      this.eventsOfDay = [];
-      return;
-    }
- const selected = new Date(this.selectedDate);
+private filterEventsForDate() {
+  if (!this.selectedDate) {
+    this.eventsOfDay = [];
+    return;
+  }
+
+  const selected = new Date(this.selectedDate);
+  const selectedMonth = selected.getMonth();
+  const selectedYear = selected.getFullYear();
 
   this.eventsOfDay = this.ev.filter(ev => {
     const start = new Date(ev.startDate);
     const end = ev.endDate ? new Date(ev.endDate) : start;
-    return selected >= start && selected <= end;
+
+    const isSameDay = selected >= start && selected <= end;
+    
+    const isValidMonth =
+      start.getFullYear() > selectedYear ||
+      (start.getFullYear() === selectedYear && start.getMonth() >= selectedMonth);
+
+    return isSameDay && isValidMonth;
   });
 }
 
@@ -51,6 +61,7 @@ ngOnInit(): void {
     const today = this.formatDateToDDMMYYYY(new Date());
     this.eventService.getEventstest(today).subscribe(data => {
       this.ev = data;
+      this.filterEventsForDate();
     });
   }
 
