@@ -13,7 +13,7 @@ import { FavoritosService } from '../services/favoritos.service';
 export class CustomRouteComponent {
   
   formMyRoute:any; // Formulario reactivo
-  datosRutaBBDD!:any; // Rutas del usuario de la BBDD
+  datosRutaBBDD:any; // Rutas del usuario de la BBDD
   // imagenRuta = 'userRoute/img.svg';
   sitiosFavoritosUsuario:any; // sitios favoritos seleccionados por el usuario
   sitios:number[]=[]; // Array para guardar los id de los sitios seleccionados
@@ -50,9 +50,9 @@ export class CustomRouteComponent {
   enviarARutaUsuario(id_usuario:number, titulo:any, descripcion:any) {
     this.customRouteService.postRutaUsuario(id_usuario, titulo, descripcion).subscribe({
       next: (response) => {
-        console.log('Respuesta del servidor:', response);
+        console.log('Respuesta del servidor RutaUsuario:', response);
         this.ultimaRuta = response;
-        const idRuta = this.ultimaRuta.id;
+        const idRuta:number = this.ultimaRuta.id;
         this.sitios.forEach(sitioRuta => {
           this.enviarASitiosRutaUsuario(idRuta, sitioRuta)
         })
@@ -65,10 +65,11 @@ export class CustomRouteComponent {
 
   enviarASitiosRutaUsuario(ruta:number, sitio:number){
     console.log("Ruta" + ruta);
-    console.log("Sitio" + sitio)
+    console.log("Sitio" + sitio);
+    // MANDAR ID FAVORITO
     this.customRouteService.postSitioRutaUsuario(ruta, sitio).subscribe({
       next: (response) => {
-        console.log('Respuesta del servidor:', response);
+        console.log('Respuesta del servidor sitiosRuta:', response);
       },
       error: (error) => {
         console.error('Error al enviar el sitio de la ruta.', error);

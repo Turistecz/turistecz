@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { RutaUsuario } from '../models/custom-route.model';
+import { RutaUsuario, SitiosRutaUsuario } from '../models/custom-route.model';
 
 @Injectable({
   providedIn: 'root'
@@ -55,24 +55,19 @@ export class CustomRouteService {
     }
   }
 
-  // getUltimaRutaUsuario(){
-  //   return this.http.get(this.lastRouteURL)
-  //     .pipe(catchError(this.handleError));
-  // }
-
   /* SITIOS RUTA */
-
-  postSitioRutaUsuario(ruta:number, favoritos:number): Observable<any> {
+  postSitioRutaUsuario(ruta:number, sitio:number): Observable<any> {
     const enviar = { 
       id_ruta: ruta,
-      id_favoritos: favoritos 
+      id_sitio_favorito: sitio 
     }
     const headers = this.getAuthHeaders();
     if (headers) {
-      return this.http.post<RutaUsuario>(this.newSitioRutaURL, enviar, { headers })
+      console.log(enviar);
+      return this.http.post<SitiosRutaUsuario>(this.newSitioRutaURL, enviar, { headers })
         .pipe(catchError(this.handleError));
     } else {
-      return this.http.post<RutaUsuario>(this.newSitioRutaURL, enviar)
+      return this.http.post<SitiosRutaUsuario>(this.newSitioRutaURL, enviar)
         .pipe(catchError(this.handleError));
     }
   }

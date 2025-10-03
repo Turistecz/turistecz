@@ -30,7 +30,7 @@ public class SitiosRutaUsuario {
 
     @JsonBackReference
     @ManyToOne
-    @JoinColumn(name="id_favoritos", referencedColumnName = "id")
+    @JoinColumn(name="id_sitio_favorito", referencedColumnName = "sitios_id")
     private Favoritos favoritos;
     
     @Column

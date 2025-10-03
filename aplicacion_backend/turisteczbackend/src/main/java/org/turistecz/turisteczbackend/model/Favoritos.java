@@ -1,7 +1,7 @@
 package org.turistecz.turisteczbackend.model;
 
 
-import java.util.Set;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -35,7 +35,7 @@ public class Favoritos {
 
    @JsonManagedReference
    @OneToMany(mappedBy = "favoritos", cascade = CascadeType.ALL, orphanRemoval = true)
-   private Set<SitiosRutaUsuario> sitios_ruta_usuario;
+   private List<SitiosRutaUsuario> sitios_ruta_usuario;
 
    // Getters y Setters
 
@@ -63,11 +63,11 @@ public class Favoritos {
       this.sitio = sitio;
    }
 
-   public Set<SitiosRutaUsuario> getSitios_ruta_usuario() {
+   public List<SitiosRutaUsuario> getSitios_ruta_usuario() {
       return sitios_ruta_usuario;
    }
 
-   public void setSitios_ruta_usuario(Set<SitiosRutaUsuario> sitios_ruta_usuario) {
+   public void setSitios_ruta_usuario(List<SitiosRutaUsuario> sitios_ruta_usuario) {
       this.sitios_ruta_usuario = sitios_ruta_usuario;
    }
     

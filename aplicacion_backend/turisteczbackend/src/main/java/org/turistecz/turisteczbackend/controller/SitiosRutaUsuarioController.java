@@ -20,6 +20,6 @@ public class SitiosRutaUsuarioController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/nuevoSitioRutaUsuario")
     public SitiosRutaUsuario nuevoSitioRutaUsuario(@RequestBody SitioRutaUsuarioDto dto) {
-        return sitioRutaUsuarioService.almacenarSitioRutaUsuario(dto.getId_ruta(), dto.getId_favoritos());
+        return sitioRutaUsuarioService.almacenarSitioRutaUsuario(dto.getId_ruta(), dto.getId_sitio_favorito());
     }
 }
