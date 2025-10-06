@@ -114,9 +114,26 @@ CREATE TABLE favoritos (
     UNIQUE (usuario_id, sitios_id) 
 );
 
+CREATE TABLE ruta_usuario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT,
+    titulo_ruta VARCHAR(255),
+	descripcion_ruta VARCHAR(255),
+	imagen_destacada VARCHAR(255),
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+);
+
+CREATE TABLE sitios_ruta_usuario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    id_ruta INT,
+    id_sitio_favorito INT,
+    orden INT,
+    texto_sitio VARCHAR(255),
+    FOREIGN KEY (id_ruta) REFERENCES ruta_usuario(id),
+    FOREIGN KEY (id_sitio_favorito) REFERENCES favoritos(sitios_id)
+); 
+
 -- Inserción de datos en sitio
-
-
 INSERT INTO sitio (id, nombre, latitud, longitud, direccion, 
 horario_visita, telefono, enlace_web, rampas, ascensores, 
 puertas_automaticas, escaleras_mecanicas, servicios_adaptados, sala_lactancia, cambiador, 
@@ -503,7 +520,8 @@ INSERT INTO usuario (nombre, apellido, email, contrasena, activo, fecha_creacion
 ('Alvaro', 'Samcho', 'asfswgew@gmail.com', 'contrasena', true, CURRENT_DATE),
 ('Alvaro', 'sdgsdgsd', 'sdhshshs@gmail.com', 'contrasenaa', true, current_date),
 ('Alvaro', 'gsdgdsgsgds', 'hrhsrhsrd@gmail.com', 'contraseena', true, current_date),
-('Alvaro', 'Sancho', 'alvarosanva6@gmail.com', '$10$sxdMK9EZUH1MVLnJbKYQMu3XK86XzlORsP258SlkHZHDF7WyYCQYm', true, current_date);
+('Alvaro', 'Sancho', 'alvarosanva6@gmail.com', '$10$sxdMK9EZUH1MVLnJbKYQMu3XK86XzlORsP258SlkHZHDF7WyYCQYm', true, current_date),
+('Mariposa44', 'Boss', '1@email.com', '$2a$10$e4uCqnlUKN/rpU5lEaSRDOET3Zb2uLvxwSKJjXw2tyKnxJXn53s7e', true, current_date);
 
 
 -- Insert data into caracteristica
