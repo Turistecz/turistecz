@@ -11,50 +11,45 @@ import { FavoritosService } from '../services/favoritos.service';
   styleUrl: './custom-route.component.css'
 })
 export class CustomRouteComponent {
-  
-  formMyRoute:any; // Formulario reactivo
-  datosRutaBBDD:any; // Rutas del usuario de la BBDD
-  // imagenRuta = 'userRoute/img.svg';
+  // PENDIENTE: crear models
+  formularioNuevaRuta:any; // Formulario para crear una nueva ruta
+  datosRutasCreadas:any; // Rutas que el usuario ha creado almacenadas en la BBDD
   sitiosFavoritosUsuario:any; // sitios favoritos seleccionados por el usuario
-  sitios:number[]=[]; // Array para guardar los id de los sitios seleccionados
-  ultimaRuta:any;
-  usuario:any;
+  sitiosSeleccionados:number[]=[]; // Array para guardar los id de los sitios seleccionados por el usuario en el formulario
+  ultimaRutaCreada:any; // Última ruta creada por el usuario
+  usuario:any; // Datos del usuario
 
-  constructor(
-    private customRouteService: CustomRouteService, 
-    private formB: FormBuilder,
-    private favoritosService: FavoritosService, 
-) 
-    {
-      /* CONSTRUCTOR DEL FORMULARIO REACTIVO */
-      this.formMyRoute = this.formB.group({
-        titulo_ruta: ['', Validators.required],
-        descripcion_ruta: [''],
-      });
-    } 
+  constructor(private customRouteService: CustomRouteService, private formB: FormBuilder, private favoritosService: FavoritosService){
+    /* Constructor del formulario para crear una nueva ruta */
+    this.formularioNuevaRuta = this.formB.group({
+      titulo_ruta: ['', Validators.required],
+      descripcion_ruta: ['']
+    });
+  } 
 
-  // Al seleccionar un checkbox, se añade el id del sitio al array "sitios"
+  // DATOS INTRODUCIDOS POR EL USUARIO EN EL FORMULARIO
+  // Recuperar datos introducidos por el usuario despues de hacer click en el botón "guardar"
+  onSubmit() {
+    const tituloRuta = this.formularioNuevaRuta.value.titulo_ruta;
+    const descripcionRuta = this.formularioNuevaRuta.value.descripcion_ruta;
+    this.enviarDatosRutaUsuario(this.usuario.id, tituloRuta, descripcionRuta);
+  }
+
+  // Cuando el usuario selecciona un checkbox, se añade el id del sitio al array "sitios:number[]=[]"
   onCheckboxChange(event: any, idSitio: number) {
     if (event.target.checked) {
-      this.sitios.push(idSitio); 
+      this.sitiosSeleccionados.push(idSitio); 
     } 
   }
-
-  // Envio de datos a la BBDD
-  onSubmit() {
-    const tituloRuta = this.formMyRoute.value.titulo_ruta;
-    const descripcionRuta = this.formMyRoute.value.descripcion_ruta;
-    this.enviarARutaUsuario(this.usuario.id, tituloRuta, descripcionRuta);
-  }
   
-  enviarARutaUsuario(id_usuario:number, titulo:any, descripcion:any) {
-    this.customRouteService.postRutaUsuario(id_usuario, titulo, descripcion).subscribe({
+  // Envia a la BBDD los datos que corresponden a la tabla "Ruta Usuario"
+  enviarDatosRutaUsuario(id_usuario:number, titulo:any, descripcion:any) {
+    this.customRouteService.postNuevaRutaUsuario(id_usuario, titulo, descripcion).subscribe({
       next: (response) => {
-        console.log('Respuesta del servidor RutaUsuario:', response);
-        this.ultimaRuta = response;
-        const idRuta:number = this.ultimaRuta.id;
-        this.sitios.forEach(sitioRuta => {
-          this.enviarASitiosRutaUsuario(idRuta, sitioRuta)
+        this.ultimaRutaCreada = response;
+        let idRuta:number = this.ultimaRutaCreada.id;
+        this.sitiosSeleccionados.forEach(sitioRuta => {
+          this.enviarDatosSitiosRutaUsuario(idRuta, sitioRuta)
         })
       },
       error: (error) => {
@@ -63,13 +58,10 @@ export class CustomRouteComponent {
     });
   }
 
-  enviarASitiosRutaUsuario(ruta:number, sitio:number){
-    console.log("Ruta" + ruta);
-    console.log("Sitio" + sitio);
-    // MANDAR ID FAVORITO
+  // Envia a la BBDD los datos que corresponden a la tabla "Sitios Ruta Usuario"
+  enviarDatosSitiosRutaUsuario(ruta:number, sitio:number){
     this.customRouteService.postSitioRutaUsuario(ruta, sitio).subscribe({
       next: (response) => {
-        console.log('Respuesta del servidor sitiosRuta:', response);
       },
       error: (error) => {
         console.error('Error al enviar el sitio de la ruta.', error);
@@ -77,12 +69,11 @@ export class CustomRouteComponent {
     })
   }
   
-  // Mostrar rutas del usuario, ubicadas en la BBDD
-  mostrarRutasUsuario(){
-    this.customRouteService.getRutasUsuario(this.usuario.id).subscribe({
+  // Mostrar rutas que ha creado el usuario
+  mostrarRutasUsuarioCreadas(){
+    this.customRouteService.getRutasUsuarioExistentes(this.usuario.id).subscribe({
       next: (response) => {
-        console.log('Rutas del usuario:', response);
-        this.datosRutaBBDD = response; 
+        this.datosRutasCreadas = response; 
       },
       error: (error) => {
         console.error('Error al obtener las rutas del usuario.', error);
@@ -90,11 +81,10 @@ export class CustomRouteComponent {
     });
   }
 
-  // Mostrar sitios favoritos del usuario
-  mostrarSitiosFavoritos(){
+  // Mostrar sitios favoritos que el usuario ha seleccionado
+  mostrarSitiosFavoritosUsuario(){
     this.favoritosService.getMisFavoritos(this.usuario.id).subscribe({
       next: (response) => {
-        console.log('Sitios favoritos del usuario:', response);
         this.sitiosFavoritosUsuario = response;
       },
       error: (error) => {
@@ -104,17 +94,15 @@ export class CustomRouteComponent {
   }
 
   ngOnInit(){
+    // Recuperar datos del usuario
     const usuarioLS = localStorage.getItem('usuario');
     if (usuarioLS) {
       this.usuario = JSON.parse(usuarioLS);
-      console.log("usuario", this.usuario.id)
     } else {
       console.error('No hay usuario logueado');
-      return;
     }
-
-    this.mostrarRutasUsuario();
-    this.mostrarSitiosFavoritos();
+    // Llamadas de funciones
+    this.mostrarRutasUsuarioCreadas();
+    this.mostrarSitiosFavoritosUsuario();
   }
-
 }
