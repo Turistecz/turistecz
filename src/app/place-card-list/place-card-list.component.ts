@@ -24,7 +24,7 @@ import { categories } from '../models/filter.data';
 export class PlaceCardListComponent {
 
 
- constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
   categories: Category[] = categories;
   page: number = 1;
   pageSize: number = 21;

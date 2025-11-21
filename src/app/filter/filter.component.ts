@@ -205,10 +205,12 @@ export class FilterComponent {
   }
 
   async ngOnInit() {
+    console.log("sus primas las categorias:", this.categories);
     // Inicializar todos los checkboxes como false
     this.categories.forEach(cat => {
       this.selectedEventsCategoriesMap[cat.type] = false;
       this.selectedPlacesCategoriesMap[cat.type] = false;
+      this.selectedMapCategoriesMap[cat.type] = false;
     });
 
     this.accesibilityOptions.forEach(option => {
@@ -218,7 +220,6 @@ export class FilterComponent {
     this.applyEventFilters();
     this.applyPlaceFilters();
     this.applyMapFilters();
-  
   }
 
     //Para que los eventos se carguen al inicio de la página. Antes no funcionaba porque se ejecutaba primero 
@@ -350,6 +351,7 @@ export class FilterComponent {
         this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
         );
       });
+      console.log("selectedEventsCategories: ", selectedEventsCategories)
     }
 
     if (this.searchText.trim()) {
@@ -369,20 +371,20 @@ export class FilterComponent {
   //Sirve la misma funcion para el componente map-page
   applyPlaceFilters(){
     let filteredPlaces = [...this.places];
-    // const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap)
-    // .filter(cat => this.selectedPlacesCategoriesMap[cat]);
-    // console.log("selectedPlacesCategories: ", selectedPlacesCategories)
+    const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap)
+    .filter(cat => this.selectedPlacesCategoriesMap[cat]);
+    console.log("selectedPlacesCategories: ", selectedPlacesCategories)
 
-    // if (selectedPlacesCategories.length > 0) {
-    //   filteredPlaces = filteredPlaces.filter(place => {
-    //     const texto = place.nombre.toLowerCase();
-    //     return selectedPlacesCategories.some(cat =>
-    //       this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
-    //     );
-    //   });
-    // } else{
-    //    console.log("selectedPlaceCategories has nothing inside");
-    // }
+    if (selectedPlacesCategories.length > 0) {
+      filteredPlaces = filteredPlaces.filter(place => {
+        const texto = place.nombre.toLowerCase();
+        return selectedPlacesCategories.some(cat =>
+          this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
+        );
+      });
+    } else{
+       console.log("selectedPlaceCategories has nothing inside");
+    }
 
     const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
@@ -410,20 +412,21 @@ export class FilterComponent {
 
 applyMapFilters(){
     let filteredPlaces = [...this.datos];
-    // const selectedMapCategories = Object.keys(this.selectedMapCategoriesMap)
-    // .filter(cat => this.selectedMapCategoriesMap[cat]);
-    //   console.log( "categorias seleccionadas", selectedMapCategories);
+    const selectedMapCategories = Object.keys(this.selectedMapCategoriesMap)
+    .filter(cat => this.selectedMapCategoriesMap[cat]);
+      console.log( "SelectedMapCategories", selectedMapCategories);
 
-    // if (selectedMapCategories.length > 0) {
-    //   filteredPlaces = filteredPlaces.filter(dato => {
-    //     const texto = dato.nombre.toLowerCase();
-    //     return selectedMapCategories.some(cat =>
-    //       this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
-    //     );
-    //   });
-    // }else {
-    //   console.log("selectedMapCategories has nothing inside")
-    // }
+    if (selectedMapCategories.length > 0) {
+      filteredPlaces = filteredPlaces.filter(dato => {
+        const texto = dato.nombre.toLowerCase();
+        return selectedMapCategories.some(cat =>
+          this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
+        );
+      });
+      console.log("filteredPlaces", filteredPlaces);
+    }else {
+      console.log("selectedMapCategories has nothing inside")
+    }
 
     const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
@@ -451,38 +454,53 @@ applyMapFilters(){
   };
   
   toggleCategory(catType: string) {
+    console.log("entra en toggleCategory")
     switch(catType) {
       case "id":
         break;
       case "museos_exposiciones":
         this.selectedPlacesCategoriesMap["museos"] = !this.selectedPlacesCategoriesMap["museos"];
+        this.selectedMapCategoriesMap["museos"] = !this.selectedMapCategoriesMap["museos"];
         this.applyPlaceFilters();
+        this.applyMapFilters();
         break;
       case "monumentos_esculturas":
         this.selectedPlacesCategoriesMap["monumentos"] = !this.selectedPlacesCategoriesMap["monumentos"];
+        this.selectedMapCategoriesMap["monumentos"] = !this.selectedMapCategoriesMap["monumentos"];
         this.applyPlaceFilters();
+        this.applyMapFilters();
         break;
       case "zonas_verdes":
         this.selectedPlacesCategoriesMap["zonas-verdes"] = !this.selectedPlacesCategoriesMap["zonas-verdes"];
+        this.selectedMapCategoriesMap["zonas-verdes"] = !this.selectedMapCategoriesMap["zonas-verdes"];
         this.applyPlaceFilters();
+        this.applyMapFilters();
         break;
       case "arquitectura":
         this.selectedPlacesCategoriesMap["arquitectura"] = !this.selectedPlacesCategoriesMap["arquitectura"];
+        this.selectedMapCategoriesMap["arquitectura"] = !this.selectedMapCategoriesMap["arquitectura"];
         this.applyPlaceFilters();
+        this.applyMapFilters();
         break;
       case "arte_mudejar":
         this.selectedPlacesCategoriesMap["mudejar"] = !this.selectedPlacesCategoriesMap["mudejar"];
+        this.selectedMapCategoriesMap["mudejar"] = !this.selectedMapCategoriesMap["mudejar"];
         this.applyPlaceFilters();
+        this.applyMapFilters();
         break;
       case "arte_romano":
         this.selectedPlacesCategoriesMap["romano"] = !this.selectedPlacesCategoriesMap["romano"];
+        this.selectedMapCategoriesMap["romano"] = !this.selectedMapCategoriesMap["romano"];
+        console.log("baptisterio romano")
         this.applyPlaceFilters();
+        this.applyMapFilters();
         break;
       default:
         this.selectedEventsCategoriesMap[catType] = !this.selectedEventsCategoriesMap[catType];
         this.selectedPlacesCategoriesMap[catType] = !this.selectedPlacesCategoriesMap[catType];
         this.applyEventFilters();
         this.applyPlaceFilters();
+        this.applyMapFilters();
         break;
       }    
   }
