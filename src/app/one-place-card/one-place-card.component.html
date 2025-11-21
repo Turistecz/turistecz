@@ -4,7 +4,7 @@
       <img [src]="data.url" class="card-img h-100 object-fit-cover" [alt]="data.nombre">
 
       <!-- Iconos de accesibilidad -->
-      <div class="accessibility-icons-bottom justify-content-center align-items-center gap-2">
+      <div class="accessibility-icons-bottom justify-content-center align-items-center gap-2 d-flex flex-wrap w-100">
         <ng-container *ngFor="let servicio of getServiciosDisponibles()">
           <i [class]="servicio.icon" title="{{ servicio.label }}"></i>
         </ng-container>
