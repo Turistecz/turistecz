@@ -33,28 +33,25 @@
 
 /* ---- Iconos de accesibilidad (siempre en DOM, control por opacity) ---- */
 .accessibility-icons-bottom {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
+  gap: 0.4rem;
   position: absolute;
   bottom: 15px;
   left: 50%;
   transform: translateX(-50%);
-  gap: 0.4rem;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  max-width: 100%;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
   pointer-events: none;
   z-index: 3;
   padding: 0.1rem 0.3rem;
   border-radius: 1rem;
   transition: opacity 0.25s ease;
+  max-height: calc(2 * 32px + 0.4rem); /* máximo dos filas */
+  overflow: hidden;
 }
-
-/* ocultar scrollbar webkit */
-.accessibility-icons-bottom::-webkit-scrollbar { display: none; }
 
 .accessibility-icons-bottom i {
   color: #0d6efd;
@@ -91,15 +88,17 @@
   }
 }
 
-/* ---- Pantallas intermedias (993px – 1199px): mantener comportamiento coherente ----
-   Aquí no forzamos el overlay a 1 por defecto (se mostrará al hacer hover si quieres).
-   Evitamos la regla previa que lo mostraba permanentemente en 1024–1366. */
+/* ---- Pantallas intermedias (993px – 1199px): iconos visibles al hover ---- */
 @media (min-width: 993px) and (max-width: 1199px) {
-  .accessibility-icons-bottom {
-    opacity: 0;
-    pointer-events: none;
+  .card-place:hover .accessibility-icons-bottom {
+    opacity: 0.8;
+    pointer-events: auto;
   }
-  /* opcional: ajustar tamaño de título si quieres */
+
+  .card-place:hover .overlay-content {
+    opacity: 1;
+  }
+
   .card-title { font-size: 1.15rem; }
 }
 
@@ -126,18 +125,3 @@
     font-size: 1.3rem;
   }
 }
-
-/* Pantallas intermedias (993px – 1199px): iconos visibles al hover */
-@media (min-width: 993px) and (max-width: 1199px) {
-  .card-place:hover .accessibility-icons-bottom {
-    opacity: 0.8;
-    pointer-events: auto;
-  }
-
-  .card-place:hover .overlay-content {
-    opacity: 1;
-  }
-
-  .card-title { font-size: 1.15rem; }
-}
-
