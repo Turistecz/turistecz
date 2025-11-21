@@ -6,8 +6,8 @@ import { EventItem } from '../models/event-card.model';
 import { HttpClient } from '@angular/common/http';
 import { cardsHome } from '../place-card/place-card.model';
 import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
-import { Category, CleanFilter, FilterItem } from '../models/filter.model';
-import { firstValueFrom, map, Subscription } from 'rxjs';
+import { Category, CleanFilter } from '../models/filter.model';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { MonumentItem } from '../models/monument.model';
 import { FilterService } from '../services/filter.service';
 import { LoginService } from '../services/login.service';
@@ -108,76 +108,6 @@ export class FilterComponent {
   ];
 
   inputs: HTMLInputElement[] = [];
-  favFilters: FilterItem[] = [];
-  sortedFilter: FilterItem[] = [];
-  @Input() userFavFilter: FilterItem = {
-    features: [
-      {id: false},
-      {museosExposiciones: false},
-      {monumentosEsculturas: false},
-      {zonasVerdes: false},
-      {arquitectura: false},
-      {arteMudejar: false},
-      {arteRomano: false},
-      {rampas: false},
-      {ascensores: false},
-      {puertasAutomaticas: false},
-      {escalerasMecanicas: false},
-      {serviciosAdaptados: false},
-      {parkingAdaptado: false},
-      {mostradorAdaptado: false},
-      {sinBarrerasArquitectonicas: false},
-      {braille: false},
-      {interpreteLenguaSignos: false},
-      {videosSubtitulados: false},
-      {ayudasVisuales: false},
-      {bancos: false},
-      {ayudaMovilidad: false},
-      {lenguajeSimple: false},
-      {accesoPerrosGuias: false},
-      {accesoPerrosAsistencia: false},
-      {salaLactancia: false},
-      {cambiador: false},
-      {visitasGrupales: false},
-      {guiasTuristicosMultiidioma: false},
-      {elementosAudiovisualesMultiidioma: false},
-      {documentacionMultiidioma: false},
-    ]
-  };
-  orderFilter: FilterItem = {
-    features: [
-      {id: false},
-      {museosExposiciones: false},
-      {monumentosEsculturas: false},
-      {zonasVerdes: false},
-      {arquitectura: false},
-      {arteMudejar: false},
-      {arteRomano: false},
-      {rampas: false},
-      {ascensores: false},
-      {puertasAutomaticas: false},
-      {escalerasMecanicas: false},
-      {serviciosAdaptados: false},
-      {parkingAdaptado: false},
-      {mostradorAdaptado: false},
-      {sinBarrerasArquitectonicas: false},
-      {braille: false},
-      {interpreteLenguaSignos: false},
-      {videosSubtitulados: false},
-      {ayudasVisuales: false},
-      {bancos: false},
-      {ayudaMovilidad: false},
-      {lenguajeSimple: false},
-      {accesoPerrosGuias: false},
-      {accesoPerrosAsistencia: false},
-      {salaLactancia: false},
-      {cambiador: false},
-      {visitasGrupales: false},
-      {guiasTuristicosMultiidioma: false},
-      {elementosAudiovisualesMultiidioma: false},
-      {documentacionMultiidioma: false},
-    ]
-  };
   newUserFavFilter: CleanFilter = {
     id: -1,
     museosExposiciones: false,
@@ -210,11 +140,6 @@ export class FilterComponent {
     elementosAudiovisualesMultiidioma: false,
     documentacionMultiidioma: false,
   }
-  orderMap = new Map();
-  inputNames: String[] = [];
-  inputIndex: Number[] = [];
-  orderedArray: [any, boolean][] = [];
-  allCategoriesArray: string[] = [];
 
   logueado: boolean = false;
   private sub!: Subscription;
@@ -577,11 +502,9 @@ applyMapFilters(){
           alert("Ocurrió un error al intentar guardar los filtros, vuelve a intentarlo más adelante.");
         }
       });
-    } 
-  }
-
-  noLogSaveFilters() {
-    alert("Inicia sesión si quieres guardar los filtros.");
+    } else {
+      alert("Inicia sesión si quieres guardar los filtros.");
+    }
   }
 
   // getDifferentColor(): boolean {
