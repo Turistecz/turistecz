@@ -12,7 +12,8 @@ export class EventService {
 
   private apiUrl = 'https://www.zaragoza.es/sede/servicio/puntos-interes';
 
-  private apiInfo = 'https://www.zaragoza.es/sede/servicio/actividades/evento/calendar?startDate=04-10-2025';
+  //Se actualiza cada mes
+  private apiInfo = 'https://www.zaragoza.es/sede/servicio/cultura/evento/calendar?rf=html&idPortal=1';
 
   constructor(private http: HttpClient ) {}
 
