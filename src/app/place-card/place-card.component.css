@@ -13,11 +13,11 @@
   max-width: 70% !important;  
 }
 
-.btn-sites {   
+/* .btn-sites {   
   background: linear-gradient(var(--color-primary), var(--color-secondary));
   font-family: "inclusive", system-ui;
  
-} 
+}  */
 
 .row{
   row-gap: 25px; 
