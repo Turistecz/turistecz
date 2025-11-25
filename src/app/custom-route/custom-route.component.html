@@ -10,7 +10,10 @@
         <!-- Imagen ruta -->
         <p> Titulo: {{ dato.titulo_ruta }}</p>
         <p> Descripcion: {{ dato.descripcion_ruta }}</p>
-        <!-- PENDIENTE: <p> Sitios de la ruta: </p> -->
+        <p> Sitios de la ruta:</p> 
+        <div *ngFor="let sitioRuta of sitiosRuta">
+          <p *ngIf="dato.id === sitioRuta.idRuta">{{sitioRuta.nombre}}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -18,7 +21,9 @@
   <!-- PENDIENTE: Modificar ruta, Eliminar ruta -->
 
   <!-- CREAR NUEVA RUTA -->
-  <button class="btn btn-primary mb-3" data-bs-toggle="collapse" data-bs-target="#collapseFormNewRoute" aria-expanded="false" aria-controls="collapseExample">Crear Nueva Ruta</button>
+  <button class="btn btn-primary mb-3" data-bs-toggle="collapse" data-bs-target="#collapseFormNewRoute" aria-expanded="false" aria-controls="collapseExample">
+    Crear Nueva Ruta
+  </button>
   <div class="collapse" id="collapseFormNewRoute">
     <div class="card card-body mb-3">
       <form [formGroup]="formularioNuevaRuta" (ngSubmit)="onSubmit()">

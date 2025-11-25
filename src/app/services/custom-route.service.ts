@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { RutaUsuario, SitiosRutaUsuario } from '../models/custom-route.model';
+import { RutasCreadas, RutaUsuario, SitiosRutaUsuario, SitiosRutaUsuarioCreada } from '../models/custom-route.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +12,13 @@ export class CustomRouteService {
   constructor(private http: HttpClient) { }
   /* HEADER DEL TOKEN DEL USUARIO */
   private getAuthHeaders(): HttpHeaders | undefined {
-  const token = localStorage.getItem('token');
-  if (!token) return undefined;
-  return new HttpHeaders({
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
-  });
-}
+    const token = localStorage.getItem('token');
+    if (!token) return undefined;
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  }
 
   /* ----- URLs RUTA USUARIO ----- */
   private newRouteURL = 'http://localhost:8080/auth/nuevaRutaUsuario';
@@ -26,6 +26,7 @@ export class CustomRouteService {
 
   /* ----- URLs SITIO RUTA USUARIO ----- */
   private newSitioRutaURL = 'http://localhost:8080/auth/nuevoSitioRutaUsuario';
+  private allSitiosRutaURL = 'http://localhost:8080/auth/sitiosRutaUsuario?id_ruta=';
 
   /* ----- MÉTODOS RUTA USUARIO ----- */
   postNuevaRutaUsuario(usuario:number, titulo: string, descripcion:string): Observable<any> {
@@ -49,10 +50,10 @@ export class CustomRouteService {
   getRutasUsuarioExistentes(id:number){
     const headers = this.getAuthHeaders();
     if (headers) {
-      return this.http.get<RutaUsuario>(this.allRoutesURL + id, { headers })
+      return this.http.get<RutasCreadas[]>(this.allRoutesURL + id, { headers })
         .pipe(catchError(this.handleError));
     } else {
-      return this.http.get<RutaUsuario>(this.allRoutesURL + id)
+      return this.http.get<RutasCreadas[]>(this.allRoutesURL + id)
         .pipe(catchError(this.handleError));
     }
   }
@@ -74,6 +75,17 @@ export class CustomRouteService {
     }
   }
 
+  getSitiosRutaUsaurio(){
+    const headers = this.getAuthHeaders();
+    if (headers) {
+      return this.http.get<SitiosRutaUsuarioCreada[]>(this.allSitiosRutaURL, { headers })
+        .pipe(catchError(this.handleError));
+    } else {
+      return this.http.get<SitiosRutaUsuarioCreada[]>(this.allSitiosRutaURL)
+        .pipe(catchError(this.handleError));
+    }
+  }
+  
   /* ----- MÉTODO CONTROL DE ERRORES ----- */
   private handleError(error: any): Observable<never> {
     console.error('Ocurrió un error en CustomRouteService:', error);

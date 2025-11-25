@@ -554,3 +554,15 @@ FROM SITIO s
 JOIN sitios_ruta sr ON s.id = sr.id_sitio
 JOIN imagen_sitio imgs ON s.id = imgs.id
 ORDER BY sr.orden ASC;
+
+-- Vista para mostrar sitios de las rutas del usuario 
+CREATE OR REPLACE VIEW v_sitios_ruta_usuario AS
+SELECT 
+	sru.id,
+	sru.id_ruta,
+    s.id AS id_sitio,
+    s.nombre
+FROM sitio s
+JOIN favoritos f ON f.sitios_id = s.id
+JOIN sitios_ruta_usuario sru ON sru.id_sitio_favorito = s.id
+ORDER BY sru.id_ruta, s.id;

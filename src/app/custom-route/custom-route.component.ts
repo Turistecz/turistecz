@@ -3,6 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { CustomRouteService } from '../services/custom-route.service';
 import { CommonModule } from '@angular/common';
 import { FavoritosService } from '../services/favoritos.service';
+import { RutasCreadas, SitioFavoritosUsuario, SitiosRutaUsuarioCreada, User} from '../models/custom-route.model';
 
 @Component({
   selector: 'app-custom-route',
@@ -11,13 +12,18 @@ import { FavoritosService } from '../services/favoritos.service';
   styleUrl: './custom-route.component.css'
 })
 export class CustomRouteComponent {
-  // PENDIENTE: crear models
   formularioNuevaRuta:any; // Formulario para crear una nueva ruta
-  datosRutasCreadas:any; // Rutas que el usuario ha creado almacenadas en la BBDD
-  sitiosFavoritosUsuario:any; // sitios favoritos seleccionados por el usuario
   sitiosSeleccionados:number[]=[]; // Array para guardar los id de los sitios seleccionados por el usuario en el formulario
-  ultimaRutaCreada:any; // Última ruta creada por el usuario
-  usuario:any; // Datos del usuario
+
+  datoRutasCreadas:RutasCreadas={ id:0, titulo_ruta:'',descripcion_ruta:'' } // Estructura de una Ruta creada por el usuario
+  datosRutasCreadas:RutasCreadas[]=[]; // Todas las rutas que el usuario ha creado 
+  ultimaRutaCreada!:RutasCreadas; // Última ruta creada por el usuario
+  sitiosRuta:SitiosRutaUsuarioCreada[]=[];
+
+  sitioFavoritosUsuario:SitioFavoritosUsuario = { id:0, nombre:'' }; // Estructura de un sitio favoritos seleccionado por el usuario
+  sitiosFavoritosUsuario:SitioFavoritosUsuario[]=[]; // Todos los sitios favoritos seleccionados por el usuario
+  
+  usuario:User = {id:0}; // Datos del usuario
 
   constructor(private customRouteService: CustomRouteService, private formB: FormBuilder, private favoritosService: FavoritosService){
     /* Constructor del formulario para crear una nueva ruta */
@@ -73,7 +79,14 @@ export class CustomRouteComponent {
   mostrarRutasUsuarioCreadas(){
     this.customRouteService.getRutasUsuarioExistentes(this.usuario.id).subscribe({
       next: (response) => {
-        this.datosRutasCreadas = response; 
+        response.map(resp=>{
+          this.datoRutasCreadas = {
+            id:resp.id,
+            titulo_ruta:resp.titulo_ruta,
+            descripcion_ruta:resp.descripcion_ruta
+          }
+          this.datosRutasCreadas.push(this.datoRutasCreadas)
+        })
       },
       error: (error) => {
         console.error('Error al obtener las rutas del usuario.', error);
@@ -81,11 +94,29 @@ export class CustomRouteComponent {
     });
   }
 
+  // Muestra todos los sitios que el usuario a seleccionado para cada ruta
+  mostrarSitiosRutaUsuario(){
+    this.customRouteService.getSitiosRutaUsaurio().subscribe({
+      next: (response) => {
+        this.sitiosRuta = response;
+      },
+      error: (error) => {
+        console.error('Error al obtener los sitios de la ruta del usuario.', error);
+      }
+    })
+  }
+
   // Mostrar sitios favoritos que el usuario ha seleccionado
   mostrarSitiosFavoritosUsuario(){
     this.favoritosService.getMisFavoritos(this.usuario.id).subscribe({
       next: (response) => {
-        this.sitiosFavoritosUsuario = response;
+        response.map(resp=>{
+          this.sitioFavoritosUsuario = {
+            id:resp.id,
+            nombre:resp.nombre,
+          }
+          this.sitiosFavoritosUsuario.push(this.sitioFavoritosUsuario)
+        });
       },
       error: (error) => {
         console.error('Error al obtener los sitios favoritos del usuario.', error);
@@ -104,5 +135,6 @@ export class CustomRouteComponent {
     // Llamadas de funciones
     this.mostrarRutasUsuarioCreadas();
     this.mostrarSitiosFavoritosUsuario();
+    this.mostrarSitiosRutaUsuario()
   }
 }
