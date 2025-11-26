@@ -97,7 +97,7 @@
     pointer-events: none;
   }
   /* opcional: ajustar tamaño de título si quieres */
-  .card-title { font-size: 1.2rem; }
+  .card-title { font-size: 1.24rem; }
 
   .card-place:hover .accessibility-icons-bottom {
     opacity: 0.8;
@@ -105,7 +105,7 @@
   }
 
  .card-place .overlay-content {
-    padding-block: 1.5rem;
+    padding-block: 1rem;
     height: max-content;
     opacity: 1;
     top: auto;
@@ -113,14 +113,14 @@
 
 }
 /* ---- Mobile / tablet (≤ 992px): iconos siempre visibles + overlay visible ---- */
-@media (max-width: 992px) {
+@media (min-width: 768px) and (max-width: 992px) {
   .accessibility-icons-bottom {
     opacity: 0;
     pointer-events: auto;
   }
   
-  .card-place .overlay-content {
-    padding-block: 1.5rem;
+  .overlay-content {
+    padding-block: 1.1rem;
     height: max-content;
     opacity: 1;
     top: auto;
@@ -132,7 +132,31 @@
     max-width: 400px;
   }
   .card-title{
-    font-size: 1.9rem;
+    font-size: 1.3rem;
   }
 }
+
+@media (max-width: 767px) {
+  .accessibility-icons-bottom {
+    opacity: 0;
+    pointer-events: auto;
+  }
+  
+  .overlay-content {
+    padding-block: 1.3rem;
+    height: max-content;
+    opacity: 1;
+    top: auto;
+  }
+
+  .card-place {
+    border-radius: 30px;
+    max-height: 430px;
+    max-width: 400px;
+  }
+  .card-title{
+    font-size: 1.8rem;
+  }
+}
+
 

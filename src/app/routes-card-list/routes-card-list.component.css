@@ -6,11 +6,6 @@
    position: relative;
    margin-top: 1rem;
 
-@media (max-width: 767px) {
-    display: block;
-    justify-content: center;
-}
-}
 
 .cardito{
     display: inline-block; 
@@ -42,8 +37,15 @@ h3{
 
 .btn-routes:hover {
   transform: scale(1.05);
-  @media (max-width: 767px){
-    transform: scale(1);
-  }
 }
 
+@media (max-width: 767px) {
+    .cardRoutes{
+        display: block;
+        justify-content: center;
+    }
+    .btn-routes:hover{
+        transform: scale(1);
+    }    
+    }
+}
