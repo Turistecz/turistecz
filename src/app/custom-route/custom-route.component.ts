@@ -3,7 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { CustomRouteService } from '../services/custom-route.service';
 import { CommonModule } from '@angular/common';
 import { FavoritosService } from '../services/favoritos.service';
-import { RutaCreada, SitioFavoritosUsuario, SitiosRutaUsuarioCreada, User} from '../models/custom-route.model';
+import { RutaCreada, SitioFavoritosUsuario, SitioRutaUsuarioCreada, User} from '../models/custom-route.model';
 
 @Component({
   selector: 'app-custom-route',
@@ -18,7 +18,7 @@ export class CustomRouteComponent {
   datoRutasCreadas:RutaCreada={ id:0, titulo_ruta:'',descripcion_ruta:'' } // Estructura de una Ruta creada por el usuario
   datosRutasCreadas:RutaCreada[]=[]; // Todas las rutas que el usuario ha creado 
   ultimaRutaCreada!:RutaCreada; // Última ruta creada por el usuario
-  sitiosRuta:SitiosRutaUsuarioCreada[]=[];
+  sitiosRuta:SitioRutaUsuarioCreada[]=[];
 
   sitioFavoritosUsuario:SitioFavoritosUsuario = { id:0, nombre:'' }; // Estructura de un sitio favoritos seleccionado por el usuario
   sitiosFavoritosUsuario:SitioFavoritosUsuario[]=[]; // Todos los sitios favoritos seleccionados por el usuario
@@ -44,8 +44,7 @@ export class CustomRouteComponent {
   // Cuando el usuario selecciona un checkbox, se añade el id del sitio al array "sitios:number[]=[]"
   onCheckboxChange(event: any, idSitio: number, nombreSitio:string) {
     if (event.target.checked) {
-      // this.idsSitiosSeleccionados.push(idSitio); 
-      
+      this.sitiosSeleccionados.push(idSitio); 
     } 
   }
   

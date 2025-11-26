@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { RutaCreada, RutaUsuario, SitioRutaUsuario, SitiosRutaUsuarioCreada } from '../models/custom-route.model';
+import { RutaCreada, RutaUsuario, SitioRutaUsuario, SitioRutaUsuarioCreada } from '../models/custom-route.model';
 
 @Injectable({
   providedIn: 'root'
@@ -78,10 +78,10 @@ export class CustomRouteService {
   getSitiosRutaUsaurio(){
     const headers = this.getAuthHeaders();
     if (headers) {
-      return this.http.get<SitiosRutaUsuarioCreada[]>(this.allSitiosRutaURL, { headers })
+      return this.http.get<SitioRutaUsuarioCreada[]>(this.allSitiosRutaURL, { headers })
         .pipe(catchError(this.handleError));
     } else {
-      return this.http.get<SitiosRutaUsuarioCreada[]>(this.allSitiosRutaURL)
+      return this.http.get<SitioRutaUsuarioCreada[]>(this.allSitiosRutaURL)
         .pipe(catchError(this.handleError));
     }
   }

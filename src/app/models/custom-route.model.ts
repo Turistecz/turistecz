@@ -18,7 +18,7 @@ export interface RutaCreada{
   imagen_destacada?:string
 }
 
-export interface SitiosRutaUsuarioCreada{
+export interface SitioRutaUsuarioCreada{
   id:number,
   idRuta:number,
   idSitio:number,
