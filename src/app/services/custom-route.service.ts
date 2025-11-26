@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { RutasCreadas, RutaUsuario, SitiosRutaUsuario, SitiosRutaUsuarioCreada } from '../models/custom-route.model';
+import { RutaCreada, RutaUsuario, SitioRutaUsuario, SitiosRutaUsuarioCreada } from '../models/custom-route.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,10 +50,10 @@ export class CustomRouteService {
   getRutasUsuarioExistentes(id:number){
     const headers = this.getAuthHeaders();
     if (headers) {
-      return this.http.get<RutasCreadas[]>(this.allRoutesURL + id, { headers })
+      return this.http.get<RutaCreada[]>(this.allRoutesURL + id, { headers })
         .pipe(catchError(this.handleError));
     } else {
-      return this.http.get<RutasCreadas[]>(this.allRoutesURL + id)
+      return this.http.get<RutaCreada[]>(this.allRoutesURL + id)
         .pipe(catchError(this.handleError));
     }
   }
@@ -67,10 +67,10 @@ export class CustomRouteService {
     }
     const headers = this.getAuthHeaders();
     if (headers) {
-      return this.http.post<SitiosRutaUsuario>(this.newSitioRutaURL, enviarDatosSitiosRutaUsuario, { headers })
+      return this.http.post<SitioRutaUsuario>(this.newSitioRutaURL, enviarDatosSitiosRutaUsuario, { headers })
         .pipe(catchError(this.handleError));
     } else {
-      return this.http.post<SitiosRutaUsuario>(this.newSitioRutaURL, enviarDatosSitiosRutaUsuario)
+      return this.http.post<SitioRutaUsuario>(this.newSitioRutaURL, enviarDatosSitiosRutaUsuario)
         .pipe(catchError(this.handleError));
     }
   }

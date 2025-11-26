@@ -5,13 +5,13 @@ export interface RutaUsuario {
   descripcion_ruta: string;
 }
 
-export interface SitiosRutaUsuario {
+export interface SitioRutaUsuario {
   id_ruta: number,
-  id_favorito: number 
+  id_favorito: number
 }
 
 // Mostrar datos guardados
-export interface RutasCreadas{
+export interface RutaCreada{
   id:number,
   titulo_ruta:string,
   descripcion_ruta:string,
