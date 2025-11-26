@@ -68,6 +68,7 @@ export class CustomRouteComponent {
   enviarDatosSitiosRutaUsuario(ruta:number, sitio:number){
     this.customRouteService.postSitioRutaUsuario(ruta, sitio).subscribe({
       next: (response) => {
+        this.recargarPagina();
       },
       error: (error) => {
         console.error('Error al enviar el sitio de la ruta.', error);
@@ -122,6 +123,11 @@ export class CustomRouteComponent {
         console.error('Error al obtener los sitios favoritos del usuario.', error);
       }
     });
+  }
+
+  // PENDIENTE: AL RECARGAR, SE MUESTRE LA PAGINA ACTUAL
+  recargarPagina(){
+    window.location.reload();
   }
 
   ngOnInit(){
