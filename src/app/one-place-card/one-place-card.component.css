@@ -67,13 +67,58 @@
   transform: scale(1.2);
 }
 
-/* ---- Mobile / tablet (≤ 992px): iconos siempre visibles + overlay visible ---- */
-@media (max-width: 992px) {
+/* ---- Escritorio (≥ 1200px): iconos visibles solo en hover ---- */
+/* ---- Ajuste estético para portátiles anchos si necesitas ---- */
+@media (min-width: 1200px) and (max-width: 1366px){
+.accessibility-icons-bottom {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card-place:hover .accessibility-icons-bottom {
+  opacity: 0.8;
+  pointer-events: auto;
+}
+
+.card-place:hover .overlay-content {
+  opacity: 1;
+}
+
+.card-title {
+  font-size: 2;
+}
+}
+/* ---- Pantallas intermedias (993px – 1199px): mantener comportamiento coherente ----
+   Aquí no forzamos el overlay a 1 por defecto (se mostrará al hacer hover si quieres).
+   Evitamos la regla previa que lo mostraba permanentemente en 1024–1366. */
+@media (min-width: 993px) and (max-width: 1199px) {
   .accessibility-icons-bottom {
+    opacity: 0.8;
+    pointer-events: none;
+  }
+  /* opcional: ajustar tamaño de título si quieres */
+  .card-title { font-size: 1.2rem; }
+
+  .card-place:hover .accessibility-icons-bottom {
     opacity: 0.8;
     pointer-events: auto;
   }
 
+ .card-place .overlay-content {
+    padding-block: 1.5rem;
+    height: max-content;
+    opacity: 1;
+    top: auto;
+  }
+
+}
+/* ---- Mobile / tablet (≤ 992px): iconos siempre visibles + overlay visible ---- */
+@media (max-width: 992px) {
+  .accessibility-icons-bottom {
+    opacity: 0;
+    pointer-events: auto;
+  }
+  
   .card-place .overlay-content {
     padding-block: 1.5rem;
     height: max-content;
@@ -87,57 +132,7 @@
     max-width: 400px;
   }
   .card-title{
-    font-size: 1.8rem;
+    font-size: 1.9rem;
   }
-}
-
-/* ---- Pantallas intermedias (993px – 1199px): mantener comportamiento coherente ----
-   Aquí no forzamos el overlay a 1 por defecto (se mostrará al hacer hover si quieres).
-   Evitamos la regla previa que lo mostraba permanentemente en 1024–1366. */
-@media (min-width: 993px) and (max-width: 1199px) {
-  .accessibility-icons-bottom {
-    opacity: 0;
-    pointer-events: none;
-  }
-  /* opcional: ajustar tamaño de título si quieres */
-  .card-title { font-size: 1.15rem; }
-}
-
-/* ---- Escritorio (≥ 1200px): iconos visibles solo en hover ---- */
-@media (min-width: 1200px) {
-  .accessibility-icons-bottom {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .card-place:hover .accessibility-icons-bottom {
-    opacity: 0.8;
-    pointer-events: auto;
-  }
-
-  .card-place:hover .overlay-content {
-    opacity: 1;
-  }
-}
-
-/* ---- Ajuste estético para portátiles anchos si necesitas ---- */
-@media (min-width: 1200px) and (max-width: 1366px) {
-  .card-title {
-    font-size: 1.3rem;
-  }
-}
-
-/* Pantallas intermedias (993px – 1199px): iconos visibles al hover */
-@media (min-width: 993px) and (max-width: 1199px) {
-  .card-place:hover .accessibility-icons-bottom {
-    opacity: 0.8;
-    pointer-events: auto;
-  }
-
-  .card-place:hover .overlay-content {
-    opacity: 1;
-  }
-
-  .card-title { font-size: 1.15rem; }
 }
 
