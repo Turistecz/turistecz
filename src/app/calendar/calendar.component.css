@@ -117,6 +117,14 @@ h1 {
 
 }
 
+/*Día con eventos*/
+.event-day {
+  background-color: #cfe2ff !important;
+  color: #084298 !important;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
 /* Día seleccionado */
 :host ::ng-deep .igx-days-view__date--selected .igx-days-view__date-inner {
   background: #0e3d89 !important;
