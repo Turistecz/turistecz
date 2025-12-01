@@ -26,7 +26,7 @@ public class SitiosRutaUsuarioService {
     @Autowired
     private SitioRepository sitioRepository;
     
-    public SitiosRutaUsuario almacenarSitioRutaUsuario(Integer id_ruta, Integer id_sitio_favorito) {
+    public SitiosRutaUsuario almacenarSitioRutaUsuario(Integer id_ruta, Integer id_sitio_favorito, Integer orden) {
 
         RutaUsuario ruta = rutaUsuarioRepository.findById(id_ruta)
             .orElseThrow(() -> new RuntimeException("RutaUsuario no encontrada"));
@@ -37,13 +37,10 @@ public class SitiosRutaUsuarioService {
         Favoritos favorito = favoritosRepository.findBySitio(sitio)
             .orElseThrow(() -> new RuntimeException("Favorito no encontrado"));
 
-        // Favoritos favorito = favoritosRepository.findByid(id_sitio_favorito)
-        //     .orElseThrow(() -> new RuntimeException("Favorito no encontrado"));
-
         SitiosRutaUsuario sitioRU = new SitiosRutaUsuario();
         sitioRU.setRutaUsuario(ruta);
         sitioRU.setFavoritos(favorito);
+        sitioRU.setOrden(orden);
         return sitioRutaUsuarioRepository.save(sitioRU);
-        
     }
 }

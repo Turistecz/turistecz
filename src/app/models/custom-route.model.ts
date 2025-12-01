@@ -10,6 +10,13 @@ export interface SitioRutaUsuario {
   id_favorito: number
 }
 
+export interface SitioRutaSeleccionado {
+  id_ruta?:number,
+  id_sitio:number,
+  nombre?:string,
+  orden:number
+}
+
 // Mostrar datos guardados
 export interface RutaCreada{
   id:number,

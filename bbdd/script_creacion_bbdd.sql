@@ -561,8 +561,9 @@ SELECT
 	sru.id,
 	sru.id_ruta,
     s.id AS id_sitio,
-    s.nombre
+    s.nombre,
+    sru.orden
 FROM sitio s
 JOIN favoritos f ON f.sitios_id = s.id
 JOIN sitios_ruta_usuario sru ON sru.id_sitio_favorito = s.id
-ORDER BY sru.id_ruta, s.id;
+ORDER BY sru.id_ruta, sru.orden;

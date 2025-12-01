@@ -59,11 +59,12 @@ export class CustomRouteService {
   }
 
   /* ----- MÉTODOS SITIOS RUTA USUARIO ----- */
-  postSitioRutaUsuario(ruta:number, sitio:number): Observable<any> {
+  postSitioRutaUsuario(ruta:number, sitio:number, orden:number): Observable<any> {
     // IMPORTANTE: En los pares "clave:valor", la clave debe llamarse igual que los datos que recibe SpringBoot
     const enviarDatosSitiosRutaUsuario = { 
       id_ruta: ruta,
-      id_sitio_favorito: sitio 
+      id_sitio_favorito: sitio,
+      orden: orden
     }
     const headers = this.getAuthHeaders();
     if (headers) {

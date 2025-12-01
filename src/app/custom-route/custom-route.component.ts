@@ -3,7 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { CustomRouteService } from '../services/custom-route.service';
 import { CommonModule } from '@angular/common';
 import { FavoritosService } from '../services/favoritos.service';
-import { RutaCreada, SitioFavoritosUsuario, SitioRutaUsuarioCreada, User} from '../models/custom-route.model';
+import { RutaCreada, SitioFavoritosUsuario, SitioRutaSeleccionado, SitioRutaUsuarioCreada, User} from '../models/custom-route.model';
 import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 
 @Component({
@@ -14,8 +14,11 @@ import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk
 })
 export class CustomRouteComponent {
   formularioNuevaRuta:any; // Formulario para crear una nueva ruta
-  idsSitiosSeleccionados:number[]=[]; // Array para guardar los id de los sitios seleccionados por el usuario en el formulario
-  nombresSitiosSeleccionados:string[]=[];
+
+  sitiosRutaSeleccioandos:SitioRutaSeleccionado[]=[]; // Todos los sitios seleccionados por el usuario
+  sitioRutaSeleccionado:SitioRutaSeleccionado = { id_ruta:0, id_sitio:0, nombre:'', orden:0 }; // Contenido de cada sitio seleccionado por el usuario
+  sitiosRutaOrdenados:SitioRutaSeleccionado[]=[]; // Sitios previamente seleccionados ordenados por el usuario
+
   datoRutasCreadas:RutaCreada={ id:0, titulo_ruta:'',descripcion_ruta:'' } // Estructura de una Ruta creada por el usuario
   datosRutasCreadas:RutaCreada[]=[]; // Todas las rutas que el usuario ha creado 
   ultimaRutaCreada!:RutaCreada; // Última ruta creada por el usuario
@@ -42,17 +45,31 @@ export class CustomRouteComponent {
     this.enviarDatosRutaUsuario(this.usuario.id, tituloRuta, descripcionRuta);
   }
 
-  // Cuando el usuario selecciona un checkbox, se añade el id del sitio al array "sitios:number[]=[]"
+  // Cuando el usuario selecciona un checkbox, se añade cada "sitioRutaSeleccionado" a "sitiosRutaSeleccioandos[]"
   onCheckboxChange(event: any, idSitio: number, nombreSitio:string) {
     if (event.target.checked) {
-      this.idsSitiosSeleccionados.push(idSitio); 
-      this.nombresSitiosSeleccionados.push(nombreSitio);
+      this.sitioRutaSeleccionado = {
+        id_sitio:idSitio,
+        nombre:nombreSitio,
+        orden:0
+      }
+      this.sitiosRutaSeleccioandos.push(this.sitioRutaSeleccionado)
     } 
   }
   
-  // Ordenar lista de sitios seleccionados (Instalar package: ng add @angular/cdk)
+  // Funciones para que el usuario pueda ordenar la lista de sitios seleccionados (Instalar package: ng add @angular/cdk)
   drop(event:CdkDragDrop<string[]>) {
-    moveItemInArray(this.nombresSitiosSeleccionados, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.sitiosRutaSeleccioandos, event.previousIndex, event.currentIndex);
+    this.ordenarSitios()
+  }
+
+  ordenarSitios(){
+     this.sitiosRutaOrdenados = this.sitiosRutaSeleccioandos.map((sitio, index)=>({
+      id_sitio: sitio.id_sitio,
+      nombre: sitio.nombre,
+      orden: index +1
+    }))
+    console.log(this.sitiosRutaOrdenados);
   }
 
   // Envia a la BBDD los datos que corresponden a la tabla "Ruta Usuario"
@@ -61,8 +78,8 @@ export class CustomRouteComponent {
       next: (response) => {
         this.ultimaRutaCreada = response;
         let idRuta:number = this.ultimaRutaCreada.id;
-        this.idsSitiosSeleccionados.forEach(sitioRuta => {
-          this.enviarDatosSitiosRutaUsuario(idRuta, sitioRuta)
+        this.sitiosRutaOrdenados.forEach((sitio) => {
+          this.enviarDatosSitiosRutaUsuario(idRuta, sitio.id_sitio, sitio.orden)
         })
       },
       error: (error) => {
@@ -72,8 +89,8 @@ export class CustomRouteComponent {
   }
 
   // Envia a la BBDD los datos que corresponden a la tabla "Sitios Ruta Usuario"
-  enviarDatosSitiosRutaUsuario(ruta:number, sitio:number){
-    this.customRouteService.postSitioRutaUsuario(ruta, sitio).subscribe({
+  enviarDatosSitiosRutaUsuario(ruta:number, sitio:number, orden:number){
+    this.customRouteService.postSitioRutaUsuario(ruta, sitio, orden).subscribe({
       next: (response) => {
         this.recargarPagina();
       },
