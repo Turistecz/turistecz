@@ -43,7 +43,13 @@
           <input class="form-check-input me-2" type="checkbox" [value]="sitio.id" (change)="onCheckboxChange($event, sitio.id, sitio.nombre)">
           <label class="form-check-label">{{ sitio.nombre }}</label> 
         </div>
-        <!-- PENDIENTE: Ordenar sitios -->
+        <!-- WIP: Ordenar sitios -->
+        <p>Ordena los sitios seleccionados</p>
+        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+          <div class="card bg-transparent mb-3" *ngFor="let nombre of nombresSitiosSeleccionados">
+            <div cdkDrag class="example-box card p-4">{{nombre}}</div>
+          </div>
+        </div>
         <!-- Botones -->
         <button type="reset" class="btn btn-primary mt-3 me-3" (click)="recargarPagina()">Cancelar</button>
         <button type="submit" [disabled]="formularioNuevaRuta.invalid" class="btn btn-primary mt-3">Guardar</button>

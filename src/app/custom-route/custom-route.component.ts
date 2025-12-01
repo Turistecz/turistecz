@@ -4,17 +4,18 @@ import { CustomRouteService } from '../services/custom-route.service';
 import { CommonModule } from '@angular/common';
 import { FavoritosService } from '../services/favoritos.service';
 import { RutaCreada, SitioFavoritosUsuario, SitioRutaUsuarioCreada, User} from '../models/custom-route.model';
+import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-custom-route',
-  imports: [FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule, CdkDrag, CdkDropList],
   templateUrl: './custom-route.component.html',
   styleUrl: './custom-route.component.css'
 })
 export class CustomRouteComponent {
   formularioNuevaRuta:any; // Formulario para crear una nueva ruta
-  sitiosSeleccionados:number[]=[]; // Array para guardar los id de los sitios seleccionados por el usuario en el formulario
- 
+  idsSitiosSeleccionados:number[]=[]; // Array para guardar los id de los sitios seleccionados por el usuario en el formulario
+  nombresSitiosSeleccionados:string[]=[];
   datoRutasCreadas:RutaCreada={ id:0, titulo_ruta:'',descripcion_ruta:'' } // Estructura de una Ruta creada por el usuario
   datosRutasCreadas:RutaCreada[]=[]; // Todas las rutas que el usuario ha creado 
   ultimaRutaCreada!:RutaCreada; // Última ruta creada por el usuario
@@ -44,17 +45,23 @@ export class CustomRouteComponent {
   // Cuando el usuario selecciona un checkbox, se añade el id del sitio al array "sitios:number[]=[]"
   onCheckboxChange(event: any, idSitio: number, nombreSitio:string) {
     if (event.target.checked) {
-      this.sitiosSeleccionados.push(idSitio); 
+      this.idsSitiosSeleccionados.push(idSitio); 
+      this.nombresSitiosSeleccionados.push(nombreSitio);
     } 
   }
   
+  // Ordenar lista de sitios seleccionados (Instalar package: ng add @angular/cdk)
+  drop(event:CdkDragDrop<string[]>) {
+    moveItemInArray(this.nombresSitiosSeleccionados, event.previousIndex, event.currentIndex);
+  }
+
   // Envia a la BBDD los datos que corresponden a la tabla "Ruta Usuario"
   enviarDatosRutaUsuario(id_usuario:number, titulo:any, descripcion:any) {
     this.customRouteService.postNuevaRutaUsuario(id_usuario, titulo, descripcion).subscribe({
       next: (response) => {
         this.ultimaRutaCreada = response;
         let idRuta:number = this.ultimaRutaCreada.id;
-        this.sitiosSeleccionados.forEach(sitioRuta => {
+        this.idsSitiosSeleccionados.forEach(sitioRuta => {
           this.enviarDatosSitiosRutaUsuario(idRuta, sitioRuta)
         })
       },
@@ -141,6 +148,6 @@ export class CustomRouteComponent {
     // Llamadas de funciones
     this.mostrarRutasUsuarioCreadas();
     this.mostrarSitiosFavoritosUsuario();
-    this.mostrarSitiosRutaUsuario()
+    this.mostrarSitiosRutaUsuario();
   }
 }
