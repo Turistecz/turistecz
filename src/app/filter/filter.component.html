@@ -31,12 +31,11 @@
     </div>
 
     <!-- Filtros de categorías -->
-    <div class="mt-3 filtro-lista">
-      <h5>Categorías</h5>
       <div class="form-check mb-1" *ngFor="let cat of categories">
         <input
           class="form-check-input"
           type="checkbox"
+          [checked]="selectedEventsCategoriesMap[cat.type] || selectedPlacesCategoriesMap[cat.type]"
           (change)="toggleCategory(cat.type)"
           id="check-{{ cat.type }}"
         />
@@ -44,6 +43,7 @@
           {{ cat.name }}
         </label>
       </div>
+
 
       <!-- Filtros de accesibilidad -->
       <ng-container *ngIf="showAdaptability">
@@ -71,4 +71,3 @@
       <button class="btn btn-success" (click)="noLogSaveFilters()">Guardar</button>
     </div>
   </div>
-</div>
