@@ -35,7 +35,10 @@
       </div>
       <ng-template #logueadoTemplate>
         <div class="d-flex align-items-center"> 
-          <span class="text-muted small">{{ usuarioNombre }}</span>           
+                     
+            <a class="d-inline-flex align-items-center justify-content-center text-decoration-none" href="/mi-perfil">
+              <span class="text-muted small ">{{ usuarioNombre }}</span>
+            </a>
               <button class="btn btn-outline-primary btn-sm  py-1" (click)="onLogout()">
             <i class="bi bi-box-arrow-right"></i>
           </button>
