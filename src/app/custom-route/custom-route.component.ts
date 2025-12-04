@@ -29,6 +29,8 @@ export class CustomRouteComponent {
   
   usuario:User = {id:0}; // Datos del usuario
 
+  idRutaEliminar:number=0;
+
   constructor(private customRouteService: CustomRouteService, private formB: FormBuilder, private favoritosService: FavoritosService){
     /* Constructor del formulario para crear una nueva ruta */
     this.formularioNuevaRuta = this.formB.group({
@@ -152,6 +154,22 @@ export class CustomRouteComponent {
   // PENDIENTE: AL RECARGAR, SE MUESTRE LA PAGINA ACTUAL
   recargarPagina(){
     window.location.reload();
+  }
+
+  // ELIMINAR RUTA
+  copiarIdRuta(id_ruta:number){
+    this.idRutaEliminar = id_ruta;
+  }
+
+  eliminarRuta(){
+    this.customRouteService.deleteRutaUsuario(this.idRutaEliminar).subscribe({
+      next: (response) => {
+        this.recargarPagina();
+      },
+      error: (error) => {
+        console.error('Error al eliminar la ruta.', error);
+      }
+    })
   }
 
   ngOnInit(){
