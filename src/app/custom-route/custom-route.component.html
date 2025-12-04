@@ -11,9 +11,9 @@
         <p> Titulo: {{ dato.titulo_ruta }}</p>
         <p> Descripcion: {{ dato.descripcion_ruta }}</p>
         <p> Sitios de la ruta:</p> 
-        <div *ngFor="let sitioRuta of sitiosRuta">
-          <p *ngIf="dato.id === sitioRuta.idRuta">{{sitioRuta.nombre}}</p>
-        </div>
+        <ol>
+          <li *ngFor="let sitioRuta of sitiosRuta">{{sitioRuta.nombre}}</li>
+        </ol>
       </div>
     </div>
   </div>
