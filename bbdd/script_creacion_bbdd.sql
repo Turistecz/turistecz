@@ -183,7 +183,6 @@ VALUES (
     "gradient_footer_start": "#6dd5ed",
     "gradient_footer_end": "#2A8BEA",
     "bg_primary": "#ffffff",
-    "bg_secondary": "#f0f0f0",
     "text_primary": "#03080a",
     "text_secondary": "#495057",
     "text_light": "#ffffff"
