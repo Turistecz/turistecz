@@ -33,6 +33,14 @@ public class RutaUsuarioService {
 	    return repositorioRutaUsuario.encontrarRutasUsuario(id_usuario);
 	}
 
+    public RutaUsuario modificarRuta(Integer id_ruta, String titulo, String descripcion){
+        RutaUsuario rutaExistente = repositorioRutaUsuario.findById(id_ruta)
+            .orElseThrow(() -> new RuntimeException("RutaUsuario no encontrada"));
+        rutaExistente.setTitulo_ruta(titulo);
+        rutaExistente.setDescripcion_ruta(descripcion);
+        return repositorioRutaUsuario.save(rutaExistente);
+    }
+
     public RutaUsuario borrarRuta(Integer id_ruta){
         RutaUsuario rutaExistente = repositorioRutaUsuario.findById(id_ruta)
             .orElseThrow(() -> new RuntimeException("RutaUsuario no encontrada"));

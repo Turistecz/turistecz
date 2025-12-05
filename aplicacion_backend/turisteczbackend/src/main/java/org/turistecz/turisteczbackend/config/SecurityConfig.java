@@ -50,7 +50,8 @@ public class SecurityConfig {
                     "/auth/rutasUsuario/**",
                     "/auth/nuevoSitioRutaUsuario",
                     "/auth/sitiosRutaUsuario/**",
-                    "/auth/eliminarRutaUsuario/**"
+                    "/auth/eliminarRutaUsuario/**",
+                    "/auth/editarRutaUsuario/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             );

@@ -14,6 +14,7 @@ import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk
 })
 export class CustomRouteComponent {
   formularioNuevaRuta:any; // Formulario para crear una nueva ruta
+  formularioEditarRuta:any;
 
   sitiosRutaSeleccioandos:SitioRutaSeleccionado[]=[]; // Todos los sitios seleccionados por el usuario
   sitioRutaSeleccionado:SitioRutaSeleccionado = { id_ruta:0, id_sitio:0, nombre:'', orden:0 }; // Contenido de cada sitio seleccionado por el usuario
@@ -31,12 +32,24 @@ export class CustomRouteComponent {
 
   idRutaEliminar:number=0;
 
+  editarRuta = {
+    id:0,
+    titulo:'',
+    descripcion:''
+  }
+
+  editarSitios:any;
+
   constructor(private customRouteService: CustomRouteService, private formB: FormBuilder, private favoritosService: FavoritosService){
     /* Constructor del formulario para crear una nueva ruta */
     this.formularioNuevaRuta = this.formB.group({
       titulo_ruta: ['', Validators.required],
       descripcion_ruta: ['']
     });
+    this.formularioEditarRuta = this.formB.group({
+      titulo_ruta: ['', Validators.required],
+      descripcion_ruta: ['']
+    })
   } 
 
   // DATOS INTRODUCIDOS POR EL USUARIO EN EL FORMULARIO
@@ -66,12 +79,11 @@ export class CustomRouteComponent {
   }
 
   ordenarSitios(){
-     this.sitiosRutaOrdenados = this.sitiosRutaSeleccioandos.map((sitio, index)=>({
+    this.sitiosRutaOrdenados = this.sitiosRutaSeleccioandos.map((sitio, index)=>({
       id_sitio: sitio.id_sitio,
       nombre: sitio.nombre,
       orden: index +1
     }))
-    console.log(this.sitiosRutaOrdenados);
   }
 
   // Envia a la BBDD los datos que corresponden a la tabla "Ruta Usuario"
@@ -154,6 +166,28 @@ export class CustomRouteComponent {
   // PENDIENTE: AL RECARGAR, SE MUESTRE LA PAGINA ACTUAL
   recargarPagina(){
     window.location.reload();
+  }
+
+  // EDITAR RUTA
+  copiarDatosRuta(id_ruta:number, titulo:string, descripcion:string){
+    this.editarRuta = {
+      id:id_ruta,
+      titulo:titulo,
+      descripcion:descripcion
+    }
+  }
+
+  enviarEdicionRuta(){
+    let descripcion = this.formularioEditarRuta.value.descripcion_ruta;
+    let titulo = this.formularioEditarRuta.value.titulo_ruta;
+    this.customRouteService.putRutaUsuario(this.editarRuta.id,titulo,descripcion).subscribe({
+      next: (response) => {
+        this.recargarPagina();
+      },
+      error: (error) => {
+        console.error('Error al modificar la ruta.', error);
+      }
+    })
   }
 
   // ELIMINAR RUTA
