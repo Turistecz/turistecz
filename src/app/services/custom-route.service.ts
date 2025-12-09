@@ -28,7 +28,8 @@ export class CustomRouteService {
   private newSitioRutaURL = 'http://localhost:8080/auth/nuevoSitioRutaUsuario';
   private allSitiosRutaURL = 'http://localhost:8080/auth/sitiosRutaUsuario?id_ruta=';
   private deleteRutaURL = 'http://localhost:8080/auth/eliminarRutaUsuario?id_ruta=';
-  private editRutaURL = 'http://localhost:8080/auth/editarRutaUsuario';
+  private editTituloRutaURL = 'http://localhost:8080/auth/editarTituloRutaUsuario';
+  private editDescripcionRutaURL = 'http://localhost:8080/auth/editarDescripcionRutaUsuario';
 
   /* ----- MÉTODOS RUTA USUARIO ----- */
   postNuevaRutaUsuario(usuario:number, titulo: string, descripcion:string): Observable<any> {
@@ -60,19 +61,33 @@ export class CustomRouteService {
     }
   }
 
-  putRutaUsuario(id_ruta:number, titulo:string, descripcion:string){
+  putTituloRutaUsuario(id_ruta:number, titulo:string){
     const enviarDatosRutaUsuario = { 
       id: id_ruta,
-      titulo_ruta: titulo,
-      descripcion_ruta: descripcion
+      titulo_ruta: titulo
     }; 
     // Headers del token del usuario
     const headers = this.getAuthHeaders();
     if (headers) {
-      return this.http.put(this.editRutaURL, enviarDatosRutaUsuario, { headers })
+      return this.http.put(this.editTituloRutaURL, enviarDatosRutaUsuario, { headers })
         .pipe(catchError(this.handleError));
     } else {
-      return this.http.put(this.editRutaURL, enviarDatosRutaUsuario)
+      return this.http.put(this.editTituloRutaURL, enviarDatosRutaUsuario)
+        .pipe(catchError(this.handleError));
+    }
+  }
+
+  putDescripcionRutaUsuario(id_ruta:number, descripcion:string){
+    const enviarDatosRutaUsuario = { 
+      id: id_ruta,
+      descripcion_ruta: descripcion
+    };
+    const headers = this.getAuthHeaders();
+    if (headers) {
+      return this.http.put(this.editDescripcionRutaURL, enviarDatosRutaUsuario, { headers })
+        .pipe(catchError(this.handleError));
+    } else {
+      return this.http.put(this.editDescripcionRutaURL, enviarDatosRutaUsuario)
         .pipe(catchError(this.handleError));
     }
   }

@@ -37,9 +37,15 @@ public class RutaUsuarioController {
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
-    @PutMapping("/editarRutaUsuario")
-    public RutaUsuario editarRuta(@RequestBody EditarRutaUsuarioDto dto){
-        return rutaUsuarioService.modificarRuta(dto.id, dto.titulo_ruta, dto.descripcion_ruta);
+    @PutMapping("/editarTituloRutaUsuario")
+    public RutaUsuario editarTituloRuta(@RequestBody EditarRutaUsuarioDto dto){
+        return rutaUsuarioService.modificarTituloRuta(dto.id, dto.titulo_ruta);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PutMapping("/editarDescripcionRutaUsuario")
+    public RutaUsuario editarDescripcionRuta(@RequestBody EditarRutaUsuarioDto dto){
+        return rutaUsuarioService.modificarDescripcionRuta(dto.id, dto.descripcion_ruta);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

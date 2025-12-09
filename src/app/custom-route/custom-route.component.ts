@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FavoritosService } from '../services/favoritos.service';
 import { RutaCreada, SitioFavoritosUsuario, SitioRutaSeleccionado, SitioRutaUsuarioCreada, User} from '../models/custom-route.model';
 import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
+import { throttleTime } from 'rxjs';
 
 @Component({
   selector: 'app-custom-route',
@@ -178,9 +179,34 @@ export class CustomRouteComponent {
   }
 
   enviarEdicionRuta(){
-    let descripcion = this.formularioEditarRuta.value.descripcion_ruta;
     let titulo = this.formularioEditarRuta.value.titulo_ruta;
-    this.customRouteService.putRutaUsuario(this.editarRuta.id,titulo,descripcion).subscribe({
+    let descripcion = this.formularioEditarRuta.value.descripcion_ruta;
+    if(titulo !== '' && descripcion !==''){
+      this.editarTitulo(titulo);
+    } else if(titulo !== ''){
+      this.editarTitulo(titulo);
+    } else if(descripcion !== ''){
+      this.editarDescripcion(descripcion);
+    } 
+  }
+
+  editarTitulo(titulo:string){
+    this.customRouteService.putTituloRutaUsuario(this.editarRuta.id, titulo).subscribe({
+        next: (response) => {
+          let descripcion = this.formularioEditarRuta.value.descripcion_ruta;
+          if(descripcion !== ''){
+            this.editarDescripcion(descripcion)
+          }
+          this.recargarPagina();
+        },
+        error: (error) => {
+          console.error('Error al modificar la ruta.', error);
+        }
+      }) 
+  }
+
+  editarDescripcion(descripcion:string){
+    this.customRouteService.putDescripcionRutaUsuario(this.editarRuta.id, descripcion).subscribe({
       next: (response) => {
         this.recargarPagina();
       },
