@@ -15,7 +15,7 @@ import { throttleTime } from 'rxjs';
 })
 export class CustomRouteComponent {
   formularioNuevaRuta:any; // Formulario para crear una nueva ruta
-  formularioEditarRuta:any;
+  formularioEditarRuta:any; // Formulario para editar una ruta existente
 
   sitiosRutaSeleccioandos:SitioRutaSeleccionado[]=[]; // Todos los sitios seleccionados por el usuario
   sitioRutaSeleccionado:SitioRutaSeleccionado = { id_ruta:0, id_sitio:0, nombre:'', orden:0 }; // Contenido de cada sitio seleccionado por el usuario
@@ -24,25 +24,18 @@ export class CustomRouteComponent {
   datoRutasCreadas:RutaCreada={ id:0, titulo_ruta:'',descripcion_ruta:'' } // Estructura de una Ruta creada por el usuario
   datosRutasCreadas:RutaCreada[]=[]; // Todas las rutas que el usuario ha creado 
   ultimaRutaCreada!:RutaCreada; // Última ruta creada por el usuario
-  sitiosRuta:SitioRutaUsuarioCreada[]=[];
+  sitiosRuta:SitioRutaUsuarioCreada[]=[]; // Mostrar sitios de una ruta concreta existente
 
   sitioFavoritosUsuario:SitioFavoritosUsuario = { id:0, nombre:'' }; // Estructura de un sitio favoritos seleccionado por el usuario
   sitiosFavoritosUsuario:SitioFavoritosUsuario[]=[]; // Todos los sitios favoritos seleccionados por el usuario
   
   usuario:User = {id:0}; // Datos del usuario
 
-  idRutaEliminar:number=0;
+  idRutaEliminar:number=0; // Copia id ruta para eliminarla
 
-  editarRuta = {
-    id:0,
-    titulo:'',
-    descripcion:''
-  }
-
-  editarSitios:any;
+  editarRuta = { id:0, titulo:'', descripcion:''} // Copia datos de la ruta seleccionada para guardarlos como valor por defecto en el formulario de edicion
 
   constructor(private customRouteService: CustomRouteService, private formB: FormBuilder, private favoritosService: FavoritosService){
-    /* Constructor del formulario para crear una nueva ruta */
     this.formularioNuevaRuta = this.formB.group({
       titulo_ruta: ['', Validators.required],
       descripcion_ruta: ['']
