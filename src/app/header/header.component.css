@@ -52,6 +52,10 @@
   box-shadow: none;
 }
 
+.login-icon {
+  margin-top: 2.2rem;
+}
+
 @media (max-width: 768px) {
   .navbar-brand img {
     max-width: 150px;
