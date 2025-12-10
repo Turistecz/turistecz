@@ -33,13 +33,7 @@
 
 /* ---- Iconos de accesibilidad (siempre en DOM, control por opacity) ---- */
 .accessibility-icons-bottom {
-  display: flex;
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
   gap: 0.4rem;
-  flex-wrap: nowrap;
   white-space: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -138,6 +132,6 @@
     opacity: 1;
   }
 
-  .card-title { font-size: 1.15rem; }
+  .card-title { font-size: 2.15rem; }
 }
 

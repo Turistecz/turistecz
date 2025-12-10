@@ -3,20 +3,19 @@
     <div class="card text-white col-12 col-md-3 overflow-hidden w-100 position-relative card-place">
       <img [src]="data.url" class="card-img h-100 object-fit-cover" [alt]="data.nombre">
 
-      <!-- Iconos de accesibilidad -->
-      <div class="accessibility-icons-bottom justify-content-center align-items-center gap-2 d-flex flex-wrap w-100">
-        <ng-container *ngFor="let servicio of getServiciosDisponibles()">
-          <i [class]="servicio.icon" title="{{ servicio.label }}"></i>
-        </ng-container>
-      </div>
-
       <button class="btn btn-light favorito-btn position-absolute rounded-circle d-flex align-items-center justify-content-center z-2" 
         (click)="toggleFavorito(data); $event.preventDefault(); $event.stopPropagation();"> 
         <i class="bi" [ngClass]="data.esFavorito ? 'bi-star-fill text-warning' : 'bi-star text-secondary'"></i>
       </button>
 
-      <div class="card-img-overlay overlay-content text-dark d-flex flex-column justify-content-center">
+      <div class="card-img-overlay overlay-content text-dark d-flex flex-column justify-content-center align-items-center">
         <p class="card-title text-center h1 fw-bold">{{data.nombre}}</p>
+        <!-- Iconos de accesibilidad -->
+        <div class="accessibility-icons-bottom justify-content-center gap-2 d-flex flex-wrap w-75">
+          <ng-container *ngFor="let servicio of getServiciosDisponibles()">
+            <i [class]="servicio.icon" title="{{ servicio.label }}"></i>
+          </ng-container>
+        </div>
       </div>    
     </div>
   </a>
