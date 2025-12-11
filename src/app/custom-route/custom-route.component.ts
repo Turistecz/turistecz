@@ -33,7 +33,9 @@ export class CustomRouteComponent {
 
   idRutaEliminar:number=0; // Copia id ruta para eliminarla
 
-  editarRuta = { id:0, titulo:'', descripcion:''} // Copia datos de la ruta seleccionada para guardarlos como valor por defecto en el formulario de edicion
+  editarRuta = { id:0, titulo:'', descripcion:''}; // Copia datos de la ruta seleccionada para guardarlos como valor por defecto en el formulario de edicion
+  sitiosFavotitosSeleccionados:SitioFavoritosUsuario[]=[];
+  sitiosFavoritosNoSeleccionados:SitioFavoritosUsuario[]=[];
 
   constructor(private customRouteService: CustomRouteService, private formB: FormBuilder, private favoritosService: FavoritosService){
     this.formularioNuevaRuta = this.formB.group({
@@ -169,6 +171,7 @@ export class CustomRouteComponent {
       titulo:titulo,
       descripcion:descripcion
     }
+    this.sitiosSeleccionadosYSitiosNoSeleccionados();
   }
 
   enviarEdicionRuta(){
@@ -207,6 +210,33 @@ export class CustomRouteComponent {
         console.error('Error al modificar la ruta.', error);
       }
     })
+  }
+
+  // TERMINAR
+  sitiosSeleccionadosYSitiosNoSeleccionados(){
+    let sitioSeleccionado:SitioFavoritosUsuario = { id:0, nombre:'' }
+    this.sitiosFavotitosSeleccionados = this.sitiosRuta.filter(sitioR => (sitioR.idRuta === this.editarRuta.id))
+    .map(sitio => sitioSeleccionado = {id:sitio.idSitio, nombre:sitio.nombre})
+    let idsSitiosSeleccionados = this.sitiosFavotitosSeleccionados.map((sitio:any) => sitio.id);
+    this.sitiosFavoritosNoSeleccionados = this.sitiosFavoritosUsuario.filter(sitioF => !idsSitiosSeleccionados.includes(sitioF.id));
+  }
+
+  seleccionarSitio(event: any , idSitio: number, nombreSitio:string){
+    if (event.target.checked) {
+      let sitioRutaSeleccionado = { id:idSitio, nombre:nombreSitio };
+      this.sitiosFavotitosSeleccionados.push(sitioRutaSeleccionado)
+      let idsSitiosSeleccionados = this.sitiosFavotitosSeleccionados.map((sitio:any) => sitio.id);
+      this.sitiosFavoritosNoSeleccionados = this.sitiosFavoritosNoSeleccionados.filter(sitioF => !idsSitiosSeleccionados.includes(sitioF.id))
+    } 
+    else {
+      let sitioRutaSeleccionado = { id:idSitio, nombre:nombreSitio };
+      this.sitiosFavoritosNoSeleccionados.push(sitioRutaSeleccionado);
+      let idsSitiosNoSeleccionados = this.sitiosFavoritosNoSeleccionados.map((sitio:any) => sitio.id);
+      this.sitiosFavotitosSeleccionados = this.sitiosFavotitosSeleccionados.filter(sitioF => !idsSitiosNoSeleccionados.includes(sitioF.id))
+    }
+
+    console.log(this.sitiosFavotitosSeleccionados)
+    console.log(this.sitiosFavoritosNoSeleccionados)
   }
 
   // ELIMINAR RUTA
