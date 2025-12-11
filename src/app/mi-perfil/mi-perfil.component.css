@@ -8,9 +8,20 @@
   
 }
 
+
+
 @media (max-width: 932px) {
   .menu{
     margin-left: 30px;
     
 }
+}
+
+@media (max-width: 768px) {
+  .LandbotLivechat {
+    bottom: 10px;
+    right: 10px;
+    width: 90%;       /* ocupa casi todo el ancho */
+    max-width: none;  /* elimina límite de ancho */
+  }
 }
