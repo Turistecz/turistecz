@@ -60,13 +60,13 @@ export class CustomRouteComponent {
   // Cuando el usuario selecciona un checkbox, se añade cada "sitioRutaSeleccionado" a "sitiosRutaSeleccioandos[]"
   onCheckboxChange(event: any, idSitio: number, nombreSitio:string) {
     if (event.target.checked) {
-      this.sitioRutaSeleccionado = {
-        id_sitio:idSitio,
-        nombre:nombreSitio,
-        orden:0
-      }
+      this.sitioRutaSeleccionado = { id_sitio:idSitio, nombre:nombreSitio, orden:0 }
       this.sitiosRutaSeleccioandos.push(this.sitioRutaSeleccionado)
-    } 
+    } else {
+      this.sitioRutaSeleccionado = { id_sitio:idSitio, nombre:nombreSitio, orden:0 }
+      let eliminarSitio = this.sitiosRutaSeleccioandos.filter(sitio => sitio.id_sitio !== this.sitioRutaSeleccionado.id_sitio)
+      this.sitiosRutaSeleccioandos = eliminarSitio;
+    }
   }
   
   // Funciones para que el usuario pueda ordenar la lista de sitios seleccionados (Instalar package: ng add @angular/cdk)
