@@ -89,9 +89,15 @@ export class CustomRouteComponent {
       next: (response) => {
         this.ultimaRutaCreada = response;
         let idRuta:number = this.ultimaRutaCreada.id;
-        this.sitiosRutaOrdenados.forEach((sitio) => {
-          this.enviarDatosSitiosRutaUsuario(idRuta, sitio.id_sitio, sitio.orden)
-        })
+        if(this.sitiosRutaOrdenados.length >0){
+          this.sitiosRutaOrdenados.forEach((sitio) => {
+            this.enviarDatosSitiosRutaUsuario(idRuta, sitio.id_sitio, sitio.orden)
+          })
+        } else {
+          this.sitiosRutaSeleccioandos.forEach(sitio=>{
+            this.enviarDatosSitiosRutaUsuario(idRuta, sitio.id_sitio, sitio.orden)
+          })
+        }
       },
       error: (error) => {
         console.error('Error al enviar la ruta.', error);
