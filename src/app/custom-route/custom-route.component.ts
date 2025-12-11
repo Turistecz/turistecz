@@ -34,8 +34,9 @@ export class CustomRouteComponent {
   idRutaEliminar:number=0; // Copia id ruta para eliminarla
 
   editarRuta = { id:0, titulo:'', descripcion:''}; // Copia datos de la ruta seleccionada para guardarlos como valor por defecto en el formulario de edicion
-  sitiosFavotitosSeleccionados:SitioFavoritosUsuario[]=[];
-  sitiosFavoritosNoSeleccionados:SitioFavoritosUsuario[]=[];
+  sitiosFavotitosSeleccionados:SitioFavoritosUsuario[]=[]; // Guardar sitios previamente seleccionados por el usuario al crear la ruta
+  sitiosFavoritosNoSeleccionados:SitioFavoritosUsuario[]=[]; // Guardar sitios previamente no seleccionados por el usuario al crear la ruta
+  sitiosRutaReordenados:SitioRutaSeleccionado[]=[]; // Guardar sitios que el usuario ha reordenado al editar la ruta
 
   constructor(private customRouteService: CustomRouteService, private formB: FormBuilder, private favoritosService: FavoritosService){
     this.formularioNuevaRuta = this.formB.group({
@@ -177,6 +178,7 @@ export class CustomRouteComponent {
   enviarEdicionRuta(){
     let titulo = this.formularioEditarRuta.value.titulo_ruta;
     let descripcion = this.formularioEditarRuta.value.descripcion_ruta;
+    
     if(titulo !== '' && descripcion !==''){
       this.editarTitulo(titulo);
     } else if(titulo !== ''){
@@ -184,8 +186,23 @@ export class CustomRouteComponent {
     } else if(descripcion !== ''){
       this.editarDescripcion(descripcion);
     } 
+    
+    if(this.sitiosRutaReordenados.length>0){
+      let idRuta = this.editarRuta.id;
+      // eliminar sitios
+      let sitiosEliminar = this.sitiosRuta.filter(sitio => sitio.idRuta === idRuta)
+      console.log(sitiosEliminar)
+      sitiosEliminar.forEach(sitioEliminar => {
+        this.eliminarSitios(sitioEliminar.id);
+      })
+      // enviar sitios reordenados
+      this.sitiosRutaReordenados.forEach((sitio) => {
+        this.enviarDatosSitiosRutaUsuario(idRuta, sitio.id_sitio, sitio.orden)
+      })
+    }
   }
 
+  
   editarTitulo(titulo:string){
     this.customRouteService.putTituloRutaUsuario(this.editarRuta.id, titulo).subscribe({
         next: (response) => {
@@ -211,8 +228,7 @@ export class CustomRouteComponent {
       }
     })
   }
-
-  // TERMINAR
+  
   sitiosSeleccionadosYSitiosNoSeleccionados(){
     let sitioSeleccionado:SitioFavoritosUsuario = { id:0, nombre:'' }
     this.sitiosFavotitosSeleccionados = this.sitiosRuta.filter(sitioR => (sitioR.idRuta === this.editarRuta.id))
@@ -234,9 +250,19 @@ export class CustomRouteComponent {
       let idsSitiosNoSeleccionados = this.sitiosFavoritosNoSeleccionados.map((sitio:any) => sitio.id);
       this.sitiosFavotitosSeleccionados = this.sitiosFavotitosSeleccionados.filter(sitioF => !idsSitiosNoSeleccionados.includes(sitioF.id))
     }
+  }
 
-    console.log(this.sitiosFavotitosSeleccionados)
-    console.log(this.sitiosFavoritosNoSeleccionados)
+  dropEditado(event:CdkDragDrop<string[]>) {
+    moveItemInArray(this.sitiosFavotitosSeleccionados, event.previousIndex, event.currentIndex);
+    this.reordenarSitios()
+  }
+
+  reordenarSitios(){
+    this.sitiosRutaReordenados = this.sitiosFavotitosSeleccionados.map((sitio, index)=>({
+      id_sitio: sitio.id,
+      nombre: sitio.nombre,
+      orden: index +1
+    }))
   }
 
   // ELIMINAR RUTA
@@ -253,6 +279,19 @@ export class CustomRouteComponent {
         console.error('Error al eliminar la ruta.', error);
       }
     })
+  }
+
+  // ELIMINAR SITIOS
+  eliminarSitios(id:number){
+    this.customRouteService.deleteSitioRutaUsuario(id).subscribe({
+      next: (response) => {
+        // this.recargarPagina();
+      },
+      error: (error) => {
+        console.error('Error al eliminar el sitio de la ruta.', error);
+      }
+    })
+
   }
 
   ngOnInit(){

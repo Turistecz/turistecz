@@ -1,5 +1,7 @@
 package org.turistecz.turisteczbackend.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.turistecz.turisteczbackend.model.Favoritos;
@@ -42,5 +44,12 @@ public class SitiosRutaUsuarioService {
         sitioRU.setFavoritos(favorito);
         sitioRU.setOrden(orden);
         return sitioRutaUsuarioRepository.save(sitioRU);
+    }
+
+    public SitiosRutaUsuario borrarSitios(Integer id){
+        SitiosRutaUsuario sitioExistente = sitioRutaUsuarioRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Sitio Ruta no encontrado"));
+        sitioRutaUsuarioRepository.delete(sitioExistente);
+        return sitioExistente;
     }
 }

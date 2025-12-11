@@ -50,7 +50,7 @@
             </div> 
             <!-- Ordenar sitios -->
             <label class="form-label mt-3">Cambiar orden sitios</label>
-            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+            <div cdkDropList class="example-list" (cdkDropListDropped)="dropEditado($event)">
             <ol class="mb-3 list-group list-group-numbered" >
                 <li *ngFor="let sitio of sitiosFavotitosSeleccionados" cdkDrag class="example-box p-4 list-group-item">
                   {{sitio.nombre}}

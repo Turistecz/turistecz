@@ -30,6 +30,7 @@ export class CustomRouteService {
   private deleteRutaURL = 'http://localhost:8080/auth/eliminarRutaUsuario?id_ruta=';
   private editTituloRutaURL = 'http://localhost:8080/auth/editarTituloRutaUsuario';
   private editDescripcionRutaURL = 'http://localhost:8080/auth/editarDescripcionRutaUsuario';
+  private deleteSitiosRutaURL = 'http://localhost:8080/auth/eliminarSitiosRuta?id=';
 
   /* ----- MÉTODOS RUTA USUARIO ----- */
   postNuevaRutaUsuario(usuario:number, titulo: string, descripcion:string): Observable<any> {
@@ -128,6 +129,17 @@ export class CustomRouteService {
         .pipe(catchError(this.handleError));
     } else {
       return this.http.get<SitioRutaUsuarioCreada[]>(this.allSitiosRutaURL)
+        .pipe(catchError(this.handleError));
+    }
+  }
+
+  deleteSitioRutaUsuario(id:number){
+    const headers = this.getAuthHeaders();
+    if (headers) {
+      return this.http.delete(this.deleteSitiosRutaURL + id, { headers })
+        .pipe(catchError(this.handleError));
+    } else {
+      return this.http.delete(this.deleteSitiosRutaURL + id)
         .pipe(catchError(this.handleError));
     }
   }
