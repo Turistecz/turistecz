@@ -346,8 +346,6 @@ export class FilterComponent {
     } else if (this.places.length > 0){
       this.applyPlaceFilters();
     }
-      
-    // this.applyMapFilters();
   }
 
   applyEventFilters() {
@@ -405,20 +403,6 @@ export class FilterComponent {
   //Sirve la misma funcion para el componente map-page
   applyPlaceFilters(){
     let filteredPlaces = [...this.places];
-    // const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap)
-    // .filter(cat => this.selectedPlacesCategoriesMap[cat]);
-    // console.log("selectedPlacesCategories: ", selectedPlacesCategories)
-
-    // if (selectedPlacesCategories.length > 0) {
-    //   filteredPlaces = filteredPlaces.filter(place => {
-    //     const texto = place.nombre.toLowerCase();
-    //     return selectedPlacesCategories.some(cat =>
-    //       this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
-    //     );
-    //   });
-    // } else{
-    //    console.log("selectedPlaceCategories has nothing inside");
-    // }
 
     const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
@@ -446,20 +430,6 @@ export class FilterComponent {
 
 applyMapFilters(){
     let filteredPlaces = [...this.datos];
-    // const selectedMapCategories = Object.keys(this.selectedMapCategoriesMap)
-    // .filter(cat => this.selectedMapCategoriesMap[cat]);
-    //   console.log( "categorias seleccionadas", selectedMapCategories);
-
-    // if (selectedMapCategories.length > 0) {
-    //   filteredPlaces = filteredPlaces.filter(dato => {
-    //     const texto = dato.nombre.toLowerCase();
-    //     return selectedMapCategories.some(cat =>
-    //       this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
-    //     );
-    //   });
-    // }else {
-    //   console.log("selectedMapCategories has nothing inside")
-    // }
 
     const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
@@ -584,8 +554,5 @@ applyMapFilters(){
     alert("Inicia sesión si quieres guardar los filtros.");
   }
 
-  // getDifferentColor(): boolean {
-  //   return Math.random() >= 0.5;
-  // }
 }
   

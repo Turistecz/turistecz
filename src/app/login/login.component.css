@@ -3,27 +3,10 @@
   background-size:cover;
 }
 
-/* .login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
-
 .login-card {
-  /* width: 100%; */
   max-width: 500px;
-  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); */
-  /* border: none; */
-  /* border-radius: 10px; */
-  /* padding: 20px; */
-  /* background-color: #ffffff; */
 }
 
 .letra{
   font-family: 'Inclusive', sans-serif;
 }
-
-/* WOP
-.p-3{
-  padding: 3rem
-}*/
