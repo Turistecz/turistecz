@@ -184,7 +184,8 @@ export class CustomRouteComponent {
   enviarEdicionRuta(){
     let titulo = this.formularioEditarRuta.value.titulo_ruta;
     let descripcion = this.formularioEditarRuta.value.descripcion_ruta;
-    
+    let idRuta = this.editarRuta.id;
+
     if(titulo !== '' && descripcion !==''){
       this.editarTitulo(titulo);
     } else if(titulo !== ''){
@@ -194,16 +195,22 @@ export class CustomRouteComponent {
     } 
     
     if(this.sitiosRutaReordenados.length>0){
-      let idRuta = this.editarRuta.id;
       // eliminar sitios
       let sitiosEliminar = this.sitiosRuta.filter(sitio => sitio.idRuta === idRuta)
-      console.log(sitiosEliminar)
       sitiosEliminar.forEach(sitioEliminar => {
         this.eliminarSitios(sitioEliminar.id);
       })
       // enviar sitios reordenados
       this.sitiosRutaReordenados.forEach((sitio) => {
         this.enviarDatosSitiosRutaUsuario(idRuta, sitio.id_sitio, sitio.orden)
+      })
+    } else {
+      let sitiosEliminar = this.sitiosRuta.filter(sitio => sitio.idRuta === idRuta)
+      sitiosEliminar.forEach(sitioEliminar => {
+        this.eliminarSitios(sitioEliminar.id);
+      })
+      this.sitiosFavotitosSeleccionados.forEach(sitio=>{
+        this.enviarDatosSitiosRutaUsuario(idRuta, sitio.id, 0)
       })
     }
   }
