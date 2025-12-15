@@ -6,3 +6,17 @@
 p, button{
   font-family: "inclusive", sans-serif;  
 }
+
+.card-title {
+  display: -webkit-box;
+   -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+   overflow: hidden;
+}
+
+.address {
+   display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

@@ -6,11 +6,11 @@
   </div>
 
   <!--  navbar -->
-  <div class="container-fluid h4 mb-0 position-relative d-flex align-items-center w-100" id="menu">
+  <div class="container-fluid h4 mb-0 position-relative d-flex align-items-center" id="menu">
     
     <!-- Logo -->
     <a class="navbar-brand me-0 " href="#">
-      <img src="turistecz_logo.png" alt="Logo">
+      <img src="turistecz_logo.png" class="w-100 object-fit-cover" alt="Logo" >
     </a>
 
     <!-- Bloque derecho (login + hamburguesa en móviles) PEQUEÑO -->
@@ -18,7 +18,7 @@
       <div *ngIf="!logueado; else logueadoTemplate">
         <a class="nav-link active" href="/login">
           <!--icono-->
-          <svg title="Acceso/Login" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="25" height="30">
+          <svg title="Acceso/Login" class="imgLogin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" >
             <defs>
               <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#184591"/>
@@ -45,14 +45,14 @@
         </div>
       </ng-template>
     </div>
-
+    
     <!-- Botón hamburguesa a la derecha -->
-    <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button class="navbar-toggler ms-2 btn-mobile" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Menú centrado horizontal -->
-    <div class="collapse navbar-collapse justify-content-center fw-bold" id="navbarNav">
+    <div class="collapse navbar-collapse justify-content-center pt-4 fw-bold" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link active" href="sitios">Sitios</a></li>
         <li class="nav-item"><a class="nav-link active" href="rutas">Rutas</a></li>
@@ -67,7 +67,7 @@
       <div *ngIf="!logueado; else logueadoTemplate">
                   <!--Div para el icono de Login -->
           <div class="d-none d-lg-flex align-items-center justify-content-center">
-            <svg class="login-icon pt-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 992 1024" width="100" height="100" role="img" aria-label="Acceso/Login">
+            <svg class="login-icon mt-3 pt-3 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 992 1024" width="82" height="93"  role="img" aria-label="Acceso/Login">
               <defs>
                 <linearGradient id="loginGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stop-color="#184591"/>

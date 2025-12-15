@@ -15,6 +15,15 @@ Permite:
 
 - Insertar nuevos sitios en la base de datos.
 
+En xampp, ir a config, dentro de config --> "service and port settings"
+
+dentro clickamos MySql y cambiamos lo que hay en main port por 3307.
+
+Ahora vamos a localhostphpmyadmin, ahi creamos una nueva base de datos en la pestaña "SQL", 
+
+copiamos el script de creación que se encuentra en la carpeta de adminturistecz.
+
+
 ⚙️ Configuración Inicial en XAMPP
 1. Arrancar Apache y MySQL
 
@@ -37,6 +46,9 @@ DocumentRoot "C:/Users/TuUsuario/Documents/proyectos/adminturistecz"
 Guarda los cambios y reinicia Apache desde XAMPP.
 
 ⚙️ Configuración del Puerto de MySQL
+
+Recordar que, desde el panel de administración hay que parar el mysql80 mientras cambiamos los puertos
+y volver a arrancarlo antes de volver a acceder al panel de adminstración.
 
 Por defecto, MySQL en XAMPP utiliza el puerto 3306.
 Si ya está siendo usado (por ejemplo, por MySQL Workbench), puede generar conflictos.
