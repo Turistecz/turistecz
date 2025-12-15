@@ -420,6 +420,7 @@ export class FilterComponent {
     // } else{
     //    console.log("selectedPlaceCategories has nothing inside");
     // }
+    
     const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
     if (selectedAccessibilityKeys.length > 0) {
@@ -437,7 +438,6 @@ export class FilterComponent {
       );
     }
     this.noResultsPlaces = filteredPlaces.length === 0;
-
     this.filteredMonuments.emit(filteredPlaces);
      this.noResultsPlacesEvent.emit(this.noResultsPlaces);
   };

@@ -101,8 +101,11 @@ export class PlaceCardListComponent {
   }
 
   updatePlaces(filteredPlaces: cardsHome[]) {
-    this.sortedCards = filteredPlaces;
+    this.sortedCards = [...filteredPlaces];
+    this.noResultsPlaces = this.sortedCards.length === 0;
+    // this.sortedCards = [...filteredPlaces];
     this.page = 1; // Reiniciar a la primera página
+    this.updatePlaces;
   }
 
 };
