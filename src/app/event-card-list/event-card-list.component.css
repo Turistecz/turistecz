@@ -20,6 +20,7 @@ h2{
 
 /* RESPONSIVE: para pantallas pequeñas */
 @media (max-width: 768px) {
+  
   .buscador-top {
     flex-direction: column;
     align-items: stretch;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -11,9 +11,10 @@ export class TemaService {
 
   constructor(private http: HttpClient) {
     console.log("antes de la llamada cargarTema");
+    
     this.cargarTema();
   }
-  
+
  cargarTema() {
   this.http.get<any>(this.apiUrl).subscribe(
     res => {
@@ -24,7 +25,7 @@ export class TemaService {
         console.log('Tema aplicado:', tema);
       }
     },
-    err => console.error('Error cargando tema:', err)
+    err => console.warn('Error cargando tema:', err)
   );
 }
 

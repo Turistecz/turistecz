@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 import { FilterService } from '../services/filter.service';
 import { CleanFilter } from '../models/filter.model';
@@ -18,7 +19,7 @@ export class LoginComponent {
   email: string = '';
   contrasena: string = '';
 
-  constructor(private authService: AuthService, private router: Router, private apiFilterService: FilterService) {}
+  constructor(private authService: AuthService, private loginService: LoginService, private router: Router, private apiFilterService: FilterService) {}
 
   isValidEmail(email: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -33,7 +34,8 @@ export class LoginComponent {
     this.authService.login(this.email, this.contrasena).subscribe({
       next: res => {
         localStorage.setItem('accessToken', res.accessToken);
-        localStorage.setItem('usuario', JSON.stringify(res.usuario));
+        // Llamar a loginService.setUsuario para actualizar el observable y notificar al header
+        this.loginService.setUsuario(res.usuario);
         const usuarioStr = localStorage.getItem('usuario');
         if (usuarioStr){
           const usuario = JSON.parse(usuarioStr);

@@ -13,9 +13,9 @@ import { EventService } from '../services/event.service';
 
 export class CalendarComponent  {
 
-constructor(private eventService: EventService, ) {}
+  constructor(private eventService: EventService, ) {}
 
-@ViewChild('calendar', { static: true }) public calendar!: IgxCalendarComponent;
+  @ViewChild('calendar', { static: true }) public calendar!: IgxCalendarComponent;
 
   ev: CalendarTest[] = [];
   eventsOfDay: CalendarTest[] = [];
@@ -23,32 +23,32 @@ constructor(private eventService: EventService, ) {}
 
   onDateSelected(date: Date | Date[]) {
     this.selectedDate = date instanceof Date ? date : date[0];
-    this.filterEventsForDate();
+    this.filterEventsForDate(this.selectedDate);
   }
 
-private filterEventsForDate() {
-  if (!this.selectedDate) {
-    this.eventsOfDay = [];
-    return;
+  private filterEventsForDate(date: Date) {
+    if (!this.selectedDate) {
+      this.eventsOfDay = [];
+      return;
+    }
+
+    const selected = new Date(date);
+    const selectedMonth = selected.getMonth();
+    const selectedYear = selected.getFullYear();
+
+    this.eventsOfDay = this.ev.filter(ev => {
+      const start = new Date(ev.startDate);
+      const end = ev.endDate ? new Date(ev.endDate) : start;
+
+      const isSameDay = selected >= start && selected <= end;
+      
+      const isValidMonth =
+        start.getFullYear() > selectedYear ||
+        (start.getFullYear() === selectedYear && start.getMonth() >= selectedMonth);
+      
+      return isSameDay && isValidMonth;
+    });
   }
-
-  const selected = new Date(this.selectedDate);
-  const selectedMonth = selected.getMonth();
-  const selectedYear = selected.getFullYear();
-
-  this.eventsOfDay = this.ev.filter(ev => {
-    const start = new Date(ev.startDate);
-    const end = ev.endDate ? new Date(ev.endDate) : start;
-
-    const isSameDay = selected >= start && selected <= end;
-    
-    const isValidMonth =
-      start.getFullYear() > selectedYear ||
-      (start.getFullYear() === selectedYear && start.getMonth() >= selectedMonth);
-
-    return isSameDay && isValidMonth;
-  });
-}
 
   private formatDateToDDMMYYYY(date: Date): string {
     const day = ('0' + date.getDate()).slice(-2);
@@ -57,11 +57,12 @@ private filterEventsForDate() {
     return `${day}-${month}-${year}`;
   }
 
-ngOnInit(): void {
-    const today = this.formatDateToDDMMYYYY(new Date());
+  ngOnInit(): void {
+    const currentDay = new Date();
+    const today = this.formatDateToDDMMYYYY(currentDay);
     this.eventService.getEventstest(today).subscribe(data => {
       this.ev = data;
-      this.filterEventsForDate();
+      this.onDateSelected(currentDay);
     });
   }
 

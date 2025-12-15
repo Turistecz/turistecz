@@ -10,7 +10,7 @@
     
     <!-- Logo -->
     <a class="navbar-brand me-0 " href="#">
-      <img src="turistecz_logo.png" class="w-100 object-fit-cover" alt="Logo" >
+      <img src="turistecz_logo.png" class="w-100 object-fit-cover" class="w-100 object-fit-cover" alt="Logo"  >
     </a>
 
     <!-- Bloque derecho (login + hamburguesa en móviles) PEQUEÑO -->
@@ -18,7 +18,7 @@
       <div *ngIf="!logueado; else logueadoTemplate">
         <a class="nav-link active" href="/login">
           <!--icono-->
-          <svg title="Acceso/Login" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="25" height="30">
+          <svg title="Acceso/Login" class="imgLogin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" >
             <defs>
               <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stop-color="#184591"/>
@@ -46,12 +46,12 @@
     </div>
     
     <!-- Botón hamburguesa a la derecha -->
-    <button class="navbar-toggler ms-2 btn-mobile" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button class="navbar-toggler ms-2 btn-mobile btn-mobile" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Menú centrado horizontal -->
-    <div class="collapse navbar-collapse justify-content-center pt-4 fw-bold" id="navbarNav">
+    <div class="collapse navbar-collapse justify-content-center pt-4 pt-4 fw-bold" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link active" href="sitios">Sitios</a></li>
         <li class="nav-item"><a class="nav-link active" href="rutas">Rutas</a></li>
