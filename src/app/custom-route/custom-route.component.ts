@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomRouteService } from '../services/custom-route.service';
 import { CommonModule } from '@angular/common';
 import { FavoritosService } from '../services/favoritos.service';
@@ -14,8 +14,7 @@ import { throttleTime } from 'rxjs';
   styleUrl: './custom-route.component.css'
 })
 export class CustomRouteComponent {
-  formularioNuevaRuta:any; // Formulario para crear una nueva ruta
-  formularioEditarRuta:any; // Formulario para editar una ruta existente
+  formularioRuta:FormGroup; 
 
   sitiosRutaSeleccioandos:SitioRutaSeleccionado[]=[]; // Todos los sitios seleccionados por el usuario
   sitioRutaSeleccionado:SitioRutaSeleccionado = { id_ruta:0, id_sitio:0, nombre:'', orden:0 }; // Contenido de cada sitio seleccionado por el usuario
@@ -39,21 +38,17 @@ export class CustomRouteComponent {
   sitiosRutaReordenados:SitioRutaSeleccionado[]=[]; // Guardar sitios que el usuario ha reordenado al editar la ruta
 
   constructor(private customRouteService: CustomRouteService, private formB: FormBuilder, private favoritosService: FavoritosService){
-    this.formularioNuevaRuta = this.formB.group({
+    this.formularioRuta = this.formB.group({
       titulo_ruta: ['', Validators.required],
       descripcion_ruta: ['']
     });
-    this.formularioEditarRuta = this.formB.group({
-      titulo_ruta: ['', Validators.required],
-      descripcion_ruta: ['']
-    })
   } 
 
   // DATOS INTRODUCIDOS POR EL USUARIO EN EL FORMULARIO
   // Recuperar datos introducidos por el usuario despues de hacer click en el botón "guardar"
   onSubmit() {
-    const tituloRuta = this.formularioNuevaRuta.value.titulo_ruta;
-    const descripcionRuta = this.formularioNuevaRuta.value.descripcion_ruta;
+    const tituloRuta = this.formularioRuta.value.titulo_ruta;
+    const descripcionRuta = this.formularioRuta.value.descripcion_ruta;
     this.enviarDatosRutaUsuario(this.usuario.id, tituloRuta, descripcionRuta);
   }
 
@@ -182,8 +177,8 @@ export class CustomRouteComponent {
   }
 
   enviarEdicionRuta(){
-    let titulo = this.formularioEditarRuta.value.titulo_ruta;
-    let descripcion = this.formularioEditarRuta.value.descripcion_ruta;
+    let titulo = this.formularioRuta.value.titulo_ruta;
+    let descripcion = this.formularioRuta.value.descripcion_ruta;
     let idRuta = this.editarRuta.id;
 
     if(titulo !== '' && descripcion !==''){
@@ -219,7 +214,7 @@ export class CustomRouteComponent {
   editarTitulo(titulo:string){
     this.customRouteService.putTituloRutaUsuario(this.editarRuta.id, titulo).subscribe({
         next: (response) => {
-          let descripcion = this.formularioEditarRuta.value.descripcion_ruta;
+          let descripcion = this.formularioRuta.value.descripcion_ruta;
           if(descripcion !== ''){
             this.editarDescripcion(descripcion)
           }

@@ -31,7 +31,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form [formGroup]="formularioEditarRuta">
+          <form [formGroup]="formularioRuta">
             <!-- Modificar titulo ruta -->
             <label for="titulo_ruta" class="form-label">Título de la Ruta</label>
             <input type="text" id="titulo_ruta" class="form-control" formControlName="titulo_ruta" [value]="this.editarRuta.titulo">
@@ -92,12 +92,12 @@
   </button>
   <div class="collapse" id="collapseFormNewRoute">
     <div class="card card-body mb-3">
-      <form [formGroup]="formularioNuevaRuta" (ngSubmit)="onSubmit()">
+      <form [formGroup]="formularioRuta" (ngSubmit)="onSubmit()">
         <!-- Imagen ruta -->
         <!-- Titulo ruta -->
         <label for="titulo_ruta" class="form-label">Título de la Ruta</label>
         <input type="text" id="titulo_ruta" class="form-control" formControlName="titulo_ruta">
-        <div *ngIf="formularioNuevaRuta.get('titulo_ruta')?.invalid && formularioNuevaRuta.get('titulo_ruta')?.touched">
+        <div *ngIf="formularioRuta.get('titulo_ruta')?.invalid && formularioRuta.get('titulo_ruta')?.touched">
           El titulo es obligatorio
         </div>
         <!-- Descripcion ruta -->
@@ -120,7 +120,7 @@
         </div>
         <!-- Botones -->
         <button type="reset" class="btn btn-primary mt-3 me-3" (click)="recargarPagina()">Cancelar</button>
-        <button type="submit" [disabled]="formularioNuevaRuta.invalid" class="btn btn-primary mt-3">Guardar</button>
+        <button type="submit" [disabled]="formularioRuta.invalid" class="btn btn-primary mt-3">Guardar</button>
       </form>
     </div>  
   </div>
