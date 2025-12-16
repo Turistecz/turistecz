@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { CrearRuta, RutaCreada, SitioRutaSeleccionado, SitioRutaUsuarioCreada } from '../models/custom-route.model';
+import { CrearRuta, MostrarRuta, MostrarSitioRuta, SitioRutaSeleccionado } from '../models/custom-route.model';
 
 @Injectable({
   providedIn: 'root'
@@ -54,10 +54,10 @@ export class CustomRouteService {
   getRutasUsuarioExistentes(id:number){
     const headers = this.getAuthHeaders();
     if (headers) {
-      return this.http.get<RutaCreada[]>(this.allRoutesURL + id, { headers })
+      return this.http.get<MostrarRuta[]>(this.allRoutesURL + id, { headers })
         .pipe(catchError(this.handleError));
     } else {
-      return this.http.get<RutaCreada[]>(this.allRoutesURL + id)
+      return this.http.get<MostrarRuta[]>(this.allRoutesURL + id)
         .pipe(catchError(this.handleError));
     }
   }
@@ -125,10 +125,10 @@ export class CustomRouteService {
   getSitiosRutaUsaurio(){
     const headers = this.getAuthHeaders();
     if (headers) {
-      return this.http.get<SitioRutaUsuarioCreada[]>(this.allSitiosRutaURL, { headers })
+      return this.http.get<MostrarSitioRuta[]>(this.allSitiosRutaURL, { headers })
         .pipe(catchError(this.handleError));
     } else {
-      return this.http.get<SitioRutaUsuarioCreada[]>(this.allSitiosRutaURL)
+      return this.http.get<MostrarSitioRuta[]>(this.allSitiosRutaURL)
         .pipe(catchError(this.handleError));
     }
   }

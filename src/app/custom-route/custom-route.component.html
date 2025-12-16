@@ -2,17 +2,16 @@
   <!-- MOSTRAR RUTAS DEL USUARIO -->
   <h2>Mis rutas</h2>
   <!-- Cuando el usuario no ha creado ninguna ruta -->
-  <p *ngIf="datoRutasCreadas.id===0">Todavía no has creado ninguna ruta ¡Anímate a crear la primera!</p>
+  <p *ngIf="datoMostrarRuta.id===0">Todavía no has creado ninguna ruta ¡Anímate a crear la primera!</p>
   <!-- Cuando el usuario ha creado rutas -->
   <div class="row mb-3">
-    <div class="col-3" *ngFor="let dato of datosRutasCreadas">
+    <div class="col-3" *ngFor="let dato of datosMostrarRutas">
       <div class="card p-3" >
-        <!-- Imagen ruta -->
         <p> Titulo: {{ dato.titulo_ruta }}</p>
         <p> Descripcion: {{ dato.descripcion_ruta }}</p>
         <p> Sitios de la ruta:</p> 
         <ol>
-          <div *ngFor="let sitioRuta of sitiosRuta">
+          <div *ngFor="let sitioRuta of mostrarSitiosRuta">
             <li *ngIf="dato.id===sitioRuta.idRuta">{{sitioRuta.nombre}}</li>
           </div>
         </ol>

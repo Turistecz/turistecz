@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { CustomRouteService } from '../services/custom-route.service';
 import { CommonModule } from '@angular/common';
 import { FavoritosService } from '../services/favoritos.service';
-import { CrearRuta, RutaCreada, SitioFavoritosUsuario, SitioRutaSeleccionado, SitioRutaUsuarioCreada, User} from '../models/custom-route.model';
+import { CrearRuta, MostrarRuta, MostrarSitioRuta, SitioFavoritosUsuario, SitioRutaSeleccionado, User} from '../models/custom-route.model';
 import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { throttleTime } from 'rxjs';
 
@@ -28,13 +28,12 @@ export class CustomRouteComponent {
   sitioRutaSeleccionado:SitioRutaSeleccionado = { id_ruta:0, id_sitio:0, nombre:'', orden:0 }; // Un sitio seleccionado para una ruta concreta
   sitiosRutaOrdenados:SitioRutaSeleccionado[]=[]; // Sitios previamente seleccionados ordenados por el usuario
 
-  // MOSTRAR
+  // MOSTRAR RUTAS CREADAS Y SITIOS DE LA RUTA
+  datosMostrarRutas:MostrarRuta[]=[]; // Todas las rutas que el usuario ha creado 
+  datoMostrarRuta:MostrarRuta = { id:0, titulo_ruta:'',descripcion_ruta:'' } // Estructura de una Ruta creada por el usuario
+  mostrarSitiosRuta:MostrarSitioRuta[]=[]; // Mostrar sitios de una ruta concreta existente
 
-  datoRutasCreadas:RutaCreada={ id:0, titulo_ruta:'',descripcion_ruta:'' } // Estructura de una Ruta creada por el usuario
-  datosRutasCreadas:RutaCreada[]=[]; // Todas las rutas que el usuario ha creado 
-  ultimaRutaCreada!:RutaCreada; // Última ruta creada por el usuario
-  sitiosRuta:SitioRutaUsuarioCreada[]=[]; // Mostrar sitios de una ruta concreta existente
-
+  //////////
   idRutaEliminar:number=0; // Copia id ruta para eliminarla
 
   editarRuta = { id:0, titulo:'', descripcion:''}; // Copia datos de la ruta seleccionada para guardarlos como valor por defecto en el formulario de edicion
@@ -76,8 +75,8 @@ export class CustomRouteComponent {
       this.datosCrearRuta.descripcion_ruta
     ).subscribe({
       next: (response) => {
-        this.ultimaRutaCreada = response;
-        let idRuta:number = this.ultimaRutaCreada.id;
+        this.datoMostrarRuta = response;
+        let idRuta = this.datoMostrarRuta.id;
         if(this.sitiosRutaOrdenados.length > 0){
           this.sitiosRutaOrdenados.forEach((sitio) => {
             this.enviarDatosSitiosRutaUsuario(idRuta, sitio.id_sitio, sitio.orden)
@@ -133,12 +132,12 @@ export class CustomRouteComponent {
     this.customRouteService.getRutasUsuarioExistentes(this.usuario.id).subscribe({
       next: (response) => {
         response.map(resp=>{
-          this.datoRutasCreadas = {
+          this.datoMostrarRuta = {
             id:resp.id,
             titulo_ruta:resp.titulo_ruta,
             descripcion_ruta:resp.descripcion_ruta
           }
-          this.datosRutasCreadas.push(this.datoRutasCreadas)
+          this.datosMostrarRutas.push(this.datoMostrarRuta)
         })
       },
       error: (error) => {
@@ -147,11 +146,10 @@ export class CustomRouteComponent {
     });
   }
 
-  // Muestra todos los sitios que el usuario a seleccionado para cada ruta
   mostrarSitiosRutaUsuario(){
     this.customRouteService.getSitiosRutaUsaurio().subscribe({
       next: (response) => {
-        this.sitiosRuta = response;
+        this.mostrarSitiosRuta = response;
       },
       error: (error) => {
         console.error('Error al obtener los sitios de la ruta del usuario.', error);
@@ -186,7 +184,7 @@ export class CustomRouteComponent {
     
     if(this.sitiosRutaReordenados.length>0){
       // eliminar sitios
-      let sitiosEliminar = this.sitiosRuta.filter(sitio => sitio.idRuta === idRuta)
+      let sitiosEliminar = this.mostrarSitiosRuta.filter(sitio => sitio.idRuta === idRuta)
       sitiosEliminar.forEach(sitioEliminar => {
         this.eliminarSitios(sitioEliminar.id);
       })
@@ -195,7 +193,7 @@ export class CustomRouteComponent {
         this.enviarDatosSitiosRutaUsuario(idRuta, sitio.id_sitio, sitio.orden)
       })
     } else {
-      let sitiosEliminar = this.sitiosRuta.filter(sitio => sitio.idRuta === idRuta)
+      let sitiosEliminar = this.mostrarSitiosRuta.filter(sitio => sitio.idRuta === idRuta)
       sitiosEliminar.forEach(sitioEliminar => {
         this.eliminarSitios(sitioEliminar.id);
       })
@@ -234,7 +232,7 @@ export class CustomRouteComponent {
   
   sitiosSeleccionadosYSitiosNoSeleccionados(){
     let sitioSeleccionado:SitioFavoritosUsuario = { id:0, nombre:'' }
-    this.sitiosFavotitosSeleccionados = this.sitiosRuta.filter(sitioR => (sitioR.idRuta === this.editarRuta.id))
+    this.sitiosFavotitosSeleccionados = this.mostrarSitiosRuta.filter(sitioR => (sitioR.idRuta === this.editarRuta.id))
     .map(sitio => sitioSeleccionado = {id:sitio.idSitio, nombre:sitio.nombre})
     let idsSitiosSeleccionados = this.sitiosFavotitosSeleccionados.map((sitio:any) => sitio.id);
     this.sitiosFavoritosNoSeleccionados = this.sitiosFavoritosUsuario.filter(sitioF => !idsSitiosSeleccionados.includes(sitioF.id));

@@ -1,5 +1,5 @@
 // CREAR NUEVA RUTA + SELECCIONAR Y ORDENAR (O NO) SITIOS RUTA
-export interface User{
+export interface User {
   id:number
 }
 
@@ -21,18 +21,18 @@ export interface SitioRutaSeleccionado {
   orden:number
 }
 
-///////////////
+// MOSTRAR RUTAS CREADAS Y SITIOS DE LA RUTA
 
-export interface RutaCreada{
+export interface MostrarRuta {
   id:number,
   titulo_ruta:string,
   descripcion_ruta:string,
-  imagen_destacada?:string
 }
 
-export interface SitioRutaUsuarioCreada{
+export interface MostrarSitioRuta {
   id:number,
   idRuta:number,
   idSitio:number,
-  nombre:string
+  nombre:string,
+  orden:number
 }
