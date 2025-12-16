@@ -34,11 +34,12 @@
         </a>
       </div>
       <ng-template #logueadoTemplate>
-        <div class="d-flex align-items-center">            
-            <a class="d-inline-flex align-items-center justify-content-center" href="/mi-perfil">
-              <img src="iconoLogin.png" class="imgLogin pe-2 " alt="Acceso/login">
+        <div class="d-flex align-items-center"> 
+                     
+            <a class="d-inline-flex align-items-center justify-content-center text-decoration-none" href="/mi-perfil">
+              <span class="text-muted small text-center pt-2 me-2">{{ usuarioNombre }}</span>
             </a>
-          <button class="btn btn-outline-secondary btn-sm rounded-2 px-2 py-1"(click)="onLogout()">
+              <button class="btn btn-outline-primary btn-sm  py-1" (click)="onLogout()">
             <i class="bi bi-box-arrow-right"></i>
           </button>
         </div>
@@ -61,10 +62,10 @@
     </div>
 
     <!-- Bloque derecho (login + hamburguesa en móviles) GRANDE -->
+     <a class="nav-link active" href="/login">
     <div class="d-flex align-items-center gap-2 ms-auto mt-2 mt-lg-0 justify-content-end loginContainer d-none d-lg-flex">
       <div *ngIf="!logueado; else logueadoTemplate">
-        <a class="nav-link active" href="/login">
-          <!--Div para el icono de Login -->
+                  <!--Div para el icono de Login -->
           <div class="d-none d-lg-flex align-items-center justify-content-center">
             <svg class="login-icon mt-3 pt-3 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 992 1024" width="82" height="93"  role="img" aria-label="Acceso/Login">
               <defs>
@@ -72,7 +73,7 @@
                   <stop offset="0%" stop-color="#184591"/>
                   <stop offset="100%" stop-color="#2A8BEA"/>
                 </linearGradient>
-              </defs>
+              </defs> 
               <path fill="url(#loginGrad)"
                     d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm0 48c-70.7
                       0-224 35.8-224 107.5V480c0 17.7 14.3 32 32
@@ -80,8 +81,8 @@
                       339.8 294.7 304 224 304z"/>
             </svg>
           </div>
-        </a>
       </div>
     </div>
+    </a>
   </div>
 </nav>

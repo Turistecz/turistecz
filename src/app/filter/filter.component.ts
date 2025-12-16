@@ -34,6 +34,7 @@ export class FilterComponent {
 
   @Output() filteredEvents = new EventEmitter<any[]>(); 
   @Output() filteredCards = new EventEmitter<any[]>();
+  @Output() filteredMonuments = new EventEmitter<any[]>();
   @Output() filtersAdaptability = new EventEmitter<string[]>();
   @Output() noResultsPlacesEvent = new EventEmitter<boolean>();
   @Output() noResultsEventsEvent = new EventEmitter<boolean>();
@@ -419,10 +420,8 @@ export class FilterComponent {
     // } else{
     //    console.log("selectedPlaceCategories has nothing inside");
     // }
-
     const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
-
     if (selectedAccessibilityKeys.length > 0) {
     filteredPlaces = filteredPlaces.filter(place =>
       selectedAccessibilityKeys.every(key =>
@@ -431,7 +430,6 @@ export class FilterComponent {
       )
       );
     }
-
     if (this.searchText.trim()) {
       const search = this.normalize(this.searchText);
       filteredPlaces = filteredPlaces.filter(place =>
@@ -440,7 +438,7 @@ export class FilterComponent {
     }
     this.noResultsPlaces = filteredPlaces.length === 0;
 
-    this.filteredCards.emit(filteredPlaces);
+    this.filteredMonuments.emit(filteredPlaces);
      this.noResultsPlacesEvent.emit(this.noResultsPlaces);
   };
 
@@ -524,6 +522,7 @@ applyMapFilters(){
   }
 
   onSearch() {
+    
     this.applyEventFilters();
     this.applyPlaceFilters();
     this.applyMapFilters();
