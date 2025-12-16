@@ -4,6 +4,7 @@ export interface User{
 }
 
 export interface CrearRuta {
+  id_usuario:number,
   titulo_ruta:string,
   descripcion_ruta:string
 }
@@ -21,13 +22,6 @@ export interface SitioRutaSeleccionado {
 }
 
 ///////////////
-
-
-export interface RutaUsuario {
-  id_usuario: number,
-  titulo_ruta: string;
-  descripcion_ruta: string;
-}
 
 export interface SitioRutaUsuario {
   id_ruta: number,

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { RutaCreada, RutaUsuario, SitioRutaUsuario, SitioRutaUsuarioCreada } from '../models/custom-route.model';
+import { CrearRuta, RutaCreada, SitioRutaUsuario, SitioRutaUsuarioCreada } from '../models/custom-route.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,10 +43,10 @@ export class CustomRouteService {
     // Headers del token del usuario
     const headers = this.getAuthHeaders();
     if (headers) {
-      return this.http.post<RutaUsuario>(this.newRouteURL, enviarDatosRutaUsuario, { headers })
+      return this.http.post<CrearRuta>(this.newRouteURL, enviarDatosRutaUsuario, { headers })
         .pipe(catchError(this.handleError));
     } else {
-      return this.http.post<RutaUsuario>(this.newRouteURL, enviarDatosRutaUsuario)
+      return this.http.post<CrearRuta>(this.newRouteURL, enviarDatosRutaUsuario)
         .pipe(catchError(this.handleError));
     }
   }

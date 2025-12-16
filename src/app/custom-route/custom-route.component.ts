@@ -17,7 +17,7 @@ export class CustomRouteComponent {
   formularioRuta:FormGroup; 
   // CREAR NUEVA RUTA + SELECCIONAR Y ORDENAR (O NO) SITIOS RUTA
   usuario:User = {id:0}; // Datos del usuario
-  datosCrearRuta:CrearRuta = { titulo_ruta:'', descripcion_ruta:'' }
+  datosCrearRuta:CrearRuta = { id_usuario:0, titulo_ruta:'', descripcion_ruta:'' }
   sitiosRutaSeleccioandos:SitioRutaSeleccionado[]=[]; // Todos los sitios seleccionados para una ruta concreta
   sitioRutaSeleccionado:SitioRutaSeleccionado = { id_ruta:0, id_sitio:0, nombre:'', orden:0 }; // Un sitio seleccionado para una ruta concreta
   sitiosRutaOrdenados:SitioRutaSeleccionado[]=[]; // Sitios previamente seleccionados ordenados por el usuario
