@@ -23,11 +23,6 @@ export interface SitioRutaSeleccionado {
 
 ///////////////
 
-export interface SitioRutaUsuario {
-  id_ruta: number,
-  id_favorito: number
-}
-
 export interface RutaCreada{
   id:number,
   titulo_ruta:string,

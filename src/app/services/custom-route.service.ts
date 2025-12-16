@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { CrearRuta, RutaCreada, SitioRutaUsuario, SitioRutaUsuarioCreada } from '../models/custom-route.model';
+import { CrearRuta, RutaCreada, SitioRutaSeleccionado, SitioRutaUsuarioCreada } from '../models/custom-route.model';
 
 @Injectable({
   providedIn: 'root'
@@ -114,10 +114,10 @@ export class CustomRouteService {
     }
     const headers = this.getAuthHeaders();
     if (headers) {
-      return this.http.post<SitioRutaUsuario>(this.newSitioRutaURL, enviarDatosSitiosRutaUsuario, { headers })
+      return this.http.post<SitioRutaSeleccionado>(this.newSitioRutaURL, enviarDatosSitiosRutaUsuario, { headers })
         .pipe(catchError(this.handleError));
     } else {
-      return this.http.post<SitioRutaUsuario>(this.newSitioRutaURL, enviarDatosSitiosRutaUsuario)
+      return this.http.post<SitioRutaSeleccionado>(this.newSitioRutaURL, enviarDatosSitiosRutaUsuario)
         .pipe(catchError(this.handleError));
     }
   }

@@ -15,24 +15,25 @@ import { throttleTime } from 'rxjs';
 })
 export class CustomRouteComponent {
   formularioRuta:FormGroup; 
+
   // CREAR NUEVA RUTA + SELECCIONAR Y ORDENAR (O NO) SITIOS RUTA
   usuario:User = {id:0}; // Datos del usuario
+
   datosCrearRuta:CrearRuta = { id_usuario:0, titulo_ruta:'', descripcion_ruta:'' }
+
+  sitiosFavoritosUsuario:SitioFavoritosUsuario[]=[]; // Todos los sitios favoritos seleccionados por el usuario
+  sitioFavoritosUsuario:SitioFavoritosUsuario = { id:0, nombre:'' }; // Estructura de un sitio favoritos seleccionado por el usuario
+
   sitiosRutaSeleccioandos:SitioRutaSeleccionado[]=[]; // Todos los sitios seleccionados para una ruta concreta
   sitioRutaSeleccionado:SitioRutaSeleccionado = { id_ruta:0, id_sitio:0, nombre:'', orden:0 }; // Un sitio seleccionado para una ruta concreta
   sitiosRutaOrdenados:SitioRutaSeleccionado[]=[]; // Sitios previamente seleccionados ordenados por el usuario
 
-  /////////////////////
+  // MOSTRAR
 
   datoRutasCreadas:RutaCreada={ id:0, titulo_ruta:'',descripcion_ruta:'' } // Estructura de una Ruta creada por el usuario
   datosRutasCreadas:RutaCreada[]=[]; // Todas las rutas que el usuario ha creado 
   ultimaRutaCreada!:RutaCreada; // Última ruta creada por el usuario
   sitiosRuta:SitioRutaUsuarioCreada[]=[]; // Mostrar sitios de una ruta concreta existente
-
-  sitioFavoritosUsuario:SitioFavoritosUsuario = { id:0, nombre:'' }; // Estructura de un sitio favoritos seleccionado por el usuario
-  sitiosFavoritosUsuario:SitioFavoritosUsuario[]=[]; // Todos los sitios favoritos seleccionados por el usuario
-  
-  
 
   idRutaEliminar:number=0; // Copia id ruta para eliminarla
 
@@ -49,6 +50,23 @@ export class CustomRouteComponent {
   } 
 
   // CREAR NUEVA RUTA + SELECCIONAR Y ORDENAR (O NO) SITIOS RUTA
+  mostrarSitiosFavoritosUsuario(){
+    this.favoritosService.getMisFavoritos(this.usuario.id).subscribe({
+      next: (response) => {
+        response.map(resp=>{
+          this.sitioFavoritosUsuario = {
+            id:resp.id,
+            nombre:resp.nombre,
+          }
+          this.sitiosFavoritosUsuario.push(this.sitioFavoritosUsuario)
+        });
+      },
+      error: (error) => {
+        console.error('Error al obtener los sitios favoritos del usuario.', error);
+      }
+    });
+  }
+
   enviarDatosRutaUsuario() {
     this.datosCrearRuta.titulo_ruta = this.formularioRuta.value.titulo_ruta;
     this.datosCrearRuta.descripcion_ruta = this.formularioRuta.value.descripcion_ruta;
@@ -110,9 +128,7 @@ export class CustomRouteComponent {
     }))
   }
 
-  //////////////////////////////////
-  
-  // Mostrar rutas que ha creado el usuario
+  // MOSTRAR RUTAS CREADAS Y SITIOS DE LA RUTA
   mostrarRutasUsuarioCreadas(){
     this.customRouteService.getRutasUsuarioExistentes(this.usuario.id).subscribe({
       next: (response) => {
@@ -142,29 +158,8 @@ export class CustomRouteComponent {
       }
     })
   }
-
-  // Mostrar sitios favoritos que el usuario ha seleccionado
-  mostrarSitiosFavoritosUsuario(){
-    this.favoritosService.getMisFavoritos(this.usuario.id).subscribe({
-      next: (response) => {
-        response.map(resp=>{
-          this.sitioFavoritosUsuario = {
-            id:resp.id,
-            nombre:resp.nombre,
-          }
-          this.sitiosFavoritosUsuario.push(this.sitioFavoritosUsuario)
-        });
-      },
-      error: (error) => {
-        console.error('Error al obtener los sitios favoritos del usuario.', error);
-      }
-    });
-  }
-
-  // PENDIENTE: AL RECARGAR, SE MUESTRE LA PAGINA ACTUAL
-  recargarPagina(){
-    window.location.reload();
-  }
+  
+  /////////////
 
   // EDITAR RUTA
   copiarDatosRuta(id_ruta:number, titulo:string, descripcion:string){
@@ -302,6 +297,11 @@ export class CustomRouteComponent {
       }
     })
 
+  }
+
+  // PENDIENTE: AL RECARGAR, SE MUESTRE LA PAGINA ACTUAL
+  recargarPagina(){
+    window.location.reload();
   }
 
   ngOnInit(){
