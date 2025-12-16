@@ -3,6 +3,11 @@
   background-size:cover;
 }
 
+.login{
+    max-width: 600px; 
+    width: 100%;
+    font-family: "Baloo Bhaijaan 2 Variable", system-ui;
+}
 .login-card {
   max-width: 500px;
 }
@@ -10,3 +15,7 @@
 .letra{
   font-family: 'Inclusive', sans-serif;
 }
+
+
+
+

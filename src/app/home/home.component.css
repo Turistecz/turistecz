@@ -33,14 +33,14 @@
   text-align: right;  
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 429px) {
   .shapeHome .text-box  {
     right: 15px;  
     top: 55%;
   }
 
   #titleHome   { font-size: 28px; }
-  #subtitleHome{ font-size: 15px; }
+  #subtitleHome{ font-size: 14px; }
   #sloganHome  { font-size: 10px; }
 }
   .shapeHome::before {
@@ -48,25 +48,48 @@
     background-size: 100% 50px;   
   }
 
-@media screen and (min-width: 430px) and (max-width: 968px){
+@media screen and (min-width: 430px) and (max-width: 530px){
   .shapeHome .text-box {
-    right: 10px;
+    right: 20px;
     top: 50%;
   }
-  #titleHome   { font-size: 45px; }
-  #subtitleHome{ font-size: 20px; }
-  #sloganHome  { font-size: 13px; }
+  #titleHome   { font-size: 35px; }
+  #subtitleHome{ font-size: 15px; }
+  #sloganHome  { font-size: 10px; }
   
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 531px) and (max-width: 830px){
+  .shapeHome .text-box {
+    right: 20px;
+    top: 50%;
+  }
+  #titleHome   { font-size: 44px; }
+  #subtitleHome{ font-size: 18px; }
+  #sloganHome  { font-size: 11px; }
+  
+}
+
+
+@media screen and (min-width: 831px) and (max-width: 939px){
+  .shapeHome .text-box {
+    right: 5%;
+    top: 50%;
+  }
+  #titleHome   { font-size: 55px; }
+  #subtitleHome{ font-size: 25px; }
+  #sloganHome  { font-size: 15px; }
+  
+}
+
+@media screen and (min-width: 940px) and (max-width: 1369px) {
   .shapeHome .text-box {
     right: 5%;
     top: 45%;
   }
-  #titleHome   { font-size: 80px; }
-  #subtitleHome{ font-size: 40px; }
-  #sloganHome  { font-size: 25px; }
+  #titleHome   { font-size: 70px; }
+  #subtitleHome{ font-size: 30px; }
+  #sloganHome  { font-size: 20px; }
 
   .shapeHome::before {
     height: 80px; 
@@ -75,10 +98,10 @@
   
 }
 
-@media screen and (min-width: 1366px) {
+@media screen and (min-width: 1370px) {
   .shapeHome .text-box {
     right: 10%;
-    top: 35%;
+    top: 40%;
   }
   #titleHome   { font-size: 90px; }
   #subtitleHome{ font-size: 45px; }

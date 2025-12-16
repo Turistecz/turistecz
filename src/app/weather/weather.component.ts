@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../services/weather.service';
 import { CommonModule } from '@angular/common';
-import { cardsHome } from '../place-card/place-card.model';
 
 @Component({
   selector: 'app-weather',

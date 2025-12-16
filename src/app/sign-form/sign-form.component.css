@@ -4,13 +4,9 @@
 
 }
 
-.margenRegistro{
-    margin-left: 5%;
-    margin-top: 2%;
+.sign-form{
+    max-width: 600px; 
+    width: 100%;
+    font-family: "Baloo Bhaijaan 2 Variable", system-ui;
 }
-
-.letra{
-  font-family: 'Inclusive', sans-serif;
-}
-
 
