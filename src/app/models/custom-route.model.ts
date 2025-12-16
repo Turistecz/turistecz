@@ -1,4 +1,28 @@
-// Enviar datos a BBDD
+// CREAR NUEVA RUTA + SELECCIONAR Y ORDENAR (O NO) SITIOS RUTA
+export interface User{
+  id:number
+}
+
+export interface CrearRuta {
+  titulo_ruta:string,
+  descripcion_ruta:string
+}
+
+export interface SitioFavoritosUsuario{
+  id:number,
+  nombre:string
+}
+
+export interface SitioRutaSeleccionado {
+  id_ruta:number,
+  id_sitio:number,
+  nombre:string,
+  orden:number
+}
+
+///////////////
+
+
 export interface RutaUsuario {
   id_usuario: number,
   titulo_ruta: string;
@@ -10,14 +34,6 @@ export interface SitioRutaUsuario {
   id_favorito: number
 }
 
-export interface SitioRutaSeleccionado {
-  id_ruta?:number,
-  id_sitio:number,
-  nombre?:string,
-  orden:number
-}
-
-// Mostrar datos guardados
 export interface RutaCreada{
   id:number,
   titulo_ruta:string,
@@ -30,14 +46,4 @@ export interface SitioRutaUsuarioCreada{
   idRuta:number,
   idSitio:number,
   nombre:string
-}
-
-export interface SitioFavoritosUsuario{
-  id:number,
-  nombre:string
-}
-
-// Mostrar datos del usuario
-export interface User{
-  id:number
 }
