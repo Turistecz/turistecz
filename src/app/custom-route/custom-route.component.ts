@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { FavoritosService } from '../services/favoritos.service';
 import { CrearRuta, MostrarRuta, MostrarSitioRuta, SitioFavoritosUsuario, SitioRutaSeleccionado, User} from '../models/custom-route.model';
 import { CdkDragDrop, moveItemInArray, CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
-import { throttleTime } from 'rxjs';
 
 @Component({
   selector: 'app-custom-route',
@@ -21,23 +20,23 @@ export class CustomRouteComponent {
 
   datosCrearRuta:CrearRuta = { id_usuario:0, titulo_ruta:'', descripcion_ruta:'' };
 
-  sitiosFavoritosUsuario:SitioFavoritosUsuario[]=[]; // Todos los sitios favoritos seleccionados por el usuario
-  sitioFavoritosUsuario:SitioFavoritosUsuario = { id:0, nombre:'' }; // Estructura de un sitio favoritos seleccionado por el usuario
+  sitiosFavoritosUsuario:SitioFavoritosUsuario[]=[]; 
+  sitioFavoritosUsuario:SitioFavoritosUsuario = { id:0, nombre:'' }; 
 
-  sitiosRutaSeleccioandos:SitioRutaSeleccionado[]=[]; // Todos los sitios seleccionados para una ruta concreta
-  sitioRutaSeleccionado:SitioRutaSeleccionado = { id_ruta:0, id_sitio:0, nombre:'', orden:0 }; // Un sitio seleccionado para una ruta concreta
-  sitiosRutaOrdenados:SitioRutaSeleccionado[]=[]; // Sitios previamente seleccionados ordenados por el usuario
+  sitiosRutaSeleccioandos:SitioRutaSeleccionado[]=[]; 
+  sitioRutaSeleccionado:SitioRutaSeleccionado = { id_ruta:0, id_sitio:0, nombre:'', orden:0 }; 
+  sitiosRutaOrdenados:SitioRutaSeleccionado[]=[]; 
 
   // MOSTRAR RUTAS CREADAS Y SITIOS DE LA RUTA
-  datosMostrarRutas:MostrarRuta[]=[]; // Todas las rutas que el usuario ha creado 
-  datoMostrarRuta:MostrarRuta = { id:0, titulo_ruta:'',descripcion_ruta:'' }; // Estructura de una Ruta creada por el usuario
-  mostrarSitiosRuta:MostrarSitioRuta[]=[]; // Mostrar sitios de una ruta concreta existente
+  datosMostrarRutas:MostrarRuta[]=[]; 
+  datoMostrarRuta:MostrarRuta = { id:0, titulo_ruta:'',descripcion_ruta:'' }; 
+  mostrarSitiosRuta:MostrarSitioRuta[]=[]; 
 
   // EDITAR RUTA
   editarRuta:MostrarRuta = { id:0, titulo_ruta:'', descripcion_ruta:'' };
   editarSitiosSeleccionados:SitioFavoritosUsuario[]=[];
   editarSitiosNoSeleccionados:SitioFavoritosUsuario[]=[];
-  sitiosRutaReordenados:SitioRutaSeleccionado[]=[]; // Guardar sitios que el usuario ha reordenado al editar la ruta
+  sitiosRutaReordenados:SitioRutaSeleccionado[]=[]; 
 
   // ELMINIAR RUTA
   idRutaEliminar:number=0; // Copia id ruta para eliminarla
