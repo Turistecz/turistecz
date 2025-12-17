@@ -134,26 +134,6 @@ CREATE TABLE sitios_ruta_usuario (
     FOREIGN KEY (id_sitio_favorito) REFERENCES favoritos(sitios_id)
 ); 
 
-CREATE TABLE ruta_usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    id_usuario INT,
-    titulo_ruta VARCHAR(255),
-	descripcion_ruta VARCHAR(255),
-	imagen_destacada VARCHAR(255),
-	FOREIGN KEY (id_usuario) REFERENCES usuario(id)
-);
-
-CREATE TABLE sitios_ruta_usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    id_ruta INT,
-    id_sitio_favorito INT,
-    orden INT,
-    texto_sitio VARCHAR(255),
-    FOREIGN KEY (id_ruta) REFERENCES ruta_usuario(id),
-    FOREIGN KEY (id_sitio_favorito) REFERENCES favoritos(sitios_id)
-); 
-
-
 CREATE TABLE filtro (
 	id INT PRIMARY KEY,
 	museos_exposiciones BOOLEAN,
