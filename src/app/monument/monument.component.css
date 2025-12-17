@@ -5,7 +5,7 @@
 
 #horario{
   flex-direction: column;  
-  background-color: rgb(216, 240, 252);
+  background-color:var(--gradient-home-start);
   height: fit-content;
  
 }
@@ -24,14 +24,14 @@
 }
 
 h2{
-  color: rgba(26, 73, 202, 0.795);
+  color: var(--color-primary);
 }
 
 #access{    
-  background-color: rgba(26, 73, 202, 0.795);
+  background-color: var(--color-primary);
   height: fit-content;
   text-align: center;
-  color: white;
+  color:var(--bg-primary);
 }
 
 .deleteBoxSizing{

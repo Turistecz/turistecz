@@ -1,26 +1,27 @@
-@import '@fontsource-variable/baloo-bhaijaan-2';
-
-#cardPlace {
+/* ---- .card-place (usar clase, no id) ---- */
+.card-place {
   border-radius: 25px;
   min-height: 300px;
   aspect-ratio: 3 / 4;
+  position: relative;
+  overflow: hidden;
 }
 
 .overlay-content {
-  background-color: rgba(255, 255, 255, 0.7); /* blanco medio opaco */
+  background-color: rgba(255, 255, 255, 0.7);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.35s ease;
 }
 
-#cardPlace:hover .overlay-content {
+.card-place:hover .overlay-content {
   cursor: pointer;
-  opacity: 3;
+  opacity: 1;
 }
 
-.card-title{
+.card-title {
   font-family: "Baloo Bhaijaan 2 variable", system-ui;
-  color:#112f64;
-  margin-bottom: 0;
+  color: var(--color-primary);
+  margin-bottom: 15px;
 }
 
 .favorito-btn {
@@ -30,28 +31,132 @@
   height: 40px;
 }
 
-@media (min-width: 1024px) and (max-width: 1366px ) {
-  .card-title{
-    font-size: 1.3rem;
-    }
+/* ---- Iconos de accesibilidad (siempre en DOM, control por opacity) ---- */
+.accessibility-icons-bottom {
+  display: flex;
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 0.4rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  padding: 0.1rem 0.3rem;
+  border-radius: 1rem;
+  transition: opacity 0.25s ease;
+}
 
-  #cardPlace .overlay-content {
-    padding-block: 1.5rem;
-    height:max-content;
-    opacity: 1;
-    top:auto
-    }
+/* ocultar scrollbar webkit */
+.accessibility-icons-bottom::-webkit-scrollbar { display: none; }
+
+.accessibility-icons-bottom i {
+  color: #0d6efd;
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.accessibility-icons-bottom i:hover {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* ---- Escritorio (≥ 1200px): iconos visibles solo en hover ---- */
+/* ---- Ajuste estético para portátiles anchos si necesitas ---- */
+@media (min-width: 1200px) and (max-width: 1366px){
+.accessibility-icons-bottom {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.card-place:hover .accessibility-icons-bottom {
+  opacity: 0.8;
+  pointer-events: auto;
+}
+
+.card-place:hover .overlay-content {
+  opacity: 1;
+}
+
+.card-title {
+  font-size: 2;
+}
+}
+/* ---- Pantallas intermedias (993px – 1199px): mantener comportamiento coherente ----
+   Aquí no forzamos el overlay a 1 por defecto (se mostrará al hacer hover si quieres).
+   Evitamos la regla previa que lo mostraba permanentemente en 1024–1366. */
+@media (min-width: 993px) and (max-width: 1199px) {
+  .accessibility-icons-bottom {
+    opacity: 0.8;
+    pointer-events: none;
+  }
+  /* opcional: ajustar tamaño de título si quieres */
+  .card-title { font-size: 1.24rem; }
+
+  .card-place:hover .accessibility-icons-bottom {
+    opacity: 0.8;
+    pointer-events: auto;
   }
 
-@media (max-width: 992px) {
-  #cardPlace .overlay-content {
-    padding-block: 1.5rem;
-    height:max-content;
+ .card-place .overlay-content {
+    padding-block: 1rem;
+    height: max-content;
     opacity: 1;
-    top:auto
+    top: auto;
   }
-  #cardPlace {
+
+}
+/* ---- Mobile / tablet (≤ 992px): iconos siempre visibles + overlay visible ---- */
+@media (min-width: 768px) and (max-width: 992px) {
+  .accessibility-icons-bottom {
+    opacity: 0;
+    pointer-events: auto;
+  }
+  
+  .overlay-content {
+    padding-block: 1.1rem;
+    height: max-content;
+    opacity: 1;
+    top: auto;
+  }
+
+  .card-place {
     border-radius: 30px;
     max-height: 430px;
+    max-width: 400px;
+  }
+  .card-title{
+    font-size: 1.3rem;
   }
 }
+
+@media (max-width: 767px) {
+  .accessibility-icons-bottom {
+    opacity: 0;
+    pointer-events: auto;
+  }
+  
+  .overlay-content {
+    padding-block: 1.3rem;
+    height: max-content;
+    opacity: 1;
+    top: auto;
+  }
+
+  .card-place {
+    border-radius: 30px;
+    max-height: 430px;
+    max-width: 400px;
+  }
+  .card-title{
+    font-size: 1.8rem;
+  }
+}
+
+

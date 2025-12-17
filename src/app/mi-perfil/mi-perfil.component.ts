@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FavoritosService, Sitio } from '../services/favoritos.service';
 import { LoginService } from '../services/login.service';
 import { OnePlaceCardComponent } from '../one-place-card/one-place-card.component';
@@ -7,11 +7,12 @@ import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { CustomRouteComponent } from "../custom-route/custom-route.component";
+import { CalendarComponent } from "../calendar/calendar.component";
 
 @Component({
   selector: 'app-mi-perfil',
   standalone: true,
-  imports: [CommonModule, RouterModule, OnePlaceCardComponent, CustomRouteComponent],
+  imports: [CommonModule, RouterModule, OnePlaceCardComponent, CalendarComponent, CustomRouteComponent],
   templateUrl: './mi-perfil.component.html',
   styleUrls: ['./mi-perfil.component.css']
 })
@@ -36,8 +37,17 @@ export class MiPerfilComponent implements OnInit {
     }
 
     this.cargarFavoritosConImagen();
-  }
 
+    const chatbotTab = document.getElementById('v-pills-chatbot-tab');
+
+    chatbotTab?.addEventListener('shown.bs.tab', () => {
+      const container = document.getElementById('landbot-container');
+      if (container) {
+        this.loginService.init(container);
+      }
+    });
+  }
+  
   async cargarFavoritosConImagen(): Promise<void> {
     forkJoin({
       favoritosData: this.favoritosService.getMisFavoritos(this.usuario.id),
@@ -61,11 +71,13 @@ export class MiPerfilComponent implements OnInit {
     });
   }
 
-  /**
-   * Elimina un favorito del array cuando se elimina desde la tarjeta
-   */
   onFavoritoEliminado(favoritoId: number) {
     this.favoritos = this.favoritos.filter(f => f.id !== favoritoId);
   }
 
+  
+  ngOnDestroy(): void {
+    this.loginService.destroyLandbot();
+  }
 }
+

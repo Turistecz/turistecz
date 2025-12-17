@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top flex-column p-0 ">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top flex-column p-0">
   
   <!-- Weather -->
   <div class="w-100 ">
@@ -6,15 +6,15 @@
   </div>
 
   <!--  navbar -->
-  <div class="container-fluid h4 mb-0 position-relative d-flex align-items-center w-100" id="menu">
+  <div class="container-fluid h4 mb-0 position-relative d-flex align-items-center" id="menu">
     
     <!-- Logo -->
-    <a class="navbar-brand me-0 ps-0 ms-0" href="#">
-      <img src="logo2.png" class="img-fluid"  alt="Logo" width="260">
+    <a class="navbar-brand me-0 " href="#">
+      <img src="turistecz_logo.png" class="w-100 object-fit-cover" alt="Logo" >
     </a>
 
     <!-- Bloque derecho (login + hamburguesa en móviles) PEQUEÑO -->
-    <div class="d-flex align-items-center gap-2 ms-auto mt-lg-0 loginContainer d-lg-none px-1">
+    <div class="d-flex align-items-center gap-2 ms-auto mt-lg-0 loginContainer d-lg-none">
       <div *ngIf="!logueado; else logueadoTemplate">
         <a class="nav-link active" href="/login">
           <!--icono-->
@@ -32,27 +32,27 @@
                     339.8 294.7 304 224 304z"/>
           </svg>
         </a>
-
       </div>
       <ng-template #logueadoTemplate>
-        <div class="d-flex align-items-center gap-2">            
-          <span class="nav-link active fw-bold">
-            <a class="text-reset text-decoration-none px-1" href="/mi-perfil">Perfil</a>
-          </span>
-          <button class="btn btn-outline-primary btn-sm  py-1" (click)="onLogout()">
+        <div class="d-flex align-items-center"> 
+                     
+            <a class="d-inline-flex align-items-center justify-content-center text-decoration-none" href="/mi-perfil">
+              <span class="text-muted small text-center pt-2 me-2">{{ usuarioNombre }}</span>
+            </a>
+              <button class="btn btn-outline-primary btn-sm  py-1" (click)="onLogout()">
             <i class="bi bi-box-arrow-right"></i>
           </button>
         </div>
       </ng-template>
     </div>
-
+    
     <!-- Botón hamburguesa a la derecha -->
-    <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <button class="navbar-toggler ms-2 btn-mobile" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Menú centrado horizontal -->
-    <div class="collapse navbar-collapse justify-content-center fw-bold" id="navbarNav">
+    <div class="collapse navbar-collapse justify-content-center pt-4 fw-bold" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link active" href="sitios">Sitios</a></li>
         <li class="nav-item"><a class="nav-link active" href="rutas">Rutas</a></li>
@@ -62,18 +62,18 @@
     </div>
 
     <!-- Bloque derecho (login + hamburguesa en móviles) GRANDE -->
+     <a class="nav-link active" href="/login">
     <div class="d-flex align-items-center gap-2 ms-auto mt-2 mt-lg-0 justify-content-end loginContainer d-none d-lg-flex">
       <div *ngIf="!logueado; else logueadoTemplate">
-        <a class="nav-link active" href="/login">
-          <!--Div para el icono de Login -->
-          <div class="d-none d-lg-flex align-items-center justify-content-center p-1 mt-2">
-            <svg class="login-icon pt-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 992 1024" width="80" height="90" role="img" aria-label="Acceso/Login">
+                  <!--Div para el icono de Login -->
+          <div class="d-none d-lg-flex align-items-center justify-content-center">
+            <svg class="login-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 992 1024" width="100" height="100" role="img" aria-label="Acceso/Login">
               <defs>
                 <linearGradient id="loginGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stop-color="#184591"/>
                   <stop offset="100%" stop-color="#2A8BEA"/>
                 </linearGradient>
-              </defs>
+              </defs> 
               <path fill="url(#loginGrad)"
                     d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm0 48c-70.7
                       0-224 35.8-224 107.5V480c0 17.7 14.3 32 32
@@ -81,19 +81,8 @@
                       339.8 294.7 304 224 304z"/>
             </svg>
           </div>
-        </a>
       </div>
-      <ng-template #logueadoTemplate>
-        <div class="d-flex align-items-center gap-2 px-2">            
-          <span class="nav-link active fw-bold">
-            <a class="text-reset text-decoration-none" href="/mi-perfil">Perfil</a>
-          </span>
-          <button class="btn btn-outline-primary btn-sm" (click)="onLogout()">
-            <i class="bi bi-box-arrow-right"></i>
-          </button>
-        </div>
-      </ng-template>
     </div>
-
+    </a>
   </div>
 </nav>

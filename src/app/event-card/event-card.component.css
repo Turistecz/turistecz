@@ -9,11 +9,11 @@
 }
 
 .bg-color1{
-  background-color: #2a8dfb;
+  background-color:var(--color-secondary);
 }
 
 .bg-color2{
-  background-color: #184591;
+  background-color:var(--color-primary);
 }
  
 .inside-text {
@@ -52,4 +52,45 @@
     transform: translateY(50%);
 }  
    
+h2 {
+    display: -webkit-box;
+    font-size: 28px !important;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 
+@media (min-width: 768px) and (max-width: 992px) {
+   .inside-text {
+        height: 21rem; 
+    }
+    h2 {
+        font-size: 1.4rem !important;
+        -webkit-line-clamp: 3;
+    }
+
+    .inside-text p{
+        font-size: 1rem !important;
+    }
+
+}
+
+@media (max-width: 767px) {
+    .ticket-vertical {
+        width: 90%;
+        margin: 0 auto;
+    }
+   .inside-text {
+        height: 22rem; 
+        padding-inline: 1.35rem !important;
+        width: auto;
+    }
+    h2 {
+        font-size: 22px !important;
+        -webkit-line-clamp: 3;
+    }
+
+    p{
+        padding-inline: 0.2rem !important;
+    }
+}

@@ -1,2 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@fontsource-variable/baloo-bhaijaan-2';
+/* src/styles.css */
+:root {
+  --color-primary: #184591;
+  --color-secondary: #2A8BEA;
+  --color-accent: #42D5A5;
+  --gradient-primary-start: #1f57b9;
+  --gradient-primary-end: #8adff5;
+  --gradient-home-start: #8ee3f7;
+  --gradient-home-end: #478ed1;
+  --bg-primary: #ffffff;
+  --text-primary: #03080a;
+  --text-secondary: #495057;
+  --text-light: #ffffff;
+}
+
+/* Ejemplos de uso en componentes */
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gradient-primary-start), var(--gradient-primary-end));
+  color: var(--text-light);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+}
+
+.card {
+  /* background: var(--bg-secondary); */
+  border-radius: 12px;
+  color: var(--text-primary);
+}
+
+.header, .title {
+  background: var(--color-primary);
+  color: var(--text-light);
+}
+
+.home-shape {
+  background: linear-gradient(180deg, var(--gradient-home-start), var(--gradient-home-end));
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: Arial, sans-serif;
+}

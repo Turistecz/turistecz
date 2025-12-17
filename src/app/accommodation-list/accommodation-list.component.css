@@ -1,8 +1,22 @@
 .card-title {
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-  color: #184591;
+  color: var(--color-primary);
 }
 
 p, button{
   font-family: "inclusive", sans-serif;  
+}
+
+.card-title {
+  display: -webkit-box;
+   -webkit-line-clamp: 2; 
+  -webkit-box-orient: vertical;
+   overflow: hidden;
+}
+
+.address {
+   display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

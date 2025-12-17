@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, input, OnInit, ElementRef, ViewChild} from '@angular/core';
+import { Component, AfterViewInit, Input, input, OnInit, ElementRef, ViewChild, OnChanges, SimpleChanges} from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import 'leaflet.markercluster';
@@ -8,6 +8,7 @@ import { AdapParkingItem, BiziItem, BusStopItem, TaxiStopItem, TramStopItem, Map
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { mapRoute } from '../models/details-routes';
+import { MonumentItem } from '../models/monument.model';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { mapRoute } from '../models/details-routes';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit, OnInit{
+export class MapComponent implements AfterViewInit, OnInit, OnChanges{
 
   constructor(private apiMapService: MapService, private http: HttpClient) {
   }
@@ -89,6 +90,8 @@ export class MapComponent implements AfterViewInit, OnInit{
   adapParkingMarkerGroup = new L.MarkerClusterGroup();
   farmaciaMarkerGroup = new L.MarkerClusterGroup();
   sitesMarkerGroup = new L.MarkerClusterGroup();
+  allmarkersGroup = L.featureGroup();
+
 
   route: MapRouteItem = {
     routes: [
@@ -125,7 +128,7 @@ export class MapComponent implements AfterViewInit, OnInit{
 
   sortedRouteCoords: [[number, number]] = [[0,0]];
 
-  @Input() data = {
+ @Input() data = {
     latitud: 0,
     longitud: 0
   };
@@ -133,15 +136,14 @@ export class MapComponent implements AfterViewInit, OnInit{
   name = input("");
 
     // Map page
-  @Input() datos: any[] = [];
+  @Input() datos: MonumentItem[] = [];
 
   /* Rotue Sites*/
   @Input() routeSites:mapRoute[]=[]; 
 
   @Input() parent: string ='';
-  
   // wait for map to load
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     this.initMap();
   };
 
@@ -163,6 +165,35 @@ export class MapComponent implements AfterViewInit, OnInit{
     this.createTaxiMarkers();
     this.createAdapParkingMarkers();
     this.createFarmaciaMarkers();
+  }
+
+   ngOnChanges(changes: SimpleChanges): void {
+    if (this.map) { // Solo actúa si el mapa ya está inicializado
+      if (changes['data'] && !changes['data'].firstChange) {
+        this.makeLocationMarkers();
+        this.getRoute();
+      }
+
+      if (changes['parent'] && !changes['parent'].firstChange) {
+        // this.getRoute();
+        // this.makeLocationMarkers();
+      }
+
+      if (changes['routeSites'] && !changes['routeSites'].firstChange) {
+        this.makeLocationMarkers();
+        this.getRoute();
+      }
+
+      if (changes['datos'] && !changes['datos'].firstChange && this.parent === 'app-map-page') {
+        if (this.allmarkersGroup.getLayers().length > 0) {
+          this.map.removeLayer(this.allmarkersGroup)
+          this.refreshDatosMarkers();
+          
+        } else {
+          this.makeLocationMarkers();
+        }
+      }
+    }
   }
 
   getUserCoords(){
@@ -199,7 +230,6 @@ private initMap(): void {
 async getRoute() {
   const latlng = this.getSiteCoords();
 
-  try {
     switch (this.parent) {
       case 'app-monument': {
         const datos = await firstValueFrom(this.apiMapService.getRoute(latlng, this.userLatLong));
@@ -220,9 +250,6 @@ async getRoute() {
         break;
       }
     }
-  } catch (error) {
-    console.error('Error al cargar la ruta: ', error);
-  }
 }
 
 // creates markers for user and monument location and adjusts the map view to fit both
@@ -270,30 +297,24 @@ async makeLocationMarkers(){
         break;
       }
       case 'app-map-page': {
-        let userMarker = L.marker(this.userLatLong).addTo(this.map)
-        .bindPopup("Estás aquí", {autoClose: false})
-        .openPopup();
+        try {
+          // Marcador del usuario
+          let userMarker = L.marker(this.userLatLong)
+            .addTo(this.map)
+            .bindPopup("Estás aquí", { autoClose: false }) //hace que el popup se abra directamente
+            .openPopup();
 
-        L.featureGroup([userMarker]).addTo(this.map);
+          L.featureGroup([userMarker]).addTo(this.map);
+          // removeLayer(L.featureGroup);
+          this.refreshDatosMarkers();
 
-        let markers: L.Marker[] = [];
+        } catch (error) {
+          console.error('Error al cargar los sitios en el mapa: ', error);
+        }
 
-        this.datos.forEach((elem) => {
-          const coords = this.convertCoords(elem.latitud, elem.longitud);
-          const latlng: L.LatLngExpression = [coords[1], coords[0]];
-          console.log(latlng);
-          let siteMarker = L.marker(latlng, { icon: this.monumentIcon}).addTo(this.map)
-          //para que al hacer click en el enlace/botón lleve al detalle de ese monumento
-        .bindPopup( `${elem.nombre}<br><a href="http://localhost:4200/sitios/${elem.id}" id='button'> Ver más</a>`)
-        });
-
-        let markersS = L.featureGroup(markers).addTo(this.map);
-        this.map.fitBounds(markersS.getBounds(), {paddingTopLeft: [-80, 0]});
-
-        break;
-      }
-
+  break;
   }
+}
 
   /* ----- */
 
@@ -561,13 +582,10 @@ async loadTaxiStops(): Promise<void> {
 }
 
 async loadTramStops(): Promise<void> {
-  try {
+  
     const datos = await firstValueFrom(this.apiMapService.getTramsStation());
     this.tramStops = datos.features;
 
-  } catch (error) {
-    console.error('Error al cargar paradas de tranvía:', error);
-  }
 }
 
 async loadBusStops(): Promise<void> {
@@ -619,6 +637,33 @@ public showHideMarkers(event: Event, group: L.FeatureGroup): void {
     this.map.removeLayer(group);
   }
 }
+
+//esto refresca y genera los markers updateados
+private refreshDatosMarkers(): void {
+  if (!this.map) return;
+
+  // Eliminar el grupo viejo si existe
+  if (this.allmarkersGroup && this.map.hasLayer(this.allmarkersGroup)) {
+    this.map.removeLayer(this.allmarkersGroup);
+  }
+
+  const markers: L.Marker[] = [];
+  this.datos.forEach((elem) => {
+    const coords = this.convertCoords(elem.latitud, elem.longitud);
+    const latlng: L.LatLngExpression = [coords[1], coords[0]];
+
+    let siteMarker = L.marker(latlng, { icon: this.monumentIcon })
+      .bindPopup(`${elem.nombre}<br><a href="/sitios/${elem.id}">Ver más</a>`);
+
+    markers.push(siteMarker);
+  });
+
+  if (markers.length > 0) {
+    this.allmarkersGroup = L.featureGroup(markers).addTo(this.map);
+    this.map.fitBounds(this.allmarkersGroup.getBounds(), { paddingTopLeft: [-80, 0] });
+  }
+}
+
 
 private createBiziMarkers(): void {
 this.createMarkers(this.biziIcon, this.bizisMarkerGroup, this.bizis, "bizis");

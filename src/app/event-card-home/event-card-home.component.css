@@ -1,12 +1,13 @@
 h3{
-    color: #184591;
+    color: var(--color-primary);
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
     font-weight:700;
     font-size: 4rem;
+    margin-bottom: 0;
 }
 
 .btn-routes {   
-    background: linear-gradient( #184591, #2A8BEA);
+    background: linear-gradient( var(--color-primary), var(--color-secondary));
     font-family: "inclusive", system-ui;
 }  
 

@@ -3,18 +3,16 @@ a{
 }
 
 img{ 
-    object-fit: cover;
-       
+    object-fit: cover;      
 }
 
 .card-title {
-    color: #184591;
+    color: var(--color-primary);
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
     text-align: center; 
 }
 
 .card-subtitle{
-    color: #ffffff;
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
 }
 
@@ -29,11 +27,42 @@ img{
 }
 
 .card-body-r{
-    background-color: #184591;;
+    background-color: var(--color-primary);
 }
 
-@media (max-width: 430px){ 
+
+@media (min-width: 993px) and (max-width: 1199px) {
+    .card-title{
+        font-size: 2rem;
+    }
+
+    .card-subtitle{
+        font-size: 1.5rem !important;
+    }
+} 
+
+@media (min-width:768px) and (max-width: 992px) {
+    .card-title{
+        font-size: 1.55rem;
+    }
+
+    .card-subtitle{
+        font-size: 1rem !important;
+     
+    }
+
+    .card-body-r{
+        padding-block: 1rem;
+        padding-inline: 0;
+        
+    }
+}
+
+@media (max-width: 767px){ 
     .card-title{
         font-size: 2.2rem; 
     } 
+    .card-subtitle{
+        font-size: 1.5rem !important; 
+    }
 }

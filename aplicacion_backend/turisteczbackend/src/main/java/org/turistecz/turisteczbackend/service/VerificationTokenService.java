@@ -1,10 +1,11 @@
 package org.turistecz.turisteczbackend.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.turistecz.turisteczbackend.model.Usuario;
 import org.turistecz.turisteczbackend.model.VerificationToken;
 import org.turistecz.turisteczbackend.repository.VerificationTokenRepository;
+
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -13,27 +14,31 @@ import java.util.UUID;
 @Service
 public class VerificationTokenService {
 
-    private final VerificationTokenRepository tokenRepository;
+    @Autowired
+    private VerificationTokenRepository tokenRepository;
 
-    public VerificationTokenService(VerificationTokenRepository tokenRepository) {
-        this.tokenRepository = tokenRepository;
-    }
-
-    public VerificationToken crearToken(Usuario usuario) {
+    public VerificationToken crearToken(Usuario usuario, String tipo) {
         VerificationToken token = new VerificationToken();
         token.setToken(UUID.randomUUID().toString());
         token.setUsuario(usuario);
-        token.setExpiration(LocalDateTime.now().plusHours(48));
+        token.setFechaExpiracion(LocalDateTime.now().plusHours(24)); // ⏰ expira en 24h exactas
+        token.setTipo(tipo);
+
         return tokenRepository.save(token);
     }
 
-     public Optional<VerificationToken> validateToken(String tokenStr) {
-        return tokenRepository.findByToken(tokenStr)
-                .filter(t -> t.getExpiration() != null && t.getExpiration().isAfter(LocalDateTime.now()));
+    public Optional<VerificationToken> findByTokenAndTipo(String token, String tipo) {
+        return tokenRepository.findByTokenAndTipo(token, tipo);
     }
 
-    // Borrar token
-    @Transactional
+    public Optional<VerificationToken> validateToken(String token, String tipo) {
+        Optional<VerificationToken> vToken = findByTokenAndTipo(token, tipo);
+        if (vToken.isPresent() && vToken.get().getFechaExpiracion().isAfter(LocalDateTime.now())) {
+            return vToken;
+        }
+        return Optional.empty();
+    }
+
     public void deleteToken(VerificationToken token) {
         tokenRepository.delete(token);
     }

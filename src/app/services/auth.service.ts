@@ -28,4 +28,8 @@ export class AuthService {
   );
 }
 
+  resetPassword(token: string, nuevaPassword: string): Observable<any>{
+    return this.http.post(`${this.apiUrl}/reset-password?token=${token}&nuevaPassword=${nuevaPassword}`, {});
+  }
+
 }

@@ -96,12 +96,13 @@ CREATE TABLE usuario(
     fecha_creacion DATE
 );
 
-CREATE TABLE verification_token(
-    id int AUTO_INCREMENT PRIMARY KEY,
-    token varchar(255),
-    usuario_id int, 
-    FOREIGN KEY(usuario_id) REFERENCES usuario(id),
-    fecha_expiracion date
+CREATE TABLE verification_token (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(255) NOT NULL UNIQUE,
+    usuario_id INT NOT NULL,
+    fecha_expiracion DATETIME NOT NULL,
+    tipo VARCHAR(50) NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id)
 );
 
 
@@ -133,7 +134,105 @@ CREATE TABLE sitios_ruta_usuario (
     FOREIGN KEY (id_sitio_favorito) REFERENCES favoritos(sitios_id)
 ); 
 
+CREATE TABLE ruta_usuario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT,
+    titulo_ruta VARCHAR(255),
+	descripcion_ruta VARCHAR(255),
+	imagen_destacada VARCHAR(255),
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+);
+
+CREATE TABLE sitios_ruta_usuario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    id_ruta INT,
+    id_sitio_favorito INT,
+    orden INT,
+    texto_sitio VARCHAR(255),
+    FOREIGN KEY (id_ruta) REFERENCES ruta_usuario(id),
+    FOREIGN KEY (id_sitio_favorito) REFERENCES favoritos(sitios_id)
+); 
+
+
+CREATE TABLE filtro (
+	id INT PRIMARY KEY,
+	museos_exposiciones BOOLEAN,
+    monumentos_esculturas BOOLEAN,
+    zonas_verdes BOOLEAN,
+    arquitectura BOOLEAN,
+    arte_mudejar BOOLEAN,
+    arte_romano BOOLEAN,
+    rampas BOOLEAN,
+    ascensores BOOLEAN,
+    puertas_automaticas BOOLEAN,
+    escaleras_mecanicas BOOLEAN,
+    servicios_adaptados BOOLEAN,
+    parking_adaptado BOOLEAN,
+    mostrador_adaptado BOOLEAN,
+    sin_barreras_arquitectonicas BOOLEAN,
+    braille BOOLEAN,
+    interprete_lengua_signos BOOLEAN,
+    videos_subtitulados BOOLEAN,
+    ayudas_visuales BOOLEAN,
+    bancos BOOLEAN,
+    ayuda_movilidad BOOLEAN,
+    lenguaje_simple BOOLEAN,
+    acceso_perros_guias BOOLEAN,
+    acceso_perros_asistencia BOOLEAN,
+    sala_lactancia BOOLEAN,
+    cambiador BOOLEAN,
+    visitas_grupales BOOLEAN,
+    guias_turisticos_multiidioma BOOLEAN,
+    elementos_audiovisuales_multiidioma BOOLEAN,
+    documentacion_multiidioma BOOLEAN
+);
+
+CREATE TABLE filtros_user (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    usuario_id INT NOT NULL,
+    filtro_id INT NOT NULL,
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    FOREIGN KEY (filtro_id) REFERENCES filtro(id)
+);
+
+
+
+-- Crear tabla de configuración (única, flexible)
+CREATE TABLE IF NOT EXISTS configuracioncolor (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    clave VARCHAR(50) UNIQUE NOT NULL,  
+    valor TEXT,
+    descripcion VARCHAR(255)
+);
+
+-- Insertar el tema 'default' como JSON (paleta completa)
+INSERT INTO configuracioncolor (clave, valor, descripcion) 
+VALUES (
+  'tema_activo',
+  '{
+    "name": "default",
+    "color_primary": "#184591",
+    "color_secondary": "#2A8BEA",
+    "color_accent": "#42D5A5",
+    "gradient_primary_start": "#1f57b9",
+    "gradient_primary_end": "#8adff5",
+    "gradient_home_start": "#8ee3f7",
+    "gradient_home_end": "#478ed1",
+    "gradient_footer_start": "#6dd5ed",
+    "gradient_footer_end": "#2A8BEA",
+    "bg_primary": "#ffffff",
+    "text_primary": "#03080a",
+    "text_secondary": "#495057",
+    "text_light": "#ffffff"
+  }',
+  'Tema activo de la app (paleta completa en JSON)'
+)
+ON DUPLICATE KEY UPDATE 
+  valor = VALUES(valor),
+  descripcion = VALUES(descripcion);
+
 -- Inserción de datos en sitio
+
 INSERT INTO sitio (id, nombre, latitud, longitud, direccion, 
 horario_visita, telefono, enlace_web, rampas, ascensores, 
 puertas_automaticas, escaleras_mecanicas, servicios_adaptados, sala_lactancia, cambiador, 
@@ -143,157 +242,121 @@ documentacion_multiidioma, visitas_grupales, ayuda_movilidad, lenguaje_simple, a
 acceso_perros_asistencia)
 
 VALUES 
-(1, 'Basílica de Nuestra Señora del Pilar', 676641.359, 4613843.186, 'Plaza del Pilar, s/n, Casco Antiguo, 50003 Zaragoza',
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(1, 'Basílica de Nuestra Señora del Pilar', 676641.359, 4613843.186,'Plaza del Pilar, s/n, Casco Antiguo, 50003 Zaragoza',	
+NULL, NULL,	NULL, 'NO_HAY_INFORMACION',	'NO_HAY_INFORMACION', 
+'SI','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 
+'SI','SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',	'NO_HAY_INFORMACION', 'SI', 'SI', 
+'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION'),
 
-(2, 'Palacio de la Aljafería', 675130.806, 4613775.045, 'C. de los Diputados, s/n, 50004 Zaragoza',
- '', '976 28 96 83', NULL, 'SI', 'SI',
- 'SI', 'NO', 'SI', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(2, 'Palacio de la Aljafería', 675130.806,	4613775.045,NULL, 
+NULL, NULL, NULL,'NO_HAY_INFORMACION', 'SI',
+'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI', 
+'SI', 'SI','NO', 'NO','NO', 
+'NO_HAY_INFORMACION', 'NO','NO', 'SI', 'SI', 
+'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION'),
 
-(3, 'Catedral del Salvador o La Seo y Museo de Tapices', 676885.553, 4613613.895, 'Pl. de la Seo, 4, Casco Antiguo, 50001 Zaragoza',
- '', '976 29 12 31', 'https://catedraldezaragoza.es/', 'SI', 'NO',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(3, 'Catedral del Salvador o La Seo y Museo de Tapices', 676885.553, 4613613.895,NULL, 
+NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI', 
+'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI', 
+'SI', 'SI', 'NO', 'NO', 'NO', 
+'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI', 
+'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION'),
 
-(4, 'Puente de Piedra', 676905.595, 4613895.914, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(4, 'Puente de Piedra', 676905.595, 4613895.914, NULL,
+NULL,NULL,NULL,'NO_HAY_INFORMACION','SI',
+'SI','NO','NO','NO_HAY_INFORMACION','SI',
+'SI','SI','NO','NO','NO',
+'NO_HAY_INFORMACION','NO','NO','SI','SI',
+'SI','NO_HAY_INFORMACION','NO_HAY_INFORMACION',	'NO_HAY_INFORMACION','NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION'),
 
 (5, 'Puerta del Carmen', 675907.557, 4613058.914, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+NULL ,NULL, NULL,'NO_HAY_INFORMACION', 'SI', 
+'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI', 
+'SI', 'SI', 'NO', 'NO', 'NO',
+'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI', 
+'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION'),
 
-(6, 'Monumento a los Sitios', 676594.097, 4612963.79, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(6, 'Monumento a los Sitios',676594.097, 4612963.79, NULL, 
+NULL,NULL, NULL,'NO_HAY_INFORMACION', 'SI',	
+'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI', 
+'SI', 'SI', 'NO', 'NO', 'NO', 
+'NO_HAY_INFORMACION', 'NO','NO', 'SI', 'SI', 
+'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION'),
 
 (7, 'Monumento a Agustina Zaragoza y a las Heroínas', 675773.971, 4613909.76, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
+'SI', 'NO', 'NO','NO_HAY_INFORMACION', 'SI',
+'SI', 'SI',	'NO','NO', 'NO',
+'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI', 
+'SI','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',	'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION'),
 
-(8, 'Torreon de la Zuda', 676383.363, 4613919.495, 'Torre de la Zuda, Glorieta Pío XII, 1, Casco Antiguo, 50003 Zaragoza',
- NULL, NULL, NULL, 'SI', 'NO',
- 'NO', 'NO', 'NO', 'NO', 'NO',
- 'NO', 'SI', 'NO', 'SI', 'SI',
- 'NO', 'NO', 'SI', 'SI', 'SI',
- 'SI', 'SI', 'NO', 'SI', 'SI',
- 'SI'),
+(8, 'Torreon de la Zuda', 676383.363, 4613919.495, 'Torre de la Zuda, Glorieta Pío XII, 1, Casco Antiguo, 50003 Zaragoza', 
+NULL, NULL, NULL,'SI', 'NO',
+'NO', 'NO', 'NO', 'NO', 'NO', 
+'NO', 'SI', 'NO', 'SI', 'SI', 
+'NO', 'NO', 'SI', 'SI', 'SI', 
+'SI','SI', 'NO','SI', 'SI',
+'SI'),
 
 (9, 'Murallas Romanas', 676374.405, 4613870.392, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
+'SI', 'NO', 'NO','NO_HAY_INFORMACION', 'SI', 
+'SI', 'SI',	'NO','NO', 'NO', 
+'NO_HAY_INFORMACION','NO', 'NO', 'SI','SI', 
+'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION'),
 
-(10, 'Mercado Central', 676280.622, 4613760.544, 'Av. de César Augusto, 50003 Zaragoza',
- 'Lunes a Viernes 9:00-14:00h. 17:30-20:00h. Sábados 9:00-14:30h.', '976281998', 'https://www.mercadocentralzaragoza.com/', 'SI', 'SI',
- 'SI', 'NO', 'SI', 'NO', 'SI',
- 'NO', 'SI', 'NO', 'SI', 'NO',
- 'NO', 'NO', 'NO', 'SI', 'NO',
- 'NO', 'BAJO_PETICION', 'SI', 'SI', 'SI',
- 'NO'),
+(10, 'Mercado Central',	676280.622,	4613760.544,
+'Av. de César Augusto, 50003 Zaragoza', 'Lunes a Viernes 9:00-14:00h. 17:30-20:00h. Sábados 9:00-14:30h.​', 
+'976281998', 'https://www.mercadocentralzaragoza.com/', 'SI', 'SI', 'SI', 'NO', 'SI', 'NO', 'SI','NO', 'SI','NO',	
+'SI', 'NO', 'NO', 'NO', 'NO', 'SI',	'NO', 'NO', 'BAJO_PETICION','SI','SI', 'SI','NO'),
 
-(11, 'Museo de Zaragoza: Secciones de Antigüedad y Bellas Artes', 676655.284, 4612891.748, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO', 'NO_HAY_INFORMACION',
- 'NO', 'NO', 'SI', 'SI', 'SI',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(11, 'Museo de Zaragoza: Secciones de Antigüedad y Bellas Artes', 676655.284, 4612891.748,
+NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI', 'SI', 'NO', 'NO','NO_HAY_INFORMACION', 'SI','SI', 'NO', 'NO', 'NO',
+'NO_HAY_INFORMACION', 'NO', 'NO','SI', 'SI','SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION'),
 
-(12, 'Museo Goya - Colección Ibercaja', 676656.444, 4613612.917, 'C. de Espoz y Mina, 23, Casco Antiguo, 50003 Zaragoza',
- '', '976 39 73 87', 'https://museogoya.fundacionibercaja.es/', 'SI', 'SI',
- 'SI', 'NO', 'SI', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'SI', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'NO',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(12, 'Museo Goya - Colección Ibercaja', 676656.444, 4613612.917,	
+NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI', 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI','SI', 'SI','NO', 'NO', 
+'NO', 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'NO', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',	
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION'), 
 
-(13, 'Parque Grande José Antonio Labordeta', 675325.621, 4611191.907, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(13, 'Parque Grande José Antonio Labordeta', 675325.621, 4611191.907,	
+NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI', 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI', 'SI', 'SI', 'NO', 'NO',
+'NO', 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION'),
 
-(14, 'Monumento a Goya', 676772.054, 4613722.752, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(14, 'Monumento a Goya', 676772.054, 4613722.752,
+NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI', 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI', 'SI', 'SI', 'NO', 'NO', 'NO', 
+'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION'),
 
-(15, 'Escultura El Alma del Ebro', 674331.942, 4615143.408, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(15, 'Escultura El Alma del Ebro', 674331.942, 4615143.408,	
+NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI', 'SI', 'NO', 'NO','NO_HAY_INFORMACION', 'SI', 'SI', 'SI','NO', 'NO', 'NO',
+'NO_HAY_INFORMACION', 'NO', 'NO','SI', 'SI','SI', 'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION'),
 
-(16, 'Estatua del Emperador Augusto', 676335.746, 4613833.112, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(16, 'Estatua del Emperador Augusto', 676335.746, 4613833.112,	
+NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI', 'SI', 'NO', 'NO','NO_HAY_INFORMACION', 'SI','SI', 'SI', 'NO', 'NO', 'NO', 
+'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION'),
 
-(17, 'Palacio de los Condes de Morata o Luna', 676219.034, 4613530.502, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'SI', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(17, 'Palacio de los Condes de Morata o Luna', 676219.034, 4613530.502,
+NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI', 'SI','NO', 'NO', 'NO_HAY_INFORMACION', 'SI', 'SI', 'SI', 'NO', 'NO', 'NO',	
+'NO_HAY_INFORMACION', 'SI', 'NO', 'SI', 'SI', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION'),
 
-(18, 'Palacio de los Condes de Sástago', 676356.294, 4613383.558, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(18, 'Palacio de los Condes de Sástago', 676356.294, 4613383.558,	
+NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI', 'SI', 'NO', 'NO','NO_HAY_INFORMACION', 'SI', 'SI', 'SI', 'NO', 'NO', 'NO', 
+'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION'),
 
-(19, 'Casa de los Sitios', 677161.977, 4613254.312, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'NO', 'NO', 'NO',
- 'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(19,'Casa de los Sitios', 677161.977, 4613254.312,	
+NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI', 'SI', 'NO', 'NO', 'NO_HAY_INFORMACION', 'SI', 'SI', 'SI', 'NO', 'NO', 'NO', 
+'NO_HAY_INFORMACION', 'NO', 'NO', 'SI', 'SI', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION'),
 
 (20, 'Museo del Foro de Caesaraugusta', 676831.309, 4613671.44, 'Pl. de la Seo, 2, Casco Antiguo, 50001 Zaragoza',
  NULL, NULL, NULL, 'SI', 'SI',
@@ -319,47 +382,35 @@ VALUES
  'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
  'NO_HAY_INFORMACION'),
 
-(23, 'Alma Mater Museum', 676899.107, 4613712.996, NULL, 
- NULL, NULL, NULL, 'SI', 'SI',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'SI',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI',
- 'NO_HAY_INFORMACION'),
+(23, 'Alma Mater Museum', 676899.107, 4613712.996, 
+NULL, NULL, NULL, NULL, 'SI', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'SI', 
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION', 'SI', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'NO_HAY_INFORMACION'),
 
-(24, 'La Lonja', 676473.69, 4613864.834, 'Pl. de Ntra. Sra. del Pilar, s/n, Casco Antiguo, 50003 Zaragoza',
- '', '976 72 49 12', NULL, 'SI', 'NO_HAY_INFORMACION',
- 'SI', 'NO', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'SI', 'NO_HAY_INFORMACION', 'SI', 'SI', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI',
- 'NO_HAY_INFORMACION'),
+(24, 'La Lonja', 676473.690, 4613864.834, 
+NULL, NULL, NULL, NULL, 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'NO_HAY_INFORMACION'),
 
-(25, 'CaixaForum Zaragoza', 675356.535, 4613317.394, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'SI', 'SI', 'SI', 'SI',
- 'SI', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI',
- 'SI'),
+(25, 'CaixaForum Zaragoza', 675356.535, 4613317.394, 
+NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'SI', 'SI', 'SI', 'SI', 'SI', 'SI', 'SI', 'SI', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'SI', 
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'SI'),
 
-(26, 'Patio de la Infanta', 676178.426, 4612781.704, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI',
- 'NO_HAY_INFORMACION'),
+(26, 'Patio de la Infanta', 676178.426, 4612781.704, 
+NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'NO_HAY_INFORMACION'),
 
-(27, 'Centro de Historias de Zaragoza. Antiguo Convento de San Agustín', 677328.313, 4613192.872, '',
- '', '', NULL, 'SI', 'SI',
- 'SI', 'NO', 'SI', 'BAJO_PETICION', 'SI',
- 'NO', 'SI', 'BAJO_PETICION', 'SI', 'NO',
- 'NO', 'NO', 'SI', 'NO', 'NO',
- 'NO', 'SI', 'SI', 'NO', 'SI',
- 'SI'),
+(27, 'Centro de Historias de Zaragoza. Antiguo Convento de San Agustín', 677328.313, 4613192.872, 
+NULL, NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION', 
+'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION'),
 
-(28, 'Iglesia de San Pablo', 676025.981, 4613754.514, 'C. de San Pablo, 42, Casco Antiguo, 50003 Zaragoza',
+(28, 'Iglesia de San Pablo', 677040.585, 4613371.969, 'C. de San Pablo, 42, Casco Antiguo, 50003 Zaragoza',
  NULL, NULL, NULL, 'BAJO_PETICION', 'NO',
  'NO', 'NO', 'NO', 'NO', 'NO',
  'NO', 'SI', 'SI', 'NO', 'NO',
@@ -375,61 +426,45 @@ VALUES
  'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
  'NO_HAY_INFORMACION'),
 
-(30, 'Acuario de Zaragoza', 674937.596, 4615178.821, 'Av. de José Atarés, s/n, 50018 Zaragoza',
- '', '976 07 66 06', 'https://acuariodezaragoza.com/', 'SI', 'SI',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'SI', 'SI', 'SI',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(30, 'Acuario de Zaragoza', 674937.596, 4615178.821, 
+NULL, NULL, NULL, NULL, 'SI','SI','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION','SI','SI','SI','SI','NO_HAY_INFORMACION','NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION','SI','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION','SI','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION'),
 
-(31, 'Antiguo Convento de la Victoria. Museo del Fuego y de los Bomberos', 675987.54, 4613460.272, NULL, 
- NULL, NULL, NULL, 'SI', 'SI',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'SI', 'SI',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'SI'),
+(31, 'Antiguo Convento de la Victoria. Museo del Fuego y de los Bomberos', 675987.540, 4613460.272, 
+NULL, NULL, NULL, NULL, 'SI','SI','NO_HAY_INFORMACION','NO_HAY_INFORMACION','SI','SI','SI','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION',
+'SI','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','SI'),
 
-(32, 'Parque Metropolitano del Agua Luis Buñuel', 674469.478, 4615526.593, NULL, 
- NULL, NULL, NULL, 'SI', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI',
- 'NO_HAY_INFORMACION'),
+(32, 'Parque Metropolitano del Agua Luis Buñuel', 674469.478, 4615526.593, 
+NULL, NULL, NULL, NULL, 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'NO_HAY_INFORMACION'),
 
-(33, 'Museo de Ciencias Naturales de la Universidad de Zaragoza', 675984.774, 4612798.395, NULL, 
- NULL, NULL, NULL, 'SI', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'SI',
- 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI',
- 'NO_HAY_INFORMACION'),
+(33, 'Museo de Ciencias Naturales de la Universidad de Zaragoza',675984.774, 4612798.395,
+NULL, NULL, NULL, NULL, 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI',
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'SI', 'SI', 'SI', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION', 'SI', 'NO_HAY_INFORMACION'),
 
-(34, 'Museo de las Termas Públicas de Caesaraugusta', 676769.806, 4613469.059, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION'),
+(34, 'Museo de las Termas Públicas de Caesaraugusta',676769.806,4613469.059,
+NULL,NULL,NULL,NULL,'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION'),
 
-(35, 'Museo del Puerto Fluvial de Caesaraugusta', 676951.659, 4613680.185, 'Pl. de San Bruno, 8, Casco Antiguo, 50001 Zaragoza',
- NULL, NULL, NULL, 'NO', 'NO',
- 'NO', 'NO', 'NO', 'NO', 'NO',
- 'NO', 'SI', 'NO', 'NO', 'SI',
- 'NO', 'SI', 'SI', 'BAJO_PETICION', 'SI',
- 'SI', 'BAJO_PETICION', 'NO', 'NO', 'SI',
- 'SI'),
+(35, 'Museo del Puerto Fluvial de Caesaraugusta',676951.659,4613680.185,
+'Pl. de San Bruno, 8, Casco Antiguo, 50001 Zaragoza',NULL,NULL,NULL,'NO', 'NO','NO', 'NO', 'NO',
+'NO', 'NO', 'NO','SI', 'NO','NO', 'SI',
+'NO','SI','SI','BAJO_PETICION','SI','SI',
+'BAJO_PETICION','NO', 'NO', 'SI', 'SI'),
 
-(36, 'Canal Imperial de Aragón', 676165.758, 4611216.248, NULL, 
- NULL, NULL, NULL, 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
- 'NO_HAY_INFORMACION');
+(36, 'Canal Imperial de Aragón',676165.758,4611216.248,
+NULL,NULL,NULL,NULL,'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION','NO_HAY_INFORMACION',
+'NO_HAY_INFORMACION','NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION', 'NO_HAY_INFORMACION');
+
 
 -- Inserción de datos en imagen_sitio
 INSERT INTO imagen_sitio (id, nombre, url, copy, id_sitio) VALUES
@@ -483,44 +518,38 @@ más representativas de la ciudad.","2 horas", 'images/rutas/portada_ruta_mudeja
 
 -- -- Insert data into sitios_ruta
 INSERT INTO `sitios_ruta` VALUES 
-
--- RUTA MUDEJAR
-(1,1,28,2,'En el barrio de El Gancho,\npróximo al casco histórico,\nse encuentra este símbolo\ndel encuentro multicultural\nde la capital aragonesa.\nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.\n '),
-(2,1,2,1,'Utilizado como residencia. \nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.'),
+-- Ruta Mudejar
+(1,1,28,1,'En el barrio de El Gancho,\npróximo al casco histórico,\nse encuentra este símbolo\ndel encuentro multicultural\nde la capital aragonesa.\nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.\n '),
+(2,1,2,2,'Utilizado como residencia. \nDe estilo gótico-mudéjar, \nla catedral se ha ampliado\nmúltiples veces\nintegrando nuevos\nelementos decorativos\ny arquitectónicos.'),
 (3,1,3,3,'Conocida como La Seo, es una joya del arte mudéjar, gótico, renacentista y barroco en pleno corazón de Zaragoza. Su imponente fachada y su interior lleno de historia la convierten en un lugar único, declarado Patrimonio de la Humanidad.'),
 (4,1,29,4,'Uno de los mejores ejemplos del arte mudéjar en Zaragoza. Su torre, de ladrillo decorado con motivos geométricos, se alza elegante como un testimonio vivo de la fusión entre culturas.'),
-
--- RUTA ROMANA
-(5,2,21,5,'LA MEJOR ruta romana'),
-(6,2,20,2,'LA ruta romana'),
-(7,2,9,1,'LA MEJOR muralla'),
-(8,2,34,4,'LA MEJOR muralla'),
-(9,2,35,3,'LA MEJOR muralla'),
-
--- RUTA HISTÓRICA
-(10,3,1,3,'LA MEJOR  HISTORIA'),
-(11,3,3,5,'LA MEJOR HISTORIA'),
-(12,3,4,4,'LA MEJOR HISTORIA'),
-(13,3,10,1,'LA MEJOR HISTORIA'),
-(14,3,24,2,'LA MEJOR HISTORIA'),
-
--- RUTA AL AIRE LIBRE
-(15,4,13,2,'el mejor aire'),
-(16,4,32,1,'el mejor aire'),
-(17,4,36,3,'el mejor aire'),
-
--- RUTA FAMILIAR
-(18,5,30,2,'LA MEJOR FAMILIA'),
-(19,5,13,1,'LA MEJOR FAMILIA'),
-(20,5,31,4,'LA MEJOR FAMILIA'),
-(21,5,33,5,'LA MEJOR FAMILIA');
-
+-- Ruta Romana
+(5,2,21,1,'Construido en la primera mitad del siglo I d.C. fue uno de los teatros más grandes de la Hispania romana. Explora la arquitectura, cultura y espectáculos de la antigua ciudad romana de Caesaraugusta.'),
+(6,2,20,2,'Sumérgete en el corazón de la ciudad romana: el foro social, económico, religioso y político de Caesaraugusta. Aquí podrás ver restos arqueológicos del foro y conocer cómo era la vida cotidiana en el centro neurálgico de Caesaraugusta.'),
+(7,2,9,3,'Camina junto a los vestigios de una de las defensas más imponentes de Caesaraugusta. Construidas durante los siglos I al III d.C., bajo el mandato de Tiberio, se estima que la muralla rodeaba por completo la ciudad romana, con unos 3 km de longitud y cerca de 120 torres.'),
+(8,2,34,4,'Camina junto a los vestigios de una de las defensas más imponentes de Caesaraugusta. Construidas durante los siglos I al III d.C., bajo el mandato de Tiberio, se estima que la muralla rodeaba por completo la ciudad romana, con unos 3 km de longitud y cerca de 120 torres.'),
+(9,2,35,5,'Imagina el Ebro como una arteria vital: este puerto fluvial, construido a finales del siglo I a.C., conectaba Zaragoza con el Mediterráneo y Roma, siendo clave en el comercio fluvial del valle del Ebro.'),
+-- Ruta Histórica
+(10,3,1,1,'Construida entre los siglos XVII y XVIII, la Basílica del Pilar es un símbolo religioso y cultural de Zaragoza y España. Destaca su espectacular arquitectura barroca y sus torres que dominan el skyline de la ciudad. En su interior podrás admirar frescos realizados por el pintor Francisco de Goya, y es uno de los principales destinos de peregrinación mariana en el mundo.'),
+(11,3,3,2,'Levantada sobre una antigua mezquita, La Seo refleja la historia de Zaragoza en su mezcla única de estilos: románico, gótico, mudéjar y barroco. Su imponente fachada y el interior albergan el Museo de Tapices, que conserva una de las colecciones más importantes de tejidos históricos de Europa, con piezas que datan de los siglos XV al XVIII.'),
+(12,3,4,3,'Este puente, construido en el siglo XV sobre restos romanos, es el más antiguo de Zaragoza y ha sido testigo de numerosos acontecimientos históricos, incluyendo inundaciones y batallas. Su estructura de piedra conecta el casco histórico con la margen izquierda del Ebro y ofrece unas vistas impresionantes del río y la Basílica del Pilar.'),
+(13,3,10,4,'Inaugurado en 1903, el Mercado Central es un magnífico ejemplo de la arquitectura modernista aplicada a espacios públicos. Su estructura de hierro y cristal crea un espacio luminoso donde los zaragozanos disfrutan del comercio tradicional de productos frescos. Además de su valor arquitectónico, el mercado es un lugar vivo que refleja la cultura y gastronomía local.'),
+(14,3,24,5,'Construida a mediados del siglo XVI, es el mejor ejemplo de arquitectura civil renacentista en Zaragoza. Originalmente fue un espacio para el comercio y las reuniones de mercaderes. Hoy funciona como sala de exposiciones y conserva su elegante interior de columnas y techos artesonados. Un lugar donde la historia y el arte se encuentran.'),
+-- Ruta Al Aire Libre
+(15,4,13,1,'Uno de los espacios más queridos de Zaragoza. Ofrece amplios paseos, jardines, zonas infantiles, tren turístico y miradores. Perfecto para descansar, jugar o desconectar sin salir de la ciudad.'),
+(16,4,32,2,'Nacido con la Expo 2008, es un parque moderno junto al Ebro con áreas infantiles, canales navegables, zonas deportivas, lagos y una playa fluvial. Ideal para pasar el día en familia o con amigos.'),
+(17,4,36,3,'Construido en el siglo XVIII, este canal histórico atraviesa Zaragoza y ofrece un entorno ideal para pasear a pie o en bici bajo la sombra de los árboles. Es una ruta tranquila y natural para disfrutar en familia mientras se descubre un patrimonio hidráulico único.'),
+-- Ruta Familiar
+(18,5,30,1,'Inaugurado en 2008 para la Expo, es el acuario fluvial más grande de Europa. Un viaje fascinante al mundo acuático con más de 140 especies. Un plan ideal para que los peques aprendan sobre ríos, mares y ecosistemas mientras se divierten.'),
+(19,5,13,2,'Este parque combina historia y naturaleza. Con amplios jardines y zonas de juego, es el lugar perfecto para que toda la familia disfrute y se relacione con la ciudad.'),
+(20,5,31,4,'Situado en un edificio histórico, este museo muestra la evolución del cuerpo de bomberos de Zaragoza desde el siglo XIX. Descubre la historia de los bomberos de Zaragoza a través de sus vehículos, herramientas y curiosidades. Una visita entretenida para los niños con ganas de aventuras y aprendizaje.'),
+(21,5,33,5,'Fundado en el siglo XIX, este museo ofrece exposiciones que acercan la naturaleza y la ciencia a todas las edades. Un espacio para despertar la curiosidad de grandes y pequeños con exposiciones sobre la naturaleza, animales y el medio ambiente. Ideal para aprender y divertirse juntos.');
 
 INSERT INTO usuario (nombre, apellido, email, contrasena, activo, fecha_creacion) VALUES 
 ('Alvaro', 'Samcho', 'asfswgew@gmail.com', 'contrasena', true, CURRENT_DATE),
 ('Alvaro', 'sdgsdgsd', 'sdhshshs@gmail.com', 'contrasenaa', true, current_date),
 ('Alvaro', 'gsdgdsgsgds', 'hrhsrhsrd@gmail.com', 'contraseena', true, current_date),
-('Alvaro', 'Sancho', 'alvarosanva6@gmail.com', '$10$sxdMK9EZUH1MVLnJbKYQMu3XK86XzlORsP258SlkHZHDF7WyYCQYm', true, current_date),
+('Alvaro', 'Sancho', 'alvarosanvaa6@gmail.com', '$10$VrkN281yRz.GcR5yjK6v4.ayujUkUsm3mi0Rrs8FQlT3LyXNOb9oW', true, current_date),
 ('Mariposa44', 'Boss', '1@email.com', '$2a$10$e4uCqnlUKN/rpU5lEaSRDOET3Zb2uLvxwSKJjXw2tyKnxJXn53s7e', true, current_date);
 
 
@@ -540,6 +569,7 @@ INSERT INTO caracteristica (nombre) VALUES
 (2, 2),
 (3, 1),
 (3, 3);
+
 
 -- Creacion de Vista para mostrar detalles ruta:
 

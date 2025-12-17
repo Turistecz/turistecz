@@ -23,10 +23,8 @@ export class RoutesCardListComponent {
     routesName: RoutesPage[]=[];
   async loadAllRoutes(): Promise<void> {
     try {
-      console.log('Aqui ha entrado');
       const datos = await firstValueFrom(this.routeService.getAllRoutes());
       this.routesName = datos.slice(0, 3); // usar slice aquí
-      console.log(this.routesName);
     } catch (error) {
       console.error('Error al cargar Rutas:', error);
     }

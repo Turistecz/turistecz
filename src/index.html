@@ -7,30 +7,11 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- Este es el interrogante del botón flotante-->
- </head>
+   <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
    
-<body>
+<body class="ig-typography ig-scrollbar">
   <app-root></app-root>
-  <script type="module">
-    window.addEventListener('mouseover', initLandbot, { once: true });
-    window.addEventListener('touchstart', initLandbot, { once: true });
-
-    let myLandbot;
-    function initLandbot() {
-      if (!myLandbot) {
-        const s = document.createElement('script');
-        s.type = "module";
-        s.async = true;
-        s.addEventListener('load', function () {
-          myLandbot = new Landbot.Container({
-            container: '#landbot-container',
-            configUrl: 'https://storage.googleapis.com/landbot.online/v3/H-3105920-Z876DCRA7X45MZUP/index.json',
-          });
-        });
-        s.src = 'https://cdn.landbot.io/landbot-3/landbot-3.0.0.mjs';
-        document.body.appendChild(s);
-      }
-    }
-  </script>
 </body>
 </html>

@@ -7,6 +7,7 @@ import { categories } from '../models/filter.data';
 import { firstValueFrom } from 'rxjs';
 import { MonumentServiceService } from '../services/monument-service.service';
 import { HttpClient } from '@angular/common/http';
+import { MonumentItem } from '../models/monument.model';
 
 @Component({
   selector: 'app-map-page',
@@ -16,23 +17,21 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MapPageComponent {
 
- categories:Category[]= categories;
- places:cardsHome[]=[]
- sitios: any[]=[];
-
+ globalCategories:Category[]= categories;
+ sitios:MonumentItem[] = [];
+ sitiosFiltrados: MonumentItem[] = [];
  name:string = 'app-map-page';
 
-  constructor(private http: HttpClient, private monumentService: MonumentServiceService) {}
-
+constructor(private http: HttpClient, private monumentService: MonumentServiceService) {}
 
   async loadSite(): Promise<void> {
     try {
       if (localStorage.getItem('monumentDDBBGlobal')) {
-        this.sitios = JSON.parse(localStorage.getItem('monumentDDBBGlobal') || '{}');
+      //  this.sitiosFiltrados = JSON.parse(localStorage.getItem('monumentDDBBGlobal') || '{}');
       } else {
-        const datos = await firstValueFrom(this.monumentService.getMonumentsNames());
-        this.sitios = datos; 
-        localStorage.setItem('monumentDDBBGlobal', JSON.stringify(datos));
+        this.sitios = await firstValueFrom(this.monumentService.getMonumentsNames());
+        this.sitiosFiltrados = this.sitios; 
+        // localStorage.setItem('monumentDDBBGlobal', JSON.stringify(this.sitiosFiltrados));
       }
     } 
     catch (error) {
@@ -41,8 +40,11 @@ export class MapPageComponent {
     }
   }
 
-   async ngOnInit(): Promise<void> {
+  async ngOnInit(): Promise<void> {
     await this.loadSite();
-   }
+  }
 
+  updatePlaces(filteredPlaces: MonumentItem[]) {
+    this.sitiosFiltrados = filteredPlaces;
+  }
 }

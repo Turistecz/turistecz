@@ -32,6 +32,9 @@ export class MonumentComponent implements OnInit {
   monumento: MonumentItem = {
     id: 0,
     title: "",
+    nombre: "",
+    latitud: 0,
+    longitud: 0,
     description: "",
     address: "",
     horario: "",
@@ -167,15 +170,15 @@ export class MonumentComponent implements OnInit {
   }
 
   get cleanHorario(): string {
-    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].horario);
+    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber]?.horario);
   }
 
   get cleanDescription(): string {
-    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].description);
+    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber]?.description);
   }
 
   get cleanPrice(): string {
-    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].price);
+    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber]?.price);
   }
 
   get img(): string {
@@ -189,7 +192,7 @@ export class MonumentComponent implements OnInit {
     await this.loadAdaptabilityCategories();
    
     this.apiConnectService.getMonumentsNames().subscribe(data => {
-      data.map(monumento => this.monumentsNames.push(monumento.nombre));
+      data.map(monumento => this.monumentsNames.push(monumento.title));
     });  
 
     this.monumentNumber = Number(this.route.snapshot.paramMap.get('id'));
