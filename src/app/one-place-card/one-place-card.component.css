@@ -33,13 +33,7 @@
 
 /* ---- Iconos de accesibilidad (siempre en DOM, control por opacity) ---- */
 .accessibility-icons-bottom {
-  display: flex;
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
   gap: 0.4rem;
-  flex-wrap: nowrap;
   white-space: nowrap;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
@@ -69,7 +63,7 @@
 
 /* ---- Escritorio (≥ 1200px): iconos visibles solo en hover ---- */
 /* ---- Ajuste estético para portátiles anchos si necesitas ---- */
-@media (min-width: 1200px) and (max-width: 1366px){
+@media (min-width: 1200px){
 .accessibility-icons-bottom {
   opacity: 0;
   pointer-events: none;
@@ -97,7 +91,7 @@
     pointer-events: none;
   }
   /* opcional: ajustar tamaño de título si quieres */
-  .card-title { font-size: 1.24rem; }
+  .card-title { font-size: 1.2rem; }
 
   .card-place:hover .accessibility-icons-bottom {
     opacity: 0.8;
@@ -105,7 +99,7 @@
   }
 
  .card-place .overlay-content {
-    padding-block: 1rem;
+    padding-block: 1.5rem;
     height: max-content;
     opacity: 1;
     top: auto;
@@ -113,14 +107,14 @@
 
 }
 /* ---- Mobile / tablet (≤ 992px): iconos siempre visibles + overlay visible ---- */
-@media (min-width: 768px) and (max-width: 992px) {
+@media (max-width: 992px) {
   .accessibility-icons-bottom {
-    opacity: 0;
+    opacity: 1;
     pointer-events: auto;
   }
   
-  .overlay-content {
-    padding-block: 1.1rem;
+  .card-place .overlay-content {
+    padding-block: 1.5rem;
     height: max-content;
     opacity: 1;
     top: auto;
@@ -132,31 +126,6 @@
     max-width: 400px;
   }
   .card-title{
-    font-size: 1.3rem;
+    font-size: 1.9rem;
   }
 }
-
-@media (max-width: 767px) {
-  .accessibility-icons-bottom {
-    opacity: 0;
-    pointer-events: auto;
-  }
-  
-  .overlay-content {
-    padding-block: 1.3rem;
-    height: max-content;
-    opacity: 1;
-    top: auto;
-  }
-
-  .card-place {
-    border-radius: 30px;
-    max-height: 430px;
-    max-width: 400px;
-  }
-  .card-title{
-    font-size: 1.8rem;
-  }
-}
-
-
