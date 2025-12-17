@@ -1,9 +1,24 @@
 #map {
   height: 600px;
+  
+}
+.legend{
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+  background-color: rgb(242, 244, 245)
+}
+
+.mapButton{
+  background-color: rgb(118, 167, 240);
+  border: 1px solid #f5f9fc;
 }
 
 #instructionsListDiv, #distanceTime {
   font-size: 0.9rem;
+
+}
+
+.list-group-item {
+  background-color: transparent;
 }
 
 #listContainer {
@@ -11,6 +26,10 @@
   width: 25%;
   max-height: 85%;
   position: absolute;
+  background-color: rgb(242, 244, 245);
+  font-family: 'Inclusive', system-ui;
+  border: 1px solid rgb(198, 198, 201);
+  
 }
 
 li {
