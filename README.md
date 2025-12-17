@@ -164,6 +164,7 @@ Pasos para instalar Docker y poder ejecutar en local el OSRM Server.
 ### Instalar Docker
 1. Ir a "activar o desactivar las características de Windows" en el buscador de Windows.
 2. Activar las opciones "Plataforma de máquina virtual", "Plataforma de hipervisor de Windows", "Subsistema de Windows para Linux", "Espacio aislado de Windows" e "Hyper-V".
+Haz click en aceptar y reiniciar cuando te aparezca la opción
 3. Abrir una terminal y escribir:
 ``` bash
 wsl --install -d Ubuntu
@@ -179,6 +180,7 @@ sudo apt update && sudo apt upgrade
 wsl --set-default-version 2
 ```
 8. Descargar docker: https://docs.docker.com/desktop/setup/install/windows-install/
+Para confirmar el sistema operativo que tienes en el ordenador abre windows, configuración, acerca de y tipo de sistema.
 9. Instalar, marcar las dos opciones si no lo están por defecto.
 10. Abrir Docker cuando termine de instalar y crearse una cuenta.
 
@@ -190,7 +192,7 @@ En caso de duda consultar el siguiente video: https://www.youtube.com/watch?v=4m
 3. Abrir Docker, ir a Ajustes, Resources, File sharing e introducir la dirección de la carpeta data
 4. Abrir una terminal, navegar a la carpeta data y abrir Linux.
 4.1 Puedes poner en la terminal de windows ubuntu y ya estaría usando linux ó puedes abrir la terminal de ubuntu (importante que es estés dentro de la carpeta data)
-5. Introducir los siguientes comandos en order para generar los datos de la ruta a pie:
+5. Introducir los siguientes comandos en order para generar los datos de la(revisar que el nombre del archivo que sea el mismo que introducimos en los siguientes comandos):
 ``` bash
 docker run -t -v "${PWD}:/data" ghcr.io/project-osrm/osrm-backend osrm-extract -p /opt/foot.lua /data/aragon-latest.osm.pbf || echo "osrm-extract failed"
 ```
