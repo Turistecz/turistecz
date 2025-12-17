@@ -6,12 +6,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
+import { CustomRouteComponent } from "../custom-route/custom-route.component";
 import { CalendarComponent } from "../calendar/calendar.component";
 
 @Component({
   selector: 'app-mi-perfil',
   standalone: true,
-  imports: [CommonModule, RouterModule, OnePlaceCardComponent, CalendarComponent],
+  imports: [CommonModule, RouterModule, OnePlaceCardComponent, CalendarComponent, CustomRouteComponent],
   templateUrl: './mi-perfil.component.html',
   styleUrls: ['./mi-perfil.component.css']
 })
