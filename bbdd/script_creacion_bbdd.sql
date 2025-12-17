@@ -468,14 +468,12 @@ INSERT INTO imagen_sitio (id, nombre, url, copy, id_sitio) VALUES
 (36, 'Canal Imperial de Aragón', 'images/images_sitios/37_canal_imperial.jpg', NULL, 36);
 -- -- Insert data into ruta
 
-INSERT INTO ruta (nombre, descripcion, duracion, imagen_destacada, subtitulo) VALUES 
-("Ruta Mudéjar","El paso del pueblo islámico dejó 
-su huella arquitectónica en la ciudad. Aquí te invitamos a visitar las obras Mudéjar
-más representativas de la ciudad.","2 horas", 'images/rutas/portada_ruta_mudejar.jpg',"Descubre la belleza oculta del Mudéjar"),
-("Ruta Romana","La mejor romana de Zaragoza","2 horas","images/rutas/portada_ruta_romana.jpg","Explora los orígenes de Caesaraugusta"),
-("Ruta Histórica","La mejor historia de Zaragoza","2 horas","images/rutas/portada_ruta_historica.jpg","Viaja en el tiempo y descubre Zaragoza"),
-("Ruta Aire Libre","Los mejores parques de Zaragoza","3 horas","images/rutas/portada_ruta_verde.jpg","Explora los mejores paisajes de la Ciudad"),
-("Ruta Familiar","La mejor arquitectura de Zaragoza","2 horas","images/rutas/portada_ruta_familiar.jpg","Vive y diviértete con toda la familia");
+INSERT INTO ruta (id, nombre, descripcion, duracion, imagen_destacada, subtitulo) VALUES 
+(1,'Ruta Mudéjar','El paso del pueblo islámico dejó \nsu huella arquitectónica en la ciudad. Aquí te invitamos a visitar las obras Mudéjar\nmás representativas de la ciudad.','2 horas','images/rutas/portada_ruta_mudejar.jpg','Descubre la belleza oculta del Mudéjar'),
+(2,'Ruta Romana','Un viaje por la mejor ruta romana de Zaragoza.','2 horas','images/rutas/portada_ruta_romana.jpg','Explora los orígenes de Caesaraugusta'),
+(3,'Ruta Histórica','Descubre los monumentos que definen la identidad de la ciudad.','2 horas','images/rutas/portada_ruta_historica.jpg','Viaja en el tiempo y descubre Zaragoza'),
+(4,'Ruta Aire Libre','Los mejores parques de Zaragoza','3 horas','images/rutas/portada_ruta_verde.jpg','Explora los mejores paisajes de la Ciudad'),
+(5,'Ruta Familiar','Disfruta de los mejores lugares para compartir en familia.','2 horas','images/rutas/portada_ruta_familiar.jpg','Vive y diviértete con toda la familia');
 
 
 -- -- Insert data into sitios_ruta
@@ -489,13 +487,13 @@ INSERT INTO `sitios_ruta` VALUES
 (5,2,21,1,'Construido en la primera mitad del siglo I d.C. fue uno de los teatros más grandes de la Hispania romana. Explora la arquitectura, cultura y espectáculos de la antigua ciudad romana de Caesaraugusta.'),
 (6,2,20,2,'Sumérgete en el corazón de la ciudad romana: el foro social, económico, religioso y político de Caesaraugusta. Aquí podrás ver restos arqueológicos del foro y conocer cómo era la vida cotidiana en el centro neurálgico de Caesaraugusta.'),
 (7,2,9,3,'Camina junto a los vestigios de una de las defensas más imponentes de Caesaraugusta. Construidas durante los siglos I al III d.C., bajo el mandato de Tiberio, se estima que la muralla rodeaba por completo la ciudad romana, con unos 3 km de longitud y cerca de 120 torres.'),
-(8,2,34,4,'Camina junto a los vestigios de una de las defensas más imponentes de Caesaraugusta. Construidas durante los siglos I al III d.C., bajo el mandato de Tiberio, se estima que la muralla rodeaba por completo la ciudad romana, con unos 3 km de longitud y cerca de 120 torres.'),
+(8,2,34,4,'Recorre los vestigios de una de las defensas más imponentes de Caesaraugusta. Construidas entre los siglos I y III d. C., bajo el mandato de Tiberio, se estima que la muralla rodeaba por completo la ciudad romana, con unos 3 km de longitud y cerca de 120 torres.'),
 (9,2,35,5,'Imagina el Ebro como una arteria vital: este puerto fluvial, construido a finales del siglo I a.C., conectaba Zaragoza con el Mediterráneo y Roma, siendo clave en el comercio fluvial del valle del Ebro.'),
 -- Ruta Histórica
 (10,3,1,1,'Construida entre los siglos XVII y XVIII, la Basílica del Pilar es un símbolo religioso y cultural de Zaragoza y España. Destaca su espectacular arquitectura barroca y sus torres que dominan el skyline de la ciudad. En su interior podrás admirar frescos realizados por el pintor Francisco de Goya, y es uno de los principales destinos de peregrinación mariana en el mundo.'),
 (11,3,3,2,'Levantada sobre una antigua mezquita, La Seo refleja la historia de Zaragoza en su mezcla única de estilos: románico, gótico, mudéjar y barroco. Su imponente fachada y el interior albergan el Museo de Tapices, que conserva una de las colecciones más importantes de tejidos históricos de Europa, con piezas que datan de los siglos XV al XVIII.'),
 (12,3,4,3,'Este puente, construido en el siglo XV sobre restos romanos, es el más antiguo de Zaragoza y ha sido testigo de numerosos acontecimientos históricos, incluyendo inundaciones y batallas. Su estructura de piedra conecta el casco histórico con la margen izquierda del Ebro y ofrece unas vistas impresionantes del río y la Basílica del Pilar.'),
-(13,3,10,4,'Inaugurado en 1903, el Mercado Central es un magnífico ejemplo de la arquitectura modernista aplicada a espacios públicos. Su estructura de hierro y cristal crea un espacio luminoso donde los zaragozanos disfrutan del comercio tradicional de productos frescos. Además de su valor arquitectónico, el mercado es un lugar vivo que refleja la cultura y gastronomía local.'),
+(13,3,10,4,'Inaugurado en 1903, este emblemático edificio es uno de los mejores ejemplos del modernismo en Zaragoza. Su elegante estructura de hierro y cristal crea un espacio luminoso y lleno de vida, donde tradición y sabor se dan la mano entre puestos de productos frescos. Más que un mercado, es una visita imprescindible para descubrir la cultura y la gastronomía local.'),
 (14,3,24,5,'Construida a mediados del siglo XVI, es el mejor ejemplo de arquitectura civil renacentista en Zaragoza. Originalmente fue un espacio para el comercio y las reuniones de mercaderes. Hoy funciona como sala de exposiciones y conserva su elegante interior de columnas y techos artesonados. Un lugar donde la historia y el arte se encuentran.'),
 -- Ruta Al Aire Libre
 (15,4,13,1,'Uno de los espacios más queridos de Zaragoza. Ofrece amplios paseos, jardines, zonas infantiles, tren turístico y miradores. Perfecto para descansar, jugar o desconectar sin salir de la ciudad.'),
