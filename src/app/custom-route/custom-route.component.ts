@@ -19,7 +19,7 @@ export class CustomRouteComponent {
   // CREAR NUEVA RUTA + SELECCIONAR Y ORDENAR (O NO) SITIOS RUTA
   usuario:User = {id:0}; // Datos del usuario
 
-  datosCrearRuta:CrearRuta = { id_usuario:0, titulo_ruta:'', descripcion_ruta:'' }
+  datosCrearRuta:CrearRuta = { id_usuario:0, titulo_ruta:'', descripcion_ruta:'' };
 
   sitiosFavoritosUsuario:SitioFavoritosUsuario[]=[]; // Todos los sitios favoritos seleccionados por el usuario
   sitioFavoritosUsuario:SitioFavoritosUsuario = { id:0, nombre:'' }; // Estructura de un sitio favoritos seleccionado por el usuario
@@ -30,16 +30,17 @@ export class CustomRouteComponent {
 
   // MOSTRAR RUTAS CREADAS Y SITIOS DE LA RUTA
   datosMostrarRutas:MostrarRuta[]=[]; // Todas las rutas que el usuario ha creado 
-  datoMostrarRuta:MostrarRuta = { id:0, titulo_ruta:'',descripcion_ruta:'' } // Estructura de una Ruta creada por el usuario
+  datoMostrarRuta:MostrarRuta = { id:0, titulo_ruta:'',descripcion_ruta:'' }; // Estructura de una Ruta creada por el usuario
   mostrarSitiosRuta:MostrarSitioRuta[]=[]; // Mostrar sitios de una ruta concreta existente
 
-  //////////
-  idRutaEliminar:number=0; // Copia id ruta para eliminarla
-
-  editarRuta = { id:0, titulo:'', descripcion:''}; // Copia datos de la ruta seleccionada para guardarlos como valor por defecto en el formulario de edicion
-  sitiosFavotitosSeleccionados:SitioFavoritosUsuario[]=[]; // Guardar sitios previamente seleccionados por el usuario al crear la ruta
-  sitiosFavoritosNoSeleccionados:SitioFavoritosUsuario[]=[]; // Guardar sitios previamente no seleccionados por el usuario al crear la ruta
+  // EDITAR RUTA
+  editarRuta:MostrarRuta = { id:0, titulo_ruta:'', descripcion_ruta:'' };
+  editarSitiosSeleccionados:SitioFavoritosUsuario[]=[];
+  editarSitiosNoSeleccionados:SitioFavoritosUsuario[]=[];
   sitiosRutaReordenados:SitioRutaSeleccionado[]=[]; // Guardar sitios que el usuario ha reordenado al editar la ruta
+
+  // ELMINIAR RUTA
+  idRutaEliminar:number=0; // Copia id ruta para eliminarla
 
   constructor(private customRouteService: CustomRouteService, private formB: FormBuilder, private favoritosService: FavoritosService){
     this.formularioRuta = this.formB.group({
@@ -157,14 +158,12 @@ export class CustomRouteComponent {
     })
   }
   
-  /////////////
-
   // EDITAR RUTA
   copiarDatosRuta(id_ruta:number, titulo:string, descripcion:string){
     this.editarRuta = {
       id:id_ruta,
-      titulo:titulo,
-      descripcion:descripcion
+      titulo_ruta:titulo,
+      descripcion_ruta:descripcion
     }
     this.sitiosSeleccionadosYSitiosNoSeleccionados();
   }
@@ -197,13 +196,12 @@ export class CustomRouteComponent {
       sitiosEliminar.forEach(sitioEliminar => {
         this.eliminarSitios(sitioEliminar.id);
       })
-      this.sitiosFavotitosSeleccionados.forEach(sitio=>{
+      this.editarSitiosSeleccionados.forEach(sitio=>{
         this.enviarDatosSitiosRutaUsuario(idRuta, sitio.id, 0)
       })
     }
   }
 
-  
   editarTitulo(titulo:string){
     this.customRouteService.putTituloRutaUsuario(this.editarRuta.id, titulo).subscribe({
         next: (response) => {
@@ -232,35 +230,35 @@ export class CustomRouteComponent {
   
   sitiosSeleccionadosYSitiosNoSeleccionados(){
     let sitioSeleccionado:SitioFavoritosUsuario = { id:0, nombre:'' }
-    this.sitiosFavotitosSeleccionados = this.mostrarSitiosRuta.filter(sitioR => (sitioR.idRuta === this.editarRuta.id))
+    this.editarSitiosSeleccionados = this.mostrarSitiosRuta.filter(sitioR => (sitioR.idRuta === this.editarRuta.id))
     .map(sitio => sitioSeleccionado = {id:sitio.idSitio, nombre:sitio.nombre})
-    let idsSitiosSeleccionados = this.sitiosFavotitosSeleccionados.map((sitio:any) => sitio.id);
-    this.sitiosFavoritosNoSeleccionados = this.sitiosFavoritosUsuario.filter(sitioF => !idsSitiosSeleccionados.includes(sitioF.id));
+    let idsSitiosSeleccionados = this.editarSitiosSeleccionados.map((sitio:any) => sitio.id);
+    this.editarSitiosNoSeleccionados = this.sitiosFavoritosUsuario.filter(sitioF => !idsSitiosSeleccionados.includes(sitioF.id));
   }
 
   seleccionarSitio(event: any , idSitio: number, nombreSitio:string){
     if (event.target.checked) {
       let sitioRutaSeleccionado = { id:idSitio, nombre:nombreSitio };
-      this.sitiosFavotitosSeleccionados.push(sitioRutaSeleccionado)
-      let idsSitiosSeleccionados = this.sitiosFavotitosSeleccionados.map((sitio:any) => sitio.id);
-      this.sitiosFavoritosNoSeleccionados = this.sitiosFavoritosNoSeleccionados.filter(sitioF => !idsSitiosSeleccionados.includes(sitioF.id))
+      this.editarSitiosSeleccionados.push(sitioRutaSeleccionado)
+      let idsSitiosSeleccionados = this.editarSitiosSeleccionados.map((sitio:any) => sitio.id);
+      this.editarSitiosNoSeleccionados = this.editarSitiosNoSeleccionados.filter(sitioF => !idsSitiosSeleccionados.includes(sitioF.id))
     } 
     else {
       let sitioRutaSeleccionado = { id:idSitio, nombre:nombreSitio };
-      this.sitiosFavoritosNoSeleccionados.push(sitioRutaSeleccionado);
-      let idsSitiosNoSeleccionados = this.sitiosFavoritosNoSeleccionados.map((sitio:any) => sitio.id);
-      this.sitiosFavotitosSeleccionados = this.sitiosFavotitosSeleccionados.filter(sitioF => !idsSitiosNoSeleccionados.includes(sitioF.id))
+      this.editarSitiosNoSeleccionados.push(sitioRutaSeleccionado);
+      let idsSitiosNoSeleccionados = this.editarSitiosNoSeleccionados.map((sitio:any) => sitio.id);
+      this.editarSitiosSeleccionados = this.editarSitiosSeleccionados.filter(sitioF => !idsSitiosNoSeleccionados.includes(sitioF.id))
     }
   }
 
   dropEditado(event:CdkDragDrop<string[]>) {
-    moveItemInArray(this.sitiosFavotitosSeleccionados, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.editarSitiosSeleccionados, event.previousIndex, event.currentIndex);
     this.reordenarSitios()
   }
 
   reordenarSitios(){
     const idRuta = this.editarRuta.id;
-    this.sitiosRutaReordenados = this.sitiosFavotitosSeleccionados.map((sitio, index)=>({
+    this.sitiosRutaReordenados = this.editarSitiosSeleccionados.map((sitio, index)=>({
       id_ruta:idRuta,
       id_sitio: sitio.id,
       nombre: sitio.nombre,
@@ -288,7 +286,7 @@ export class CustomRouteComponent {
   eliminarSitios(id:number){
     this.customRouteService.deleteSitioRutaUsuario(id).subscribe({
       next: (response) => {
-        // this.recargarPagina();
+        this.recargarPagina();
       },
       error: (error) => {
         console.error('Error al eliminar el sitio de la ruta.', error);
@@ -310,7 +308,6 @@ export class CustomRouteComponent {
     } else {
       console.error('No hay usuario logueado');
     }
-    // Llamadas de funciones
     this.mostrarRutasUsuarioCreadas();
     this.mostrarSitiosFavoritosUsuario();
     this.mostrarSitiosRutaUsuario();

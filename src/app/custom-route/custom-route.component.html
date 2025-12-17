@@ -33,17 +33,17 @@
           <form [formGroup]="formularioRuta">
             <!-- Modificar titulo ruta -->
             <label for="titulo_ruta" class="form-label">Título de la Ruta</label>
-            <input type="text" id="titulo_ruta" class="form-control" formControlName="titulo_ruta" [value]="this.editarRuta.titulo">
+            <input type="text" id="titulo_ruta" class="form-control" formControlName="titulo_ruta" [value]="this.editarRuta.titulo_ruta">
             <!-- Modificar descripcion ruta -->
             <label for="descripcion_ruta" class="form-label">Descripcion</label>
-            <input type="text" id="descripcion_ruta" class="form-control" formControlName="descripcion_ruta" [value]="this.editarRuta.descripcion">
+            <input type="text" id="descripcion_ruta" class="form-control" formControlName="descripcion_ruta" [value]="this.editarRuta.descripcion_ruta">
             <!-- Añadir o eliminar sitios de la ruta -->
             <label class="form-label mt-3">Añadir o eliminar sitios de la ruta</label>
-            <div *ngFor="let sitioSelecionado of sitiosFavotitosSeleccionados" class="mt-3">
+            <div *ngFor="let sitioSelecionado of editarSitiosSeleccionados" class="mt-3">
               <input class="form-check-input me-2" type="checkbox" [value]="sitioSelecionado.id" checked (change)="seleccionarSitio($event, sitioSelecionado.id, sitioSelecionado.nombre)">
               <label class="form-check-label">{{ sitioSelecionado.nombre }}</label> 
             </div> 
-            <div *ngFor="let sitioNoSeleccionado of sitiosFavoritosNoSeleccionados" class="mt-3">
+            <div *ngFor="let sitioNoSeleccionado of editarSitiosNoSeleccionados" class="mt-3">
               <input class="form-check-input me-2" type="checkbox" [value]="sitioNoSeleccionado.id" [checked]="false" (change)="seleccionarSitio($event, sitioNoSeleccionado.id, sitioNoSeleccionado.nombre)">
               <label class="form-check-label">{{ sitioNoSeleccionado.nombre }}</label> 
             </div> 
@@ -51,7 +51,7 @@
             <label class="form-label mt-3">Cambiar orden sitios</label>
             <div cdkDropList class="example-list" (cdkDropListDropped)="dropEditado($event)">
             <ol class="mb-3 list-group list-group-numbered" >
-                <li *ngFor="let sitio of sitiosFavotitosSeleccionados" cdkDrag class="example-box p-4 list-group-item">
+                <li *ngFor="let sitio of editarSitiosSeleccionados" cdkDrag class="example-box p-4 list-group-item">
                   {{sitio.nombre}}
                 </li>
             </ol>
