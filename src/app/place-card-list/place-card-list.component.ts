@@ -102,10 +102,12 @@ export class PlaceCardListComponent {
 
   updatePlaces(filteredPlaces: cardsHome[]) {
     this.sortedCards = [...filteredPlaces];
+    console.log(this.sortedCards);
+    console.log(filteredPlaces);
     this.noResultsPlaces = this.sortedCards.length === 0;
     // this.sortedCards = [...filteredPlaces];
     this.page = 1; // Reiniciar a la primera página
-    this.updatePlaces;
+    
   }
 
 };
