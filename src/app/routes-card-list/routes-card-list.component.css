@@ -6,18 +6,12 @@
    position: relative;
    margin-top: 1rem;
 
-
-.cardito{
+}
+.cardito {
     display: inline-block; 
     align-content: center;
     padding-bottom: 1rem;
-    @media (max-width: 767px) {
-        padding-top: 1rem;
-        display: grid;
-        justify-content: center;
-        margin-inline: auto 1;
-        width:82%;
-    }
+   
     }
 
 h3{
@@ -35,6 +29,15 @@ h3{
 }
 
 @media (max-width: 767px) {
+    .cardito {
+        display: grid;
+        padding-top: 1rem;
+        display: grid;
+        justify-content: center;
+        margin-inline: auto 1;
+        width:82%;
+    } 
+
     .cardRoutes{
         display: block;
         justify-content: center;
@@ -43,4 +46,3 @@ h3{
         transform: scale(1);
     }    
     }
-}

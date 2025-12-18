@@ -1,5 +1,12 @@
 .login-card{
+    background-color: rgb(242, 244, 245);;
     max-width: 600px; 
     width: 100%;
     font-family: "Baloo Bhaijaan 2 Variable", system-ui;
+}
+
+.imagen-bg-routes{
+    background-image: url('/routesImage/bg-imagen.png');
+    background-size:cover;
+
 }
