@@ -117,14 +117,13 @@ h1 {
 
 }
 
-/*Día con eventos*/
-.event-day {
-  background-color: #cfe2ff !important;
-  color: #084298 !important;
-  border-radius: 6px;
-  font-weight: bold;
+::ng-deep .igx-calendar__date--special {
+  text-decoration: underline;
+  text-decoration-color: #1e6bf5;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  font-weight: 600;
 }
-
 /* Día seleccionado */
 :host ::ng-deep .igx-days-view__date--selected .igx-days-view__date-inner {
   background: #0e3d89 !important;
@@ -278,6 +277,11 @@ ul {
    flex-wrap: wrap;
   }
 
+}
+
+
+::ng-deep .dia-evento .igx-days-view__date-inner{
+  background-color: rgba(53, 112, 189, 0.5);
 }
 
 
