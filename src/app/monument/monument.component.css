@@ -7,12 +7,11 @@
   flex-direction: column;  
   background-color:var(--gradient-home-start);
   height: fit-content;
- 
 }
 
 #horarioP{
   font-size:larger;
-  text-align: justify;
+  text-align: left;
 }
 
 #descripcion{
@@ -30,7 +29,7 @@ h2{
 #access{    
   background-color: var(--color-primary);
   height: fit-content;
-  text-align: center;
+  text-align: left;
   color:var(--bg-primary);
 }
 
