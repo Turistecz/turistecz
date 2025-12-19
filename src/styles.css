@@ -10,7 +10,6 @@
   --gradient-home-start: #8ee3f7;
   --gradient-home-end: #478ed1;
   --bg-primary: #ffffff;
-  --bg-secondary: #f0f0f0;
   --text-primary: #03080a;
   --text-secondary: #495057;
   --text-light: #ffffff;
@@ -27,7 +26,7 @@
 }
 
 .card {
-  background: var(--bg-secondary);
+  /* background: var(--bg-secondary); */
   border-radius: 12px;
   color: var(--text-primary);
 }

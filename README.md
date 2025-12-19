@@ -166,10 +166,10 @@ Pasos para instalar Docker y poder ejecutar en local el OSRM Server.
 2. Activar las opciones "Plataforma de máquina virtual", "Plataforma de hipervisor de Windows", "Subsistema de Windows para Linux", "Espacio aislado de Windows" e "Hyper-V".
 3. Abrir una terminal y escribir:
 ``` bash
-wsl --install
+wsl --install -d Ubuntu
 ```
 4. Crear un usuario y contraseña (importante acordarse de la contraseña).
-5. La terminal entrará automáticamente a Linux y, ahí, escribir el siguiente comando para actualizarlo:
+5. La terminal entrará automáticamente a Linux (Ubuntu) y, ahí, escribir el siguiente comando para actualizarlo:
 ``` bash
 sudo apt update && sudo apt upgrade
 ```
@@ -188,7 +188,8 @@ En caso de duda consultar el siguiente video: https://www.youtube.com/watch?v=4m
 1. Descargar el mapa Aragon.osm.pbf en https://download.geofabrik.de/europe/spain.html
 2. Crear una carpeta llamada data (donde se quiera, pero tenerla localizada) y meter el archivo dentro
 3. Abrir Docker, ir a Ajustes, Resources, File sharing e introducir la dirección de la carpeta data
-4. Abrir una terminal, navegar a la carpeta data y abrir Linux
+4. Abrir una terminal, navegar a la carpeta data y abrir Linux.
+4.1 Puedes poner en la terminal de windows ubuntu y ya estaría usando linux ó puedes abrir la terminal de ubuntu (importante que es estés dentro de la carpeta data)
 5. Introducir los siguientes comandos en order para generar los datos de la ruta a pie:
 ``` bash
 docker run -t -v "${PWD}:/data" ghcr.io/project-osrm/osrm-backend osrm-extract -p /opt/foot.lua /data/aragon-latest.osm.pbf || echo "osrm-extract failed"
@@ -213,7 +214,7 @@ sudo docker run -t -i -p 5000:5000 -v "${PWD}:/data" ghcr.io/project-osrm/osrm-b
 
 Si se quiere iniciar otro día, con todo instalado:
 1. Abrir la aplicación de Docker.
-2. Abrir una terminal, navegar hasta la carpeta data y abrir Linux.
+2. Abrir una terminal, navegar hasta la carpeta data y abrir Linux (puedes poner en la terminal de windows ubuntu y ya estaría usando linux ó puedes abrir la terminal de ubuntu).
 3. Esperar a que se abra la aplicación de Docker.
 4. Introducir el siguiente comando en la terminal: 
 ``` bash

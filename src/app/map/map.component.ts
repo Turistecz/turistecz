@@ -230,7 +230,6 @@ private initMap(): void {
 async getRoute() {
   const latlng = this.getSiteCoords();
 
-  try {
     switch (this.parent) {
       case 'app-monument': {
         const datos = await firstValueFrom(this.apiMapService.getRoute(latlng, this.userLatLong));
@@ -251,9 +250,6 @@ async getRoute() {
         break;
       }
     }
-  } catch (error) {
-    console.error('Error al cargar la ruta: ', error);
-  }
 }
 
 // creates markers for user and monument location and adjusts the map view to fit both
@@ -586,13 +582,10 @@ async loadTaxiStops(): Promise<void> {
 }
 
 async loadTramStops(): Promise<void> {
-  try {
+  
     const datos = await firstValueFrom(this.apiMapService.getTramsStation());
     this.tramStops = datos.features;
 
-  } catch (error) {
-    console.error('Error al cargar paradas de tranvía:', error);
-  }
 }
 
 async loadBusStops(): Promise<void> {

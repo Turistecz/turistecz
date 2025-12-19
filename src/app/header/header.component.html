@@ -37,7 +37,7 @@
         <div class="d-flex align-items-center"> 
                      
             <a class="d-inline-flex align-items-center justify-content-center text-decoration-none" href="/mi-perfil">
-              <span class="text-muted small ">{{ usuarioNombre }}</span>
+              <span class="text-muted small text-center pt-2 me-2">{{ usuarioNombre }}</span>
             </a>
               <button class="btn btn-outline-secondary btn-sm rounded-2 px-2 py-1"(click)="onLogout()">
             <i class="bi bi-box-arrow-right"></i>
@@ -67,7 +67,7 @@
       <div *ngIf="!logueado; else logueadoTemplate">
                   <!--Div para el icono de Login -->
           <div class="d-none d-lg-flex align-items-center justify-content-center">
-            <svg class="login-icon mt-3 pt-3 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 992 1024" width="82" height="93"  role="img" aria-label="Acceso/Login">
+            <svg class="login-icon pt-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 992 1024" width="100" height="100" role="img" aria-label="Acceso/Login">
               <defs>
                 <linearGradient id="loginGrad" x1="0%" y1="0%" x2="100%" y2="0%">
                   <stop offset="0%" stop-color="#184591"/>
