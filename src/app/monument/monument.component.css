@@ -1,11 +1,29 @@
+@import '@fontsource-variable/baloo-bhaijaan-2';
+@import '@fontsource-variable/inclusive-sans';
 
 #imagen-intro{
   border-radius: 25px;
 }
 
+.title-pagSite{
+  color: #184591;
+  font-weight: 700;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.fontFamilyTitle{
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+}
+
+.fontFamilyText{
+  font-family: 'Inclusive Sans Variable';
+  font-weight: 500;
+}
+
 #horario{
   flex-direction: column;  
-  background-color:var(--gradient-home-start);
+  background-color:rgb(242, 244, 245);
   height: fit-content;
 }
 
