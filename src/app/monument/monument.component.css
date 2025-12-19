@@ -19,6 +19,14 @@
   font-size: large;
 }
 
+.verMas{
+    font-family: 'Inclusion Sans', sans-serif;
+    cursor: pointer; 
+    text-decoration: none; 
+    display: inline-block;
+    color: var(--color-primary);
+  }
+
 .words{
   font-size: 1.01rem;
 }
@@ -95,4 +103,6 @@ h2{
     font-size: large;
     text-align: justify;
   }
+
+  
 }

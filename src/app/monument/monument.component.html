@@ -17,15 +17,33 @@
         <div id="descripcion" class="col-12 col-md-7">
             <h2>Descripción</h2>
         
-            <p id="text-description">{{cleanDescription}}</p> 
+            <p id="text-description">{{cleanDescription.split(' ').slice(0,120).join(' ')}} 
+            <span class="collapse" id="textoColapsado">{{' ' + cleanDescription.split(' ').slice(100).join(' ')}}</span>
+
+                <a 
+                    class="verMas" 
+                    data-bs-toggle="collapse" 
+                    href="#textoColapsado" 
+                    role="button" 
+                    aria-expanded="false" 
+                    aria-controls="textoColapsado"
+                    onclick="this.innerText = this.innerText === '..Ver más' ? ' ..Ver menos' : ' ..Ver más'">
+                    ..Ver más
+                </a>
+                </p>
+
+                 <div class="text-center text-md-start mt-4">
+                 <a class="btn btn-primary "  href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a> <!--id="boton-info" -->
+            </div> 
         </div>
+        
         <div class="col-1"></div>
 
         <div id="access" class="col-12 col-md-3 p-4 rounded deleteBoxSizing">
-            <h2 class="text-light">Accesibilidad</h2>
+            <h2 class="text-light mb-0">Accesibilidad</h2>
             <br>
             
-            <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 align-items-center ps-4 justify-content-left mb-2">
+            <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 align-items-center ps-4 pb-2">
                 <i [ngClass]="['fas', category.icon, 'text-light']"></i>
                 <p class="m-0 words">
                     {{category.label}}
@@ -37,13 +55,9 @@
         </div>
     </div>
        
-    <div  class="row pt-3">
-        <div class="col-12 col-md-6">
-            <div class="text-center text-md-start mt-4">
-                 <a class="btn btn-primary " href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a> <!--id="boton-info" -->
-            </div> 
+    <div  class="row pt-3 ">
+        <div class="col-12 col-md-6 mt-3">
            
-            <br><br><br>
             <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
                 <h2> Contacto </h2>
                 <p>{{monumentsFiltered[monumentNumber].phone}}</p>
