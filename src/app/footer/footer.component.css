@@ -2,7 +2,6 @@
 .textFooter{
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
   color: var(--color-primary);
-
 }
 
 .footer-shape-bottom {
@@ -44,8 +43,6 @@
     text-align:center;
     justify-content: center;
   }
-
-
 
   .logosFooter img{
     max-width: 92px;
