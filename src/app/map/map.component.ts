@@ -156,7 +156,10 @@ export class MapComponent implements AfterViewInit, OnInit, OnChanges{
     await this.loadAdapParking();
     await this.loadFarmacia();
     await this.makeLocationMarkers();
-    await this.getRoute();
+    if (this.parent === 'app-monument') {
+      await this.getRoute();
+    }
+    
     
     //TODO: queda la de bus info
     this.createBiziMarkers();
@@ -169,16 +172,6 @@ export class MapComponent implements AfterViewInit, OnInit, OnChanges{
 
    ngOnChanges(changes: SimpleChanges): void {
     if (this.map) { // Solo actúa si el mapa ya está inicializado
-      if (changes['data'] && !changes['data'].firstChange) {
-        this.makeLocationMarkers();
-        this.getRoute();
-      }
-
-      if (changes['parent'] && !changes['parent'].firstChange) {
-        // this.getRoute();
-        // this.makeLocationMarkers();
-      }
-
       if (changes['routeSites'] && !changes['routeSites'].firstChange) {
         this.makeLocationMarkers();
         this.getRoute();
