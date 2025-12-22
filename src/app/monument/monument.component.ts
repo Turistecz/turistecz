@@ -170,15 +170,15 @@ export class MonumentComponent implements OnInit {
   }
 
   get cleanHorario(): string {
-    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].horario);
+    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber]?.horario);
   }
 
   get cleanDescription(): string {
-    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].description);
+    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber]?.description);
   }
 
   get cleanPrice(): string {
-    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].price);
+    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber]?.price);
   }
 
   get img(): string {
