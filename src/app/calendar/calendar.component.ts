@@ -78,24 +78,29 @@ private cdr: ChangeDetectorRef
     // this.ev.forEach(ev => {
     //   const start = new Date(ev.startDate);
     //   const end = ev.endDate ? new Date(ev.endDate) : start;
+    const start = this.transStart;
+    const end = this.transEnd;
 
-    //   //Generar todas las fechas entre start y end (inclusive)
-    //   const currentDate = new Date(start);
-    //   while (currentDate <= end) {
-    //     allDates.push(new Date(currentDate));
-    //     currentDate.setDate(currentDate.getDate() + 1);
-    //   }
-    // });
+      //Generar todas las fechas entre start y end (inclusive)
+      const currentDate = start;
+      if(currentDate!== null && end !== null){
+        while (currentDate <= end) {
+          allDates.push(new Date(currentDate));
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+      }
+    //});
 
     // const fechasEventos = this.ev.map(evento => {
     //   return evento.startDate;
     // });
 
-/*
-    const fechasEventos = this.expandEventDates(this.ev);
+    console.log("MAPEEEEEEED", this.mappedEvents)
+    const fechasEventos = this.expandEventDates();
     console.log("fechasEventos");
     console.log(fechasEventos);
 
+    /*
     const fechasUnicas = fechasEventos.filter((fecha, index) =>{
       return fechasEventos.indexOf(fecha) === index;
     });
@@ -113,28 +118,33 @@ private cdr: ChangeDetectorRef
     });
 
     this.cdr.detectChanges();
+    */
   }
 
-  private expandEventDates(events: CalendarTest[]) {
+  private expandEventDates() {
     const result = [];
 
     // for (const ev of events) {
-  
-        const cursor = this.transStart?this.transStart:"No hay día inicial";
+    let cursor!:Date;
+      if(this.transStart!==null){
+        cursor = this.transStart;
+      }
+      if(this.transEnd===null && this.transStart!==null){
+        this.transEnd = this.transStart;
+      } 
 
-        if(this.end != null){
-          while (cursor <= this.end) {
-              result.push(cursor); // YYYY-MM-DD
-              //cursor.setDate(cursor.getDate() + 1);
-          }
-        }else{
-          result.push(cursor); // YYYY-MM-DD
+      if(cursor!==null&&this.transEnd!==null){
+        while (cursor <= this.transEnd) {
+            result.push(cursor); // YYYY-MM-DD
+            cursor.setDate(cursor.getDate() + 1);
         }
-    }
-
-    // return result;
+      }else{
+        result.push(cursor); // YYYY-MM-DD
+      }
+        
+     return result;
 // 
-*/
+
 }
 
 
@@ -166,6 +176,7 @@ private cdr: ChangeDetectorRef
       });
       console.log("traaaans", this.transStart)
       console.log("eventos epicos del dia", this.eventsOfDay)
+            this.buildSpecialDates();
     })
 
       //const isSameDay = selected >= this.transStart && selected <= this.transEnd;
@@ -209,8 +220,6 @@ private cdr: ChangeDetectorRef
     console.log("dates",dates);
     return dates;
   }
-
-
 
   ngAfterViewInit(): void {
       // Buscar el elemento en el DOM. Es seguro aquí.
@@ -267,5 +276,6 @@ private cdr: ChangeDetectorRef
   ngOnInit(){
     this.showEvents();
     this.getCalendarVisibleDates(this.calendar.viewDate);
+    // this.buildSpecialDates();
   }
 }
