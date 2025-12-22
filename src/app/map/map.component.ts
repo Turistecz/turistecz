@@ -248,81 +248,63 @@ async getRoute() {
 // creates markers for user and monument location and adjusts the map view to fit both
 //TODO: find alternative to get user location or solution/check for when it doesn't work
 async makeLocationMarkers(){
-
   switch (this.parent) {
-      case 'app-monument': {
-        const latlng = this.getSiteCoords();
+    case 'app-monument': {
+      const latlng = this.getSiteCoords();
 
-        let userMarker = L.marker(this.userLatLong).addTo(this.map)
-        .bindPopup("Estás aquí", {autoClose: false})
-        .openPopup();
+      let userMarker = L.marker(this.userLatLong).addTo(this.map)
+      .bindPopup("Estás aquí", {autoClose: false})
+      .openPopup();
 
-        let monumentMarker = L.marker(latlng).addTo(this.map)
-        .bindPopup(this.name, {autoClose: false})
-        .openPopup();
+      let monumentMarker = L.marker(latlng).addTo(this.map)
+      .bindPopup(this.name, {autoClose: false})
+      .openPopup();
 
-        let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
+      let markers = L.featureGroup([userMarker, monumentMarker]).addTo(this.map);
 
-        this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
-        break;
-      } 
-      case 'app-detail-route': {
-        let userMarker = L.marker(this.userLatLong).addTo(this.map)
-        .bindPopup("Estás aquí", {autoClose: false})
-        .openPopup();
+      this.map.fitBounds(markers.getBounds(), {paddingTopLeft: [-80, 0]});
+      break;
+    } 
+    case 'app-detail-route': {
+      let userMarker = L.marker(this.userLatLong).addTo(this.map)
+      .bindPopup("Estás aquí", {autoClose: false})
+      .openPopup();
 
-        /* Route Sites */
+      /* Route Sites */
 
-        let markersRouteSites: L.Marker[] = 
-        this.routeSites.map((sitio) => {
-          const coords = this.convertCoords(sitio.latitud, sitio.longitud);
-          const latlng: L.LatLngExpression = [coords[1], coords[0]];
-          const marker = L.marker(latlng)
-            .addTo(this.map)
-            .bindPopup(sitio.nombre, {autoClose: true})
-            .openPopup();
-            return marker;
-        });
+      let markersRouteSites: L.Marker[] = 
+      this.routeSites.map((sitio) => {
+        const coords = this.convertCoords(sitio.latitud, sitio.longitud);
+        const latlng: L.LatLngExpression = [coords[1], coords[0]];
+        const marker = L.marker(latlng)
+          .addTo(this.map)
+          .bindPopup(sitio.nombre, {autoClose: true})
+          .openPopup();
+          return marker;
+      });
+
+      L.featureGroup([userMarker]).addTo(this.map);
+      let markersRS = L.featureGroup(markersRouteSites).addTo(this.map);
+      this.map.fitBounds(markersRS.getBounds(), {paddingTopLeft: [-80, 0]});
+      break;
+    }
+    case 'app-map-page': {
+      try {
+        // Marcador del usuario
+        let userMarker = L.marker(this.userLatLong)
+          .addTo(this.map)
+          .bindPopup("Estás aquí", { autoClose: false }) //hace que el popup se abra directamente
+          .openPopup();
 
         L.featureGroup([userMarker]).addTo(this.map);
-        let markersRS = L.featureGroup(markersRouteSites).addTo(this.map);
-        this.map.fitBounds(markersRS.getBounds(), {paddingTopLeft: [-80, 0]});
-        break;
+        this.refreshDatosMarkers();
+
+      } catch (error) {
+        console.error('Error al cargar los sitios en el mapa: ', error);
       }
-      case 'app-map-page': {
-        try {
-          // Marcador del usuario
-          let userMarker = L.marker(this.userLatLong)
-            .addTo(this.map)
-            .bindPopup("Estás aquí", { autoClose: false }) //hace que el popup se abra directamente
-            .openPopup();
-
-          L.featureGroup([userMarker]).addTo(this.map);
-          // removeLayer(L.featureGroup);
-          this.refreshDatosMarkers();
-
-        } catch (error) {
-          console.error('Error al cargar los sitios en el mapa: ', error);
-        }
-
-  break;
+    break;
+    }
   }
-}
-
-  /* ----- */
-
-  //OSRM demo server (old way of getting the route)
-  // L.Routing.control({ 
-  //   waypoints: [
-  //       L.latLng(this.userLatLong),
-  //       L.latLng(latlng)
-  //   ],
-  //   addWaypoints: false,
-  //   router: new L.Routing.OSRMv1({
-  //     language: 'es'
-  //   })
-  // }).addTo(this.map);
-
 }
 
 //OSRM local server
@@ -461,7 +443,6 @@ routeInstructions(){
         break;
       }
     }
-
   });
 
   //Create rows with three columns for icon instruction, instructions info and distance for every step in leg(route)
@@ -692,7 +673,7 @@ private createMarkers(icon: L.Icon, group: L.MarkerClusterGroup, array: any[], s
     const lat = coords[1];
     const lon = coords[0];
 
-    const markerVar = L.marker([lat, lon],{ icon: icon });//.addTo(this.map);
+    const markerVar = L.marker([lat, lon],{ icon: icon });
     group.addLayer(markerVar);
 
     switch (sort){
@@ -735,7 +716,6 @@ private createMarkers(icon: L.Icon, group: L.MarkerClusterGroup, array: any[], s
         break;
 
       case "parking adaptado":
-        //no incluyo ${props.properties.num_calle1} porque en muchos casos el numero de la calle no aparece
         markerVar.bindPopup(`
           <strong> Calle ${props.properties.calle_1}</strong><br> 
           Horario: ${props.properties.horario} <br>
@@ -744,7 +724,6 @@ private createMarkers(icon: L.Icon, group: L.MarkerClusterGroup, array: any[], s
           break;
 
        case "farmacias de guardia":
-        //no incluyo ${props.properties.num_calle1} porque en muchos casos el numero de la calle no aparece
         markerVar.bindPopup(`
           <strong>${props.properties.title}</strong><br>  
           Calle ${props.properties.calle}<br>
@@ -752,7 +731,6 @@ private createMarkers(icon: L.Icon, group: L.MarkerClusterGroup, array: any[], s
           ${props.properties.guardia.horario} <br>
           Teléfono: ${props.properties.telefonos} 
           `)
-         
     }
   });
 }
