@@ -1,7 +1,7 @@
 @import '@fontsource-variable/baloo-bhaijaan-2';
 
 #buscador {
-  background-color: var(--gradient-home-end);
+  background-color: var(--gradient-primary-start);
   border-radius: 1.5rem;
 }
 

@@ -22,7 +22,7 @@ a:hover{
 }
 
  .bg-txt{
-    background-color: var(--text-light);
+    background-color: rgb(242, 244, 245)
  }
 
  p{
