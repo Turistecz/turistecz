@@ -144,7 +144,7 @@ private cdr: ChangeDetectorRef
       return;
     }
 
-    console.log(this.mappedEvents);
+    //console.log(this.mappedEvents);
 
     this.eventsOfDay = [];
     this.mappedEvents.forEach(mE=>{
@@ -157,13 +157,15 @@ private cdr: ChangeDetectorRef
         this.end = sE.endDate?sE.endDate:"";
         this.transEnd = new Date (this.end);
         if(this.transStart.getTime() === this.selectedDate?.getTime()){
-          console.log("coinciden",subEvent)
+          //console.log("coinciden",subEvent)
           this.eventsOfDay.push(mE)
         } else {
-          console.log("no")
+          //console.log("no")
           
         }
       });
+      console.log("traaaans", this.transStart)
+      console.log("eventos epicos del dia", this.eventsOfDay)
     })
 
       //const isSameDay = selected >= this.transStart && selected <= this.transEnd;
@@ -209,6 +211,47 @@ private cdr: ChangeDetectorRef
   }
 
 
+
+  ngAfterViewInit(): void {
+      // Buscar el elemento en el DOM. Es seguro aquí.
+      this.flechaIzq = document.querySelector("#igx-calendar-0 > div > section.igx-calendar__pickers.igx-calendar__pickers--days > section > div.igx-calendar-picker__nav > div.igx-calendar-picker__prev > igx-icon");
+      this.flechaDcha = document.querySelector("#igx-calendar-0 > div > section.igx-calendar__pickers.igx-calendar__pickers--days > section > div.igx-calendar-picker__nav > div.igx-calendar-picker__next > igx-icon");
+
+      // Verificar que se encontró el elemento
+      if (this.flechaIzq) {
+          // Adjuntar el listener. Usamos .bind(this) para mantener el contexto de la clase.
+          this.flechaIzq.addEventListener('click', this.handleArrowClick.bind(this));
+          console.log("Listener de click adjunto a flechaIzq.");
+      } else {
+          console.warn("No se pudo encontrar el elemento de flecha izquierda.");
+      }
+
+      if (this.flechaDcha){
+        this.flechaDcha.addEventListener('click', this.handleArrowClick.bind(this));
+      }
+  }
+
+  handleArrowClick(): void {
+      console.log("¡flecha pulsada!");
+      this.onMonthChanged(this.calendar.viewDate);
+      // NOTA: El calendario de IgniteUI ya debería haber cambiado la vista,
+      // pero si necesitas ejecutar tu lógica de carga de eventos, puedes llamar a:
+      // this.onMonthChanged(this.calendar.viewDate);
+  }
+
+
+  onMonthChanged(newDate: Date) {
+    const visibleDates = this.getCalendarVisibleDates(newDate);
+    //const formatted = this.formatDateToDDMMYYYY(newDate);
+    // this.eventService.getEventstest(formatted).subscribe(data => {
+    //   this.ev = data;
+    //   this.buildSpecialDates();
+    //   this.filterEventsForDate();
+    // });
+    this.buildSpecialDates();
+    this.filterEventsForDate();
+    this.cdr.detectChanges();
+  }
 /*
   ngOnInit(): void {
     const today = this.formatDateToDDMMYYYY(new Date());
