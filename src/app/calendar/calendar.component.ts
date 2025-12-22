@@ -23,12 +23,17 @@ private cdr: ChangeDetectorRef
 @ViewChild('calendar', { static: true }) public calendar!: IgxCalendarComponent;
 
   ev: CalendarTest[] = [];
-  mapped: CalendarTest[] = [];
+  mappedEvents: CalendarTest[] = [];
   eventsOfDay: CalendarTest[] = [];
   selectedDate: Date | null = null;
 
   flechaIzq: Element | null = null;
   flechaDcha: Element | null = null;
+
+  start: string = "";
+  end: string = "";
+  transStart: Date | null = null;
+  transEnd: Date | null = null;
 
   onDateSelected(date: Date | Date[]) {
     this.selectedDate = date instanceof Date ? date : date[0];
@@ -40,10 +45,10 @@ private cdr: ChangeDetectorRef
       next:(response) =>{
         console.log("esta es la movida", response);
         let data = response.result;
-        this.mapped = data.map(date => ({
+        this.mappedEvents = data.map(date => ({
           title:date.title?date.title:undefined,
+          id: date.id,
           subEvent:(date.subEvent?date.subEvent:[]).map(sE => ({
-            id:sE.id,
             location: sE.location? {
               title:sE.location.title?sE.location.title:undefined,
               streetAddress:sE.location?.streetAddress??undefined,
@@ -51,15 +56,13 @@ private cdr: ChangeDetectorRef
             }:undefined,
             startDate:sE.startDate,
             endDate:sE.endDate? sE.endDate: undefined,
-            openingHours: sE.openingHours
-            ?{
-              dayOfWeek: sE.openingHours.dayOfWeek?sE.openingHours.dayOfWeek:undefined,
-              startTime:sE.openingHours.startTime?sE.openingHours.startTime:undefined,
-            }
-            : undefined
+            openingHours:(sE.openingHours?sE.openingHours:[]).map(oH => ({
+              dayOfWeek: oH.dayOfWeek?oH.dayOfWeek:undefined,
+              startTime: oH.startTime?oH.startTime:undefined
+            })) 
           }))
         }))
-        console.log("movida nueva de evento mapeado",this.mapped);
+        
     }, 
       error:(error)=>{
          console.error('Error al obtener los eventos.', error);
@@ -67,31 +70,28 @@ private cdr: ChangeDetectorRef
 
     })
   }
-/*
+
   // MÉTODO MEJORADO: Genera una fecha por cada día del evento (incluyendo rangos)
   private buildSpecialDates(): void {
-    // const allDates: Date[] = [];
+    const allDates: Date[] = [];
 
-    this.ev.forEach(ev => {
-      const start = new Date(ev.startDate);
-      const end = ev.endDate ? new Date(ev.endDate) : start;
+    // this.ev.forEach(ev => {
+    //   const start = new Date(ev.startDate);
+    //   const end = ev.endDate ? new Date(ev.endDate) : start;
 
-      // Generar todas las fechas entre start y end (inclusive)
-      const currentDate = new Date(start);
-      // while (currentDate <= end) {
-      //   allDates.push(new Date(currentDate));
-        currentDate.setDate(currentDate.getDate() + 1);
-      // }
-    });
+    //   //Generar todas las fechas entre start y end (inclusive)
+    //   const currentDate = new Date(start);
+    //   while (currentDate <= end) {
+    //     allDates.push(new Date(currentDate));
+    //     currentDate.setDate(currentDate.getDate() + 1);
+    //   }
+    // });
 
-    
     // const fechasEventos = this.ev.map(evento => {
     //   return evento.startDate;
     // });
 
-    // console.log(fechasEventos);
-
-
+/*
     const fechasEventos = this.expandEventDates(this.ev);
     console.log("fechasEventos");
     console.log(fechasEventos);
@@ -100,7 +100,7 @@ private cdr: ChangeDetectorRef
       return fechasEventos.indexOf(fecha) === index;
     });
 
-    //convertimos fecha a timestamps (en segundos)
+   //convertimos fecha a timestamps (en segundos)
     const fechasFiltradasTimestamps = fechasUnicas.map(f => new Date(f).getTime());
 
     const items = document.querySelectorAll('igx-day-item');
@@ -118,76 +118,72 @@ private cdr: ChangeDetectorRef
   private expandEventDates(events: CalendarTest[]) {
     const result = [];
 
-    for (const ev of events) {
-        const start = new Date(ev.startDate);
-        let end = null;
+    // for (const ev of events) {
+  
+        const cursor = this.transStart?this.transStart:"No hay día inicial";
 
-        if(ev.endDate != null){
-          end = new Date(ev.endDate);
+        if(this.end != null){
+          while (cursor <= this.end) {
+              result.push(cursor); // YYYY-MM-DD
+              //cursor.setDate(cursor.getDate() + 1);
+          }
+        }else{
+          result.push(cursor); // YYYY-MM-DD
         }
-
-        const cursor = new Date(start);
-
-        // if(end != null){
-        //   while (cursor <= end) {
-        //       result.push(cursor.toISOString()); // YYYY-MM-DD
-        //       cursor.setDate(cursor.getDate() + 1);
-        //   }
-        // }else{
-          result.push(cursor.toISOString()); // YYYY-MM-DD
-        // }
     }
 
-    return result;
+    // return result;
+// 
+*/
 }
 
-*/
+
   private filterEventsForDate() {
     if (!this.selectedDate) {
       this.eventsOfDay = [];
       return;
     }
 
-    const selected = new Date(this.selectedDate);
-    const selectedMonth = selected.getMonth();
-    const selectedYear = selected.getFullYear();
+    console.log(this.mappedEvents);
 
-    console.log("eventos");
-    console.log(this.ev);
+    this.eventsOfDay = [];
+    this.mappedEvents.forEach(mE=>{
+      let subEvent = mE.subEvent;
+      console.log("mapped sub");
+      console.log(subEvent)
+      subEvent?.forEach(sE=> { 
+        this.start = sE.startDate;
+        this.transStart = new Date(this.start);
+        this.end = sE.endDate?sE.endDate:"";
+        this.transEnd = new Date (this.end);
+        if(this.transStart.getTime() === this.selectedDate?.getTime()){
+          console.log("coinciden",subEvent)
+          this.eventsOfDay.push(mE)
+        } else {
+          console.log("no")
+          
+        }
+      });
+    })
 
-    let start:any;
-    let end:any;
-
-    this.eventsOfDay = this.ev.filter(ev => {
-      //  ev.subEvent.forEach(sE => {
-      //  let start = sE.startDate;
-      //  console.log("estoooooo",start)
-      // })
-      // ev.subEvent.forEach(sE => {
-      //   sE.endDate;
-      // })
+      //const isSameDay = selected >= this.transStart && selected <= this.transEnd;
       
-    
-
-      //this.formatDateToDDMMYYYY()
-      /*
-      console.log("selected");
-      console.log(selected);
-
-      console.log("start");
-      console.log(start.getDate());
-
-      const isSameDay = selected >= start && selected <= end;
+    //   if(this.transStart!==null && this.transEnd!==null){
+    //     const isSameDay = selected >= this.transStart && selected <= this.transEnd;
+    //   }else if(this.transEnd===null){
+    //     const isSameDay =
+    //   }
       
-      const isValidMonth =
-        start.getFullYear() > selectedYear ||
-        (start.getFullYear() === selectedYear && start.getMonth() >= selectedMonth);
+    //   const isValidMonth =
+    //     this.start.getFullYear() > selectedYear ||
+    //     (start.getFullYear() === selectedYear && start.getMonth() >= selectedMonth);
 
-      return selected.getDate() === start.getDate() && selected.getMonth() === start.getMonth();*/
-    });
+    //   return selected.getDate() === start.getDate() && selected.getMonth() === start.getMonth();*/
+    // }:undefined);
     
   }
-/*
+  
+
   getCalendarVisibleDates(viewDate: Date): Date[] {
     const firstOfMonth = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1);
 
@@ -208,50 +204,11 @@ private cdr: ChangeDetectorRef
       dates.push(d);
     }
 
-    console.log(dates);
+    console.log("dates",dates);
     return dates;
   }
 
-  ngAfterViewInit(): void {
-    this.flechaIzq = document.querySelector("#igx-calendar-0 > div > section.igx-calendar__pickers.igx-calendar__pickers--days > section > div.igx-calendar-picker__nav > div.igx-calendar-picker__prev > igx-icon");
-    this.flechaDcha = document.querySelector("#igx-calendar-0 > div > section.igx-calendar__pickers.igx-calendar__pickers--days > section > div.igx-calendar-picker__nav > div.igx-calendar-picker__next > igx-icon");
-    if (this.flechaIzq) {
-      this.flechaIzq.addEventListener('click', this.handleArrowClick.bind(this));
-    } else {
-      console.warn("No se pudo encontrar el elemento de flecha izquierda.");
-    }
 
-    if (this.flechaDcha){
-      this.flechaDcha.addEventListener('click', this.handleArrowClick.bind(this));
-    } else {
-      console.warn("No se pudo encontrar el elemento de flecha dcha.");
-    }
-  }
-
-  handleArrowClick(): void {
-    console.log("¡flecha pulsada!");
-    this.onMonthChanged(this.calendar.viewDate);
-  }
-
-  onMonthChanged(newDate: Date) {
-    // const visibleDates = this.getCalendarVisibleDates(newDate);
-    const formatted = this.formatDateToDDMMYYYY(newDate);
-    console.log("fecha formateada");
-    console.log(formatted);
-    this.eventService.getEventstest(formatted).subscribe(data => {
-      this.ev = data;
-      this.buildSpecialDates();
-      this.filterEventsForDate();
-    });
-    this.cdr.detectChanges();
-  }
-  */
-  private formatDateToDDMMYYYY(date: Date): string {
-    const day = ('0' + date.getDate()).slice(-2);
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
-  }
 /*
   ngOnInit(): void {
     const today = this.formatDateToDDMMYYYY(new Date());
@@ -266,5 +223,6 @@ private cdr: ChangeDetectorRef
 
   ngOnInit(){
     this.showEvents();
+    this.getCalendarVisibleDates(this.calendar.viewDate);
   }
 }

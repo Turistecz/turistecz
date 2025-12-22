@@ -4,8 +4,8 @@ export interface ZaragozaApiResponse {
 
 export interface CalendarTest {
   title?: string;
+  id: number;
   subEvent?: {
-    id: number;
     location?: {
       title?: string;
       streetAddress?: string;
@@ -16,6 +16,6 @@ export interface CalendarTest {
     openingHours?: {
       dayOfWeek?: string;
       startTime?: string;
-    };
+    }[];
   }[];
 }
