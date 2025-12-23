@@ -19,32 +19,6 @@ En xampp, ir a config, dentro de config --> "service and port settings"
 
 dentro clickamos MySql y cambiamos lo que hay en main port por 3307.
 
-Ahora vamos a localhostphpmyadmin, ahi creamos una nueva base de datos en la pestaña "SQL", 
-
-copiamos el script de creación que se encuentra en la carpeta de adminturistecz.
-
-
-⚙️ Configuración Inicial en XAMPP
-1. Arrancar Apache y MySQL
-
-Desde el XAMPP Control Panel, inicia los módulos Apache y MySQL.
-
-2. Configurar la ruta del proyecto en Apache
-
-En el archivo de configuración de Apache (httpd.conf), busca las líneas:
-
-DocumentRoot "/xampp/htdocs"
-<Directory "/xampp/htdocs">
-
-
-y cámbialas por la ruta local de tu proyecto en tu ordenador (cada persona debe poner la suya). Ejemplo:
-
-DocumentRoot "C:/Users/TuUsuario/Documents/proyectos/adminturistecz"
-<Directory "C:/Users/TuUsuario/Documents/proyectos/adminturistecz">
-
-
-Guarda los cambios y reinicia Apache desde XAMPP.
-
 ⚙️ Configuración del Puerto de MySQL
 
 Recordar que, desde el panel de administración hay que parar el mysql80 mientras cambiamos los puertos
@@ -74,6 +48,33 @@ port=3307
 
 
 Guardar el archivo y reiniciar MySQL en XAMPP.
+
+Ahora vamos a localhostphpmyadmin, ahi creamos una nueva base de datos en la pestaña "SQL", 
+
+copiamos el script de creación que se encuentra en la carpeta de adminturistecz.
+
+
+⚙️ Configuración Inicial en XAMPP
+1. Arrancar Apache y MySQL
+
+Desde el XAMPP Control Panel, inicia los módulos Apache y MySQL.
+
+2. Configurar la ruta del proyecto en Apache
+
+En el archivo de configuración de Apache (httpd.conf), busca las líneas:
+
+DocumentRoot "/xampp/htdocs"
+<Directory "/xampp/htdocs">
+
+
+y cámbialas por la ruta local de tu proyecto en tu ordenador (cada persona debe poner la suya). Ejemplo:
+
+DocumentRoot "C:/Users/TuUsuario/Documents/proyectos/adminturistecz"
+<Directory "C:/Users/TuUsuario/Documents/proyectos/adminturistecz">
+
+
+Guarda los cambios y reinicia Apache desde XAMPP.
+
 
 ⚠️ Importante: recuerda también cambiar en el archivo config.inc.php (en el botón config de Apache en XAMPP).
 
