@@ -59,11 +59,6 @@
     border-radius: 0;
   }
   
-  /* Header siempre visible */
-  /* .buscador-top {
-    padding-bottom: clamp(0.5rem, 2vw, 1rem);
-  } */
-  
   /* Contenido colapsable por defecto oculto */
   .filters-collapsible {
     max-height: 0;
