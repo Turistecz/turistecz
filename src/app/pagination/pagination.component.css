@@ -1,7 +1,6 @@
 .pagination .page-item.active .page-link {
   background-color: var(--color-secondary);
   border-color: var(--color-secondary);
-  /* color: white; */
 }
 
 .pagination .page-link {

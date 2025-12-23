@@ -17,7 +17,7 @@ export class AccommodationListComponent {
   pageSize: number = 18; // ajusta al número de tarjetas por página que quieras
 
   images: string[] = [
-    '/imagenAlojamientos/hotel.png',
+    '/imagenAlojamientos/otra.png',
     '/imagenAlojamientos/hotel4.png',
     '/imagenAlojamientos/hotel6.png',
   ];

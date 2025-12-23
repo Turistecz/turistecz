@@ -34,6 +34,7 @@ export class FilterComponent {
 
   @Output() filteredEvents = new EventEmitter<any[]>(); 
   @Output() filteredCards = new EventEmitter<any[]>();
+  @Output() filteredMonuments = new EventEmitter<any[]>();
   @Output() filtersAdaptability = new EventEmitter<string[]>();
   @Output() noResultsPlacesEvent = new EventEmitter<boolean>();
   @Output() noResultsEventsEvent = new EventEmitter<boolean>();
@@ -346,8 +347,6 @@ export class FilterComponent {
     } else if (this.places.length > 0){
       this.applyPlaceFilters();
     }
-      
-    // this.applyMapFilters();
   }
 
   applyEventFilters() {
@@ -405,24 +404,9 @@ export class FilterComponent {
   //Sirve la misma funcion para el componente map-page
   applyPlaceFilters(){
     let filteredPlaces = [...this.places];
-    // const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap)
-    // .filter(cat => this.selectedPlacesCategoriesMap[cat]);
-    // console.log("selectedPlacesCategories: ", selectedPlacesCategories)
-
-    // if (selectedPlacesCategories.length > 0) {
-    //   filteredPlaces = filteredPlaces.filter(place => {
-    //     const texto = place.nombre.toLowerCase();
-    //     return selectedPlacesCategories.some(cat =>
-    //       this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
-    //     );
-    //   });
-    // } else{
-    //    console.log("selectedPlaceCategories has nothing inside");
-    // }
 
     const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
-
     if (selectedAccessibilityKeys.length > 0) {
     filteredPlaces = filteredPlaces.filter(place =>
       selectedAccessibilityKeys.every(key =>
@@ -431,7 +415,6 @@ export class FilterComponent {
       )
       );
     }
-
     if (this.searchText.trim()) {
       const search = this.normalize(this.searchText);
       filteredPlaces = filteredPlaces.filter(place =>
@@ -440,26 +423,12 @@ export class FilterComponent {
     }
     this.noResultsPlaces = filteredPlaces.length === 0;
 
-    this.filteredCards.emit(filteredPlaces);
+    this.filteredMonuments.emit(filteredPlaces);
      this.noResultsPlacesEvent.emit(this.noResultsPlaces);
   };
 
 applyMapFilters(){
     let filteredPlaces = [...this.datos];
-    // const selectedMapCategories = Object.keys(this.selectedMapCategoriesMap)
-    // .filter(cat => this.selectedMapCategoriesMap[cat]);
-    //   console.log( "categorias seleccionadas", selectedMapCategories);
-
-    // if (selectedMapCategories.length > 0) {
-    //   filteredPlaces = filteredPlaces.filter(dato => {
-    //     const texto = dato.nombre.toLowerCase();
-    //     return selectedMapCategories.some(cat =>
-    //       this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
-    //     );
-    //   });
-    // }else {
-    //   console.log("selectedMapCategories has nothing inside")
-    // }
 
     const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
@@ -524,6 +493,7 @@ applyMapFilters(){
   }
 
   onSearch() {
+    
     this.applyEventFilters();
     this.applyPlaceFilters();
     this.applyMapFilters();
@@ -584,8 +554,5 @@ applyMapFilters(){
     alert("Inicia sesión si quieres guardar los filtros.");
   }
 
-  // getDifferentColor(): boolean {
-  //   return Math.random() >= 0.5;
-  // }
 }
   
