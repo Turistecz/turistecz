@@ -1,7 +1,7 @@
 #map {
   height: 600px;
-  
 }
+
 .legend{
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
   background-color: rgb(242, 244, 245)
@@ -14,7 +14,6 @@
 
 #instructionsListDiv, #distanceTime {
   font-size: 0.9rem;
-
 }
 
 .list-group-item {
@@ -29,7 +28,6 @@
   background-color: rgb(242, 244, 245);
   font-family: 'Inclusive', system-ui;
   border: 1px solid rgb(198, 198, 201);
-  
 }
 
 li {
