@@ -1,11 +1,10 @@
 /* Botón flotante */
 .btn-flotante {
-  width: 60px;
-  height: 60px;
   bottom: 20px;
   right: 20px;
   background-color: #007bff;
   transition: transform 0.3s ease;
+  border: none;
   cursor: pointer;
 }
 
