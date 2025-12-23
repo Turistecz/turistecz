@@ -1,33 +1,32 @@
 <br><br>
 <div class="container">
-<h1 class="title-pagSite title-pag fontFamilyTitle">{{monumentsFiltered[monumentNumber]?.title}}</h1>
+<h1 class="title-pag my-0">{{monumentsFiltered[monumentNumber]?.title}}</h1>
 
     <div class="row pt-4 align-items-center">
         <div  class="col-12 col-md-6">
             <img [src]="monumento.imagenes[0].url" id="imagen-intro" class="w-100">
         </div>
         <div class="col-0 col-md-1"></div>
-        <div *ngIf="monumentsFiltered[monumentNumber]?.horario" id="horario" class="col-12 rounded col-md-5 p-3 p-md-5 d-flex text-center align-items-center colorSchedules">
-            <h2 class="fontFamilyTitle">Horario</h2>
-            <p id="horarioP" class="fontFamilyText">{{cleanHorario}}</p></div>
+        <div *ngIf="monumentsFiltered[monumentNumber]?.horario" id="horario" class="col-12 rounded-4 col-md-5 p-3 p-md-5 d-flex text-center align-items-center colorSchedules">
+            <h2 class="mb-0">Horario</h2>
+            <p id="horarioP" class="fontFamilyText ">{{cleanHorario}}</p></div>
         </div>
     
     <div class="row pt-5 row">
         
         <div id="descripcion" class="col-12 col-md-7">
-            <h2 class="fontFamilyTitle">Descripción</h2>
-        
-            <p id="text-description" class="fontFamilyText">{{cleanDescription}}</p> 
+            <h2 class="mb-0">Descripción</h2>
+            <p id="text-description" class="fontFamilyText pb-2">{{cleanDescription}}</p> 
         </div>
+
         <div class="col-1"></div>
 
-        <div id="access" class="col-12 col-md-3 p-4 rounded deleteBoxSizing">
-            <h2 class="text-light fontFamilyTitle">Accesibilidad</h2>
-            <br>
+        <div id="access" class="col-12 col-md-3 p-4 rounded-4 deleteBoxSizing">
+            <h2 class="text-light text-center mb-0 pb-2">Accesibilidad</h2>
             
-            <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 align-items-center ps-4 justify-content-left mb-2">
+            <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 mb-2 align-items-center ps-4 justify-content-left">
                 <i [ngClass]="['fas', category.icon, 'text-light']"></i>
-                <p class="m-0 words fontFamilyText">
+                <p class="m-0 fontFamilyText ">
                     {{category.label}}
                     <!--Para que aparezca un icono de "bajo petición" En el caso de que el valor sea ese-->
                     <i *ngIf="category.info" class="fas fa-info-circle ms-1" title="Bajo petición"></i>
@@ -36,37 +35,34 @@
    
         </div>
     </div>
-       
-    <div  class="row pt-3">
+    <div class="row pt-3">
         <div class="col-12 col-md-6">
-            <div class="text-center text-md-start mt-4">
+            <div class="text-center text-md-start my-3">
                  <a class="btn btn-primary " href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a> <!--id="boton-info" -->
             </div> 
-           
-            <br><br><br>
+
             <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
-                <h2 class="fontFamilyTitle"> Contacto </h2>
-                <p class="fontFamilyText">{{monumentsFiltered[monumentNumber].phone}}</p>
+                <h2 class="mb-0"> Contacto </h2>
+                <p class="fontFamilyText ">{{monumentsFiltered[monumentNumber].phone}}</p>
                 <br>
             </div>
             <div class="direccion">
-                <h2 class="fontFamilyTitle"> Dirección </h2>
-                <p class="fontFamilyText">{{monumentsFiltered[monumentNumber]?.address}}</p>
+                <h2 class="mb-0"> Dirección </h2>
+                <p class="fontFamilyText ">{{monumentsFiltered[monumentNumber]?.address}}</p>
             </div>
             <br>
             <div *ngIf="monumentsFiltered[monumentNumber]?.price">
-                <h2 class="precio fontFamilyTitle"> Precio </h2>
-                <p class="fontFamilyText" id="textPrice">{{cleanPrice}}</p>
+                <h2 class="precio mb-0 "> Precio </h2>
+                <p class="fontFamilyText  " id="textPrice">{{cleanPrice}}</p>
             </div>
         </div>
     </div>
    
-    <div class="row pt-6">
+    <div class="row pt-6 mt-2">
         <div class="local col-12 col-md-12">
-            <h2 class="fontFamilyTitle">Localización</h2>
-            <br>
+            <h2 class="m-0 py-2">Localización</h2>
             <app-map [data]="coords" [name]="monumentsFiltered[monumentNumber]?.title || ''"  [parent]="name"></app-map>
         </div>
     </div>
-
 </div>
+  
