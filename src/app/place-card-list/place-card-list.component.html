@@ -3,23 +3,24 @@
   <div class="row ">
     <div class="col-12 col-md-3">
       <app-filter [places]="cards" [categories]="categories" 
-      (filteredCards)="updatePlaces($event)" (noResultsPlacesEvent)="noResultsPlaces = $event"></app-filter>
+      (filteredMonuments)="updatePlaces($event)" (noResultsPlacesEvent)="noResultsPlaces = $event"></app-filter>
     </div>
 
-    <div class="containerCard col-12 col-md-9" *ngIf="sortedCards.length > 0">
+    <div class="containerCard col-12 col-md-9" *ngIf="sortedCards.length > 0; else noResultsTpl">
       <div *ngFor="let cardHome of pagedPlaces">
         <app-one-place-card [data]="cardHome"></app-one-place-card>
       </div>
     </div>
-
-    <div class="containerCard col-12 col-lg-9 d-block justify-content-center" *ngIf="noResultsPlaces">
-      <div class="text-center p-4 border rounded bg-light shadow-sm w-100">
-        <i class="bi bi-exclamation-circle little-circle"></i>
-        <p class="mt-2 mb-0 messageError">
-          No se ha encontrado ningún resultado para los filtros aplicados.
-        </p>
+    <ng-template #noResultsTpl>
+      <div class="col-12 col-lg-9 d-block justify-content-center">
+        <div class="text-center p-4 border rounded bg-light shadow-sm w-100">
+          <i class="bi bi-exclamation-circle little-circle"></i>
+          <p class="mt-2 mb-0 messageError">
+            No se ha encontrado ningún resultado para los filtros aplicados.
+          </p>
+        </div>
       </div>
-    </div>
+    </ng-template>
     <div class="row">
       <div class="col-12 d-flex justify-content-center mt-4">
         <app-pagination

@@ -1,0 +1,125 @@
+<div class="container">
+  <!-- MOSTRAR RUTAS DEL USUARIO -->
+  <h2>Mis rutas</h2>
+  <!-- Cuando el usuario no ha creado ninguna ruta -->
+  <p *ngIf="datoMostrarRuta.id===0">Todavía no has creado ninguna ruta ¡Anímate a crear la primera!</p>
+  <!-- Cuando el usuario ha creado rutas -->
+  <div class="row mb-3">
+    <div class="col-3" *ngFor="let dato of datosMostrarRutas">
+      <div class="card p-3" >
+        <p> Titulo: {{ dato.titulo_ruta }}</p>
+        <p> Descripcion: {{ dato.descripcion_ruta }}</p>
+        <p> Sitios de la ruta:</p> 
+        <ol>
+          <div *ngFor="let sitioRuta of mostrarSitiosRuta">
+            <li *ngIf="dato.id===sitioRuta.idRuta">{{sitioRuta.nombre}}</li>
+          </div>
+        </ol>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editRoute" (click)="copiarDatosRuta(dato.id,dato.titulo_ruta,dato.descripcion_ruta)">Editar ruta</button>
+        <button type="button" class="btn btn-danger mt-2" data-bs-toggle="modal" data-bs-target="#deleteRoute" (click)="copiarIdRuta(dato.id)">Eliminar ruta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDITAR RUTA -->
+  <div class="modal fade" id="editRoute" tabindex="-1" aria-labelledby="editRoute" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Editando ruta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="formularioRuta">
+            <!-- Modificar titulo ruta -->
+            <label for="titulo_ruta" class="form-label">Título de la Ruta</label>
+            <input type="text" id="titulo_ruta" class="form-control" formControlName="titulo_ruta" [value]="this.editarRuta.titulo_ruta">
+            <!-- Modificar descripcion ruta -->
+            <label for="descripcion_ruta" class="form-label">Descripcion</label>
+            <input type="text" id="descripcion_ruta" class="form-control" formControlName="descripcion_ruta" [value]="this.editarRuta.descripcion_ruta">
+            <!-- Añadir o eliminar sitios de la ruta -->
+            <label class="form-label mt-3">Añadir o eliminar sitios de la ruta</label>
+            <div *ngFor="let sitioSelecionado of editarSitiosSeleccionados" class="mt-3">
+              <input class="form-check-input me-2" type="checkbox" [value]="sitioSelecionado.id" checked (change)="seleccionarSitio($event, sitioSelecionado.id, sitioSelecionado.nombre)">
+              <label class="form-check-label">{{ sitioSelecionado.nombre }}</label> 
+            </div> 
+            <div *ngFor="let sitioNoSeleccionado of editarSitiosNoSeleccionados" class="mt-3">
+              <input class="form-check-input me-2" type="checkbox" [value]="sitioNoSeleccionado.id" [checked]="false" (change)="seleccionarSitio($event, sitioNoSeleccionado.id, sitioNoSeleccionado.nombre)">
+              <label class="form-check-label">{{ sitioNoSeleccionado.nombre }}</label> 
+            </div> 
+            <!-- Ordenar sitios -->
+            <label class="form-label mt-3">Cambiar orden sitios</label>
+            <div cdkDropList class="example-list" (cdkDropListDropped)="dropEditado($event)">
+            <ol class="mb-3 list-group list-group-numbered" >
+                <li *ngFor="let sitio of editarSitiosSeleccionados" cdkDrag class="example-box p-4 list-group-item">
+                  {{sitio.nombre}}
+                </li>
+            </ol>
+        </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary" (click)="enviarEdicionRuta()">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CONFIRMAR ELIMINACION -->
+  <div class="modal fade" id="deleteRoute" tabindex="-1" aria-labelledby="deleteRoute" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Eliminando ruta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Al confirmar, la ruta se eliminará de forma permanente.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="eliminarRuta()">Confirmar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREAR NUEVA RUTA -->
+  <button class="btn btn-primary mb-3" data-bs-toggle="collapse" data-bs-target="#collapseFormNewRoute" aria-expanded="false" aria-controls="collapseExample">
+    Crear Nueva Ruta
+  </button>
+  <div class="collapse" id="collapseFormNewRoute">
+    <div class="card card-body mb-3">
+      <form [formGroup]="formularioRuta" (ngSubmit)="enviarDatosRutaUsuario()">
+        <!-- Titulo ruta -->
+        <label for="titulo_ruta" class="form-label">Título de la Ruta</label>
+        <input type="text" id="titulo_ruta" class="form-control" formControlName="titulo_ruta">
+        <div *ngIf="formularioRuta.get('titulo_ruta')?.invalid && formularioRuta.get('titulo_ruta')?.touched">
+          El titulo es obligatorio
+        </div>
+        <!-- Descripcion ruta -->
+        <label for="descripcion_ruta" class="form-label">Descripcion</label>
+        <input type="text" id="descripcion_ruta" class="form-control" formControlName="descripcion_ruta">
+        <!-- Seleccionar sitios -->
+        <label class="form-label mt-3">Selecciona los sitios que quieres incluir en tu ruta:</label>
+        <div *ngFor="let sitio of sitiosFavoritosUsuario" class="mt-3">
+          <input class="form-check-input me-2" type="checkbox" [value]="sitio.id" (change)="onCheckboxChange($event, sitio.id, sitio.nombre)">
+          <label class="form-check-label">{{ sitio.nombre }}</label> 
+        </div>
+        <!-- WIP: Ordenar sitios -->
+        <p>Ordena los sitios seleccionados</p> 
+        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+          <ol class="mb-3 list-group list-group-numbered" >
+              <li *ngFor="let sitio of sitiosRutaSeleccioandos" cdkDrag class="example-box p-4 list-group-item">
+                {{sitio.nombre}}
+              </li>
+          </ol>
+        </div>
+        <!-- Botones -->
+        <button type="reset" class="btn btn-primary mt-3 me-3" (click)="recargarPagina()">Cancelar</button>
+        <button type="submit" [disabled]="formularioRuta.invalid" class="btn btn-primary mt-3">Guardar</button>
+      </form>
+    </div>  
+  </div>
+</div>

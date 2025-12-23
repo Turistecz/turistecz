@@ -1,4 +1,3 @@
-<!--prueba de temperatura-->
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 d-flex weather justify-content-end py-1">
@@ -10,7 +9,7 @@
                     <p class="mb-0 fas fa-map-location-dot icon-map pe-1"></p>
                 </a>
                 <p class="m-1" *ngIf="current"> Zaragoza, {{current.temperature_2m}} ºC</p>
-                <i class="fas {{getWeatherIcon(current)}}"></i>
+                <i *ngIf="current" class="fas {{ getWeatherIcon(current) }}"></i>
             </div>
         </div>
     </div>

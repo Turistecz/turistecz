@@ -115,6 +115,44 @@ CREATE TABLE favoritos (
     UNIQUE (usuario_id, sitios_id) 
 );
 
+CREATE TABLE ruta_usuario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT,
+    titulo_ruta VARCHAR(255),
+	descripcion_ruta VARCHAR(255),
+	imagen_destacada VARCHAR(255),
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+);
+
+CREATE TABLE sitios_ruta_usuario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    id_ruta INT,
+    id_sitio_favorito INT,
+    orden INT,
+    texto_sitio VARCHAR(255),
+    FOREIGN KEY (id_ruta) REFERENCES ruta_usuario(id),
+    FOREIGN KEY (id_sitio_favorito) REFERENCES favoritos(sitios_id)
+); 
+
+CREATE TABLE ruta_usuario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT,
+    titulo_ruta VARCHAR(255),
+	descripcion_ruta VARCHAR(255),
+	imagen_destacada VARCHAR(255),
+	FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+);
+
+CREATE TABLE sitios_ruta_usuario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    id_ruta INT,
+    id_sitio_favorito INT,
+    orden INT,
+    texto_sitio VARCHAR(255),
+    FOREIGN KEY (id_ruta) REFERENCES ruta_usuario(id),
+    FOREIGN KEY (id_sitio_favorito) REFERENCES favoritos(sitios_id)
+); 
+
 
 CREATE TABLE filtro (
 	id INT PRIMARY KEY,
@@ -183,7 +221,6 @@ VALUES (
     "gradient_footer_start": "#6dd5ed",
     "gradient_footer_end": "#2A8BEA",
     "bg_primary": "#ffffff",
-    "bg_secondary": "#f0f0f0",
     "text_primary": "#03080a",
     "text_secondary": "#495057",
     "text_light": "#ffffff"
@@ -512,7 +549,8 @@ INSERT INTO usuario (nombre, apellido, email, contrasena, activo, fecha_creacion
 ('Alvaro', 'Samcho', 'asfswgew@gmail.com', 'contrasena', true, CURRENT_DATE),
 ('Alvaro', 'sdgsdgsd', 'sdhshshs@gmail.com', 'contrasenaa', true, current_date),
 ('Alvaro', 'gsdgdsgsgds', 'hrhsrhsrd@gmail.com', 'contraseena', true, current_date),
-('Alvaro', 'Sancho', 'alvarosanvaa6@gmail.com', '$10$VrkN281yRz.GcR5yjK6v4.ayujUkUsm3mi0Rrs8FQlT3LyXNOb9oW', true, current_date);
+('Alvaro', 'Sancho', 'alvarosanvaa6@gmail.com', '$10$VrkN281yRz.GcR5yjK6v4.ayujUkUsm3mi0Rrs8FQlT3LyXNOb9oW', true, current_date),
+('Mariposa44', 'Boss', '1@email.com', '$2a$10$e4uCqnlUKN/rpU5lEaSRDOET3Zb2uLvxwSKJjXw2tyKnxJXn53s7e', true, current_date);
 
 
 -- Insert data into caracteristica
@@ -546,3 +584,16 @@ FROM SITIO s
 JOIN sitios_ruta sr ON s.id = sr.id_sitio
 JOIN imagen_sitio imgs ON s.id = imgs.id
 ORDER BY sr.orden ASC;
+
+-- Vista para mostrar sitios de las rutas del usuario 
+CREATE OR REPLACE VIEW v_sitios_ruta_usuario AS
+SELECT 
+	sru.id,
+	sru.id_ruta,
+    s.id AS id_sitio,
+    s.nombre,
+    sru.orden
+FROM sitio s
+JOIN favoritos f ON f.sitios_id = s.id
+JOIN sitios_ruta_usuario sru ON sru.id_sitio_favorito = s.id
+ORDER BY sru.id_ruta, sru.orden;
