@@ -57,6 +57,13 @@ export const routes: Routes = [
                 import('./accommodation/accommodation.component').then(m => m.AccommodationComponent),
     },
     {
+    path: 'restaurantes', 
+        loadComponent: () =>
+                import('./gastronomy/gastronomy.component').then(m => m.GastronomyComponent),
+    },
+
+
+    {
     path: 'recuperar-contrasena',
     loadComponent: () => import('./recuperar-contrasena/recuperar-contrasena.component').then(m => m.RecuperarContrasenaComponent)
     },
