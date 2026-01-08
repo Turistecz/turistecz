@@ -1,11 +1,11 @@
-<div class="position-relative mb-2"> <!--<div id="mapContainer">-->
+<div class="position-relative mb-2">
     <div id="map" class="w-100 m-0 z-0 rounded-2"></div>
-    <div id="listContainer" class="overflow-auto row-gap-1 mt-3 me-lg-3 me-md-0 p-2 bg-body-secondary rounded-3 z-1 end-0">  
-        <div class="mb-0 bg-white px-2 rounded-3 legInfo">
-                <p class="fs-5 mb-1 pt-1" id="legName">{{this.route.routes[0].legs[0].summary}}</p>
+    <div id="listContainer" class="overflow-auto row-gap-1 mt-3 me-lg-3 me-md-0 p-2 rounded-4 z-1 end-0">  
+        <div class="mb-0 px-2 rounded-3 legInfo align-items-center d-flex flex-column">
+                <p class="fs-5 mb-1 pt-1 text-start" id="legName">{{this.route.routes[0].legs[0].summary}}</p>
                 <p class="pb-2 mb-1" id="distanceTime">{{kms}}, {{mins}}</p>
-                <button type="button" class="btn btn-outline-dark bg-white mt-0 mb-3 mx-0 px-2 text-start text-dark w-100" data-bs-toggle="collapse" data-bs-target="#instructionsDiv" (click)="toggleInstructions()">
-                    <p class="mb-0 text-center">{{ instructionsExpanded ? 'Ocultar direcciones' : 'Mostrar direcciones' }}</p>    
+                <button type="button" class="btn mapButton mt-0 mb-2 mx-0 px-2 text-dark w-75 w-sm-25 rounded-4" data-bs-toggle="collapse" data-bs-target="#instructionsDiv" (click)="toggleInstructions()">
+                    <p class="mb-0 text-center fw-bold text-white">{{ instructionsExpanded ? 'Ocultar direcciones' : 'Mostrar direcciones' }}</p>    
                 </button>
         </div>
         <div class="mt-2 collapse" id="instructionsDiv">
@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="container card mt-2 mb-4 pt-3 pb-1">
+<div class="container legend card mt-2 mb-4 pt-3 pb-1">
     <div class="row fw-medium">
         <p class="fs-5 mb-1 ms-2">
             LEYENDA
@@ -22,7 +22,7 @@
     </div>
     <div class="row ps-2 ps-xl-0">
         <ul class="list-group list-group-horizontal-sm pe-0 d-flex justify-content-xl-between justify-content-center flex-wrap">
-            <li class="list-group-item border-0 d-flex align-items-center">
+            <li class="list-group-item bg-none border-0 d-flex align-items-center">
                 <i class="bi bi-geo-alt-fill me-2 fs-3 text-primary"></i>
                 <p class="mb-0 mt-2 mb-2">     
                     Estás aquí
