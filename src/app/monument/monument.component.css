@@ -5,6 +5,13 @@
   border-radius: 25px;
 }
 
+.imagen-monumento{
+  height: 500px;
+  width: 100%;
+  max-width: 750px;
+  object-fit: cover;
+}
+
 .title-pagSite{
   color: #184591;
   font-weight: 700;
@@ -55,12 +62,24 @@ h2{
   box-sizing: content-box !important;
 }
 
+@media (max-width: 1200px) {
+  .imagen-monumento{
+    height: 450px;
+    max-width: 550px;
+  }
+}
+
 @media (max-width: 768px) {
   .title-pag{
     margin-top: 5%;
     margin-left: 5%;
     margin-right: 5%;
     text-align: center;
+  }
+
+  .imagen-monumento{
+    height: 300px;
+    max-width: 300px;
   }
 
   #horario,
