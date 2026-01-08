@@ -1,22 +1,22 @@
 <div class="container">
   <!-- MOSTRAR RUTAS DEL USUARIO -->
-  <h2 class="text-center">Mis rutas</h2>
+  <h2 class="text-center mt-5 mt-md-0">Mis rutas</h2>
   <!-- Cuando el usuario no ha creado ninguna ruta -->
   <p *ngIf="datoMostrarRuta.id===0" class="text-center mt-3">Todavía no has creado ninguna ruta ¡Anímate a crear la primera!</p>
   <!-- Cuando el usuario ha creado rutas -->
   <div class="row mb-3 mt-5">
-    <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let dato of datosMostrarRutas">
-      <div class="card border-0 shadow h-100">
-        <div class="card-title bg-titulo p-4 h-100 d-flex justify-content-center align-items-center">
-          <div class="text-center text-white">
-            <h3> {{ dato.titulo_ruta }}</h3>
-            <p class="descripcion p-0 m-0 mt-2"> {{ dato.descripcion_ruta }}</p>
+    <div class="col-12 col-md-12 col-lg-6 col-xl-4 mb-4" *ngFor="let dato of datosMostrarRutas">
+      <div class="card border-0 shadow h-100 d-flex flex-column">
+        <div class="card-title bg-titulo p-4 d-flex justify-content-center align-items-center text-center text-white flex-grow-1">
+          <div class="">
+            <h3> {{ dato.titulo_ruta }} </h3>
+            <p class="descripcion p-0 m-0 mt-2"> {{ dato.descripcion_ruta }} </p>
           </div>
         </div>
-        <div class="ps-4 pe-4 card-body h-100 d-flex align-items-center">
+        <div class="ps-4 pe-4 card-body d-flex align-items-center">
           <ol>
             <div *ngFor="let sitioRuta of mostrarSitiosRuta">
-              <li *ngIf="dato.id===sitioRuta.idRuta">{{sitioRuta.nombre}}</li>
+              <li *ngIf="dato.id===sitioRuta.idRuta"> {{sitioRuta.nombre}} </li>
             </div>
           </ol>
         </div>
@@ -65,7 +65,7 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-success" (click)="enviarEdicionRuta()">Confirmar</button>
         </div>
       </div>
