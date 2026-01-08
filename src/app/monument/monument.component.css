@@ -16,7 +16,6 @@
   color: var(--color-primary);
 }
 
-<<<<<<< HEAD
 #descripcion{
   font-size: large;
 }
@@ -29,15 +28,12 @@
     color: var(--color-primary);
   }
 
-.words{
-=======
 .fontFamilyText{
   font-family: 'Inclusive Sans Variable';
   font-weight: 500;
   margin-bottom: 0;
->>>>>>> origin/main
   font-size: 1.01rem;
-}
+  }
 
 #horario{
   flex-direction: column;  
