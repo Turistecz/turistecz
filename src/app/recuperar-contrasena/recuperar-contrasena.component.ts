@@ -3,11 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { BreadcrumbsComponent } from "../breadcrumbs/breadcrumbs.component";
 
 @Component({
   selector: 'app-recuperar-contrasena',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, BreadcrumbsComponent],
   templateUrl: './recuperar-contrasena.component.html',
   styleUrls: ['./recuperar-contrasena.component.css']
 })

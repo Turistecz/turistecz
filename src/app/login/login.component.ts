@@ -6,11 +6,13 @@ import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 import { FilterService } from '../services/filter.service';
 import { CleanFilter } from '../models/filter.model';
+import { BreadcrumbsComponent } from '../breadcrumbs/breadcrumbs.component';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,BreadcrumbsComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

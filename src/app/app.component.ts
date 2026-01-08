@@ -23,10 +23,12 @@ export class AppComponent {
     , private temaService: TemaService
    ) { 
     this.router.events
-      .pipe(filter((e) => e instanceof NavigationEnd))
-      .subscribe((event: any) => {
-         this.showBreadcrumbs = event.urlAfterRedirects !== '/';
-         
+      .pipe(filter((e) => e instanceof NavigationEnd)).subscribe((event: any) => {
+         this.showBreadcrumbs = !event.urlAfterRedirects.startsWith('/login') 
+         && !event.urlAfterRedirects.startsWith('/signin') 
+         && !event.urlAfterRedirects.startsWith('/recuperar-contrasena') 
+         && event.urlAfterRedirects !== '/';
+
         window.scrollTo(0, 0);
       });
  }

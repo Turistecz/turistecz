@@ -3,11 +3,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { BreadcrumbsComponent } from "../breadcrumbs/breadcrumbs.component";
 
 @Component({
   selector: 'app-sign-form',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, BreadcrumbsComponent],
   templateUrl: './sign-form.component.html',
   styleUrls: ['./sign-form.component.css']
 })
@@ -64,6 +65,10 @@ export class SignformComponent {
         }
       }
     });
+  }
+
+  volverAlLogin() {
+    this.router.navigate(['/login']);
   }
   
 }
