@@ -1,7 +1,7 @@
 <div class="container-fluid mb-2">
   <div class="row">
     <!-- Menú de pestañas -->
-    <div class="col-12 col-md-2 mb-3 mb-md-0">
+    <div class="col-12 col-md-3 col-lg-2 mb-3 mb-md-0">
       
         <div class="nav nav-pills flex-row flex-md-column fw-bold shadow fs-5 fs-md-3 menu" id="v-pills-tab" role="tablist" aria-orientation="vertical">
           <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Mis Sitios</button>
@@ -14,13 +14,13 @@
     
   
      <!-- Contenido de pestañas -->
-      <div class="col-12 col-md-10">
+      <div class="col-12 col-md-9 col-lg-10">
         <div class="tab-content" id="v-pills-tabContent">
         <!-- Mis Sitios -->
           <div class="tab-pane fade show active px-2" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
             <div class="container-fluid">
               <div class="row">
-                <div *ngFor="let favorito of favoritos" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div *ngFor="let favorito of favoritos" class="col-12 col-md-6 col-lg-3 mb-4">
                   <app-one-place-card 
                     [data]="favorito" 
                     (favoritoEliminado)="onFavoritoEliminado($event)">

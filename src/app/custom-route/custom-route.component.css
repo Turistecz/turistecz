@@ -20,21 +20,11 @@ h3{
   font-size: 2rem;
 }
 
-/* ol.colapsado {
-  max-height: 4.5rem;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-
-ol.descolapsado {
-  transition: max-height 0.3s ease;
-} */
-
 .bg-titulo{
   background-color: var(--color-secondary);
-  /* background-color: var(--color-primary); */
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
+  min-height: 12rem;
 }
 
 .descripcion{
