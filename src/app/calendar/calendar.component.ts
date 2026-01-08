@@ -43,7 +43,7 @@ private cdr: ChangeDetectorRef
   showEvents(){
     this.eventService.getEventstest().subscribe({
       next:(response) =>{
-        console.log("esta es la movida", response);
+        console.log("esta es la movida del response", response);
         let data = response.result;
         this.mappedEvents = data.map(date => ({
           title:date.title?date.title:undefined,
@@ -72,7 +72,7 @@ private cdr: ChangeDetectorRef
   }
 
   // MÉTODO MEJORADO: Genera una fecha por cada día del evento (incluyendo rangos)
-  private buildSpecialDates(): void {
+ /* private buildSpecialDates(): void {
     const allDates: Date[] = [];
 
     // this.ev.forEach(ev => {
@@ -82,25 +82,25 @@ private cdr: ChangeDetectorRef
     const end = this.transEnd;
 
       //Generar todas las fechas entre start y end (inclusive)
-      const currentDate = start;
-      if(currentDate!== null && end !== null){
-        while (currentDate <= end) {
-          allDates.push(new Date(currentDate));
-          currentDate.setDate(currentDate.getDate() + 1);
-        }
-      }
+      // const currentDate = start;
+      // if(currentDate!== null && end !== null){
+      //   while (currentDate <= end) {
+      //     allDates.push(new Date(currentDate));
+      //     currentDate.setDate(currentDate.getDate() + 1);
+      //   }
+      // }
     //});
 
     // const fechasEventos = this.ev.map(evento => {
     //   return evento.startDate;
     // });
 
-    console.log("MAPEEEEEEED", this.mappedEvents)
+    // console.log("MAPEEEEEEED", this.mappedEvents)
     const fechasEventos = this.expandEventDates();
     console.log("fechasEventos");
     console.log(fechasEventos);
 
-    /*
+    
     const fechasUnicas = fechasEventos.filter((fecha, index) =>{
       return fechasEventos.indexOf(fecha) === index;
     });
@@ -118,35 +118,46 @@ private cdr: ChangeDetectorRef
     });
 
     this.cdr.detectChanges();
-    */
-  }
+    
+   
+  }*/
 
   private expandEventDates() {
-    const result = [];
+    let startEvent : Date;
+    let endEvent : Date;
+    //let idEvent:number;
+    let rangeTotal : Date [] = [];
+    
+    let s = 0;
 
-    // for (const ev of events) {
-    let cursor!:Date;
-      if(this.transStart!==null){
-        cursor = this.transStart;
-      }
-      if(this.transEnd===null && this.transStart!==null){
-        this.transEnd = this.transStart;
-      } 
+    this.mappedEvents.forEach(evento => {
+      //idEvent = evento.id;
+      //console.log(evento)
+      evento.subEvent?.forEach(sE=>{
+        //console.log(sE)
+        startEvent = new Date (sE.startDate);
+        endEvent = new Date (sE.endDate?sE.endDate:"");
 
-      if(cursor!==null&&this.transEnd!==null){
-        while (cursor <= this.transEnd) {
-            result.push(cursor); // YYYY-MM-DD
-            cursor.setDate(cursor.getDate() + 1);
+        let eventRange:any=[];
+        let cursor!:Date;
+
+        if(startEvent!==null && startEvent!==undefined){
+          cursor = startEvent;
+          
+          if(endEvent===null || endEvent===undefined){
+            endEvent = startEvent;
+          } 
+          if(endEvent!==null||endEvent!==undefined){
+            while (cursor <= endEvent) {
+                eventRange.push(cursor); 
+                cursor.setDate(cursor.getDate() + 1);
+            }
+          }
         }
-      }else{
-        result.push(cursor); // YYYY-MM-DD
-      }
-        
-     return result;
-// 
-
+      rangeTotal.push(eventRange);
+      })      
+    })
 }
-
 
   private filterEventsForDate() {
     if (!this.selectedDate) {
@@ -157,10 +168,12 @@ private cdr: ChangeDetectorRef
     //console.log(this.mappedEvents);
 
     this.eventsOfDay = [];
+    console.log("estos son los mapped events");
+    console.log(this.mappedEvents);
     this.mappedEvents.forEach(mE=>{
       let subEvent = mE.subEvent;
-      console.log("mapped sub");
-      console.log(subEvent)
+      // console.log("mapped sub");
+      // console.log(subEvent)
       subEvent?.forEach(sE=> { 
         this.start = sE.startDate;
         this.transStart = new Date(this.start);
@@ -174,11 +187,11 @@ private cdr: ChangeDetectorRef
           
         }
       });
-      console.log("traaaans", this.transStart)
-      console.log("eventos epicos del dia", this.eventsOfDay)
-            this.buildSpecialDates();
+      // console.log("traaaans", this.transStart)
+      // console.log("eventos epicos del dia", this.eventsOfDay)
+      
     })
-
+    this.expandEventDates();
       //const isSameDay = selected >= this.transStart && selected <= this.transEnd;
       
     //   if(this.transStart!==null && this.transEnd!==null){
@@ -257,8 +270,9 @@ private cdr: ChangeDetectorRef
     //   this.buildSpecialDates();
     //   this.filterEventsForDate();
     // });
-    this.buildSpecialDates();
-    this.filterEventsForDate();
+    //this.buildSpecialDates();
+   // this.expandEventDates();
+    //this.filterEventsForDate();
     this.cdr.detectChanges();
   }
 /*
