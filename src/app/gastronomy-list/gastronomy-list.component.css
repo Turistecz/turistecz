@@ -3,16 +3,16 @@
   overflow: hidden;
   transition: transform .2s ease, box-shadow .2s ease;
   padding-top: 8px;
+  font-family: "Baloo Bhaijaan 2 Variable", system-ui;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 10px rgba(0,0,0,0.15);
 }
 
 .card-title {
   color: var(--color-primary);
-  font-size: 1.5rem;
 }
 
 .btn-primary {
