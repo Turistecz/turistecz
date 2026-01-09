@@ -117,6 +117,13 @@ h1 {
 
 }
 
+::ng-deep .igx-calendar__date--special {
+  text-decoration: underline;
+  text-decoration-color: #1e6bf5;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  font-weight: 600;
+}
 /* Día seleccionado */
 :host ::ng-deep .igx-days-view__date--selected .igx-days-view__date-inner {
   background: #0e3d89 !important;
@@ -270,6 +277,11 @@ ul {
    flex-wrap: wrap;
   }
 
+}
+
+
+::ng-deep .dia-evento .igx-days-view__date-inner{
+  background-color: rgba(56, 202, 170, 0.5);
 }
 
 

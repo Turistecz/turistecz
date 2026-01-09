@@ -35,47 +35,49 @@
           <!-- Título -->
           <h5 class="eventTitle py-1">{{ev.title}}</h5>
 
-          <!-- Lugar -->
-          <p class="eventLocation mb-1 text-secondary">
-            <i class="fas fa-map-marker-alt me-2 text-danger"></i>{{ev.location || 'Lugar no especificado' }}
-          </p>
+          <div *ngFor="let se of ev.subEvent">
+              <!-- Lugar -->
+              <p class="eventLocation mb-1 text-secondary">
+                <i class="fas fa-map-marker-alt me-2 text-danger"></i>{{se.location?.title || 'Lugar no especificado' }}
+              </p>
 
-          <!-- Fecha -->
-          <p class="eventDate mb-1 text-dark">
-            <i class="fas fa-calendar-day me-2 text-primary"></i>
-            {{ev.startDate | date:"EEEE d 'de' MMMM y":'':'es' }}
-            <span *ngIf="ev.endDate"> – {{ev.endDate | date:"EEEE d 'de' MMMM y":'':'es'}}</span>
-          </p>
+              <!-- Fecha -->
+              <p  class="eventDate mb-1 text-dark">
+                <i class="fas fa-calendar-day me-2 text-primary"></i>
+                {{se.startDate | date:"EEEE d 'de' MMMM y":'':'es' }}
+                <span *ngIf="se.endDate"> – {{se.endDate | date:"EEEE d 'de' MMMM y":'':'es'}}</span>
+              </p>
 
-      
-          <!-- Horario principal -->
-          <div *ngFor="let sub of ev.subEvent" class="subevent-item">
-            <ul class="list-unstyled" *ngIf="sub.openingHours && sub.openingHours.length > 0">
-              <li *ngFor="let oh of sub.openingHours" class="text-secondary small py-1">
-                <i class="fas fa-clock me-2 text-primary"></i>
-                {{oh.startTime}}<span *ngIf="oh.endTime"> – {{oh.endTime}}</span>
-              </li>
-            </ul>
-          </div>
-        
-          <!-- Enlace -->
-          <a [href]="'https://www.zaragoza.es/sede/servicio/cultura/evento/' + ev.id"
-             target="_blank" rel="noopener noreferrer"
-             class="btn btn-sm btn-outline-primary mt-2">
-            <i class="fas fa-external-link-alt me-1"></i> Ver más
-          </a>
+          
+              <!-- Horario principal -->
+              <div class="subevent-item">
+                <ul class="list-unstyled" >
+                  <li *ngFor="let oH of se.openingHours"  class="text-secondary small py-1">
+                    <i class="fas fa-clock me-2 text-primary"></i>
+                    <span>{{oH.dayOfWeek}} - {{oH.startTime}}</span>
+                  </li>
+                </ul>
+              </div>
+          
+              <!-- Enlace -->
+              <a [href]="'https://www.zaragoza.es/sede/servicio/cultura/evento/' + ev.id"
+                target="_blank" rel="noopener noreferrer"
+                class="btn btn-sm btn-outline-primary mt-2">
+                <i class="fas fa-external-link-alt me-1"></i> Ver más
+              </a>
+            </div>
+          </div>  
         </div>
       </div>
-    </div>
 
-    <!-- Sin eventos -->
-    <div class="col-12 col-lg-6 mt-4 mt-lg-0" *ngIf="selectedDate && eventsOfDay.length === 0">
-      <div class="calendar-card shadow-sm text-center p-4">
-        <h5 class="text-muted">
-          <i class="fas fa-info-circle me-2"></i>
-          No hay eventos para {{selectedDate | date:"EEEE d 'de' MMMM y":'':'es' }}.
-        </h5>
+      <!-- Sin eventos -->
+      <div class="col-12 col-lg-6 mt-4 mt-lg-0" *ngIf="selectedDate && eventsOfDay.length === 0">
+        <div class="calendar-card shadow-sm text-center p-4">
+          <h5 class="text-muted">
+            <i class="fas fa-info-circle me-2"></i>
+            No hay eventos para {{selectedDate | date:"EEEE d 'de' MMMM y":'':'es' }}.
+          </h5>
+        </div>
       </div>
-    </div>
   </div>
 </div>
