@@ -20,4 +20,6 @@ public interface FavoritosRepository extends JpaRepository<Favoritos, Integer> {
 
     @Query("SELECT f.sitio FROM Favoritos f WHERE f.usuario.id = :usuarioId")
     List<Sitio> findFavoritosByUsuarioId(int usuarioId);
+
+    Optional<Favoritos> findBySitio(Sitio sitio);
 }

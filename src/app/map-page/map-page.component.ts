@@ -27,11 +27,10 @@ constructor(private http: HttpClient, private monumentService: MonumentServiceSe
   async loadSite(): Promise<void> {
     try {
       if (localStorage.getItem('monumentDDBBGlobal')) {
-      //  this.sitiosFiltrados = JSON.parse(localStorage.getItem('monumentDDBBGlobal') || '{}');
+        //pass
       } else {
         this.sitios = await firstValueFrom(this.monumentService.getMonumentsNames());
         this.sitiosFiltrados = this.sitios; 
-        // localStorage.setItem('monumentDDBBGlobal', JSON.stringify(this.sitiosFiltrados));
       }
     } 
     catch (error) {

@@ -1,7 +1,8 @@
-<div class="imagen-bg-routes py-5">
-  <div class="d-flex justify-content-center">
-    <div class="card shadow p-4" style="max-width: 600px; width: 100%;">
-      <h3 class="card-title text-center mb-4">Iniciar Sesión</h3>
+<div class="imagen-bg-routes">
+  <app-breadcrumbs></app-breadcrumbs>
+  <div class="d-flex justify-content-center py-5">
+    <div class="card login shadow p-4 mx-4">
+      <p class="card-title text-center h4 my-2">Iniciar Sesión</p>
       <div class="card-body">
         <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" novalidate>
 
@@ -39,7 +40,7 @@
           </div>
 
           <div class="text-center mt-4">
-            <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
           </div>
 
           <div class="text-center mt-3">
@@ -50,7 +51,6 @@
               <a href="#" (click)="irARecuperar($event)">¿Olvidaste tu contraseña?</a>
             </p>
           </div>
-
         </form>
       </div>
     </div>

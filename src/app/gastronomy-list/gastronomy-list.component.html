@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row g-4 justify-content-center align-items-stretch">
+
+    <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 d-flex"
+         *ngFor="let g of pagedItems; let i = index">
+
+      <div class="card h-100 d-flex flex-column w-100 border-top-0 border-start-0 shadow bg-body rounded">
+        <div class="card h-100 d-flex flex-column w-100 shadow bg-body rounded">
+
+  <!--  TÍTULO -->
+    <div class="title-wrap">
+    <h4 class="card-title fw-bold fs-5 title-text">
+         {{ g.title }}
+    </h4>
+    </div>
+
+
+  <!--  IMAGEN -->
+  <div class="image-wrapper">
+    <ng-container *ngIf="g.image; else noImage">
+      <img [src]="g.image" class="restaurant-img" alt="{{ g.title }}">
+    </ng-container>
+
+    <ng-template #noImage>
+      <div class="no-image-bg d-flex justify-content-center align-items-center">
+        <i class="fa-solid fa-utensils fa-2xl text-muted"></i>
+      </div>
+    </ng-template>
+  </div>
+
+  <!--  INFORMACIÓN -->
+  <div class="card-body d-flex flex-column text-center fw-bold">
+
+    <p *ngIf="g.streetAddress" class="text-truncate">
+      <i class="fa-solid fa-location-dot me-1" style="color:#ff4d4d"></i>
+      {{ g.streetAddress }}
+    </p>
+
+    <p *ngIf="g.postalCode || g.addressLocality">
+      {{ g.postalCode }} {{ g.addressLocality }}
+    </p>
+
+    <p *ngIf="g.tel">
+      <i class="fa-solid fa-phone me-1" style="color:#1e90ff"></i>
+      {{ g.tel }}
+    </p>
+
+    <button
+      *ngIf="g.url"
+      class="btn btn-primary fw-semibold mt-auto fs-6 mx-2"
+      (click)="openUrl(g.url)">
+      Visitar web
+      <i class="fa-solid fa-up-right-from-square mx-1"></i>
+    </button>
+
+  </div>
+
+</div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!--  Paginador -->
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center mt-4">
+      <app-pagination
+        [page]="page"
+        [pageSize]="pageSize"
+        [totalItems]="items.length"
+        (pageChange)="onPageChange($event)">
+      </app-pagination>
+    </div>
+  </div>
+</div>

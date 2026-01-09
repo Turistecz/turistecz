@@ -18,7 +18,7 @@ private cdr: ChangeDetectorRef
 ) {}
 
 
-@ViewChild('calendar', { static: true }) public calendar!: IgxCalendarComponent;
+  @ViewChild('calendar', { static: true }) public calendar!: IgxCalendarComponent;
 
   ev: CalendarTest[] = [];
   mappedEvents: CalendarTest[] = [];

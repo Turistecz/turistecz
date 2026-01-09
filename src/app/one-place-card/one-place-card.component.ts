@@ -61,7 +61,7 @@ export class OnePlaceCardComponent {
       const usuario = JSON.parse(usuarioStr);
       this.comprobarFavorito(Number(usuario.id), Number(this.data.id));
     } else {
-      console.warn('⚠️ No hay usuario logueado, no se comprobarán favoritos.');
+      console.warn('⚠️ No hay usuario logueado, no se comprobarán favoritos');
     }
   }
 

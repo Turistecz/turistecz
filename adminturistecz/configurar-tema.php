@@ -21,7 +21,6 @@ if (!isset($_SESSION['user'])) {
     'gradient_home_start' => '#8ee3f7',
     'gradient_home_end' => '#478ed1',
     'bg_primary' => '#ffffff',
-    'bg_secondary' => '#f0f0f0',
     'text_primary' => '#03080a',
     'text_light' => '#ffffff'
 ];
@@ -45,7 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'gradient_home_start' => $_POST['gradient_home_start'] ?? '#8ee3f7',
         'gradient_home_end' => $_POST['gradient_home_end'] ?? '#478ed1',
         'bg_primary' => $_POST['bg_primary'] ?? '#ffffff',
-        'bg_secondary' => $_POST['bg_secondary'] ?? '#f0f0f0',
         'text_primary' => $_POST['text_primary'] ?? '#03080a',
         'text_light' => $_POST['text_light'] ?? '#ffffff'
     ];
@@ -155,11 +153,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="color-preview" id="preview_bg_primary" style="background:<?= $tema['bg_primary'] ?>; border:1px solid #ccc"></div>
                     </div>
                     <div class="color-input-group">
-                        <label style="width:150px">Fondo secundario</label>
-                        <input type="color" id="bg_secondary" name="bg_secondary" value="<?= htmlspecialchars($tema['bg_secondary']) ?>" class="form-control form-control-color">
-                        <div class="color-preview" id="preview_bg_secondary" style="background:<?= $tema['bg_secondary'] ?>; border:1px solid #ccc"></div>
-                    </div>
-                    <div class="color-input-group">
                         <label style="width:150px">Texto principal</label>
                         <input type="color" id="text_primary" name="text_primary" value="<?= htmlspecialchars($tema['text_primary']) ?>" class="form-control form-control-color">
                         <div class="color-preview" id="preview_text_primary" style="background:<?= $tema['text_primary'] ?>; border:1px solid #ccc"></div>
@@ -216,8 +209,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div id="mainPreview" class="preview-box" style="background:linear-gradient(135deg, <?= $tema['gradient_primary_start'] ?>, <?= $tema['gradient_primary_end'] ?>); color:<?= $tema['text_light'] ?>">
                 Botón principal • Fondo con gradiente
             </div>
-            <div id="secondaryPreview" class="preview-box" style="background:<?= $tema['bg_secondary'] ?>; color:<?= $tema['text_primary'] ?>; border:1px solid #ddd">
-                Tarjeta • Fondo secundario
+            <div id="secondaryPreview" class="preview-box" style="color:<?= $tema['text_primary'] ?>; border:1px solid #ddd">
+                Tarjeta
             </div>
         </div>
     </div>
@@ -235,7 +228,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'gradient_home_start': '#8ee3f7',
                 'gradient_home_end': '#478ed1',
                 'bg_primary': '#ffffff',
-                'bg_secondary': '#f0f0f0',
                 'text_primary': '#03080a',
                 'text_light': '#ffffff'
             },
@@ -246,10 +238,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'color_accent': '#C9B037',
                 'gradient_primary_start': '#9D2A2A',
                 'gradient_primary_end': '#D14E4E',
-                'gradient_home_start': '#0F2027',
+                'gradient_home_start': '#348145ff',
                 'gradient_home_end': '#2C5364',
                 'bg_primary': '#ffffff',
-                'bg_secondary': '#f8f4f4',
                 'text_primary': '#333333',
                 'text_light': '#ffffff'
             },
@@ -263,7 +254,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'gradient_home_start': '#F4E4C1',
                 'gradient_home_end': '#E8B4A0',
                 'bg_primary': '#ffffff',
-                'bg_secondary': '#f5f2ed',
                 'text_primary': '#3D2C1D',
                 'text_light': '#ffffff'
             },
@@ -274,10 +264,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'color_accent': '#F4D03F',
                 'gradient_primary_start': '#4A9D5D',
                 'gradient_primary_end': '#A8E6CF',
-                'gradient_home_start': '#FEF5E7',
+                'gradient_home_start': '#fbeebdff',
                 'gradient_home_end': '#FADBD8',
                 'bg_primary': '#ffffff',
-                'bg_secondary': '#f0f7f2',
                 'text_primary': '#4A4A4A',
                 'text_light': '#ffffff'
             }
@@ -324,7 +313,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             if (secondaryPreview) {
-                secondaryPreview.style.background = colors.bg_secondary;
                 secondaryPreview.style.color = colors.text_primary;
             }
         }

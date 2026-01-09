@@ -1,15 +1,16 @@
 package org.turistecz.turisteczbackend.model;
 
-
 import java.time.LocalDate;
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +25,8 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String email;
 
-
     @Column(nullable = false, name= "contrasena")
     private String contrasena;
-
 
     @Column(nullable = false)
     private boolean activo = false;
@@ -35,8 +34,11 @@ public class Usuario {
     @Column(name = "fecha_creacion")
     private LocalDate fechaCreacion = LocalDate.now();
 
-    public Usuario() {}
+    @JsonManagedReference
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RutaUsuario> rutaUsuario;
 
+    public Usuario() {}
 
     public Usuario(String email, String contrasena, String nombre) {
         this.email = email;
@@ -45,7 +47,6 @@ public class Usuario {
         this.activo = false;
         this.fechaCreacion = LocalDate.now();
     }
-
 
 public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -68,8 +69,6 @@ public Integer getId() { return id; }
     public LocalDate getFechaCreacion() { return fechaCreacion; }
     public void setFechaCreacion(LocalDate fechaCreacion) { this.fechaCreacion = fechaCreacion; }
 
-
-
     @Override
     public boolean equals(Object o) {
     if (this == o) return true;
@@ -77,7 +76,6 @@ public Integer getId() { return id; }
     Usuario usuario = (Usuario) o;
     return Objects.equals(id, usuario.id);
     }
-
 
     @Override
     public int hashCode() { return Objects.hash(id); }

@@ -103,6 +103,7 @@ export class PlaceCardListComponent {
   updatePlaces(filteredPlaces: cardsHome[]) {
     this.sortedCards = filteredPlaces;
     this.page = 1; // Reiniciar a la primera página
+  
   }
 
 };
