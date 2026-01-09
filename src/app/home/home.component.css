@@ -107,7 +107,8 @@
   #subtitleHome{ font-size: 12px; }
   #sloganHome  { font-size: 9px; }
 }
-  .shapeHome::before {
-    height: 50px;                 
-    background-size: 100% 50px;   
-  }
+
+.shapeHome::before {
+  height: 50px;                 
+  background-size: 100% 50px;   
+}
