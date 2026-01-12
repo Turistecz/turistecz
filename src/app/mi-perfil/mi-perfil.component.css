@@ -2,14 +2,7 @@
 
 .menu{
   background-color: color(var(--bg-secondary));
-  margin-left: 10px;
-  border-radius: 10px;
   font-family: "Baloo Bhaijaan 2 Variable", system-ui;
   
 }
 
-@media (max-width: 932px) {
-  .menu{
-    margin-left: 30px;  
-}
-}
