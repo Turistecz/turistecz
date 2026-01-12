@@ -100,6 +100,10 @@ export const routes: Routes = [
     path: 'private-policy',
     loadComponent: () => import('./private-policy/private-policy.component').then(m => m.PrivatePolicyComponent)
     },
+    {
+      path:'terms',
+      loadComponent: () => import('./terms/terms.component').then(m => m.TermsComponent)
+    },
     /*El not-found siempre va de último*/ 
     {
       path: '**',
