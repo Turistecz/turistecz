@@ -21,12 +21,12 @@
 }
 
 .verMas{
-    font-family: 'Inclusion Sans', sans-serif;
-    cursor: pointer; 
-    text-decoration: none; 
-    display: inline-block;
-    color: var(--color-primary);
-  }
+  font-family: 'Inclusion Sans', sans-serif;
+  cursor: pointer; 
+  text-decoration: none; 
+  display: inline-block;
+  color: var(--color-primary);
+}
 
 .fontFamilyText{
   font-family: 'Inclusive Sans Variable';
@@ -34,6 +34,10 @@
   margin-bottom: 0;
   font-size: 1.01rem;
   }
+
+.lastChildText > div:last-child{
+  margin-bottom: 0 !important;
+}
 
 #horario{
   flex-direction: column;  
@@ -48,6 +52,11 @@
 
 #descripcion{
   font-size: 1rem;
+}
+
+.iconsAccessibility i{
+  line-height: unset;
+  width: 20px;
 }
 
 #access{    
@@ -125,5 +134,4 @@
     text-align: justify;
   }
 
-  
 }
