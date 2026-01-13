@@ -31,9 +31,9 @@
 .ticket-vertical::after {
     content: "";
     position: absolute;
-    width: 100%;
+    width: 102%;
     height: 20%; /*ajustar la altura del espacio de los troqueles*/
-    left: 0%; /*ajustar el comiezo de los troqueles*/
+    left: -1%; /*ajustar el comiezo de los troqueles*/
     background-repeat: repeat-x;
     background-size: 25% 80%; /* espaciado y altura region visible*/
     background-position: center;
