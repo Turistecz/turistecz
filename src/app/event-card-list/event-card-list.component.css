@@ -17,6 +17,12 @@ h2{
   font-family: "inclusive", system-ui;
 }
 
+@media (max-width: 475px) {
+  .col-small{
+    width: 100%;
+  }
+}
+
 /* RESPONSIVE: para pantallas pequeñas */
 @media (max-width: 768px) { 
   .buscador-top {
