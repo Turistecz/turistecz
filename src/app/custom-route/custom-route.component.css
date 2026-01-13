@@ -4,17 +4,13 @@
   font-family: "Inclusive Sans Variable";
 }
 
-h2,h3{
+h3{
   font-family:"Baloo Bhaijaan 2 Variable", system-ui;
   font-weight: 700;
   padding: 0;
   margin: 0;
 }
 
-h2{
-  font-size: 4rem;
-  color: var(--color-primary);
-}
 
 h3{
   font-size: 2rem;
@@ -25,10 +21,6 @@ h3{
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
   min-height: 12rem;
-}
-
-.descripcion{
-  font-weight: 600;
 }
 
 .btn-editar{
@@ -45,6 +37,7 @@ h3{
 
 .example-box {
   cursor: move;
+  
 }
 
 .cdk-drag-preview {
