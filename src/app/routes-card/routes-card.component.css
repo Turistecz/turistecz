@@ -31,41 +31,42 @@ img{
 }
 
 
-@media (min-width: 993px) and (max-width: 1199px) {
+@media (min-width: 993px)  {
     .card-title{
         font-size: 2rem;
     }
 
     .card-subtitle{
-        font-size: 1.5rem !important;
+        font-size: 1.5rem;
     }
 } 
 
 @media (min-width:768px) and (max-width: 992px) {
     .card-title{
-        font-size: 1.55rem;
+        font-size: 1.9rem;
     }
 
     .card-subtitle{
-        font-size: 1rem !important;
+        font-size: 1.4rem;
      
     }
 
     .card-body-r{
-        padding-block: 1rem;
+        padding-block: 0.8rem;
         padding-inline: 0;
         
     }
 }
+
 
 @media (max-width: 767px){ 
     .card-title{
         font-size: 2.2rem; 
     } 
     .card-subtitle{
-        font-size: 1.5rem !important; 
+        font-size: 1.4rem; 
     }
-    .route-title{
-        padding: 0.60rem !important;
-    }
+
+
+   
 }
