@@ -65,4 +65,7 @@ img{
     .card-subtitle{
         font-size: 1.5rem !important; 
     }
+    .route-title{
+        padding: 0.60rem !important;
+    }
 }
