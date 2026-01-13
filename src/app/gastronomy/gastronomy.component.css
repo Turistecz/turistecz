@@ -1,8 +1,4 @@
 .section-title {
-  text-align: center;
-  font-weight: 700;
-  font-size: 3rem;
-  margin: 40px 0 30px;
   color: var(--color-primary);
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
 }
