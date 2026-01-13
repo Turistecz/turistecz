@@ -27,28 +27,48 @@ export class EventCardListComponent {
   pageSize: number = 21;
 
   // Ahora es Category[]
-  categoriesEvents: Category[] = [
-    { 
-      type: 'actividades', 
-      name: 'Actividades', 
-      keywords: ['actividad','evento','taller','zumba','charla','concurso','funcional','torneo'] 
-    },
-    { 
-      type: 'turismo', 
-      name: 'Turismo', 
-      keywords: ['turismo','visita','guía','monumento','histórico','museo','patrimonio','expo'] 
-    },
-    { 
-      type: 'cultura', 
-      name: 'Cultura', 
-      keywords: ['cultural','museo','teatro','exposición','concierto','arte','cine','festival'] 
-    },
-    { 
-      type: 'ocio', 
-      name: 'Ocio y entretenimiento', 
-      keywords: ['feria','show','tapeo','zumba','mercado','baile','juego','fiesta'] 
-    }
-  ];
+categoriesEvents: Category[] = [
+
+  {
+    type: 'actividades',
+    name: 'Actividades',
+    keywords: ['actividad','evento','taller','clase','sesión','curso','zumba','funcional','torneo','campeonato','jornada'
+    ]
+  },
+
+  {
+    type: 'juvenil',
+    name: 'Agenda Juvenil',
+    keywords: ['zona joven','juvenil','jóvenes','zj','tardes','gaming','gamer','fifa','videojuego','mesa','brico','crea','escribe','baile moderno','improvisación'
+    ]
+  },
+
+  {
+    type: 'formacion',
+    name: 'Formación y talleres',
+    keywords: ['curso','formación','taller','aprende','aprendizaje','técnicas de estudio','producción','drones','diseño','programación','net','startup'
+    ]
+  },
+  {
+    type: 'cultura',
+    name: 'Cultura',
+    keywords: ['cultural','museo','teatro','exposición','concierto','arte','cine','festival','tertulia','charla','memoria','histórica','biblioteca'
+    ]
+  },
+  {
+    type: 'ocio',
+    name: 'Ocio y entretenimiento',
+    keywords: ['ocio','feria','show','tapeo','mercado','baile','juego','fiesta','escape','laser','quasar'
+    ]
+  },
+  {
+    type: 'infantil',
+    name: 'Infantil y familiar',
+    keywords: ['infantil','niños','familia','juego','tardes','teatro infantil','manualidades'
+    ]
+  }
+];
+
 
   constructor(private eventService: EventService) {}
 

@@ -381,11 +381,12 @@ export class FilterComponent {
     if (selectedEventsCategories.length > 0) {
       filtered = filtered.filter(event => {
         const texto = (event.title + ' ' + (event.description ?? '')).toLowerCase();
-        return selectedEventsCategories.some(cat =>
-        this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
-        );
-      });
-    }
+        return selectedEventsCategories.some(catType => {
+      const category = this.categories.find(c => c.type === catType);
+      return category?.keywords.some(keyword => texto.includes(keyword));
+    });
+  });
+}
 
     if (this.searchText.trim()) {
       const search = this.normalize(this.searchText);
@@ -394,7 +395,7 @@ export class FilterComponent {
         this.normalize(event.description ?? '').includes(search)
       );
     }
-    this.noResultsEvents = this.filteredEvents.length === 0;
+    this.noResultsEvents = filtered.length === 0;
 
     this.noResultsEvents= filtered.length === 0;
     this.filteredEvents.emit(filtered);
