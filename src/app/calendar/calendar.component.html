@@ -4,7 +4,7 @@
 <div class="container calendar-container px-md-5">
   <div class="row">
     <div class="col-12 col-lg-6 ">
-      <article class="calendar-card shadow-lg border-0  ">
+      <article class="calendar-card shadow-lg border-0 p-0  ">
         <igx-calendar 
           #calendar 
           [weekStart]="1"  
@@ -17,10 +17,10 @@
 
     <!--Eventos -->
     <div class="col-12 col-lg-6 mt-4 mt-lg-0 mb-3 " *ngIf="eventsOfDay.length > 0">
-      <div class="calendar-card shadow-lg events-container overflow-y-auto border-0">
+      <div class="calendar-card shadow-lg events-container overflow-y-auto border-0 p-0">
         
         <!-- Encabezado -->
-        <div class="title-events p-4 text-white text-center rounded-top "
+        <div class="title-events p-4 text-white text-center " 
              style="background: linear-gradient(90deg, #1e6bf5, #0e3d89);">
           <h2 class="fs-2 m-0">
             Eventos del {{selectedDate | date:"EEEE d 'de' MMMM y":'':'es' }}
