@@ -1,11 +1,5 @@
 @import '@fontsource-variable/inclusive-sans';
 
-.ticket-vertical:hover {
-    cursor: pointer;
-    transform: scale(1.035);
-    transition: transform 0.4s ease-in-out;
-}
-
 .bg-color1{
   background-color:var(--color-secondary);
 }
@@ -24,6 +18,13 @@
 
 .event-text {
     font-family: "Inclusive Sans Variable", sans-serif;
+    overflow-wrap: break-word;
+}
+
+.ticket-vertical:hover {
+    cursor: pointer;
+    transform: scale(1.035);
+    transition: transform 0.4s ease-in-out;
 }
 
 .ticket-vertical::before,
