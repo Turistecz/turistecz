@@ -54,49 +54,40 @@
     }
 }
 
-
-/* Ajustar troqueles del ticket */
-
+/* Ajustar troqueles y altura ticket segun tamaño pantalla */
 @media (max-width:1400px) {
-    .ticket-vertical::before,
-    .ticket-vertical::after{
-        height: 7%;
+    .inside-text {
+        height: 23rem; 
     }
 }
 
 @media (max-width:1200px) {
-    .ticket-vertical::before,
-    .ticket-vertical::after{
-        height: 8.8%;
+    .inside-text {
+        height: 28rem; 
     }
 }
 
 @media (max-width:767px) {
-    .ticket-vertical::before,
-    .ticket-vertical::after{
-        height: 7%;
+   .inside-text {
+        height: 23rem; 
     }
 }
 
  @media (max-width:475px) {
-    .ticket-vertical::before,
-    .ticket-vertical::after{
-        height: 11%;
+    .inside-text {
+        height: 28rem; 
     }
+
+    .ticket-vertical::before,
+    .ticket-vertical::after {
+        height:9%; 
+    } 
 }
 
-@media(max-width:400px){
+ @media (max-width:420px) {
     .ticket-vertical::before,
-    .ticket-vertical::after{
-        height: 8.8%;
-    }
+    .ticket-vertical::after {
+        height:8.8%; 
+    } 
 }
-
- @media (max-width:339px) {
-    .ticket-vertical::before,
-    .ticket-vertical::after{
-        height: 7%;
-    }
-}  
-
-/* -------------------------- */
+/*---------------------------------------------------------*/
