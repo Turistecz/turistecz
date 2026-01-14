@@ -1,17 +1,13 @@
 <a [routerLink]="['/rutas', routesName.id]">
-    <div class="">
-      <div class="container container-routes">
-        <div class="card border-0 m-auto rounded-5">
-            <div class="position-relative ">
+    <div class="card border-0 rounded-5 h-100 container-routes"> 
+    <div class="position-relative">
                 <img src="{{routesName.imagen_destacada}}" class="card-img-top w-100 rounded-top-5" alt="{{routesName.nombre}}">
                 <div class="route-title position-absolute py-1 text-center justify-content-center w-100">
                     <h1 class="card-title fw-bold mb-0 mt-1">{{routesName.nombre}}</h1>
                 </div>
             </div>
             <div class="card-body card-body-r rounded-bottom-5">
-                <p class="card-text card-subtitle text-white text-center px-2 py-3 px-lg-3 py-lg-2">{{routesName.subtitulo}}</p>
+                <p class="card-text card-subtitle text-white text-center fs-4 px-2 py-3 px-lg-3 py-lg-2">{{routesName.subtitulo}}</p>
             </div>
           </div> 
-        </div>
-    </div>
  
