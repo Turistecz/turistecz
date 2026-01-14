@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PageRoutesCardComponent } from './page-routes-card.component';
+import { CustomRouteComponent } from './custom-route.component';
 
-describe('PageRoutesCardComponent', () => {
-  let component: PageRoutesCardComponent;
-  let fixture: ComponentFixture<PageRoutesCardComponent>;
+describe('CustomRouteComponent', () => {
+  let component: CustomRouteComponent;
+  let fixture: ComponentFixture<CustomRouteComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PageRoutesCardComponent]
+      imports: [CustomRouteComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PageRoutesCardComponent);
+    fixture = TestBed.createComponent(CustomRouteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

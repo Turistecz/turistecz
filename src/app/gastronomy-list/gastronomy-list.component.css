@@ -1,0 +1,48 @@
+@import '@fontsource-variable/inclusive-sans';
+
+.card {
+  font-family: "Baloo Bhaijaan 2 Variable", system-ui;
+}
+
+.card-title-color {
+  color: var(--color-primary);
+}
+
+.btn-primary {
+  transition: .2s ease; 
+  transform: .2s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.03);
+}
+
+.image-wrapper {
+  width: 100%;
+  height: 15rem;          
+  overflow: hidden;
+}
+
+.restaurant-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       
+  display: block;
+}
+
+.no-image-bg {
+  width: 100%;
+  height: 100%;
+  background: #f2f2f2;
+  border-radius: 10px;
+}
+
+.inclusive-text{
+  font-family: "Inclusive Sans Variable";
+}
+
+/* Contenedor del título: siempre misma altura */
+.title-wrap{
+  height: 6rem;
+  background-color: var(--color-secondary);
+}

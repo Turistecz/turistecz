@@ -34,6 +34,7 @@ export class FilterComponent {
 
   @Output() filteredEvents = new EventEmitter<any[]>(); 
   @Output() filteredCards = new EventEmitter<any[]>();
+  @Output() filteredMonuments = new EventEmitter<any[]>();
   @Output() filtersAdaptability = new EventEmitter<string[]>();
   @Output() noResultsPlacesEvent = new EventEmitter<boolean>();
   @Output() noResultsEventsEvent = new EventEmitter<boolean>();
@@ -369,8 +370,6 @@ ngOnChanges(changes: SimpleChanges) {
     } else if (this.places.length > 0){
       this.applyPlaceFilters();
     }
-      
-    // this.applyMapFilters();
   }
 
   applyEventFilters() {
@@ -590,8 +589,5 @@ toggleCategory(catType: string) {
     alert("Inicia sesión si quieres guardar los filtros.");
   }
 
-  // getDifferentColor(): boolean {
-  //   return Math.random() >= 0.5;
-  // }
 }
   

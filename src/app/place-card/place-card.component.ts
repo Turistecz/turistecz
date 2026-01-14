@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { cardsHome } from './place-card.model';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -17,9 +17,12 @@ export class PlaceCardComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   cards: cardsHome[] = [];
+  visibleCount: number = 4; 
 
   async ngOnInit(): Promise<void> {
     await this.loadImages();
+    this.actualizarVisibleCount();
+    
   }
 
   async loadImages(): Promise<void> {
@@ -45,6 +48,22 @@ export class PlaceCardComponent implements OnInit {
       );
     } catch (error) {
       console.error('Error al cargar monumentos:', error);
+    }
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.actualizarVisibleCount();
+  }
+
+  private actualizarVisibleCount() {
+    const width = window.innerWidth;
+
+    // aquí pones tus cortes: ejemplo
+    if (width < 992) {          // móvil / tablet (por ejemplo < 992px)
+      this.visibleCount = 3;
+    } else {                    // escritorio
+      this.visibleCount = 4;
     }
   }
 }
