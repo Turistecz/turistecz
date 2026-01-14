@@ -46,6 +46,10 @@
   margin-bottom: 0 !important;
 }
 
+.lastChildText > div:last-child{
+  margin-bottom: 0 !important;
+}
+
 #horario{
   flex-direction: column;  
   background-color:rgb(242, 244, 245);
