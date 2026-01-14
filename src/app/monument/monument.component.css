@@ -44,13 +44,15 @@
 
 #horario{
   flex-direction: column;  
-  background-color:rgb(242, 244, 245);
+  background-color:var(--secondary-text);
   height: fit-content;
+  
 }
 
 #horarioP{
   font-size:1rem;
   text-align: left;
+  color: var(--text-primary)
 }
 
 #descripcion{
