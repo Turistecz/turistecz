@@ -21,16 +21,6 @@
     overflow-wrap: break-word;
 }
 
-.ticket-vertical:hover {
-    cursor: pointer;
-    transform: scale(1.035);
-    transition: transform 0.4s ease-in-out;
-}
-
-/* .ticket-vertical{
-    overflow: hidden;
-}  */
-
 .ticket-vertical::before,
 .ticket-vertical::after {
     content: "";
@@ -54,3 +44,59 @@
     background-position-y:bottom;
     transform: rotate(180deg);
 }  
+
+/* Hover solo en pantallas pc */
+@media (min-width:1024px) {
+    .ticket-vertical:hover {
+        cursor: pointer;
+        transform: scale(1.035);
+        transition: transform 0.4s ease-in-out;
+    }
+}
+
+
+/* Ajustar troqueles del ticket */
+
+@media (max-width:1400px) {
+    .ticket-vertical::before,
+    .ticket-vertical::after{
+        height: 7%;
+    }
+}
+
+@media (max-width:1200px) {
+    .ticket-vertical::before,
+    .ticket-vertical::after{
+        height: 8.8%;
+    }
+}
+
+@media (max-width:767px) {
+    .ticket-vertical::before,
+    .ticket-vertical::after{
+        height: 7%;
+    }
+}
+
+ @media (max-width:475px) {
+    .ticket-vertical::before,
+    .ticket-vertical::after{
+        height: 11%;
+    }
+}
+
+@media(max-width:400px){
+    .ticket-vertical::before,
+    .ticket-vertical::after{
+        height: 8.8%;
+    }
+}
+
+ @media (max-width:339px) {
+    .ticket-vertical::before,
+    .ticket-vertical::after{
+        height: 7%;
+    }
+}  
+
+/* -------------------------- */
