@@ -27,29 +27,30 @@
     transition: transform 0.4s ease-in-out;
 }
 
-.ticket-vertical{
+/* .ticket-vertical{
     overflow: hidden;
-}
+}  */
 
 .ticket-vertical::before,
 .ticket-vertical::after {
     content: "";
     position: absolute;
     width: 102%;
-    height: 20%; /*ajustar la altura del espacio de los troqueles*/
+    height: 8.8%; /*ajustar la altura del espacio de los troqueles*/
     left: -1%; /*ajustar el comiezo de los troqueles*/
-    background-repeat: repeat-x;
-    background-size: 25% 80%; /* espaciado y altura region visible*/
+    background-size: 25% 105%; /* espaciado y altura region visible*/
     background-position: center;
-    background-image: radial-gradient(circle at center, white 40%, transparent 45%); 
+    background-image: radial-gradient(ellipse at 50% 0%, white 40%, transparent 45%); 
 } 
 
 .ticket-vertical::before{
     top: 0;
-    transform: translateY(-50%);  
+    background-position-y:top;
+    transform: translateY(-1%);    
 }
 
 .ticket-vertical::after {
-    bottom: 0;
-    transform: translateY(50%);
+    bottom: -0.1%;
+    background-position-y:bottom;
+    transform: rotate(180deg);
 }  
