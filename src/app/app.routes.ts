@@ -38,7 +38,8 @@ export const routes: Routes = [
     {
         path: 'signin', 
         loadComponent: () =>
-                import('./sign-form/sign-form.component').then(m => m.SignformComponent)
+                import('./sign-form/sign-form.component').then(m => m.SignformComponent),
+        data: { breadcrumb: 'Sign in' }
     },   
     {
     path: 'login', 
@@ -49,7 +50,8 @@ export const routes: Routes = [
     {
     path: 'mi-perfil', 
         loadComponent: () =>
-                import('./mi-perfil/mi-perfil.component').then(m => m.MiPerfilComponent)
+                import('./mi-perfil/mi-perfil.component').then(m => m.MiPerfilComponent),
+        data: { breadcrumb: 'Mi Perfil' }
     }, 
     {
     path: 'alojamientos', 
