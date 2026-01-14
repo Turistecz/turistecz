@@ -5,6 +5,13 @@
   border-radius: 25px;
 }
 
+.imagen-monumento{
+  height: 500px;
+  width: 100%;
+  max-width: 750px;
+  object-fit: cover;
+}
+
 .title-pag{
   font-weight: 700;
   font-size: 4rem;
@@ -74,13 +81,12 @@
   box-sizing: content-box !important;
 }
 
-
-@media (max-width: 1024px) {
-  .title-pag{
-    font-size: 2.5rem;
+@media (max-width: 1200px) {
+  .imagen-monumento{
+    height: 450px;
+    max-width: 550px;
   }
 }
-
 
 @media (max-width: 768px) {
   .title-pag{
@@ -89,6 +95,11 @@
     margin-right: 5%;
     text-align: center;
     font-size: 2.5rem;
+  }
+  
+  .imagen-monumento{
+    height: 300px;
+    max-width: 300px;
   }
 
   #horario,
@@ -142,6 +153,7 @@
     margin-top: 1rem;
   }
   
+ 
   #text-description, #textPrice{
     font-size: large;
     text-align: justify;

@@ -48,7 +48,7 @@
 }
 
 /* Media Queries para pantallas pequeñas (tablets y móviles) */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   
   /* Mostrar el botón toggle */
   .filter-toggle-btn {

@@ -37,7 +37,7 @@ breadcrumbs: Array<{ label: string; url: string }> = [];
 
     let label = ruta.snapshot.data['breadcrumb'];
     if (!label && enlace) {
-      label = enlace.charAt(0).toUpperCase() + enlace.slice(1);
+      label = enlace.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
     }
 
     const id = ruta.snapshot.paramMap.get('id');

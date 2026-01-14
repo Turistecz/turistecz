@@ -17,13 +17,15 @@
 
 /* Ejemplos de uso en componentes */
 
-.btn-primary {
+.btn-personalizado {
   background: linear-gradient(135deg, var(--gradient-primary-start), var(--gradient-primary-end));
   color: var(--text-light);
   border: none;
   padding: 12px 24px;
   border-radius: 8px;
-}
+  font-family: "inclusive", system-ui;
+
+} 
 
 .card {
   /* background: var(--bg-secondary); */
