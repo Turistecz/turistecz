@@ -1,5 +1,5 @@
 <div class="container">
-<h1 class="title-pag my-0">{{monumentsFiltered[monumentNumber]?.title}}</h1>
+    <h1 class="title-pag my-0">{{monumentsFiltered[monumentNumber]?.title}}</h1>
 
     <div class="row pt-4 align-items-center">
         <div  class="col-12 col-md-6">
@@ -19,33 +19,33 @@
             <h2>Descripción</h2>
         
             <p id="text-description">{{cleanDescription.split(' ').slice(0,120).join(' ')}} 
-            <span class="collapse" id="textoColapsado">{{' ' + cleanDescription.split(' ').slice(100).join(' ')}}</span>
+                <span class="collapse" id="textoColapsado">{{' ' + cleanDescription.split(' ').slice(100).join(' ')}}</span>
 
-                <a 
+                <a
                     class="verMas" 
                     data-bs-toggle="collapse" 
                     href="#textoColapsado" 
                     role="button" 
                     aria-expanded="false" 
                     aria-controls="textoColapsado"
-                    onclick="this.innerText = this.innerText === '..Ver más' ? ' ..Ver menos' : ' ..Ver más'">
+                    onclick="this.innerText = this.innerText === '..Ver más' ? ' ..Ver menos' : ' ..Ver más'" >
                     ..Ver más
                 </a>
-                </p>
+            </p>
 
-                 <div class="text-center text-md-start mt-4">
-                 <a class="btn btn-primary "  href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a> <!--id="boton-info" -->
+            <div class="text-center text-md-start mt-4">
+                <a class="btn btn-primary "  href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a> <!--id="boton-info" -->
             </div> 
         </div>
         
         <div class="col-1 d-none d-xxl-block"></div>
 
-        <div id="access" class="col-12 col-md-3 p-5 rounded deleteBoxSizing lastChildText">
-            <h2 class="text-light mb-3">Accesibilidad</h2>
+        <div id="access" class="col-12 col-md-3 p-4 p-md-5 rounded deleteBoxSizing lastChildText">
+            <h2 class="text-light mb-2 mb-md-3">Accesibilidad</h2>
             
-            <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 text-start mb-2 iconsAccessibility">
+            <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 text-start mb-1 mb-md-2 iconsAccessibility">
                 <i [ngClass]="['fas', category.icon, 'text-light']"></i>
-                <p class="fontFamilyText">
+                <p class="fontFamilyText mb-0">
                     {{category.label}}
                     <!--Para que aparezca un icono de "bajo petición" En el caso de que el valor sea ese-->
                     <i *ngIf="category.info" class="fas fa-info-circle ms-1" title="Bajo petición"></i>

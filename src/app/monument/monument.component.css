@@ -66,6 +66,10 @@
   color:var(--bg-primary);
 }
 
+.small-accessibility{
+  font-size: 0.9rem !important;
+}
+
 .deleteBoxSizing{
   box-sizing: content-box !important;
 }
@@ -88,7 +92,6 @@
   }
 
   #horario,
-  #access,
   #contacto,
   .direccion,
   .precio,
@@ -96,7 +99,13 @@
   #textPrice {
     margin-left: auto;
     margin-right: auto;
-    width: 80%; /* o 100% si lo prefieres más ancho */
+    width: 90%; /* o 100% si lo prefieres más ancho */
+  }
+
+  #access{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   #boton-info{
@@ -105,6 +114,7 @@
     margin-right: auto;
     width: 45%;
   }
+  
   #descripcion{
     width: 80%;
     margin-left: 2.5rem;
@@ -124,11 +134,14 @@
     text-align: center;
   }
 
+  .iconsAccessibility i {
+    font-size: 0.85rem;
+  }
+
   #horario, #access, #boton-info, #text-description, #contacto {
     margin-top: 1rem;
   }
   
- 
   #text-description, #textPrice{
     font-size: large;
     text-align: justify;
