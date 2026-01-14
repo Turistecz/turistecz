@@ -143,7 +143,7 @@ export class MonumentComponent implements OnInit {
       ayuda_movilidad: { icon: "fa-walking", label: "Ayuda movilidad" },
       lenguaje_simple: { icon: "fa-comment", label: "Lenguaje simple" },
       acceso_perros_guias: { icon: "fa-dog", label: "Acceso perros guías" },
-      acceso_perros_asistencia: { icon: "fa-dog", label: "Acceso perros de asistencia" }
+      acceso_perros_asistencia: { icon: "fa-paw", label: "Acceso perros de asistencia" }
     };
 
     for (const key in mapping) {
