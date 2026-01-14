@@ -66,9 +66,10 @@
 
 @media (max-width: 768px){
   .modal-content {
-    width: 60%;
+    width: 70%;
+    padding: 2rem !important;
+   
   }
-
   .prueba{
     display: grid;
     grid-template-columns: 1fr;
