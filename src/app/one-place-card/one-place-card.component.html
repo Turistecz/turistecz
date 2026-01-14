@@ -11,11 +11,7 @@
       <div class="card-img-overlay overlay-content text-dark d-flex flex-column justify-content-center align-items-center">
         <p class="card-title text-center h1 fw-bold mb-0">{{data.nombre}}</p>
         <!-- Iconos de accesibilidad -->
-        <div class="accessibility-icons-bottom justify-content-center align-items-center gap-2 d-flex flex-wrap w-75">
-          <ng-container *ngFor="let servicio of getServiciosDisponibles()">
-            <i [class]="servicio.icon" title="{{ servicio.label }}"></i>
-          </ng-container>
-        </div>
+        <app-accesibility-icons [data]="data"></app-accesibility-icons>
       </div>    
     </div>
   </a>
