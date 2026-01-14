@@ -16,7 +16,7 @@
       <!--El carrusel en pantallas grandes y medianas-->
 <div class="position-relative"> 
   <div id="eventsCarousel" class="carousel slide carousel-dark d-none d-sm-block" data-bs-ride="true"> 
-    <div class="carousel-inner"> 
+    <div class="carousel-inner py-2"> 
       <div class="carousel-item active" data-bs-interval="5000" *ngFor="let events of eventGroups; let i = index" [class.active]="i === 0" > 
         <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 g-3 justify-content-center px-5"> 
           <div class="col justify-content-center " *ngFor="let event of events; let j = index"> 
