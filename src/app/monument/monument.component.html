@@ -1,26 +1,25 @@
-<br><br>
 <div class="container">
-<h1 class="title-pag my-0">{{monumentsFiltered[monumentNumber]?.title}}</h1>
+<h1 class="title-pag mt-2">{{monumentsFiltered[monumentNumber]?.title}}</h1>
 
-    <div class="row pt-4 align-items-center">
+    <div class="row mt-3 align-items-center">
         <div  class="col-12 col-md-7">
             <img [src]="monumento.imagenes[0].url" id="imagen-intro" class="imagen-monumento">
         </div>
         <div class="col-0 col-md-1"></div>
-        <div id="horario" class="col-12 rounded-4 col-md-4 p-3 p-md-4 d-flex text-center align-items-center colorSchedules">
+        <div id="horario" class="col-12 rounded-4 col-md-4 p-3 mt-sm-4 m-sm-4 d-flex text-center align-items-center colorSchedules">
             <h2 class="mb-0">Horario</h2>
             <p *ngIf="monumentsFiltered[monumentNumber]?.horario; else elseBlock" id="horarioP" class="fontFamilyText ">{{cleanHorario}}</p>
             <ng-template #elseBlock> <p id="horarioP" class="fontFamilyText ">Horario no disponible</p></ng-template>
         </div>
     </div>
     
-    <div class="row pt-5">
+    <div class="row mt-4">
         
         <div id="descripcion" class="col-12 col-md-7">
-            <h2>Descripción</h2>
+            <h2 class="mb-0">Descripción</h2>
         
-            <p id="text-description">{{cleanDescription.split(' ').slice(0,120).join(' ')}} 
-            <span class="collapse" id="textoColapsado">{{' ' + cleanDescription.split(' ').slice(100).join(' ')}}</span>
+            <p id="text-description" class="fontFamilyText">{{cleanDescription.split(' ').slice(0,120).join(' ')}} 
+                <span class="collapse" id="textoColapsado">{{' ' + cleanDescription.split(' ').slice(100).join(' ')}}</span>
 
                 <a 
                     class="verMas" 
@@ -32,18 +31,17 @@
                     onclick="this.innerText = this.innerText === '..Ver más' ? ' ..Ver menos' : ' ..Ver más'">
                     ..Ver más
                 </a>
-                </p>
+            </p>
 
-                 <div class="text-center text-md-start mt-4">
-                 <a class="btn btn-primary "  href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a> <!--id="boton-info" -->
+            <div class="text-center text-md-start mt-4">
+            <a class="btn btn-primary mt-lg-4"  href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a> <!--id="boton-info" -->
             </div> 
         </div>
         
         <div class="col-1"></div>
 
-        <div id="access" class="col-12 col-md-3 p-4 rounded deleteBoxSizing">
+        <div id="access" class="col-12 col-md-3 p-4 mt-sm-4 rounded deleteBoxSizing">
             <h2 class="text-light mb-0">Accesibilidad</h2>
-            <br>
             
             <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 text-start mb-2">
                 <i [ngClass]="['fas', category.icon, 'text-light']"></i>
@@ -57,29 +55,28 @@
         </div>
     </div>
        
-    <div  class="row pt-3 ">
-        <div class="col-12 col-md-6 mt-3">
+    <div class="row mt-3">
+        <div class="col-12 col-md-7">
            
             <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
                 <h2 class="mb-0"> Contacto </h2>
-                <p class="fontFamilyText ">{{monumentsFiltered[monumentNumber].phone}}</p>
-                <br>
+                <p class="fontFamilyText mb-3">{{monumentsFiltered[monumentNumber].phone}}</p>
+
             </div>
             <div class="direccion">
                 <h2 class="mb-0"> Dirección </h2>
-                <p class="fontFamilyText ">{{monumentsFiltered[monumentNumber]?.address}}</p>
+                <p class="fontFamilyText mb-3">{{monumentsFiltered[monumentNumber]?.address}}</p>
             </div>
-            <br>
             <div *ngIf="monumentsFiltered[monumentNumber]?.price">
-                <h2 class="precio mb-0 "> Precio </h2>
-                <p class="fontFamilyText  " id="textPrice">{{cleanPrice}}</p>
+                <h2 class="precio mb-0"> Precio </h2>
+                <p class="fontFamilyText" id="textPrice">{{cleanPrice}}</p>
             </div>
         </div>
     </div>
    
-    <div class="row pt-6 mt-2">
+    <div class="row mt-3">
         <div class="local col-12 col-md-12">
-            <h2 class="m-0 py-2">Localización</h2>
+            <h2 class="mb-3">Localización</h2>
             <app-map [data]="coords" [name]="monumentsFiltered[monumentNumber]?.title || ''"  [parent]="name"></app-map>
         </div>
     </div>

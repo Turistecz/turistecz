@@ -28,19 +28,23 @@
 }
 
 .verMas{
-    font-family: 'Inclusion Sans', sans-serif;
-    cursor: pointer; 
-    text-decoration: none; 
-    display: inline-block;
-    color: var(--color-primary);
-  }
+  font-family: 'Inclusion Sans', sans-serif;
+  cursor: pointer; 
+  text-decoration: none; 
+  display: inline-block;
+  color: var(--color-primary);
+}
 
 .fontFamilyText{
   font-family: 'Inclusive Sans Variable';
   font-weight: 500;
   margin-bottom: 0;
   font-size: 1.01rem;
-  }
+}
+
+/* .verMas, .fontFamilyText{
+  font-family: 'Inclusive Sans Variable';
+} */
 
 #horario{
   flex-direction: column;  
@@ -126,7 +130,7 @@
     text-align: center;
   }
 
-  #horario, #access, #boton-info, #text-description, #contacto {
+  #horario, #access, #boton-info {
     margin-top: 1rem;
   }
  
