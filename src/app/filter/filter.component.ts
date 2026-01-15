@@ -25,6 +25,7 @@ export class FilterComponent {
   filterOption: 'month' | 'future' | 'alpha' = 'future';
   showAdaptability: boolean = false;
   filtersExpanded: boolean = false;
+  
 
   @Input() events: EventItem[] = [];
   @Input() places: cardsHome[] = [];
