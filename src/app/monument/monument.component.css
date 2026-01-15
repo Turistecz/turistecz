@@ -52,13 +52,15 @@
 
 #horario{
   flex-direction: column;  
-  background-color:rgb(242, 244, 245);
+  background-color:var(--secondary-text);
   height: fit-content;
+  
 }
 
 #horarioP{
   font-size:1rem;
   text-align: left;
+  color: var(--text-primary)
 }
 
 #descripcion{
@@ -75,14 +77,6 @@
   height: fit-content;
   text-align: left;
   color:var(--bg-primary);
-}
-
-.small-accessibility{
-  font-size: 0.9rem !important;
-}
-
-.deleteBoxSizing{
-  box-sizing: content-box !important;
 }
 
 @media (max-width: 1200px) {
@@ -140,7 +134,7 @@
     display: block;
     margin: 0 auto;
     width: 100%;
-    max-width: 90%;
+    max-width: 85%;
   } 
 
   /* Iconos de accesibilidad: alinear al centro */

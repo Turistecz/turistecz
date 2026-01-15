@@ -9,12 +9,14 @@ h2{
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
 } 
 
-.event-card-list {
- margin-bottom: 2rem;
-}
-
 #textShowEvents{
   font-family: "inclusive", system-ui;
+}
+
+@media (max-width: 475px) {
+  .col-small{
+    width: 100%;
+  }
 }
 
 /* RESPONSIVE: para pantallas pequeñas */
