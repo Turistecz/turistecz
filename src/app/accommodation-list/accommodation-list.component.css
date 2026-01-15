@@ -22,7 +22,19 @@ p, button{
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
+@media (min-width: 1200px) {
+.card-title {
+    font-size: 1.5rem;  
+  }
+  .card-Respon p,
+  .card-Respon .address {
+    font-size: 1rem;
+  }
+  .card-Respon button {
+    font-size: 1rem ;
+    white-space: nowrap;
+  }
+}
 @media (max-width: 1199px) {
   .card-Respon .card-title {
     font-size: 1.6rem;
@@ -31,10 +43,12 @@ p, button{
   .card-Respon .address {
     font-size: 1.1rem;
   }
+
   .card-Respon button {
     font-size: 1rem ;
   }
 }
+
 @media (max-width: 991px) {
    .card-Respon {
     max-width: 500px;
