@@ -1,12 +1,11 @@
 
-
-  <button class="filter-toggle-btn mb-2 show-button" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
+  <button class="filter-toggle-btn mb-2 show-button d-lg-none" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
     <i class="bi" [ngClass]="filtersExpanded ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
     {{ filtersExpanded ? 'Ocultar filtros' : 'Mostrar filtros' }}
   </button>
 
 
-<div id="buscador" class="row text-white p-4">
+<div id="buscador" class="row text-white p-4 mb-3 ">
   <!-- Contenedor colapsable de filtros -->
   <div class="filters-collapsible p-0" [class.expanded]="filtersExpanded">
 

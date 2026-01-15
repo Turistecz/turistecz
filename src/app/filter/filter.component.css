@@ -19,7 +19,7 @@
 
 .filter-toggle-btn {
   display: none;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--gradient-primary-start);
   border: 0.0625rem solid rgba(255, 255, 255, 0.3);
   color: white;
   padding: 0.5rem 1rem;
@@ -31,10 +31,10 @@
   width: fit-content;
 }
 
-.filter-toggle-btn:hover {
+/* .filter-toggle-btn:hover {
   background: rgba(255, 255, 255, 0.3);
   transform: translateY(-0.0625rem);
-}
+} */
 
 .filter-toggle-btn:focus {
   outline: none;
