@@ -15,8 +15,8 @@
 
     <!-- LISTA DE EVENTOS -->
     <div class="col-12 col-lg-9">
-      <div class="row gx-4">
-        <div class="col-12 col-md-6 col-lg-4 event-card-list"
+      <div class="row gx-2 gy-2 gx-md-4 gy-md-4">
+        <div class="col-small col-6 col-sm-6 col-xl-4"
             *ngFor="let event of pagedEvents; let i = index">
           <app-event-card [data]="event" [bg]="i % 2 === 0"></app-event-card>
         </div>
