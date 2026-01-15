@@ -1,15 +1,15 @@
  <div class="container">
   <div class="row g-4 justify-content-center align-items-stretch">
-    <div class="card-Respon col-12 col-lg-6 col-xl-6 col-xxl-4 d-flex" *ngFor="let a of pagedItems; let i = index">
-      <div class="card h-100 w-100 flex-column w-100 border-top-0 border-start-0 shadow bg-body rounded">
+    <div class="card-Respon col-12  col-lg-6 col-xl-4 col-xxl-4" *ngFor="let a of pagedItems; let i = index">
+      <div class="card h-100 w-100 flex-column border-top-0 border-start-0 shadow bg-body rounded">
         <div class="row g-0 h-100">
           <div class="col-5 col-md-5 d-flex align-items-center justify-content-center">
             <img [src]="images[i % images.length]" class="img-fluid h-100 w-100" alt="{{a.title}}">
           </div>
           <div class="card-body col-7 col-md-7 d-flex flex-column justify-content-center text-center fw-bold">
            <h4 class="card-title fw-bold m-auto">{{a.title}}</h4>
-            <p *ngIf="a.streetAddress" class="card-text mt-0 px-auto address"><i class="fa-solid fa-location-dot fa-3xs px-1" style="color: #1765a1;"></i> {{a.streetAddress}}</p>
-            <p class="mt-0" *ngIf="a.telefonos">
+            <p *ngIf="a.streetAddress" class="card-text  address"><i class="fa-solid fa-location-dot fa-3xs px-1" style="color: #1765a1;"></i> {{a.streetAddress}}</p>
+            <p class="card-text" *ngIf="a.telefonos">
               <i class="fa-solid fa-phone px-1" style="color: #1765a1;"></i> {{a.telefonos}}
             </p>
           <button class="btn btn-primary fw-semibold mt-auto  text-center justify-content-center mx-2" (click)="abrirEnlace(a.link)" 
