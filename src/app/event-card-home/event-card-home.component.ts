@@ -45,11 +45,34 @@ async loadEvents(): Promise<void> {
     }
   }
 
-get eventGroups(): EventItem[][] { // Esta funcion para recorrer el array de eventos y los divido en grupos de 3
-  const groupito: EventItem[][] = [];
-  for (let i = 0; i < this.sortedEvents.length; i += 3) {
-    groupito.push(this.sortedEvents.slice(i, i + 3));
+  // Cada una agrupa de forma diferente en función del tamaño de la pantalla
+
+  get eventGroups03(): EventItem[][] { 
+    const groupito: EventItem[][] = [];
+    for (let i = 0; i < this.sortedEvents.length; i += 3) {
+      groupito.push(this.sortedEvents.slice(i, i + 3));
+    }
+    console.log("groupito 003",groupito)
+    return groupito;
   }
-  return groupito;
-}
+
+  get eventGroups02(): EventItem[][] { 
+    const groupito: EventItem[][] = [];
+    for (let i = 0; i < this.sortedEvents.length; i += 2) {
+      groupito.push(this.sortedEvents.slice(i, i + 2));
+    }
+    console.log("groupito 002",groupito)
+    return groupito;
+  }
+
+  get eventGroups01(): EventItem[][] { 
+    const groupito: EventItem[][] = [];
+    for (let i = 0; i < this.sortedEvents.length; i += 1) {
+      groupito.push(this.sortedEvents.slice(i, i + 1));
+    }
+    console.log("groupito 001",groupito)
+    return groupito;
+  }
+
+  /////////////////////////////////////////////////////////////////
 }
