@@ -1,13 +1,14 @@
 <div class="container">
   <div><h2 class="titleMapPage pb-5">Mapa</h2></div>
   <div class="row ">
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-md-3 mb-3">
       <app-filter [datos]="sitios" [categories]="globalCategories" (filteredCards)="updatePlaces($event)"></app-filter>
     </div>
     <div class="col-12 col-md-9">
         <app-map [datos]="sitiosFiltrados" [parent]="name">
          
         </app-map>
+        
     </div>
   </div>
  
