@@ -43,7 +43,30 @@ export class PlaceCardComponent implements OnInit {
         sitio.imagenes.map((img: any) => ({
           nombre: img.nombre,
           url: img.url,
-          id: img.id
+          id: img.id,
+          rampas: sitio.rampas,
+          ascensores: sitio.ascensores,
+          puertas_automaticas: sitio.puertas_automaticas,
+          escaleras_mecanicas: sitio.escaleras_mecanicas,
+          servicios_adaptados: sitio.servicios_adaptados,
+          sala_lactancia: sitio.sala_lactancia,
+          cambiador: sitio.cambiador,
+          parking_adaptado: sitio.parking_adaptado,
+          bancos: sitio.bancos,
+          mostrador_adaptado: sitio.mostrador_adaptado,
+          sin_barreras_arquitectonicas: sitio.sin_barreras_arquitectonicas,
+          braille: sitio.braille,
+          interprete_lengua_signos: sitio.interprete_lengua_signos,
+          videos_subtitulos: sitio.videos_subtitulos,
+          ayudas_visuales: sitio.ayudas_visuales,
+          guias_turisticos_multiidioma: sitio.guias_turisticos_multiidioma,
+          elementos_audiovisuales_multiidioma: sitio.elementos_audiovisuales_multiidioma,
+          documentacion_multiidioma: sitio.documentacion_multiidioma,
+          visitas_grupales: sitio.visitas_grupales,
+          ayuda_movilidad: sitio.ayuda_movilidad,
+          lenguaje_simple: sitio.lenguaje_simple,
+          acceso_perros_guias: sitio.acceso_perros_guias,
+          acceso_perros_asistencia: sitio.acceso_perros_asistencia
         }))
       );
     } catch (error) {
