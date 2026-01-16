@@ -1,5 +1,5 @@
 
-  <button class="filter-toggle-btn mb-2 show-button d-lg-none ms-1" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
+  <button class="filter-toggle-btn show-button d-lg-none ms-auto" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
     <i class="bi" [ngClass]="filtersExpanded ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
     {{ filtersExpanded ? 'Ocultar filtros' : 'Mostrar filtros' }}
   </button>
@@ -7,8 +7,8 @@
 
 <div
   id="buscador"
-  class="row text-white p-1 mb-3 filter-container"
-  [class.mobile-hidden]="!filtersExpanded"
+  class="row text-white p-1 filter-container"
+  [class.expanded]="filtersExpanded"
 >
   <!-- Contenedor colapsable de filtros -->
   <div class="filters-collapsible p-3" [class.expanded]="filtersExpanded">
@@ -61,12 +61,14 @@
             </label>
           </div>
         </div>
+
+        
       </ng-container>
 
+      <div class="align-content-center d-flex justify-content-center justify-content-lg-around my-2" *ngIf="logueado">
+          <button class="btn  fw-bold botonGuardar" (click)="saveFilters()">Guardar</button>
+      </div>
     </div>
-    <!-- <div class="align-content-center d-flex justify-content-center justify-content-lg-around mt-3" *ngIf="logueado">
-      <button class="btn btn-success" (click)="saveFilters()">Guardar</button>
-    </div> -->
-
+    
 </div>
   

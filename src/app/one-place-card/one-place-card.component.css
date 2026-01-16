@@ -132,8 +132,6 @@
   .card-place {
     border-radius: 30px;
     max-height: 430px;
-    max-width: 400px;
-    margin: 0 auto;
   }
   .card-title{
     font-size: 1.9rem;
