@@ -30,6 +30,19 @@ export class MonumentComponent implements OnInit {
   adaptabilityCategories: any[] = [];
 
 
+  abrirEnlace(url?: string): void {
+    if (!url) return;
+
+    let finalUrl = url.trim();
+
+    // Si no tiene protocolo, lo añadimos
+    if (!/^https?:\/\//i.test(finalUrl)) {
+      finalUrl = `https://${finalUrl}`;
+    }
+
+    window.open(finalUrl, '_blank', 'noopener,noreferrer');
+  }
+
   monumento: MonumentItem = {
     id: 0,
     title: "",
@@ -144,7 +157,7 @@ export class MonumentComponent implements OnInit {
       ayuda_movilidad: { icon: "fa-walking", label: "Ayuda movilidad" },
       lenguaje_simple: { icon: "fa-comment", label: "Lenguaje simple" },
       acceso_perros_guias: { icon: "fa-dog", label: "Acceso perros guías" },
-      acceso_perros_asistencia: { icon: "fa-dog", label: "Acceso perros de asistencia" }
+      acceso_perros_asistencia: { icon: "fa-paw", label: "Acceso perros de asistencia" }
     };
 
     for (const key in mapping) {

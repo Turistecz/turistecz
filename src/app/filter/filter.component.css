@@ -19,21 +19,15 @@
 
 .filter-toggle-btn {
   display: none;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--gradient-primary-start);
   border: 0.0625rem solid rgba(255, 255, 255, 0.3);
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.6rem;
   border-radius: 0.375rem;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: clamp(0.8rem, 2.5vw, 0.9rem);
-  margin: clamp(0.5rem, 2vw, 1rem) auto;
   width: fit-content;
-}
-
-.filter-toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-0.0625rem);
 }
 
 .filter-toggle-btn:focus {
@@ -47,6 +41,19 @@
   overflow: hidden;
 }
 
+.botonGuardar{
+  color: var(--color-primary);
+  background-color: rgba(255, 255, 255, 0.856);
+  font-family: 'inclusive-sans', sans-serif;
+}
+
+.botonGuardar:hover {
+  background-color: var(--color-primary);
+  color: white !important;
+  border: 2px solid white;
+
+}
+
 /* Media Queries para pantallas pequeñas (tablets y móviles) */
 @media (max-width: 767px) {
   
@@ -55,26 +62,33 @@
     display: block;
   }
 
-  #buscador{
+  #buscador {
     border-radius: 0;
-  }
-  
-  /* Contenido colapsable por defecto oculto */
-  .filters-collapsible {
+    overflow: hidden;
     max-height: 0;
     opacity: 0;
-    padding: 0;
-    margin-top: 0;
-    margin-bottom: 0;
+    transform: translateY(-10px);
+
+    transition:
+      max-height 0.35s ease-out,
+      opacity 0.25s ease-out,
+      transform 0.45s ease-out;
   }
 
-  /* Contenido expandido */
-  .filters-collapsible.expanded {
+  #buscador.expanded {
     max-height: 100vh;
-    overflow-y: auto; /*Para que pueda hacer scroll*/
     opacity: 1;
+    transform: translateY(0);
+    margin-block: 1rem;
+    margin-top: 0.5rem;
+    overflow-y: auto;
   }
-  
+
+  /* El contenido NO se anima */
+  .filters-collapsible {
+    overflow-y: auto;
+  }
+
   /* Ajustes para mejor UX en móvil */
   .titleFilter {
     font-size: clamp(1rem, 4vw, 1.2rem);

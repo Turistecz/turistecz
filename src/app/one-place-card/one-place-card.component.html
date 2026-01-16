@@ -1,6 +1,6 @@
-<div class="row"> 
-  <a [routerLink]="['/sitios', data.id]" class="text-decoration-none text-reset">
-    <div class="card text-white col-12 col-md-3 overflow-hidden w-100 position-relative card-place">
+<!-- <div class="row">  -->
+  <a [routerLink]="['/sitios', data.id]" class="text-decoration-none text-reset d-flex justify-content-center">
+    <div class="card text-white col-12 overflow-hidden position-relative card-place">
       <img [src]="data.url" class="card-img h-100 object-fit-cover" [alt]="data.nombre">
 
       <button class="btn btn-light favorito-btn position-absolute rounded-circle d-flex align-items-center justify-content-center z-2" 
@@ -15,4 +15,4 @@
       </div>    
     </div>
   </a>
-</div>
+<!-- </div> -->

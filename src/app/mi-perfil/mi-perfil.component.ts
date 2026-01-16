@@ -27,6 +27,8 @@ export class MiPerfilComponent implements OnInit {
     private http: HttpClient
   ) {}
 
+  
+
   ngOnInit(): void {
     const usuarioLS = localStorage.getItem('usuario');
     if (usuarioLS) {
