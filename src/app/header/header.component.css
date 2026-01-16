@@ -53,20 +53,20 @@
   font-weight: bold;
   transform: scale(1.03);
 }
-.loginContainer .btn,
-.navbar-toggler {
+
+.btn-logout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 40px;
   height: 40px;
-  padding: 5px;
-  border-radius: 6px;
-  color: #7e8186;
   border: 1px solid #ccc;
+  transition: all 0.3s ease-in-out;
 }
-.loginContainer .btn:hover,
-.navbar-toggler:hover {
-  background-color: #f4f4f4ef;
-  border-color: #504f4f;
+.btn-logout:hover {
+  transform: scale(1.05);
 }
+
 .loginContainer {
   display: flex;
   align-items: center;
