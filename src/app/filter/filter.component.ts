@@ -221,6 +221,8 @@ export class FilterComponent {
   logueado: boolean = false;
   private sub!: Subscription;
 
+  showError = false;
+
   constructor(private router: Router, private http: HttpClient, private apiFilterService: FilterService,
     public loginService: LoginService){
     router.events.subscribe((val) => {
@@ -234,6 +236,16 @@ export class FilterComponent {
         }
       }
     })
+  }
+
+  onlyLetters(event: KeyboardEvent) {
+    const key = event.key;
+    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]$/;
+    if (!regex.test(key)) {
+      event.preventDefault();
+      this.showError = true;
+      setTimeout(() => { this.showError = false }, 2500);
+    }
   }
 
   toggleFilters(): void {
