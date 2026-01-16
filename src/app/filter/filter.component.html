@@ -14,11 +14,14 @@
   <div class="filters-collapsible p-3" [class.expanded]="filtersExpanded">
 
     <!-- Buscador -->
-    <div class="d-flex align-items-center mb-2">
-      <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
+    <div class="d-flex align-items-center">
+      <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="searchText" (keypress)="onlyLetters($event)" (keyup.enter)="onSearch()"/>
       <button class="btn btn-outline-light mx-2 my-1" (click)="onSearch()"><i class="bi bi-search"></i></button>
       <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i></button>
     </div>
+
+    <!-- Mensaje de error cuando se introducen carácteres inválidos -->
+    <p class="text-white fw-bold mt-1" *ngIf="showError"> El buscador solo permite letras </p>
 
     <!-- Ordenar -->
     <div class="mt-3" *ngIf="showOrder">
@@ -31,7 +34,7 @@
     </div>
 
     <!-- Filtros de categorías -->
-      <div class="form-check mb-1" *ngFor="let cat of categories">
+      <div class="form-check mb-1 mt-2" *ngFor="let cat of categories">
         <input
           class="form-check-input"
           type="checkbox"
