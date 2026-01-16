@@ -13,10 +13,6 @@
   max-width: 70% !important;  
 }
 
-.row{
-  row-gap: 25px; 
-}
-
 @media (max-width: 767px) {
   .card-img {
     max-width: 50%;

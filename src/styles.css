@@ -28,6 +28,13 @@
 
 } 
 
+.btn-personalizado:hover {
+  transform: scale(1.05);
+  @media (max-width: 767px){
+    transform: scale(1);
+  }
+}
+
 .card {
   /* background: var(--bg-secondary); */
   border-radius: 12px;
