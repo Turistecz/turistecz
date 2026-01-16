@@ -1,20 +1,20 @@
-<div id="buscador" class="row text-white p-4">
 
-  <!-- FILA 1: Título y botón expand/collapse -->
-  <div class="buscador-top p-0">
-    <h2 class="text-center">Filtros</h2>
-  </div>
-
-  <button class="filter-toggle-btn mb-2 show-button" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
+  <button class="filter-toggle-btn show-button d-lg-none ms-auto" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
     <i class="bi" [ngClass]="filtersExpanded ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
     {{ filtersExpanded ? 'Ocultar filtros' : 'Mostrar filtros' }}
   </button>
 
+
+<div
+  id="buscador"
+  class="row text-white p-1 filter-container"
+  [class.expanded]="filtersExpanded"
+>
   <!-- Contenedor colapsable de filtros -->
-  <div class="filters-collapsible p-0" [class.expanded]="filtersExpanded">
+  <div class="filters-collapsible p-3" [class.expanded]="filtersExpanded">
 
     <!-- Buscador -->
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center mb-2">
       <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="searchText" (keyup.enter)="onSearch()" />
       <button class="btn btn-outline-light mx-2 my-1" (click)="onSearch()"><i class="bi bi-search"></i></button>
       <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i></button>
@@ -31,12 +31,11 @@
     </div>
 
     <!-- Filtros de categorías -->
-    <div class="mt-3 filtro-lista">
-      <h5>Categorías</h5>
       <div class="form-check mb-1" *ngFor="let cat of categories">
         <input
           class="form-check-input"
           type="checkbox"
+          [checked]="selectedEventsCategoriesMap[cat.type] || selectedPlacesCategoriesMap[cat.type]"
           (change)="toggleCategory(cat.type)"
           id="check-{{ cat.type }}"
         />
@@ -45,9 +44,10 @@
         </label>
       </div>
 
+
       <!-- Filtros de accesibilidad -->
       <ng-container *ngIf="showAdaptability">
-        <div *ngFor="let group of groups" class="adaptability-group mb-4">
+        <div *ngFor="let group of groups" class="adaptability-group my-4">
           <h5>{{ group | titlecase }}</h5>
           <div class="form-check mb-1" *ngFor="let option of getOptionsByGroup(group)">
             <input
@@ -61,14 +61,14 @@
             </label>
           </div>
         </div>
+
+        
       </ng-container>
 
+      <div class="align-content-center d-flex justify-content-center justify-content-lg-around my-2" *ngIf="logueado">
+          <button class="btn  fw-bold botonGuardar" (click)="saveFilters()">Guardar</button>
+      </div>
     </div>
-    <div class="align-content-center d-flex justify-content-center justify-content-lg-around mt-3" *ngIf="logueado">
-      <button class="btn btn-success" (click)="saveFilters()">Guardar</button>
-    </div>
-    <div class="align-content-center d-flex justify-content-center justify-content-lg-around mt-3" *ngIf="!logueado">
-      <button class="btn btn-success" (click)="noLogSaveFilters()">Guardar</button>
-    </div>
-  </div>
+    
 </div>
+  

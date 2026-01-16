@@ -22,7 +22,8 @@ if (!isset($_SESSION['user'])) {
     'gradient_home_end' => '#478ed1',
     'bg_primary' => '#ffffff',
     'text_primary' => '#03080a',
-    'text_light' => '#ffffff'
+    'text_light' => '#ffffff',
+    'secondary-text' => '#e7ebf7',
 ];
 
 if ($result && $row = $result->fetch_assoc()) {

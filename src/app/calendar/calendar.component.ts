@@ -39,7 +39,7 @@ private cdr: ChangeDetectorRef
 
   onDateSelected(date: Date | Date[]) {
     this.selectedDate = date instanceof Date ? date : date[0];
-    this.filterEventsForDate();
+    this.filterEventsForDate(this.selectedDate);
   }
 
   showEvents(){
@@ -132,7 +132,7 @@ private cdr: ChangeDetectorRef
     console.log("fechasUn8icas",this.coloredDates)
 }
 
-  private filterEventsForDate() {
+  private filterEventsForDate(date: Date) {
     if (!this.selectedDate) {
       this.eventsOfDay = [];
       return;
@@ -210,12 +210,14 @@ private cdr: ChangeDetectorRef
     const visibleDates = this.getCalendarVisibleDates(newDate);
     this.colorSpecialDates();
     //this.expandEventDates();
-    this.filterEventsForDate();
+    // this.filterEventsForDate();
     this.cdr.detectChanges();
   }
 
   ngOnInit(){
+    const currentDay = new Date();
     this.showEvents();
-    this.getCalendarVisibleDates(this.calendar.viewDate);    
+    this.getCalendarVisibleDates(this.calendar.viewDate);   
+    this.onDateSelected(currentDay); 
   }
 }

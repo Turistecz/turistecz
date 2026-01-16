@@ -4,7 +4,7 @@
 
 .legend{
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-  background-color: rgb(242, 244, 245)
+  background-color: #e7ebf7;
 }
 
 .mapButton{
@@ -25,7 +25,7 @@
   width: 25%;
   max-height: 85%;
   position: absolute;
-  background-color: rgb(242, 244, 245);
+  background-color: var(--secondary-text);
   font-family: 'Inclusive', system-ui;
   border: 1px solid rgb(198, 198, 201);
 }
