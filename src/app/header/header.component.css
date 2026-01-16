@@ -11,7 +11,6 @@
 }
 .logo-glow:hover {
   transform: scale(1.05);
-  filter: drop-shadow(0 0 6px rgba(26, 107, 232, 0.45));
 }
 /* Usuario logueado */
 .user-info {
