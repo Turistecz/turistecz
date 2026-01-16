@@ -9,6 +9,7 @@ import { MonumentServiceService } from '../services/monument-service.service';
 import { MapComponent } from "../map/map.component";
 import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
 
+
 @Component({
   selector: 'app-monument',
   standalone: true,
