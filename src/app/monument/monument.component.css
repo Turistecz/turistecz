@@ -5,6 +5,13 @@
   border-radius: 25px;
 }
 
+.imagen-monumento{
+  height: 500px;
+  width: 100%;
+  max-width: 750px;
+  object-fit: cover;
+}
+
 .title-pag{
   font-weight: 700;
   font-size: 4rem;
@@ -33,6 +40,10 @@
   font-weight: 500;
   /* margin-bottom: 0; */
   font-size: 1.01rem;
+  }
+
+.lastChildText > div:last-child{
+  margin-bottom: 0 !important;
 }
 
 .lastChildText > div:last-child{
@@ -74,9 +85,10 @@
   box-sizing: content-box !important;
 }
 
-@media (max-width: 1024px) {
-  .title-pag{
-    font-size: 2.5rem;
+@media (max-width: 1200px) {
+  .imagen-monumento{
+    height: 450px;
+    max-width: 550px;
   }
 }
 
@@ -87,6 +99,11 @@
     margin-right: 5%;
     text-align: center;
     font-size: 2.5rem;
+  }
+  
+  .imagen-monumento{
+    height: 300px;
+    max-width: 300px;
   }
 
   #horario,
@@ -135,7 +152,12 @@
   .iconsAccessibility i {
     font-size: 0.85rem;
   }
+
+  #horario, #access, #boton-info, #text-description, #contacto {
+    margin-top: 1rem;
+  }
   
+ 
   #text-description, #textPrice{
     font-size: large;
     text-align: justify;
