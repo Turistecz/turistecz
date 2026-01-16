@@ -1,15 +1,21 @@
+export interface ZaragozaApiResponse {
+  result: CalendarTest[]; 
+}
+
 export interface CalendarTest {
-  title: string;
-  id:number;
-  startDate: string;
-  endDate?: string;
-  location?: string;
+  title?: string;
+  id: number;
   subEvent?: {
-    title: string;
+    location?: {
+      title?: string;
+      streetAddress?: string;
+      accessibility?: string;
+    }
+    startDate: string;
+    endDate?: string;
     openingHours?: {
-      dayOfWeek: string;
-      startTime: string;
-      endTime?: string;
+      dayOfWeek?: string;
+      startTime?: string;
     }[];
   }[];
-  }
+}

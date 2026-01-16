@@ -1,6 +1,6 @@
 
 h1 {
-  color: #1976d2;
+  color: var(--color-primary);
   font-weight: bold;
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
 }
@@ -10,7 +10,8 @@ h1 {
   color: #fff;
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
   text-align: center;
-  border-radius: 10px;
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
   padding: 10px;
 }
 
@@ -29,7 +30,6 @@ h1 {
 :host ::ng-deep .igx-calendar-picker {
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
   font-size: 1.3rem;
-  
   font-weight: 600;
   color: #0e3d89;
   display: flex;
@@ -53,8 +53,9 @@ h1 {
 }
 
 :host ::ng-deep .igx-days-view__date--current .igx-days-view__date-inner {
-    color: rgb(45, 0, 128);
+    color: rgb(242, 240, 247);
     border-color: #0e3d89 !important;
+    background-color: #0e3d89 
     
 }
 /* Meses */
@@ -117,6 +118,13 @@ h1 {
 
 }
 
+::ng-deep .igx-calendar__date--special {
+  text-decoration: underline;
+  text-decoration-color: #1e6bf5;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  font-weight: 600;
+}
 /* Día seleccionado */
 :host ::ng-deep .igx-days-view__date--selected .igx-days-view__date-inner {
   background: #0e3d89 !important;
@@ -127,7 +135,7 @@ h1 {
 
 /* Día inactivo */
 :host ::ng-deep .igx-days-view__date--inactive .igx-days-view__date-inner {
-  color: #0e3d8993
+  color: #35383b93
 }
 
 /* Oculta el año en el header */
@@ -145,6 +153,7 @@ h1 {
 :host ::ng-deep .igx-days-view__row {
   display: flex;
   justify-content: space-around;
+  padding-bottom: 0.6rem;
 }
 
 /* Etiquetas de días */
@@ -185,7 +194,6 @@ h1 {
 
 .title-events {
   background: linear-gradient(90deg, #1e6bf5, #0e3d89);
-  border-radius: 8px;
   padding: 1px;
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
 }
@@ -246,7 +254,7 @@ ul {
    margin-right: 1rem;
   }
   .title-events {
-   padding-block: 5px !important;
+   padding-block: 20px !important;
   }
   h2{
     font-size: 1.4rem !important;
@@ -270,6 +278,11 @@ ul {
    flex-wrap: wrap;
   }
 
+}
+
+::ng-deep .dia-evento .igx-days-view__date-inner {
+  border-bottom: 0.3rem solid #0e3d89ce;;
+   /* Asegura que el borde sea lineal */
 }
 
 

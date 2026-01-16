@@ -1,12 +1,4 @@
-.ticket-vertical {
-    font-family: 'inclusive', sans-serif; 
-}
-
-.ticket-vertical:hover {
-    cursor: pointer;
-    transform: scale(1.035);
-    transition: transform 0.4s ease-in-out;
-}
+@import '@fontsource-variable/inclusive-sans';
 
 .bg-color1{
   background-color:var(--color-secondary);
@@ -20,42 +12,82 @@
     height: 28rem; 
 }
 
-.inside-text h2{
+.event-title{
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-
 }
 
-.inside-text p{
-    font-family: "inclusive", sans-serif;
+.event-text {
+    font-family: "Inclusive Sans Variable", sans-serif;
+    overflow-wrap: break-word;
 }
 
 .ticket-vertical::before,
 .ticket-vertical::after {
     content: "";
     position: absolute;
-    width: 100%;
-    height: 20%; /*ajustar la altura del espacio de los troqueles*/
-    left: 0%; /*ajustar el comiezo de los troqueles*/
-    background-repeat: repeat-x;
-    background-size: 25% 80%; /* espaciado y altura region visible*/
+    width: 102%;
+    height: 8.8%; /*ajustar la altura del espacio de los troqueles*/
+    left: -1%; /*ajustar el comiezo de los troqueles*/
+    background-size: 25% 105%; /* espaciado y altura region visible*/
     background-position: center;
-    background-image: radial-gradient(circle at center, white 40%, transparent 45%); 
+    background-image: radial-gradient(ellipse at 50% 0%, white 40%, transparent 45%); 
 } 
 
 .ticket-vertical::before{
     top: 0;
-    transform: translateY(-50%);  
+    background-position-y:top;
+    transform: translateY(-1%);    
 }
 
 .ticket-vertical::after {
-    bottom: 0;
-    transform: translateY(50%);
+    bottom: -0.1%;
+    background-position-y:bottom;
+    transform: rotate(180deg);
 }  
-   
-h2 {
-    display: -webkit-box;
-    font-size: 28px !important;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+
+/* Hover solo en pantallas pc */
+@media (min-width:1024px) {
+    .ticket-vertical:hover {
+        cursor: pointer;
+        transform: scale(1.035);
+        transition: transform 0.4s ease-in-out;
+    }
 }
+
+/* Ajustar troqueles y altura ticket segun tamaño pantalla */
+@media (max-width:1400px) {
+    .inside-text {
+        height: 23rem; 
+    }
+}
+
+@media (max-width:1200px) {
+    .inside-text {
+        height: 28rem; 
+    }
+}
+
+@media (max-width:767px) {
+   .inside-text {
+        height: 23rem; 
+    }
+}
+
+ @media (max-width:475px) {
+    .inside-text {
+        height: 28rem; 
+    }
+
+    .ticket-vertical::before,
+    .ticket-vertical::after {
+        height:9%; 
+    } 
+}
+
+ @media (max-width:420px) {
+    .ticket-vertical::before,
+    .ticket-vertical::after {
+        height:8.8%; 
+    } 
+}
+/*---------------------------------------------------------*/

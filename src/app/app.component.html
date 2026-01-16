@@ -9,68 +9,56 @@
 <router-outlet></router-outlet>
 
 <!-- Botón flotante -->
-<button class="btn-flotante position-fixed border-0 rounded-circle h1 text-light z-3 position-absolute" (click)="isModalOpen = true">
+<button class="btn-flotante position-fixed rounded-circle text-light z-3" (click)="isModalOpen = true">
   <i class="fas fa-universal-access"></i>
 </button>
 
 <!-- Modal -->
 <div class="modal d-flex align-items-center justify-content-center" *ngIf="isModalOpen" (click)="isModalOpen = false">
-  <div class="modal-content p-5 overflow-auto shadow p-3 bg-white rounded" (click)="$event.stopPropagation()">
+  <div class="modal-content p-5 overflow-auto shadow bg-white" (click)="$event.stopPropagation()">
     <span class="close position-absolute h3" (click)="isModalOpen = false">&times;</span>
-    <!-- <h2 class="modal-title mb-4">Iconos</h2> -->
-
-    <!-- Información
-    <div class="icon-section mb-5">
-      <h3 class="mb-3 text-primary">Información</h3>
-      <div class="row g-3">
-        <div class="col-md-6 d-flex align-items-center"><i class="fas fa-map-marker-alt me-2 text-primary"></i> Dirección</div>
-        <div class="col-md-6 d-flex align-items-center"><i class="fas fa-clock me-2 text-primary"></i> Horario visita</div>
-        <div class="col-md-6 d-flex align-items-center"><i class="fas fa-phone me-2 text-primary"></i> Teléfono</div>
-        <div class="col-md-6 d-flex align-items-center"><i class="fas fa-globe me-2 text-primary"></i> Enlace web</div>
-      </div>
-    </div> -->
 
     <!-- Accesibilidad -->
-    <div class="icon-section mb-5">
-      <h3 class="text-primary px-3">Accesibilidad</h3>
-      <div class="row g-1 ps-3 d-flex align-items-center">
-        <div class="col-md-6"><i class="fas fa-wheelchair me-2 text-primary"></i> Rampas</div>
-        <div class="col-md-6"><i class="fas fa-elevator me-2 text-primary"></i> Ascensores</div>
-        <div class="col-md-6"><i class="fas fa-door-open me-2 text-primary"></i> Puertas automáticas</div>
-        <div class="col-md-6"><i class="fas fa-stairs me-2 text-primary"></i> Escaleras mecánicas</div>
-        <div class="col-md-6"><i class="fas fa-toilet me-2 text-primary"></i> Servicios adaptados</div>
-        <div class="col-md-6"><i class="fas fa-parking me-2 text-primary"></i> Parking adaptado</div>
-        <div class="col-md-6"><i class="fas fa-user-tie me-2 text-primary"></i> Mostrador adaptado</div>
-        <div class="col-md-6"><i class="fas fa-universal-access me-2 text-primary"></i> Sin barreras arquitectónicas</div>
-        <div class="col-md-6"><i class="fas fa-braille me-2 text-primary"></i> Braille</div>
-        <div class="col-md-6"><i class="fas fa-sign-language me-2 text-primary"></i> Intérprete lengua de signos</div>
-        <div class="col-md-6"><i class="fas fa-closed-captioning me-2 text-primary"></i> Vídeos subtitulados</div>
-        <div class="col-md-6"><i class="fas fa-eye me-2 text-primary"></i> Ayudas visuales</div>
+    <div class="icon-section mb-4">
+      <h3 class="text-primary">Accesibilidad</h3>
+      <div class="prueba align-items-center">
+        <div class="proportion"><i class="fas fa-wheelchair me-2 text-primary logo-size"></i> Rampas</div>
+        <div class="proportion"><i class="fas fa-elevator me-2 text-primary logo-size"></i> Ascensores</div>
+        <div class="proportion"><i class="fas fa-door-open me-2 text-primary logo-size"></i> Puertas automáticas</div>
+        <div class="proportion"><i class="fas fa-stairs me-2 text-primary logo-size"></i> Escaleras mecánicas</div>
+        <div class="proportion"><i class="fas fa-toilet me-2 text-primary logo-size"></i> Servicios adaptados</div>
+        <div class="proportion"><i class="fas fa-parking me-2 text-primary logo-size"></i> Parking adaptado</div>
+        <div class="proportion"><i class="fas fa-user-tie me-2 text-primary logo-size"></i> Mostrador adaptado</div>
+        <div class="proportion"><i class="fas fa-universal-access me-2 text-primary logo-size"></i> Sin barreras arquitectónicas</div>
+        <div class="proportion"><i class="fas fa-braille me-2 text-primary logo-size logo-size"></i> Braille</div>
+        <div class="proportion"><i class="fas fa-sign-language me-2 text-primary logo-size"></i> Intérprete lengua de signos</div>
+        <div class="proportion"><i class="fas fa-closed-captioning me-2 text-primary logo-size"></i> Vídeos subtitulados</div>
+        <div class="proportion"><i class="fas fa-eye me-2 text-primary logo-size"></i> Ayudas visuales</div>
       </div>
     </div>
 
     <!-- Servicios -->
-    <div class="icon-section mb-5">
-      <h3 class="mb-3 text-primary ps-3">Servicios</h3>
-      <div class="row g-1 ps-3 align-items-center d-flex">
-        <div class="col-md-6"><i class="fas fa-baby-carriage me-2 text-primary"></i> Sala de lactancia</div>
-        <div class="col-md-6"><i class="fas fa-baby me-2 text-primary"></i> Cambiador</div>
-        <div class="col-md-6"><i class="fas fa-chair me-2 text-primary"></i> Bancos</div>
-        <div class="col-md-6"><i class="fas fa-users me-2 text-primary"></i> Visitas grupales</div>
-        <div class="col-md-6"><i class="fas fa-walking me-2 text-primary"></i> Ayuda movilidad</div>
-        <div class="col-md-6"><i class="fas fa-language me-2 text-primary"></i> Lenguaje simple</div>
-        <div class="col-md-6"><i class="fas fa-dog me-2 text-primary"></i> Acceso perros guía</div>
-        <div class="col-md-6"><i class="fas fa-paw me-2 text-primary"></i> Acceso perros asistencia</div>
+    <div class="icon-section mb-4">
+      <h3 class="text-primary">Servicios</h3>
+      <div class="prueba align-items-center">
+        <div class="proportion"><i class="fas fa-baby-carriage me-2 text-primary logo-size"></i> Sala de lactancia</div>
+        <div class="proportion"><i class="fas fa-baby me-2 text-primary logo-size"></i> Cambiador</div>
+        <div class="proportion"><i class="fas fa-chair me-2 text-primary logo-size"></i> Bancos</div>
+        <div class="proportion"><i class="fas fa-users me-2 text-primary logo-size"></i> Visitas grupales</div>
+        <div class="proportion"><i class="fas fa-walking me-2 text-primary logo-size"></i> Ayuda movilidad</div>
+        <div class="proportion"><i class="fas fa-language me-2 text-primary logo-size"></i> Lenguaje simple</div>
+        <div class="proportion"><i class="fas fa-dog me-2 text-primary logo-size"></i> Acceso perros guía</div>
+        <div class="proportion"><i class="fas fa-paw me-2 text-primary logo-size"></i> Acceso perros asistencia</div>
       </div>
     </div>
 
     <!-- Multiidioma -->
     <div class="icon-section mb-0">
-      <h3 class="text-primary ps-3">Multiidioma</h3>
-      <div class="row g-1 ps-3 d-flex align-items-center">
-        <div class="col-md-6"><i class="fas fa-globe me-2 text-primary"></i> Guías turísticos</div>
-        <div class="col-md-6"><i class="fas fa-video me-2 text-primary"></i> Elementos audiovisuales</div>
-        <div class="col-md-6"><i class="fas fa-book me-2 text-primary"></i> Documentación</div>
+      <h3 class="text-primary">Multiidioma</h3>
+      <div class="prueba align-items-center">
+        <div class="proportion"><i class="fas fa-globe me-2 text-primary logo-size"></i> Guías turísticos</div>
+        <div class="proportion"><i class="fas fa-video me-2 text-primary logo-size"></i> Elementos audiovisuales</div>
+        <div class="proportion"><i class="fas fa-book me-2 text-primary logo-size"></i> Documentación</div>
       </div>
     </div>
   </div>

@@ -1,59 +1,170 @@
 #menu {
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-  font-size: 2.5rem;
-  padding-block: 10px;
+  font-size: 1.2rem;
+}
+.navbar-nav {
+  gap: 1.2rem;
+}
+/* Efecto glow en el logo */
+.logo-glow {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.logo-glow:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 6px rgba(26, 107, 232, 0.45));
+}
+/* Usuario logueado */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-#logueadoTemplate {
-  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(90deg, #2A8BEA, #00d4ff);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  text-transform: uppercase;
 }
 
 #navbarNav a{
-  color: var(--text-primary);
+  color: var(--text-secondary);
 }
 
- .imgLogin {
+#navbarNav .nav-link {
+  transition: all 0.3s ease-in-out;
+}
+
+#navbarNav .nav-link:hover {
+  color: #184591;
+  font-weight: bold;
+  transform: scale(1.03);
+}
+.loginContainer .btn,
+.navbar-toggler {
   width: 40px;
-  height: 35px;
+  height: 40px;
+  padding: 5px;
+  border-radius: 6px;
+  color: #7e8186;
+  border: 1px solid #ccc;
 }
-
-.navbar-brand img {
-  max-width: 230px;
+.loginContainer .btn:hover,
+.navbar-toggler:hover {
+  background-color: #f4f4f4ef;
+  border-color: #504f4f;
 }
-
-.navbar-nav {
+.loginContainer {
   display: flex;
-  gap: 6rem;
+  align-items: center;
+  gap: 0.5rem;
+}
+.loginContainer .btn:focus,
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+/* Icono login unificado */
+.login-icon-only {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  color: #184591;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.login-icon-only,
+.navbar-toggler {
+  display: flex;
+  width: 40px;
+  height: 40px;
 }
 
-@media (max-width: 1400px) {
-  .loginContainer {
-   width: auto;
-  }
-   .navbar-nav {
-   font-size: 1.6rem;
-  }
+.login-icon-only i {
+  font-size: 2.5rem;
+  line-height: 1;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@media (max-width: 1024px) {
+.login-icon-only:hover {
+  transform: scale(0.95);
+}
+.loginContainer .btn i,
+.navbar-toggler-icon {
+  font-size: 20px;
+  height: 23px;
+}
+
+.loginContainer .btn:focus,
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.login-icon {
+  margin-top: 2.3rem;
+}
+
+@media (min-width: 752px) and (max-width: 767px) {
+  #menu {
+    font-size: 1.2rem;
+  }
+
   .navbar-nav {
-    gap: 3rem;
+    gap: 1.6rem;
+  }
+}
+@media (min-width: 992px) and (max-width: 1080px) {
+  #menu {
+    font-size: 1.4rem;
+  }
+
+  .navbar-nav {
+    gap: 2.8rem;
+  }
+}
+@media (min-width: 1080px) and (max-width: 1199px) {
+  #menu {
     font-size: 1.6rem;
   }
+  .navbar-nav {
+    gap: 3rem;
+  }
+}
+@media (min-width: 1200px) {
+  #menu {
+    font-size: 1.8rem;
+  }
+  .navbar-nav {
+    gap: 5.5rem;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1301px) {
+  #menu {
+    font-size: 1.7rem;
+  }
+  .navbar-nav {
+    gap: 5rem;
+  }
 }
 
-@media (max-width: 992px) {
+@media (min-width: 1300px) and (max-width: 1400px) {
+  #menu {
+    font-size: 1.7rem;
+  }
   .navbar-nav {
-    gap: 0.5rem;
-  }
-  .navbar-brand img {
-    width: 150px
-  }
-  #menu{
-    font-size: 2rem;
-  }
-  .imgLogin {
-  width: 35px;
-  height: 30px;
+    gap: 5rem;
   }
 }

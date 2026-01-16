@@ -156,7 +156,7 @@ export class MonumentComponent implements OnInit {
       ayuda_movilidad: { icon: "fa-walking", label: "Ayuda movilidad" },
       lenguaje_simple: { icon: "fa-comment", label: "Lenguaje simple" },
       acceso_perros_guias: { icon: "fa-dog", label: "Acceso perros guías" },
-      acceso_perros_asistencia: { icon: "fa-dog", label: "Acceso perros de asistencia" }
+      acceso_perros_asistencia: { icon: "fa-paw", label: "Acceso perros de asistencia" }
     };
 
     for (const key in mapping) {
@@ -183,15 +183,15 @@ export class MonumentComponent implements OnInit {
   }
 
   get cleanHorario(): string {
-    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].horario);
+    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber]?.horario);
   }
 
   get cleanDescription(): string {
-    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].description);
+    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber]?.description);
   }
 
   get cleanPrice(): string {
-    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber].price);
+    return this.removeHTMLTags(this.monumentsFiltered[this.monumentNumber]?.price);
   }
 
   get img(): string {

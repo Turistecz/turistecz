@@ -3,8 +3,7 @@
 #tituloSitiosHome{
     color: #184591;
     font-family: "Baloo Bhaijaan 2 Variable", system-ui;
-    font-weight: 700;
-    font-size: 4rem;
+    
     text-align: center;
 }
 
@@ -12,7 +11,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr); 
   gap: 1.5rem;
-  grid-auto-rows: min-content;
+  
 }
 
 .card-img {
@@ -44,23 +43,27 @@
   object-fit: cover;
 }
 
-
 @media (max-width: 1199px) {
   #tituloSitiosHome {
-    font-size: 2.5rem;
+    font-size: 3.2rem;
   }
   .containerCard {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
 }
-
-.little-circle{
-  font-size: 2rem;
-  color: #1a1c6b;
+  .little-circle{
+    font-size: 2rem;
+    color: #1a1c6b;
+}
+  .messageError{
+    font-size: 1.2rem; 
+    color: #495057;
 }
 
-.messageError{
-  font-size: 1.2rem; 
-  color: #495057;
+@media (min-width: 992px) and (max-width: 1199px) {
+  .containerCard {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+  }
 }

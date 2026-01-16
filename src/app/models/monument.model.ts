@@ -18,7 +18,7 @@ export interface MonumentItem {
     url: string,
     nombre: string,
     copy: string,
-    id: number
+    id: number,
   }]
     rampas: EnumServiciosAdaptabilidad,
     ascensores: EnumServiciosAdaptabilidad,

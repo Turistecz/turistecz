@@ -1,0 +1,9 @@
+<!-- src/app/gastronomy/gastronomy.component.html -->
+<div class="container">
+  <h2 class="section-title text-center display-3 fw-bold mb-3">Restaurantes</h2>
+  <!-- cuando termine la carga (!cargando). le pasa el array 'gastronomy' -->
+  <app-gastronomy-list
+    *ngIf="!cargando"
+    [items]="gastronomy">
+  </app-gastronomy-list>
+</div>

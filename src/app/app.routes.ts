@@ -38,7 +38,8 @@ export const routes: Routes = [
     {
         path: 'signin', 
         loadComponent: () =>
-                import('./sign-form/sign-form.component').then(m => m.SignformComponent)
+                import('./sign-form/sign-form.component').then(m => m.SignformComponent),
+        data: { breadcrumb: 'Sign in' }
     },   
     {
     path: 'login', 
@@ -49,13 +50,21 @@ export const routes: Routes = [
     {
     path: 'mi-perfil', 
         loadComponent: () =>
-                import('./mi-perfil/mi-perfil.component').then(m => m.MiPerfilComponent)
+                import('./mi-perfil/mi-perfil.component').then(m => m.MiPerfilComponent),
+        data: { breadcrumb: 'Mi Perfil' }
     }, 
     {
     path: 'alojamientos', 
         loadComponent: () =>
                 import('./accommodation/accommodation.component').then(m => m.AccommodationComponent),
     },
+    {
+    path: 'restaurantes', 
+        loadComponent: () =>
+                import('./gastronomy/gastronomy.component').then(m => m.GastronomyComponent),
+    },
+
+
     {
     path: 'recuperar-contrasena',
     loadComponent: () => import('./recuperar-contrasena/recuperar-contrasena.component').then(m => m.RecuperarContrasenaComponent)
@@ -88,6 +97,14 @@ export const routes: Routes = [
     {
     path: 'calendar',
     loadComponent: () => import('./calendar/calendar.component').then(m => m.CalendarComponent)
+    },
+    {
+    path: 'private-policy',
+    loadComponent: () => import('./private-policy/private-policy.component').then(m => m.PrivatePolicyComponent)
+    },
+    {
+      path:'terms',
+      loadComponent: () => import('./terms/terms.component').then(m => m.TermsComponent)
     },
     /*El not-found siempre va de último*/ 
     {

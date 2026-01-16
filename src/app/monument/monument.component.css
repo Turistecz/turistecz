@@ -1,41 +1,89 @@
+@import '@fontsource-variable/baloo-bhaijaan-2';
+@import '@fontsource-variable/inclusive-sans';
 
 #imagen-intro{
   border-radius: 25px;
 }
 
-#horario{
-  flex-direction: column;  
-  background-color:var(--gradient-home-start);
-  height: fit-content;
- 
+.imagen-monumento{
+  height: 500px;
+  width: 100%;
+  max-width: 750px;
+  object-fit: cover;
 }
 
-#horarioP{
-  font-size:larger;
-  text-align: justify;
+.title-pag{
+  font-weight: 700;
+  font-size: 4rem;
+  text-align: center;
+}
+
+.title-pag, h2{
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+  color: var(--color-primary);
 }
 
 #descripcion{
   font-size: large;
 }
 
-.words{
-  font-size: 1.01rem;
+.verMas{
+  font-family: 'Inclusion Sans', sans-serif;
+  cursor: pointer; 
+  text-decoration: none; 
+  display: inline-block;
+  color: var(--color-primary);
 }
 
-h2{
-  color: var(--color-primary);
+.fontFamilyText{
+  font-family: 'Inclusive Sans Variable';
+  font-weight: 500;
+  margin-bottom: 0;
+  font-size: 1.01rem;
+  }
+
+.lastChildText > div:last-child{
+  margin-bottom: 0 !important;
+}
+
+.lastChildText > div:last-child{
+  margin-bottom: 0 !important;
+}
+
+#horario{
+  flex-direction: column;  
+  background-color:var(--secondary-text);
+  height: fit-content;
+  
+}
+
+#horarioP{
+  font-size:1rem;
+  text-align: left;
+  color: var(--text-primary)
+}
+
+#descripcion{
+  font-size: 1rem;
+}
+
+.iconsAccessibility i{
+  line-height: unset;
+  width: 20px;
 }
 
 #access{    
   background-color: var(--color-primary);
   height: fit-content;
-  text-align: center;
+  text-align: left;
   color:var(--bg-primary);
 }
 
-.deleteBoxSizing{
-  box-sizing: content-box !important;
+@media (max-width: 1200px) {
+  .imagen-monumento{
+    height: 450px;
+    max-width: 550px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -44,10 +92,15 @@ h2{
     margin-left: 5%;
     margin-right: 5%;
     text-align: center;
+    font-size: 2.5rem;
+  }
+  
+  .imagen-monumento{
+    height: 300px;
+    max-width: 300px;
   }
 
   #horario,
-  #access,
   #contacto,
   .direccion,
   .precio,
@@ -55,7 +108,13 @@ h2{
   #textPrice {
     margin-left: auto;
     margin-right: auto;
-    width: 80%; /* o 100% si lo prefieres más ancho */
+    width: 90%; /* o 100% si lo prefieres más ancho */
+  }
+
+  #access{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   #boton-info{
@@ -64,6 +123,7 @@ h2{
     margin-right: auto;
     width: 45%;
   }
+  
   #descripcion{
     width: 80%;
     margin-left: 2.5rem;
@@ -74,7 +134,7 @@ h2{
     display: block;
     margin: 0 auto;
     width: 100%;
-    max-width: 90%;
+    max-width: 85%;
   } 
 
   /* Iconos de accesibilidad: alinear al centro */
@@ -83,16 +143,18 @@ h2{
     text-align: center;
   }
 
-  #horario, #access, #boton-info{
-    margin-top: 7%;
-  }
-  
-  #text-description{
-    margin-top: 5%;
+  .iconsAccessibility i {
+    font-size: 0.85rem;
   }
 
+  #horario, #access, #boton-info, #text-description, #contacto {
+    margin-top: 1rem;
+  }
+  
+ 
   #text-description, #textPrice{
     font-size: large;
     text-align: justify;
   }
+
 }
