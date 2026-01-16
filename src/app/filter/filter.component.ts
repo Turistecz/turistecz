@@ -561,13 +561,12 @@ toggleCategory(catType: string) {
       this.selectedPlacesCategoriesMap[cat.type] = false;
       this.selectedMapCategoriesMap[cat.type] = false;
     });
-    this.applyEventFilters();
-    this.applyPlaceFilters();
-    this.applyMapFilters();
-
     this.accesibilityOptions.forEach(option => {
       this.selectedAccesibilityCategoriesMap[option.key] = false;
     });
+    this.applyEventFilters();
+    this.applyPlaceFilters();
+    this.applyMapFilters();
   }
 
   saveFilters() {
