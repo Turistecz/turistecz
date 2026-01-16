@@ -42,9 +42,9 @@
   opacity: 0;
   pointer-events: none;
   z-index: 3;
-  padding: 0.1rem 0.3rem;
   border-radius: 1rem;
   transition: opacity 0.25s ease;
+  
 }
 
 /* ocultar scrollbar webkit */
@@ -89,18 +89,23 @@
   .accessibility-icons-bottom {
     opacity: 0.8;
     pointer-events: none;
+    margin-top: 0.2rem;
+  }
+
+  .accessibility-icons-bottom i{
+    font-size: 1.1rem;
   }
   /* opcional: ajustar tamaño de título si quieres */
-  .card-title { font-size: 1.2rem; }
+  .card-title { font-size: 1.6rem; }
 
   .card-place:hover .accessibility-icons-bottom {
     opacity: 0.8;
     pointer-events: auto;
+    
   }
 
  .card-place .overlay-content {
-    padding-block: 1.5rem;
-    height: max-content;
+    padding-block: 1rem;
     opacity: 1;
     top: auto;
   }
@@ -112,9 +117,13 @@
     opacity: 1;
     pointer-events: auto;
   }
+
+  .accessibility-icons-bottom i{
+    font-size: 1.2rem;
+  }
   
   .card-place .overlay-content {
-    padding-block: 1.5rem;
+    padding-block: 1.3rem;
     height: max-content;
     opacity: 1;
     top: auto;
@@ -123,7 +132,6 @@
   .card-place {
     border-radius: 30px;
     max-height: 430px;
-    max-width: 400px;
   }
   .card-title{
     font-size: 1.4rem;

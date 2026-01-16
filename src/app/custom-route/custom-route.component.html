@@ -1,17 +1,15 @@
 <div class="container">
-  <!-- MOSTRAR RUTAS DEL USUARIO -->
-  <h2 class="text-center mt-5 mt-md-0">Mis rutas</h2>
   <!-- Cuando el usuario no ha creado ninguna ruta -->
-  <p *ngIf="datoMostrarRuta.id===0" class="text-center mt-3">Todavía no has creado ninguna ruta ¡Anímate a crear la primera!</p>
+  <p *ngIf="datoMostrarRuta.id===0" class="text-center mt-4">Todavía no has creado ninguna ruta ¡Anímate a crear la primera!</p>
   <!-- Cuando el usuario ha creado rutas -->
-  <div class="row mb-3 mt-5">
-    <div class="col-12 col-md-12 col-lg-6 col-xl-4 mb-4" *ngFor="let dato of datosMostrarRutas">
+  <div class="row mb-3 justify-content-center">
+    <div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-4" *ngFor="let dato of datosMostrarRutas">
       <div class="card border-0 shadow h-100 d-flex flex-column">
         <div class="card-title bg-titulo p-4 d-flex justify-content-center align-items-center text-center text-white flex-grow-1">
           <div class="">
-            <h3> {{ dato.titulo_ruta }} </h3>
+            <h3 class="fw-bold"> {{ dato.titulo_ruta }} </h3>
             <p class="descripcion p-0 m-0 mt-2"> {{ dato.descripcion_ruta }} </p>
-          </div>
+          </div> 
         </div>
         <div class="ps-4 pe-4 card-body d-flex align-items-center">
           <ol>
@@ -38,13 +36,13 @@
         <div class="modal-body pe-5 ps-5">
           <form [formGroup]="formularioRuta">
             <!-- Modificar titulo ruta -->
-            <label for="titulo_ruta" class="form-label text-center">Título de la Ruta</label>
+            <label for="titulo_ruta" class="form-label text-center fw-bold">Título de la Ruta</label>
             <input type="text" maxlength="20" id="titulo_ruta" class="form-control" formControlName="titulo_ruta" [value]="this.editarRuta.titulo_ruta">
             <!-- Modificar descripcion ruta -->
-            <label for="descripcion_ruta" class="form-label mt-3 font-weight-bold">Descripcion</label>
+            <label for="descripcion_ruta" class="form-label mt-3 fw-bold">Descripción</label>
             <input type="text" maxlength="100" id="descripcion_ruta" class="form-control" formControlName="descripcion_ruta" [value]="this.editarRuta.descripcion_ruta">
             <!-- Añadir o eliminar sitios de la ruta -->
-            <label class="form-label mt-3">Añadir o eliminar sitios de la ruta</label>
+            <label class="form-label mt-3 fw-bold">Añadir o eliminar sitios de la ruta</label>
             <div *ngFor="let sitioSelecionado of editarSitiosSeleccionados" class="mt-3">
               <input class="form-check-input me-2" type="checkbox" [value]="sitioSelecionado.id" checked (change)="seleccionarSitio($event, sitioSelecionado.id, sitioSelecionado.nombre)">
               <label class="form-check-label">{{ sitioSelecionado.nombre }}</label> 
@@ -54,8 +52,8 @@
               <label class="form-check-label">{{ sitioNoSeleccionado.nombre }}</label> 
             </div> 
             <!-- Ordenar sitios -->
-            <label class="form-label mt-3">Cambiar orden sitios</label>
-            <div cdkDropList class="example-list" (cdkDropListDropped)="dropEditado($event)">
+            <label class="form-label mt-3 fw-bold">Cambiar orden sitios</label>
+            <div cdkDropList class="example-list fw-bold" (cdkDropListDropped)="dropEditado($event)">
             <ol class="mb-3 list-group list-group-numbered" >
                 <li *ngFor="let sitio of editarSitiosSeleccionados" cdkDrag class="example-box p-4 list-group-item">
                   {{sitio.nombre}}
@@ -93,40 +91,40 @@
 
   <!-- CREAR NUEVA RUTA -->
   <div class="row justify-content-center">
-    <button class="btn btn-primary mb-1 col-2" data-bs-toggle="collapse" data-bs-target="#collapseFormNewRoute" aria-expanded="false" aria-controls="collapseExample">
+    <button class="btn btn-primary mb-1 col-6 col-md-4 col-lg-4 col-xl-2 px-2 " data-bs-toggle="collapse" data-bs-target="#collapseFormNewRoute" aria-expanded="false" aria-controls="collapseExample">
       Crear Nueva Ruta
     </button>
   </div>
-  <div class="collapse" id="collapseFormNewRoute">
+  <div class="collapse mt-3" id="collapseFormNewRoute">
     <div class="card card-body mb-3">
       <form [formGroup]="formularioRuta" (ngSubmit)="enviarDatosRutaUsuario()">
         <!-- Titulo ruta -->
-        <label for="titulo_ruta" class="form-label">Título de la Ruta</label>
+        <label for="titulo_ruta" class="form-label fw-bold">Título de la Ruta</label>
         <input type="text" maxlength="20" id="titulo_ruta" class="form-control" formControlName="titulo_ruta">
         <div *ngIf="formularioRuta.get('titulo_ruta')?.invalid && formularioRuta.get('titulo_ruta')?.touched">
           El titulo es obligatorio
         </div>
         <!-- Descripcion ruta -->
-        <label for="descripcion_ruta" class="form-label">Descripcion</label>
+        <label for="descripcion_ruta" class="form-label mt-2 fw-bold">Descripción</label>
         <input type="text" maxlength="100" id="descripcion_ruta" class="form-control" formControlName="descripcion_ruta">
         <!-- Seleccionar sitios -->
-        <label class="form-label mt-3">Selecciona los sitios que quieres incluir en tu ruta:</label>
+        <label class="form-label mt-3 fw-bold">Selecciona los sitios que quieres incluir en tu ruta:</label>
         <div *ngFor="let sitio of sitiosFavoritosUsuario" class="mt-3">
           <input class="form-check-input me-2" type="checkbox" [value]="sitio.id" (change)="onCheckboxChange($event, sitio.id, sitio.nombre)">
           <label class="form-check-label">{{ sitio.nombre }}</label> 
         </div>
         <!-- WIP: Ordenar sitios -->
-        <p>Ordena los sitios seleccionados</p> 
-        <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-          <ol class="mb-3 list-group list-group-numbered" >
-              <li *ngFor="let sitio of sitiosRutaSeleccioandos" cdkDrag class="example-box p-4 list-group-item">
+        <p class="pt-3 fw-bold">Ordena los sitios seleccionados</p> 
+        <div cdkDropList class="example-list mb-2" (cdkDropListDropped)="drop($event)">
+          <ol class=" list-group list-group-numbered" >
+              <li *ngFor="let sitio of sitiosRutaSeleccioandos" cdkDrag class="example-box p-4 list-group-item fw-bold">
                 {{sitio.nombre}}
               </li>
           </ol>
         </div>
         <!-- Botones -->
-        <button type="reset" class="btn btn-primary mt-3 me-3" (click)="recargarPagina()">Cancelar</button>
-        <button type="submit" [disabled]="formularioRuta.invalid" class="btn btn-primary mt-3">Guardar</button>
+        <button type="reset" class="btn btn-danger mt-1 me-3" (click)="recargarPagina()">Cancelar</button>
+        <button type="submit" [disabled]="formularioRuta.invalid" class="btn btn-success mt-1">Guardar</button>
       </form>
     </div>  
   </div>
