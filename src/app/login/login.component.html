@@ -1,11 +1,10 @@
 <div class="imagen-bg-routes">
   <app-breadcrumbs></app-breadcrumbs>
   <div class="d-flex justify-content-center py-5">
-    <div class="card login shadow p-4 mx-4">
-      <p class="card-title text-center h4 my-2">Iniciar Sesión</p>
-      <div class="card-body">
+    <div class="card login shadow pt-0 ">
+      <div class="card-body px-4">
+        <p class="card-title text-center h4">Iniciar Sesión</p>
         <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" novalidate>
-
           <div class="form-group mt-3">
             <label for="email">Email</label>
             <input
@@ -39,7 +38,7 @@
             </div>
           </div>
 
-          <div class="text-center mt-4">
+          <div class="mt-4">
             <button type="submit" class="btn btn-primary btn-personalizado w-100">Iniciar sesión</button>
           </div>
 
