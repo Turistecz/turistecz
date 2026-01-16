@@ -17,6 +17,11 @@
   .card-img {
     max-width: 50%;
     margin: 0 auto; 
+    
+  }
+
+  .cards-margin{
+    padding-top: 1rem;
   }
 
   #tituloSitiosHome {
