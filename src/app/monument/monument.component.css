@@ -31,9 +31,9 @@
 .fontFamilyText{
   font-family: 'Inclusive Sans Variable';
   font-weight: 500;
-  margin-bottom: 0;
+  /* margin-bottom: 0; */
   font-size: 1.01rem;
-  }
+}
 
 .lastChildText > div:last-child{
   margin-bottom: 0 !important;
@@ -74,13 +74,11 @@
   box-sizing: content-box !important;
 }
 
-
 @media (max-width: 1024px) {
   .title-pag{
     font-size: 2.5rem;
   }
 }
-
 
 @media (max-width: 768px) {
   .title-pag{
@@ -103,7 +101,7 @@
   }
 
   #access{
-    width: 50%;
+    width: 55%;
     margin-left: auto;
     margin-right: auto;
   }
@@ -136,10 +134,6 @@
 
   .iconsAccessibility i {
     font-size: 0.85rem;
-  }
-
-  #horario, #access, #boton-info, #text-description, #contacto {
-    margin-top: 1rem;
   }
   
   #text-description, #textPrice{
