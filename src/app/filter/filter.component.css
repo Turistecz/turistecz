@@ -5,15 +5,15 @@
   border-radius: 1.5rem;
 }
 
-.filtro-lista > .adaptability-group:last-child{
+.filters-collapsible > .adaptability-group:last-child{
   margin-bottom: 0 !important;
 }
 
-.filtro-lista > .adaptability-group:last-child > .form-check:last-child{
+.filters-collapsible > .adaptability-group:last-child > .form-check:last-child{
   margin-bottom: 0 !important;
 }
 
-.filtro-lista h5 {
+.filters-collapsible h5 {
   font-size: 1.45rem;
 }
 
