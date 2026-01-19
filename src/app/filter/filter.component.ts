@@ -241,6 +241,9 @@ export class FilterComponent {
   onlyLetters(event: KeyboardEvent) {
     const key = event.key;
     const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]$/;
+    if (key === 'Enter') {
+      return;
+    }
     if (!regex.test(key)) {
       event.preventDefault();
       this.showError = true;
