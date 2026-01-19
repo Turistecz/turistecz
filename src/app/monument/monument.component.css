@@ -1,6 +1,10 @@
 @import '@fontsource-variable/baloo-bhaijaan-2';
 @import '@fontsource-variable/inclusive-sans';
 
+:root {
+  --collapseHeight: 100%;
+}
+
 #imagen-intro{
   border-radius: 25px;
 }
@@ -27,13 +31,32 @@
   font-size: large;
 }
 
-.verMas{
-  font-family: 'Inclusion Sans', sans-serif;
-  cursor: pointer; 
-  text-decoration: none; 
-  display: inline-block;
-  color: var(--color-primary);
+.wrapper {
+  max-height: 100px;
+  overflow: hidden;
+
+  transition: max-height 0.7s ease-in-out;
 }
+
+.wrapperExpand {
+  max-height: 100%;
+}
+
+.contentVerMas:after  {
+    content: ' ... Ver más';
+}
+
+.contentVerMenos:after {
+    content: ' Ver menos';
+} 
+
+.verMas{
+    font-family: 'Inclusion Sans', sans-serif;
+    cursor: pointer; 
+    text-decoration: none; 
+    display: inline;
+    color: var(--color-primary);
+  }
 
 .fontFamilyText{
   font-family: 'Inclusive Sans Variable';
