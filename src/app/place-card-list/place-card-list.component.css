@@ -11,7 +11,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr); 
   gap: 1.5rem;
-  
+  padding-inline: 2rem;
 }
 
 .card-img {
