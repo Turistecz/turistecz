@@ -7,8 +7,10 @@
         </div>
         <div class="col-0 col-md-1"></div>
         <div id="horario" class="col-12 rounded-4 col-md-4 p-3 p-md-4 d-flex text-center align-items-center shadow">
-            <h2 class="mb-0">Horario</h2>
-            <p *ngIf="monumentsFiltered[monumentNumber]?.horario; else elseBlock" id="horarioP" class="fontFamilyText ">{{cleanHorario}}</p>
+         <ng-container *ngIf="monumentsFiltered[monumentNumber]?.horario; else elseBlock">
+          <h2 class="mb-0">Horario</h2>
+           <p id="horarioP" class="fontFamilyText"> {{ cleanHorario }}</p>
+         </ng-container>
             <ng-template #elseBlock> <p id="horarioP" class="fontFamilyText ">Horario no disponible</p></ng-template>
         </div>
     </div>
