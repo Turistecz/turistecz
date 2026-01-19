@@ -8,6 +8,7 @@
 /* Efecto glow en el logo */
 .logo-glow {
   transition: transform 0.3s ease, filter 0.3s ease;
+  height: 50px;
 }
 .logo-glow:hover {
   transform: scale(1.05);
@@ -166,5 +167,24 @@
   }
   .navbar-nav {
     gap: 5rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .logo-glow{
+    height: 35px;
+  }
+
+  .login-icon-only i{
+    font-size: 2rem;
+  }
+
+  .btn-mobile{
+    height: fit-content;
+    width: fit-content;
+  }
+
+  .navbar-toggler-icon{
+    font-size: 15px;
   }
 }
