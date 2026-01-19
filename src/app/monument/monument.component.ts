@@ -82,6 +82,9 @@ export class MonumentComponent implements OnInit {
 
   name:string = 'app-monument';
 
+  descriptionHeight = 40;
+  maxDescriptionHeight = 0;
+
   async loadImages(): Promise<void> {
     const variableNumero = this.route.snapshot.paramMap.get('id'); 
     try {
@@ -197,5 +200,24 @@ export class MonumentComponent implements OnInit {
 
     this.monumentNumber = Number(this.route.snapshot.paramMap.get('id'));
     this.monumentNumber--;
+
   }
+
+  expand() {
+    let verMasButton = document.getElementById("verMasA");
+    let textWrapper = document.getElementById("textWrapper");
+
+    if (verMasButton) {
+      if (verMasButton.classList.contains("contentVerMas")) {
+        verMasButton.classList.remove("contentVerMas");
+        verMasButton.classList.add("contentVerMenos");
+        textWrapper?.classList.add("wrapperExpand");
+      } else {
+        verMasButton.classList.remove("contentVerMenos");
+        verMasButton.classList.add("contentVerMas");
+        textWrapper?.classList.remove("wrapperExpand");
+      }
+    }
+  }
+
 }

@@ -16,26 +16,19 @@
     
     <div class="row pt-5 row">
         
+       
         <div id="descripcion" class="col-12 col-md-7">
             <h2>Descripción</h2>
-        
-            <p id="text-description">{{cleanDescription.split(' ').slice(0,120).join(' ')}} 
-            <span class="collapse" id="textoColapsado">{{' ' + cleanDescription.split(' ').slice(100).join(' ')}}</span>
 
-                <a 
-                    class="verMas" 
-                    data-bs-toggle="collapse" 
-                    href="#textoColapsado" 
-                    role="button" 
-                    aria-expanded="false" 
-                    aria-controls="textoColapsado"
-                    onclick="this.innerText = this.innerText === '..Ver más' ? ' ..Ver menos' : ' ..Ver más'">
-                    ..Ver más
-                </a>
+            <div class="wrapper" id="textWrapper">
+                <p class="collapseText">
+                    {{cleanDescription}}
                 </p>
+            </div>
+            <a class="verMas contentVerMas" id="verMasA" (click)="expand()" role="button"></a>
 
-                 <div class="text-center text-md-start mt-4">
-                 <a class="btn btn-primary "  href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a> <!--id="boton-info" -->
+            <div class="text-center text-md-start mt-4">
+                <a class="btn btn-primary "  href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a> <!--id="boton-info" -->
             </div> 
         </div>
         
