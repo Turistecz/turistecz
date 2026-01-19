@@ -31,15 +31,9 @@ async ngOnInit() {
 
 async loadEvents(): Promise<void> {
     try {
-      if (localStorage.getItem('eventGlobal')) {
-        this.events = JSON.parse(localStorage.getItem('eventGlobal') || '{}');
-      } else {
-        const datos = await firstValueFrom(this.eventService.getEvents());
-        const rawEvents = datos?.features ?? [];
-        this.events = rawEvents.map((f: any) => f.properties);
-        console.log(datos.features)
-        localStorage.setItem('eventGlobal', JSON.stringify(rawEvents.map((f: any) => f.properties)));
-      }
+      const datos = await firstValueFrom(this.eventService.getEvents());
+      const rawEvents = datos?.features ?? [];
+      this.events = rawEvents.map((f: any) => f.properties);
     } catch (error) {
       console.error('Error al cargar eventos:', error);
     }
