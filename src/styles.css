@@ -13,16 +13,26 @@
   --text-primary: #03080a;
   --text-secondary: #495057;
   --text-light: #ffffff;
+  --secondary-text: #e7ebf7;
 }
 
 /* Ejemplos de uso en componentes */
 
-.btn-primary {
+.btn-personalizado {
   background: linear-gradient(135deg, var(--gradient-primary-start), var(--gradient-primary-end));
   color: var(--text-light);
   border: none;
   padding: 12px 24px;
   border-radius: 8px;
+  font-family: "inclusive", system-ui;
+
+} 
+
+.btn-personalizado:hover {
+  transform: scale(1.05);
+  @media (max-width: 767px){
+    transform: scale(1);
+  }
 }
 
 .card {

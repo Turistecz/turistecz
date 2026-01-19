@@ -1,15 +1,17 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-12 d-flex weather justify-content-end py-1">
-            <div class= "d-flex text-light align-items-center"> 
-                <a href="http://localhost:4200/calendar" class="link-light pe-2 icon-calendar">
-                    <i class="fa-regular fa-calendar-days"></i>
+        <div class="col-12 d-flex weather justify-content-end py-2">
+            <div class= "d-flex text-light"> 
+                <a href="http://localhost:4200/calendar" class="link-light icon-calendar d-flex align-items-center me-2">
+                    <i class="fa-regular fa-calendar-days fs-5"></i>
                 </a>
-                <a href="http://localhost:4200/mapa" class="link-light">
-                    <p class="mb-0 fas fa-map-location-dot icon-map pe-1"></p>
+                <a href="http://localhost:4200/mapa" class="link-light d-flex align-items-center text-decoration-none">
+                    <p class="m-0 fas fa-map-location-dot icon-map fs-5"></p>
                 </a>
-                <p class="m-1" *ngIf="current"> Zaragoza, {{current.temperature_2m}} ºC</p>
-                <i *ngIf="current" class="fas {{ getWeatherIcon(current) }}"></i>
+                <div class="d-flex align-items-center">
+                    <p class="m-0 mt-1 p-0 mx-2" *ngIf="current"> Zaragoza, {{current.temperature_2m}} ºC</p>
+                    <i *ngIf="current" class="fas {{ getWeatherIcon(current) }}" class="text-white"></i>
+                </div>
             </div>
         </div>
     </div>

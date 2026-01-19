@@ -9,6 +9,13 @@
   border-radius: 25px;
 }
 
+.imagen-monumento{
+  height: 500px;
+  width: 100%;
+  max-width: 750px;
+  object-fit: cover;
+}
+
 .title-pag{
   font-weight: 700;
   font-size: 4rem;
@@ -58,19 +65,34 @@
   font-size: 1.01rem;
   }
 
+.lastChildText > div:last-child{
+  margin-bottom: 0 !important;
+}
+
+.lastChildText > div:last-child{
+  margin-bottom: 0 !important;
+}
+
 #horario{
   flex-direction: column;  
-  background-color:rgb(242, 244, 245);
+  background-color:var(--secondary-text);
   height: fit-content;
+  
 }
 
 #horarioP{
   font-size:1rem;
   text-align: left;
+  color: var(--text-primary)
 }
 
 #descripcion{
   font-size: 1rem;
+}
+
+.iconsAccessibility i{
+  line-height: unset;
+  width: 20px;
 }
 
 #access{    
@@ -80,17 +102,12 @@
   color:var(--bg-primary);
 }
 
-.deleteBoxSizing{
-  box-sizing: content-box !important;
-}
-
-
-@media (max-width: 1024px) {
-  .title-pag{
-    font-size: 2.5rem;
+@media (max-width: 1200px) {
+  .imagen-monumento{
+    height: 450px;
+    max-width: 550px;
   }
 }
-
 
 @media (max-width: 768px) {
   .title-pag{
@@ -100,9 +117,13 @@
     text-align: center;
     font-size: 2.5rem;
   }
+  
+  .imagen-monumento{
+    height: 300px;
+    max-width: 300px;
+  }
 
   #horario,
-  #access,
   #contacto,
   .direccion,
   .precio,
@@ -110,7 +131,13 @@
   #textPrice {
     margin-left: auto;
     margin-right: auto;
-    width: 80%; /* o 100% si lo prefieres más ancho */
+    width: 90%; /* o 100% si lo prefieres más ancho */
+  }
+
+  #access{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   #boton-info{
@@ -119,6 +146,7 @@
     margin-right: auto;
     width: 45%;
   }
+  
   #descripcion{
     width: 80%;
     margin-left: 2.5rem;
@@ -129,13 +157,17 @@
     display: block;
     margin: 0 auto;
     width: 100%;
-    max-width: 90%;
+    max-width: 85%;
   } 
 
   /* Iconos de accesibilidad: alinear al centro */
   .iconos_sitio, #access {
     justify-content: center;
     text-align: center;
+  }
+
+  .iconsAccessibility i {
+    font-size: 0.85rem;
   }
 
   #horario, #access, #boton-info, #text-description, #contacto {
@@ -148,5 +180,4 @@
     text-align: justify;
   }
 
-  
 }

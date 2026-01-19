@@ -1,21 +1,18 @@
 <div class="container">
   <div class="row g-4 justify-content-center align-items-stretch">
-    <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 d-flex"
-         *ngFor="let g of pagedItems; let i = index">
-
-        <div class="card h-100 d-flex flex-column w-100 border-0 rounded">
-          <div class="card h-100 d-flex flex-column w-100 border-1 rounded">
+    <div class="col-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 d-flex" *ngFor="let g of pagedItems; let i = index">
+        <!-- <div class="card h-100 d-flex flex-column w-100 border-0 rounded"> -->
+          <div class="card h-100 d-flex flex-column w-100 border-0 shadow rounded p-0">
 
             <!--  TÍTULO -->
-            <div class="title-wrap">
-              <h4 class="card-title fw-bold fs-4 title-text">
+            <div class="card-header title-wrap d-flex justify-content-center align-items-center pb-0">
+              <h4 class="text-white fw-bold fs-4 text-center m-0">
                 {{ g.title }}
               </h4>
             </div>
-
-
+            <div class="card-body p-4">
             <!--  IMAGEN -->
-            <div class="image-wrapper">
+            <div class="image-wrapper card-img">
               <ng-container *ngIf="g.image; else noImage">
                 <img [src]="g.image" class="restaurant-img" alt="{{ g.title }}">
               </ng-container>
@@ -28,32 +25,29 @@
             </div>
 
             <!--  INFORMACIÓN -->
-              <div class="card-body d-flex flex-column text-center fw-bold">
+              <div class="d-flex flex-column text-center mt-4">
 
-                <p *ngIf="g.streetAddress" class="text-truncate">
+                <p *ngIf="g.streetAddress" class="text-truncate m-0 p-0">
                   <i class="fa-solid fa-location-dot me-1" style="color:#ff4d4d"></i>
                   {{ g.streetAddress }}
                 </p>
 
-                <p *ngIf="g.postalCode || g.addressLocality">
+                <p *ngIf="g.postalCode || g.addressLocality" class="m-0 mb-2">
                   {{ g.postalCode }} {{ g.addressLocality }}
                 </p>
 
-                <p *ngIf="g.tel">
+                <p *ngIf="g.tel" >
                   <i class="fa-solid fa-phone me-1" style="color:#1e90ff"></i>
                   {{ g.tel }}
                 </p>
 
-                <button
-                  *ngIf="g.url"
-                  class="btn btn-primary fw-semibold mt-auto fs-5 mx-2"
-                  (click)="openUrl(g.url)">
-                  Visitar web
-                  <i class="fa-solid fa-up-right-from-square mx-1"></i>
+                <button *ngIf="g.url" class="btn btn-primary fw-semibold inclusive-text d-flex justify-content-center align-items-center" (click)="openUrl(g.url)">
+                  Visitar web<i class="fa-solid fa-up-right-from-square ms-1"></i>
                 </button>
         
           </div>
-        </div>
+        <!-- </div> -->
+         </div>
       </div>
     </div>
   </div>
