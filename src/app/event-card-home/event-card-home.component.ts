@@ -52,7 +52,6 @@ async loadEvents(): Promise<void> {
     for (let i = 0; i < this.sortedEvents.length; i += 3) {
       groupito.push(this.sortedEvents.slice(i, i + 3));
     }
-    console.log("groupito 003",groupito)
     return groupito;
   }
 
@@ -61,7 +60,6 @@ async loadEvents(): Promise<void> {
     for (let i = 0; i < this.sortedEvents.length; i += 2) {
       groupito.push(this.sortedEvents.slice(i, i + 2));
     }
-    console.log("groupito 002",groupito)
     return groupito;
   }
 
@@ -70,7 +68,6 @@ async loadEvents(): Promise<void> {
     for (let i = 0; i < this.sortedEvents.length; i += 1) {
       groupito.push(this.sortedEvents.slice(i, i + 1));
     }
-    console.log("groupito 001",groupito)
     return groupito;
   }
 
