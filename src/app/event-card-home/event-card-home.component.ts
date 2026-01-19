@@ -20,20 +20,48 @@ export class EventCardHomeComponent {
 
   constructor(private http: HttpClient, private eventService: EventService) {}
 
-events: EventItem[] = [];
-sortedEvents: EventItem[] = [];
+  events: EventItem[] = [];
+  sortedEvents: EventItem[] = [];
 
-async ngOnInit() {
-  //this.events = this.eventService.getEvents();
-  await this.loadEvents();
-  this.sortedEvents = this.events.slice(); // ordénalos si quieres
-}
+  async ngOnInit() {
+    //this.events = this.eventService.getEvents();
+    await this.loadEvents();
+    this.sortedEvents = this.events.slice(); // ordénalos si quieres
+  }
 
-async loadEvents(): Promise<void> {
+  extractDateFromText(text: string): number {
+    const regex = /(\d{2})[-\/](\d{2})[-\/](\d{4})/; // regex patrones para manipular texto
+    const match = text.match(regex);
+    if (match) {
+      const [_, day, month, year] = match;
+      return new Date(`${year}-${month}-${day}`).getTime();
+    }
+    return Infinity;
+  }
+
+  async loadEvents(): Promise<void> {
     try {
       const datos = await firstValueFrom(this.eventService.getEvents());
       const rawEvents = datos?.features ?? [];
       this.events = rawEvents.map((f: any) => f.properties);
+
+      // Mostrar solo los eventos de este mes
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const currentMonth = today.getMonth();
+      const currentYear = today.getFullYear();
+
+      let filtered = this.events.map(event => ({
+        ...event,
+        eventTime: this.extractDateFromText(event.description ?? '')
+      })).filter(event => event.eventTime >= today.getTime());
+
+      filtered = filtered.filter(event => {
+        const date = new Date(event.eventTime);
+        return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+      });
+      
+      this.events = filtered;
     } catch (error) {
       console.error('Error al cargar eventos:', error);
     }
