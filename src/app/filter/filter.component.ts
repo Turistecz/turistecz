@@ -219,6 +219,7 @@ export class FilterComponent {
   allCategoriesArray: string[] = [];
 
   logueado: boolean = false;
+  parentSitios: boolean = false;
   private sub!: Subscription;
 
   constructor(private router: Router, private http: HttpClient, private apiFilterService: FilterService,
@@ -228,9 +229,11 @@ export class FilterComponent {
         if (val.url === '/sitios' || val.url === '/mapa' || val.url === '/mi-perfil'){
           this.showAdaptability = true;
           this.showOrder = false;
+          this.parentSitios = true;
         }else{
           this.showAdaptability = false;
           this.showOrder= true
+          this.parentSitios = false;
         }
       }
     })
