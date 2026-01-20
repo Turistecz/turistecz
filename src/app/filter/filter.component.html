@@ -3,13 +3,8 @@
     <i class="bi" [ngClass]="filtersExpanded ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
     {{ filtersExpanded ? 'Ocultar filtros' : 'Mostrar filtros' }}
   </button>
-
-
-<div
-  id="buscador"
-  class="row text-white p-1 filter-container"
-  [class.expanded]="filtersExpanded"
->
+<div class="row" >
+<div id="buscador" class="text-white" [class.expanded]="filtersExpanded">
   <!-- Contenedor colapsable de filtros -->
   <div class="filters-collapsible p-3" [class.expanded]="filtersExpanded">
 
@@ -71,4 +66,4 @@
     </div>
     
 </div>
-  
+  </div>
