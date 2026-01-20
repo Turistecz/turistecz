@@ -9,7 +9,9 @@
     width: 100%;
     font-family: "Baloo Bhaijaan 2 Variable", system-ui;
 }
-
+.card {
+  max-width: 480px; width: 100%;
+}
 
 
 

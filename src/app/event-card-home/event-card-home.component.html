@@ -1,46 +1,82 @@
 
-<div class="main-card container mb-5">
+<div class="main-card container my-5">
   <div class="row">
     <div class="col-12">
-      <h3 class="text-center pb-4">Eventos</h3>
+      <h3 class="text-center mb-3">Eventos</h3>
     </div>
   </div>
 
-  <!-- Div para que en móvil no sea carrusel solo muestre 3 tarjetas-->
-   <div class="row row-cols-1 g-3 d-sm-none ">
-    <div class="col px-5" *ngFor="let event of sortedEvents.slice(0,3); let k = index">
-      <app-event-card [data]="event" [bg]="k % 2 === 0"></app-event-card>
-    </div>
-  </div>
-
-      <!--El carrusel en pantallas grandes y medianas-->
-<div class="position-relative"> 
-  <div id="eventsCarousel" class="carousel slide carousel-dark d-none d-sm-block" data-bs-ride="true"> 
-    <div class="carousel-inner"> 
-      <div class="carousel-item active" data-bs-interval="5000" *ngFor="let events of eventGroups; let i = index" [class.active]="i === 0" > 
-        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 g-3 justify-content-center px-5"> 
-          <div class="col justify-content-center " *ngFor="let event of events; let j = index"> 
-            <app-event-card [data]="event" [bg]="((i * 3) + j) % 2 === 0"></app-event-card> 
+  <div class="position-relative"> 
+    <div id="eventsCarousel03" class="carousel slide carousel-dark d-none d-lg-block" data-bs-ride="true"> 
+      <div class="carousel-inner py-2 "> 
+        <!-- Ver 3 eventos -->
+        <div class="carousel-item big-screen" data-bs-interval="5000" *ngFor="let events of eventGroups03; let i = index" [class.active]="i === 0" > 
+          <div class="row row-cols-lg-3 g-3 justify-content-center px-5 "> 
+            <div class="col justify-content-center " *ngFor="let event of events; let j = index"> 
+              <app-event-card [data]="event" [bg]="((i * 3) + j) % 2 === 0"></app-event-card> 
+            </div> 
           </div> 
-        </div> 
+        </div>
       </div> 
+      <button class="carouselButton carousel-control-prev position-absolute" type="button" data-bs-target="#eventsCarousel03" data-bs-slide="prev"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+          <path fill="#184591" d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+        </svg>
+      </button> 
+      <button class="carouselButton carousel-control-next position-absolute" type="button" data-bs-target="#eventsCarousel03" data-bs-slide="next"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+          <path fill="#184591" d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+        </svg>
+      </button> 
     </div> 
-    <button class="carouselButton carousel-control-prev position-absolute" type="button" data-bs-target="#eventsCarousel" data-bs-slide="prev"> 
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="32" height="32">
-        <path fill="#184591" d="M5.59 0L7 1.41 3.42 5 7 8.59 5.59 10l-6-6z"/>
-      </svg>
-    </button> 
-    <button class="carouselButton carousel-control-next position-absolute" type="button" data-bs-target="#eventsCarousel" data-bs-slide="next"> 
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" width="32" height="32">
-        <path fill="#184591" d="M4.41 10L3 8.59 6.58 5 3 1.41 4.41 0l6 6z"/>
-      </svg>
-
-    </button> 
+    <div id="eventoCarousel02" class="carousel slide carousel-dark d-none d-md-block d-lg-none" data-bs-ride="true"> 
+      <div class="carousel-inner py-2 "> 
+        <!-- Ver 2 eventos -->
+        <div class="carousel-item medium-screen" data-bs-interval="5000" *ngFor="let events of eventGroups02; let i = index" [class.active]="i === 0" > 
+          <div class="row row-cols-md-2 g-3 justify-content-center px-5 "> 
+            <div class="col justify-content-center " *ngFor="let event of events; let j = index"> 
+              <app-event-card [data]="event" [bg]="((i * 2) + j) % 2 === 0"></app-event-card> 
+            </div> 
+          </div> 
+        </div>
+      </div> 
+      <button class="carouselButton carousel-control-prev position-absolute" type="button" data-bs-target="#eventoCarousel02" data-bs-slide="prev"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+          <path fill="#184591" d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+        </svg>
+      </button> 
+      <button class="carouselButton carousel-control-next position-absolute" type="button" data-bs-target="#eventoCarousel02" data-bs-slide="next"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+          <path fill="#184591" d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+        </svg>
+      </button> 
+    </div>
+    <div id="eventoCarousel01" class="carousel slide carousel-dark d-md-none d-block" data-bs-ride="true"> 
+      <div class="carousel-inner py-2 "> 
+        <!-- Ver 1 evento -->
+        <div class="carousel-item small-screen" data-bs-interval="5000" *ngFor="let events of eventGroups01; let i = index" [class.active]="i === 0" > 
+          <div class="row row-cols-1 g-3 justify-content-center px-5 "> 
+            <div class="col justify-content-center " *ngFor="let event of events; let j = index"> 
+              <app-event-card [data]="event" [bg]="((i * 1) + j) % 2 === 0"></app-event-card> 
+            </div> 
+          </div> 
+        </div>
+      </div> 
+      <button class="carouselButton carousel-control-prev position-absolute" type="button" data-bs-target="#eventoCarousel01" data-bs-slide="prev"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+          <path fill="#184591" d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+        </svg>
+      </button> 
+      <button class="carouselButton carousel-control-next position-absolute" type="button" data-bs-target="#eventoCarousel01" data-bs-slide="next"> 
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+          <path fill="#184591" d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+        </svg>
+      </button> 
+    </div>
+  </div>
+  <div class="text-center">
+        <a href="/eventos">
+          <button type="button" class="btn-personalizado btn-routes btn btn-primary btn-personalizado mt-3 fs-5">Ver más</button>
+        </a>
   </div> 
-</div>
-<div class="text-center my-5">
-      <a href="/eventos">
-        <button type="button" class="btn-sites btn btn-primary fs-5">Ver más</button>
-      </a>
-    </div> 
 </div>

@@ -1,8 +1,19 @@
 @import '@fontsource-variable/baloo-bhaijaan-2';
 @import '@fontsource-variable/inclusive-sans';
 
+:root {
+  --collapseHeight: 100%;
+}
+
 #imagen-intro{
   border-radius: 25px;
+}
+
+.imagen-monumento{
+  height: 500px;
+  width: 100%;
+  max-width: 750px;
+  object-fit: cover;
 }
 
 .title-pag{
@@ -20,34 +31,68 @@
   font-size: large;
 }
 
+.wrapper {
+  max-height: 100px;
+  overflow: hidden;
+
+  transition: max-height 0.7s ease-in-out;
+}
+
+.wrapperExpand {
+  max-height: 100%;
+}
+
+.contentVerMas:after  {
+    content: ' ... Ver más';
+}
+
+.contentVerMenos:after {
+    content: ' Ver menos';
+} 
+
 .verMas{
     font-family: 'Inclusion Sans', sans-serif;
     cursor: pointer; 
     text-decoration: none; 
-    display: inline-block;
+    display: inline;
     color: var(--color-primary);
   }
 
 .fontFamilyText{
   font-family: 'Inclusive Sans Variable';
   font-weight: 500;
-  margin-bottom: 0;
+  /* margin-bottom: 0; */
   font-size: 1.01rem;
   }
 
+.lastChildText > div:last-child{
+  margin-bottom: 0 !important;
+}
+
+.lastChildText > div:last-child{
+  margin-bottom: 0 !important;
+}
+
 #horario{
   flex-direction: column;  
-  background-color:rgb(242, 244, 245);
+  background-color:var(--secondary-text);
   height: fit-content;
+  
 }
 
 #horarioP{
   font-size:1rem;
   text-align: left;
+  color: var(--text-primary)
 }
 
 #descripcion{
   font-size: 1rem;
+}
+
+.iconsAccessibility i{
+  line-height: unset;
+  width: 20px;
 }
 
 #access{    
@@ -57,17 +102,16 @@
   color:var(--bg-primary);
 }
 
-.deleteBoxSizing{
-  box-sizing: content-box !important;
+.small-accessibility{
+  font-size: 0.9rem !important;
 }
 
-
-@media (max-width: 1024px) {
-  .title-pag{
-    font-size: 2.5rem;
+@media (max-width: 1200px) {
+  .imagen-monumento{
+    height: 450px;
+    max-width: 550px;
   }
 }
-
 
 @media (max-width: 768px) {
   .title-pag{
@@ -77,17 +121,21 @@
     text-align: center;
     font-size: 2.5rem;
   }
+  
+  .imagen-monumento{
+    height: 300px;
+  }
 
-  #horario,
-  #access,
-  #contacto,
-  .direccion,
-  .precio,
-  .local,
-  #textPrice {
+  #horario {
     margin-left: auto;
     margin-right: auto;
-    width: 80%; /* o 100% si lo prefieres más ancho */
+    width: 96%;
+  }
+
+  #access{
+    width: 55%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   #boton-info{
@@ -96,23 +144,21 @@
     margin-right: auto;
     width: 45%;
   }
-  #descripcion{
-    width: 80%;
-    margin-left: 2.5rem;
-  }
 
   /* Asegura que la imagen no se desborde y esté centrada */
   #imagen-intro {
     display: block;
     margin: 0 auto;
-    width: 100%;
-    max-width: 90%;
   } 
 
   /* Iconos de accesibilidad: alinear al centro */
   .iconos_sitio, #access {
     justify-content: center;
     text-align: center;
+  }
+
+  .iconsAccessibility i {
+    font-size: 0.85rem;
   }
 
   #horario, #access, #boton-info, #text-description, #contacto {
@@ -125,5 +171,4 @@
     text-align: justify;
   }
 
-  
 }
