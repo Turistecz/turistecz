@@ -1,0 +1,5 @@
+<div class="accessibility-icons-bottom d-flex flex-wrap gap-2 justify-content-center">
+  <ng-container *ngFor="let servicio of getServiciosDisponibles()">
+    <i [class]="servicio.icon" [title]="servicio.label"></i>
+  </ng-container>
+</div>

@@ -7,7 +7,7 @@
 
   <!--  navbar -->
  <div class="container-fluid bg-white shadow-sm" id="menu">
-  <div class="container-fluid d-flex justify-content-between align-items-center flex-wrap py-2 px-2 w-100">
+  <div class="container-fluid d-flex justify-content-between align-items-center flex-wrap py-2 px-0 w-100">
     <!-- Logo -->
     <a class="navbar-brand me-0 " href="/">
       <img src="turistecz_logo.png" alt="Logo" class="logo-glow" height="50">
@@ -27,15 +27,15 @@
       <a href="/mi-perfil" class="d-flex align-items-center gap-2 text-decoration-none">
         <div class="user-avatar">{{ usuarioNombre[0] }}</div>
       </a>
-      <button class="btn btn-outline-danger btn-sm btn-logout" (click)="onLogout()" title="Cerrar sesión">
+      <button class="btn btn-sm btn-logout d-flex justify-content-center align-items-center" (click)="onLogout()" title="Cerrar sesión">
         <i class="bi bi-box-arrow-right"></i>
       </button>
     </div>
   </ng-template>
 
   <!-- Botón hamburguesa  -->
-  <button class="navbar-toggler ms-2 btn-mobile" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-    <span class="navbar-toggler-icon"></span>
+  <button class="navbar-toggler ms-2 btn-mobile justify-content-center align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <i class="bi bi-list mt-1 fs-3"></i>
   </button>
 </div>
 
@@ -65,7 +65,7 @@
     <a href="/mi-perfil" class="d-flex align-items-center gap-2 text-decoration-none">
       <div class="user-avatar">{{ usuarioNombre[0] }}</div>
     </a>
-    <button class="btn btn-outline-danger btn-sm btn-logout" (click)="onLogout()" title="Cerrar sesión">
+    <button class="btn btn-sm btn-logout" (click)="onLogout()" title="Cerrar sesión">
       <i class="bi bi-box-arrow-right"></i>
     </button>
   </div>

@@ -17,7 +17,7 @@ import { LoginService } from '../services/login.service';
   selector: 'app-filter',
   imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './filter.component.html',
-  styleUrl: './filter.component.css'
+  styleUrls: ['./filter.component.css']
 })
 export class FilterComponent {
   sortedEvents: EventItem[] = [];
@@ -25,6 +25,7 @@ export class FilterComponent {
   filterOption: 'month' | 'future' | 'alpha' = 'future';
   showAdaptability: boolean = false;
   filtersExpanded: boolean = false;
+  
 
   @Input() events: EventItem[] = [];
   @Input() places: cardsHome[] = [];
@@ -220,6 +221,8 @@ export class FilterComponent {
   logueado: boolean = false;
   private sub!: Subscription;
 
+  showError = false;
+
   constructor(private router: Router, private http: HttpClient, private apiFilterService: FilterService,
     public loginService: LoginService){
     router.events.subscribe((val) => {
@@ -233,6 +236,19 @@ export class FilterComponent {
         }
       }
     })
+  }
+
+  onlyLetters(event: KeyboardEvent) {
+    const key = event.key;
+    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]$/;
+    if (key === 'Enter') {
+      return;
+    }
+    if (!regex.test(key)) {
+      event.preventDefault();
+      this.showError = true;
+      setTimeout(() => { this.showError = false }, 2500);
+    }
   }
 
   toggleFilters(): void {
@@ -267,14 +283,37 @@ export class FilterComponent {
 
     //Para que los eventos se carguen al inicio de la página. Antes no funcionaba porque se ejecutaba primero 
     // el Filter y events[] quedaba vacío.
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['events'] && changes['events'].currentValue) {
-      this.applyEventFilters();
-    }
-    if (changes['places'] && changes['places'].currentValue){
-      this.applyPlaceFilters();
-    }
+ngOnChanges(changes: SimpleChanges) {
+  if (changes['categories'] && changes['categories'].currentValue) {
+    // Inicializar maps cuando cambian categories
+    this.categories.forEach(cat => {
+      if (!(cat.type in this.selectedEventsCategoriesMap)) {
+        this.selectedEventsCategoriesMap[cat.type] = false;
+      }
+      if (!(cat.type in this.selectedPlacesCategoriesMap)) {
+        this.selectedPlacesCategoriesMap[cat.type] = false;
+      }
+      if (!(cat.type in this.selectedMapCategoriesMap)) {
+        this.selectedMapCategoriesMap[cat.type] = false;
+      }
+      // También aseguramos que categoryKeywords tenga la info
+      if (!this.categoryKeywords[cat.type]) {
+        this.categoryKeywords[cat.type] = cat.keywords ?? [];
+      }
+    });
   }
+
+  if (changes['events'] && changes['events'].currentValue) {
+    this.applyEventFilters();
+  }
+  if (changes['places'] && changes['places'].currentValue){
+    this.applyPlaceFilters();
+  }
+  if (changes['datos'] && changes['datos'].currentValue) {
+    this.applyMapFilters();
+  }
+}
+
 
   applyUserFilters() {
     this.inputs = Array.from(document.querySelectorAll('input'));
@@ -377,15 +416,19 @@ export class FilterComponent {
       );
     }
 
-    const selectedEventsCategories = Object.keys(this.selectedEventsCategoriesMap).filter(cat => this.selectedEventsCategoriesMap[cat]);
+    const selectedEventsCategories = Object.keys(this.selectedEventsCategoriesMap)
+  .filter(cat => this.selectedEventsCategoriesMap[cat]);
+
     if (selectedEventsCategories.length > 0) {
       filtered = filtered.filter(event => {
         const texto = (event.title + ' ' + (event.description ?? '')).toLowerCase();
-        return selectedEventsCategories.some(cat =>
-        this.categoryKeywords[cat]?.some(keyword => texto.includes(keyword))
-        );
+        return selectedEventsCategories.some(catType => {
+          const keywords = this.categoryKeywords[catType] ?? (this.categories.find(c => c.type === catType)?.keywords ?? []);
+          return keywords.some(keyword => texto.includes(keyword.toLowerCase()));
+        });
       });
     }
+
 
     if (this.searchText.trim()) {
       const search = this.normalize(this.searchText);
@@ -402,98 +445,106 @@ export class FilterComponent {
   }
 
   //Sirve la misma funcion para el componente map-page
-  applyPlaceFilters(){
-    let filteredPlaces = [...this.places];
+applyPlaceFilters() {
+  let filteredPlaces = [...this.places];
 
-    const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
+  const selectedPlacesCategories = Object.keys(this.selectedPlacesCategoriesMap)
+    .filter(cat => this.selectedPlacesCategoriesMap[cat]);
+
+  if (selectedPlacesCategories.length > 0) {
+    filteredPlaces = filteredPlaces.filter(place => {
+      const texto = (place.nombre ?? '').toLowerCase();
+      return selectedPlacesCategories.some(catType => {
+        const keywords = this.categoryKeywords[catType] ?? (this.categories.find(c => c.type === catType)?.keywords ?? []);
+        return keywords.some(keyword => texto.includes(keyword.toLowerCase()));
+      });
+    });
+  }
+
+  const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
     .filter(key => this.selectedAccesibilityCategoriesMap[key]);
-    if (selectedAccessibilityKeys.length > 0) {
+
+  if (selectedAccessibilityKeys.length > 0) {
     filteredPlaces = filteredPlaces.filter(place =>
       selectedAccessibilityKeys.every(key =>
         place[key as keyof cardsHome] === EnumServiciosAdaptabilidad.si ||
         place[key as keyof cardsHome] === EnumServiciosAdaptabilidad.bajo_peticion
       )
-      );
-    }
-    if (this.searchText.trim()) {
-      const search = this.normalize(this.searchText);
-      filteredPlaces = filteredPlaces.filter(place =>
-        this.normalize(place.nombre).includes(search)
-      );
-    }
-    this.noResultsPlaces = filteredPlaces.length === 0;
-
-    this.filteredMonuments.emit(filteredPlaces);
-     this.noResultsPlacesEvent.emit(this.noResultsPlaces);
-  };
-
-applyMapFilters(){
-    let filteredPlaces = [...this.datos];
-
-    const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
-    .filter(key => this.selectedAccesibilityCategoriesMap[key]);
-    //selectedAccesibilityCategoriesMap guarda el estado de todas las categorías de accesibilidad (seleccionadas o no)
-
-    if (selectedAccessibilityKeys.length > 0) {
-    filteredPlaces = filteredPlaces.filter(place =>
-      selectedAccessibilityKeys.every(key =>
-        place[key as keyof MonumentItem] === EnumServiciosAdaptabilidad.si ||
-        place[key as keyof MonumentItem] === EnumServiciosAdaptabilidad.bajo_peticion
-      )
-      );
-    }
-
-    if (this.searchText.trim()) {
-      const search = this.normalize(this.searchText);
-      filteredPlaces = filteredPlaces.filter(place =>
-        this.normalize(place.nombre).includes(search)
-      );
-    }
-    this.noResultsPlaces = filteredPlaces.length === 0;
-
-    this.filteredCards.emit(filteredPlaces);
-     this.noResultsPlacesEvent.emit(this.noResultsPlaces);
-  };
-  
-  toggleCategory(catType: string) {
-    switch(catType) {
-      case "id":
-        break;
-      case "museos_exposiciones":
-        this.selectedPlacesCategoriesMap["museos"] = !this.selectedPlacesCategoriesMap["museos"];
-        this.applyPlaceFilters();
-        break;
-      case "monumentos_esculturas":
-        this.selectedPlacesCategoriesMap["monumentos"] = !this.selectedPlacesCategoriesMap["monumentos"];
-        this.applyPlaceFilters();
-        break;
-      case "zonas_verdes":
-        this.selectedPlacesCategoriesMap["zonas-verdes"] = !this.selectedPlacesCategoriesMap["zonas-verdes"];
-        this.applyPlaceFilters();
-        break;
-      case "arquitectura":
-        this.selectedPlacesCategoriesMap["arquitectura"] = !this.selectedPlacesCategoriesMap["arquitectura"];
-        this.applyPlaceFilters();
-        break;
-      case "arte_mudejar":
-        this.selectedPlacesCategoriesMap["mudejar"] = !this.selectedPlacesCategoriesMap["mudejar"];
-        this.applyPlaceFilters();
-        break;
-      case "arte_romano":
-        this.selectedPlacesCategoriesMap["romano"] = !this.selectedPlacesCategoriesMap["romano"];
-        this.applyPlaceFilters();
-        break;
-      default:
-        this.selectedEventsCategoriesMap[catType] = !this.selectedEventsCategoriesMap[catType];
-        this.selectedPlacesCategoriesMap[catType] = !this.selectedPlacesCategoriesMap[catType];
-        this.applyEventFilters();
-        this.applyPlaceFilters();
-        break;
-      }    
+    );
   }
 
-  onSearch() {
-    
+  if (this.searchText.trim()) {
+    const search = this.normalize(this.searchText);
+    filteredPlaces = filteredPlaces.filter(place =>
+      this.normalize(place.nombre).includes(search)
+    );
+  }
+
+  this.noResultsPlaces = filteredPlaces.length === 0;
+  this.filteredCards.emit(filteredPlaces);
+  this.noResultsPlacesEvent.emit(this.noResultsPlaces);
+}
+
+applyMapFilters() {
+  if (!this.datos || this.datos.length === 0) return;
+
+  // Copiamos los datos originales
+  let filteredPlaces = [...this.datos];
+
+  // Categorías seleccionadas
+  const selectedMapCategories = Object.keys(this.selectedMapCategoriesMap)
+    .filter(cat => this.selectedMapCategoriesMap[cat]);
+
+  if (selectedMapCategories.length > 0) {
+    filteredPlaces = filteredPlaces.filter(dato => {
+      const nombreNormalized = this.normalize(dato.nombre);
+
+      return selectedMapCategories.some(catType => {
+        const keywords = this.categoryKeywords[catType] ?? this.categories.find(c => c.type === catType)?.keywords ?? [];
+        return keywords.some(keyword => nombreNormalized.includes(this.normalize(keyword)));
+      });
+    });
+  }
+
+  // Accesibilidad seleccionada
+  const selectedAccessibilityKeys = Object.keys(this.selectedAccesibilityCategoriesMap)
+    .filter(key => this.selectedAccesibilityCategoriesMap[key]);
+
+  if (selectedAccessibilityKeys.length > 0) {
+    filteredPlaces = filteredPlaces.filter(dato =>
+      selectedAccessibilityKeys.every(key => {
+        const value = dato[key as keyof MonumentItem];
+        return value === EnumServiciosAdaptabilidad.si || value === EnumServiciosAdaptabilidad.bajo_peticion;
+      })
+    );
+  }
+
+  // Filtro de búsqueda
+  if (this.searchText?.trim()) {
+    const searchNormalized = this.normalize(this.searchText);
+    filteredPlaces = filteredPlaces.filter(dato => this.normalize(dato.nombre).includes(searchNormalized));
+  }
+
+  // Emitir resultados
+  this.noResultsPlaces = filteredPlaces.length === 0;
+  this.filteredCards.emit(filteredPlaces);
+  this.noResultsPlacesEvent.emit(this.noResultsPlaces);
+
+  console.log('applyMapFilters -> filtrados:', filteredPlaces.length);
+}
+
+toggleCategory(catType: string) {
+  // Activamos en los tres mapas (events, places, map)
+  this.selectedEventsCategoriesMap[catType] = !this.selectedEventsCategoriesMap[catType];
+  this.selectedPlacesCategoriesMap[catType] = !this.selectedPlacesCategoriesMap[catType];
+  this.selectedMapCategoriesMap[catType] = !this.selectedMapCategoriesMap[catType];
+
+  this.applyEventFilters();
+  this.applyPlaceFilters();
+  this.applyMapFilters();
+}
+
+   onSearch() {
     this.applyEventFilters();
     this.applyPlaceFilters();
     this.applyMapFilters();
@@ -513,13 +564,12 @@ applyMapFilters(){
       this.selectedPlacesCategoriesMap[cat.type] = false;
       this.selectedMapCategoriesMap[cat.type] = false;
     });
-    this.applyEventFilters();
-    this.applyPlaceFilters();
-    this.applyMapFilters();
-
     this.accesibilityOptions.forEach(option => {
       this.selectedAccesibilityCategoriesMap[option.key] = false;
     });
+    this.applyEventFilters();
+    this.applyPlaceFilters();
+    this.applyMapFilters();
   }
 
   saveFilters() {

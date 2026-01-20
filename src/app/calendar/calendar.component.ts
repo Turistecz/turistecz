@@ -1,4 +1,4 @@
-import { Component, ViewChild, ChangeDetectorRef} from '@angular/core';
+import { Component, ViewChild, ChangeDetectorRef, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarTest } from '../models/calendar.model';
 import { EventService } from '../services/event.service';
@@ -17,6 +17,7 @@ constructor(private eventService: EventService,
 private cdr: ChangeDetectorRef
 ) {}
 
+  @Input() hideTitle: boolean = false;
 
   @ViewChild('calendar', { static: true }) public calendar!: IgxCalendarComponent;
 
