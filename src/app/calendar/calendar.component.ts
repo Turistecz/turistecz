@@ -21,24 +21,17 @@ private cdr: ChangeDetectorRef
 
   @ViewChild('calendar', { static: true }) public calendar!: IgxCalendarComponent;
 
-  ev: CalendarTest[] = [];
   mappedEvents: CalendarTest[] = [];
   eventsOfDay: CalendarTest[] = [];
   selectedDate: Date | null = null;
 
   flechaIzq: Element | null = null;
   flechaDcha: Element | null = null;
-
-  start: string = "";
-  end: string = "";
-  transStart: Date | null = null;
-  transEnd: Date | null = null;
-
   coloredDates : Date [] = [];
-  fechasUnicas:Date[]=[];
-
+  
   onDateSelected(date: Date | Date[]) {
     this.selectedDate = date instanceof Date ? date : date[0];
+    this.selectedDate.setHours(0, 0, 0, 0);
     this.filterEventsForDate(this.selectedDate);
   }
 
@@ -65,6 +58,10 @@ private cdr: ChangeDetectorRef
           }))
         }))
       this.expandEventDates();
+
+      if (this.selectedDate) {
+        this.filterEventsForDate(this.selectedDate);
+      }
     }, 
       error:(error)=>{
          console.error('Error al obtener los eventos.', error);
@@ -73,7 +70,6 @@ private cdr: ChangeDetectorRef
     })
   }
 
- 
  private colorSpecialDates(): void {
   //para asegurarnos de que se carga a tiempo para pintarse
     setTimeout(() => {
@@ -110,15 +106,14 @@ private cdr: ChangeDetectorRef
 
   private expandEventDates() {
     let startEvent : Date;
-    let endEvent : Date | undefined;
-    
+    let endEvent: Date | undefined;
+  
     this.coloredDates = [];
 
     this.mappedEvents.forEach(evento => {
       evento.subEvent?.forEach(sE=>{
         startEvent = new Date (sE.startDate);
 
-  
         let cursor!:Date;
 
         if(startEvent){
@@ -129,33 +124,27 @@ private cdr: ChangeDetectorRef
       })      
     })
      this.colorSpecialDates();
-    console.log("fechasUn8icas",this.coloredDates)
 }
 
   private filterEventsForDate(date: Date) {
-    if (!this.selectedDate) {
-      this.eventsOfDay = [];
-      return;
-    }
-
-
     this.eventsOfDay = [];
-    console.log("estos son los mapped events");
-    console.log(this.mappedEvents);
-    this.mappedEvents.forEach(mE=>{
-      let subEvent = mE.subEvent;
-      subEvent?.forEach(sE=> { 
-        this.start = sE.startDate;
-        this.transStart = new Date(this.start);
-        this.end = sE.endDate?sE.endDate:"";
-        this.transEnd = new Date (this.end);
-        if(this.transStart.getTime() === this.selectedDate?.getTime()){
-          this.eventsOfDay.push(mE)
-        } 
+
+    if (!date) return;
+
+    const selected = new Date(date);
+    selected.setHours(0, 0, 0, 0);
+
+    this.mappedEvents.forEach(mE => {
+      mE.subEvent?.forEach(sE => {
+        const start = new Date(sE.startDate);
+        start.setHours(0, 0, 0, 0);
+
+      if (start.getTime() === selected.getTime() && !this.eventsOfDay.some(e => e.id === mE.id)) {
+          this.eventsOfDay.push(mE);
+          }
+        });
       });
-    })
   }
-  
 
   getCalendarVisibleDates(viewDate: Date): Date[] {
     const firstOfMonth = new Date(viewDate.getFullYear(), viewDate.getMonth(), 1);
@@ -176,8 +165,6 @@ private cdr: ChangeDetectorRef
       d.setDate(startDate.getDate() + i);
       dates.push(d);
     }
-
-    console.log("dates",dates);
     return dates;
   }
 
@@ -200,24 +187,23 @@ private cdr: ChangeDetectorRef
       }
   }
 
-  handleArrowClick(): void {
-      console.log("¡flecha pulsada!");
-      this.onMonthChanged(this.calendar.viewDate);
+  handleArrowClick(): void { 
+      this.onMonthChanged();
   }
 
 
-  onMonthChanged(newDate: Date) {
-    const visibleDates = this.getCalendarVisibleDates(newDate);
-    this.colorSpecialDates();
-    //this.expandEventDates();
-    // this.filterEventsForDate();
-    this.cdr.detectChanges();
+  onMonthChanged() {
+     this.colorSpecialDates();
+
+      if (this.selectedDate) {
+        this.filterEventsForDate(this.selectedDate);
+      }
+      this.cdr.detectChanges();
   }
 
   ngOnInit(){
-    const currentDay = new Date();
+    this.selectedDate = new Date();
     this.showEvents();
     this.getCalendarVisibleDates(this.calendar.viewDate);   
-    this.onDateSelected(currentDay); 
   }
 }
