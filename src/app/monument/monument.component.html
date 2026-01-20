@@ -5,11 +5,13 @@
         <div  class="col-12 col-md-7">
             <img [src]="monumento.imagenes[0].url" id="imagen-intro" class="imagen-monumento">
         </div>
-        <div class="col-md-1"></div>
-        <div id="horario" class="col-12 rounded-4 col-md-4 p-3 p-md-5 d-flex colorSchedules">
-            <h2 class="mb-0">Horario</h2>
-            <p *ngIf="monumentsFiltered[monumentNumber]?.horario; else elseBlock" id="horarioP" class="fontFamilyText mb-0">{{cleanHorario}}</p>
-            <ng-template #elseBlock> <p id="horarioP" class="fontFamilyText mb-0">Horario no disponible</p></ng-template>
+        <div class="col-0 col-md-1"></div>
+        <div id="horario" class="col-12 rounded-4 col-md-4 p-3 p-md-4 d-flex text-center align-items-center shadow">
+         <ng-container *ngIf="monumentsFiltered[monumentNumber]?.horario; else elseBlock">
+          <h2 class="mb-0">Horario</h2>
+           <p id="horarioP" class="fontFamilyText"> {{ cleanHorario }}</p>
+         </ng-container>
+            <ng-template #elseBlock> <p id="horarioP" class="fontFamilyText ">Horario no disponible</p></ng-template>
         </div>
     </div>
 
@@ -18,20 +20,12 @@
         <div id="descripcion" class="col-12 col-md-7">
             <h2>Descripción</h2>
 
-            <p id="text-description">{{cleanDescription.split(' ').slice(0,120).join(' ')}}
-                <span class="collapse" id="textoColapsado">{{' ' + cleanDescription.split(' ').slice(100).join(' ')}}</span>
-
-                <a
-                    class="verMas"
-                    data-bs-toggle="collapse"
-                    href="#textoColapsado"
-                    role="button"
-                    aria-expanded="false"
-                    aria-controls="textoColapsado"
-                    onclick="this.innerText = this.innerText === '..Ver más' ? ' ..Ver menos' : ' ..Ver más'" >
-                    ..Ver más
-                </a>
-            </p>
+            <div class="wrapper" id="textWrapper">
+                <p class="collapseText">
+                    {{cleanDescription}}
+                </p>
+            </div>
+            <a class="verMas contentVerMas" id="verMasA" (click)="expand()" role="button"></a>
 
             <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
                 <h2 class="mt-4"> Contacto </h2>
@@ -70,8 +64,38 @@
 
         </div>
     </div>
+       
+    <div  class="row pt-3">
+        <div class="col-12 col-md-6">
+            <div class="text-center text-md-start mt-4">
+            <a class="btn btn-primary btn-personalizado"
+                role="button"
+                (click)="abrirEnlace(monumentsFiltered[monumentNumber]?.uri)"
+                (keydown.enter)="abrirEnlace(monumentsFiltered[monumentNumber]?.uri)">
+                Más información
+            </a>
+ <!--id="boton-info" -->
+            </div> 
+           
+            <br><br><br>
+            <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
+                <h2 class="mb-0"> Contacto </h2>
+                <p class="fontFamilyText ">{{monumentsFiltered[monumentNumber].phone}}</p>
+                <!-- <br> -->
+            </div>
+            <div class="direccion">
+                <h2 class="mb-0"> Dirección </h2>
+                <p class="fontFamilyText ">{{monumentsFiltered[monumentNumber]?.address}}</p>
+            </div>
 
-    <div class="row pt-4">
+            <div *ngIf="monumentsFiltered[monumentNumber]?.price">
+                <h2 class="precio mb-0 "> Precio </h2>
+                <p class="fontFamilyText  " id="textPrice">{{cleanPrice}}</p>
+            </div>
+        </div>
+    </div>
+   
+    <div class="row pt-6">
         <div class="local col-12 col-md-12">
             <h2 class="mb-4">Localización</h2>
             <app-map [data]="coords" [name]="monumentsFiltered[monumentNumber]?.title || ''"  [parent]="name"></app-map>

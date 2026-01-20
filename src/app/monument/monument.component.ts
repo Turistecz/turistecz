@@ -9,6 +9,7 @@ import { MonumentServiceService } from '../services/monument-service.service';
 import { MapComponent } from "../map/map.component";
 import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
 
+
 @Component({
   selector: 'app-monument',
   standalone: true,
@@ -28,6 +29,19 @@ export class MonumentComponent implements OnInit {
 
   adaptabilityCategories: any[] = [];
 
+
+  abrirEnlace(url?: string): void {
+    if (!url) return;
+
+    let finalUrl = url.trim();
+
+    // Si no tiene protocolo, lo añadimos
+    if (!/^https?:\/\//i.test(finalUrl)) {
+      finalUrl = `https://${finalUrl}`;
+    }
+
+    window.open(finalUrl, '_blank', 'noopener,noreferrer');
+  }
 
   monumento: MonumentItem = {
     id: 0,
@@ -81,6 +95,9 @@ export class MonumentComponent implements OnInit {
   };
 
   name:string = 'app-monument';
+
+  descriptionHeight = 40;
+  maxDescriptionHeight = 0;
 
   async loadImages(): Promise<void> {
     const variableNumero = this.route.snapshot.paramMap.get('id'); 
@@ -197,5 +214,24 @@ export class MonumentComponent implements OnInit {
 
     this.monumentNumber = Number(this.route.snapshot.paramMap.get('id'));
     this.monumentNumber--;
+
   }
+
+  expand() {
+    let verMasButton = document.getElementById("verMasA");
+    let textWrapper = document.getElementById("textWrapper");
+
+    if (verMasButton) {
+      if (verMasButton.classList.contains("contentVerMas")) {
+        verMasButton.classList.remove("contentVerMas");
+        verMasButton.classList.add("contentVerMenos");
+        textWrapper?.classList.add("wrapperExpand");
+      } else {
+        verMasButton.classList.remove("contentVerMenos");
+        verMasButton.classList.add("contentVerMas");
+        textWrapper?.classList.remove("wrapperExpand");
+      }
+    }
+  }
+
 }

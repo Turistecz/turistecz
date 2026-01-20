@@ -31,6 +31,19 @@
   max-width: 130px;
 }
 
+.blog i, p{
+  color:#296dad;
+  
+}
+
+.blog p{
+  padding-right: 0.2rem;
+}
+
+.blog:hover {
+  transform: scale(1.1);
+}
+
 @media (min-width: 2100px) {
   .footer-shape-bottom::before {
     background-size: 100%;
@@ -51,6 +64,15 @@
   .logoInaem img{
     margin-top: 4px;
     max-width: 92px;
+  }
+
+  .blog i, p{
+    font-size: 0.6rem !important; 
+  }
+
+  .blog p{
+
+    padding-right: 0.1rem;
   }
 
 }
