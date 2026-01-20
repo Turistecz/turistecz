@@ -20,7 +20,7 @@
       <div class="calendar-card shadow-lg events-container overflow-y-auto border-0 p-0">
         
         <!-- Encabezado -->
-        <div class="title-events p-4 text-white text-center ">
+        <div class="title-events text-white text-center">
           <h2 class="fs-2 m-0">
             Eventos del {{selectedDate | date:"EEEE d 'de' MMMM y":'':'es' }}
           </h2>
@@ -69,7 +69,7 @@
       </div>
 
       <!-- Sin eventos -->
-      <div class="col-12 col-lg-6 mt-4 mt-lg-0" *ngIf="selectedDate && eventsOfDay.length === 0">
+      <div class="col-12 col-lg-6 mt-4 mt-lg-0" *ngIf="selectedDate && eventsOfDay.length === 0 ">
         <div class="calendar-card shadow-sm text-center p-4">
           <h5 class="text-muted">
             <i class="fas fa-info-circle me-2"></i>

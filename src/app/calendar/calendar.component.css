@@ -54,8 +54,9 @@ h1 {
 
 :host ::ng-deep .igx-days-view__date--current .igx-days-view__date-inner {
     color: rgb(242, 240, 247);
-    border-color: #0e3d89 !important;
-    background-color: #0e3d89 
+    font-weight: bold;
+    border-color: #042966 !important;
+    background-color: #114ac7 
     
 }
 /* Meses */
@@ -196,6 +197,7 @@ h1 {
   background: linear-gradient(90deg, #1e6bf5, #0e3d89);
   padding: 1px;
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+  padding: 1.15rem;
 }
 
 .event-item {
