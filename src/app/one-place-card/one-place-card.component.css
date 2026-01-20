@@ -44,7 +44,6 @@
   z-index: 3;
   border-radius: 1rem;
   transition: opacity 0.25s ease;
-  
 }
 
 /* ocultar scrollbar webkit */
@@ -64,24 +63,25 @@
 /* ---- Escritorio (≥ 1200px): iconos visibles solo en hover ---- */
 /* ---- Ajuste estético para portátiles anchos si necesitas ---- */
 @media (min-width: 1200px){
-.accessibility-icons-bottom {
-  opacity: 0;
-  pointer-events: none;
+  .accessibility-icons-bottom {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .card-place:hover .accessibility-icons-bottom {
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+
+  .card-place:hover .overlay-content {
+    opacity: 1;
+  }
+
+  .card-title {
+    font-size: 1.4rem;
+  }
 }
 
-.card-place:hover .accessibility-icons-bottom {
-  opacity: 0.8;
-  pointer-events: auto;
-}
-
-.card-place:hover .overlay-content {
-  opacity: 1;
-}
-
-.card-title {
-  font-size: 1.4rem;
-}
-}
 /* ---- Pantallas intermedias (993px – 1199px): mantener comportamiento coherente ----
    Aquí no forzamos el overlay a 1 por defecto (se mostrará al hacer hover si quieres).
    Evitamos la regla previa que lo mostraba permanentemente en 1024–1366. */
@@ -109,8 +109,8 @@
     opacity: 1;
     top: auto;
   }
-
 }
+
 /* ---- Mobile / tablet (≤ 992px): iconos siempre visibles + overlay visible ---- */
 @media (max-width: 992px) {
   .accessibility-icons-bottom {
