@@ -1,4 +1,3 @@
-<!-- <div class="row">  -->
   <a [routerLink]="['/sitios', data.id]" class="text-decoration-none text-reset d-flex justify-content-center">
     <div class="card text-white col-12 overflow-hidden position-relative card-place">
       <img [src]="data.url" class="card-img h-100 object-fit-cover" [alt]="data.nombre">
@@ -8,11 +7,10 @@
         <i class="bi" [ngClass]="data.esFavorito ? 'bi-star-fill text-warning' : 'bi-star text-secondary'"></i>
       </button>
 
-      <div class="card-img-overlay overlay-content text-dark d-flex flex-column justify-content-center align-items-center">
+      <div class="card-img-overlay overlay-content text-dark d-flex flex-column justify-content-center">
         <p class="card-title text-center h1 fw-bold mb-0">{{data.nombre}}</p>
         <!-- Iconos de accesibilidad -->
         <app-accesibility-icons [data]="data"></app-accesibility-icons>
       </div>    
     </div>
   </a>
-<!-- </div> -->
