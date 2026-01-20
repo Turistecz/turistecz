@@ -22,9 +22,9 @@ a:hover{
 }
 
  .bg-txt{
-    background-color: rgb(242, 244, 245)
+    background-color: var(--secondary-text);
  }
-
+ 
  p{
     font-family: 'Inclusive Sans Variable';
     font-weight: 500;

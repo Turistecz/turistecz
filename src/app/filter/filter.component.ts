@@ -25,6 +25,7 @@ export class FilterComponent {
   filterOption: 'month' | 'future' | 'alpha' = 'future';
   showAdaptability: boolean = false;
   filtersExpanded: boolean = false;
+  
 
   @Input() events: EventItem[] = [];
   @Input() places: cardsHome[] = [];
@@ -220,6 +221,8 @@ export class FilterComponent {
   logueado: boolean = false;
   private sub!: Subscription;
 
+  showError = false;
+
   constructor(private router: Router, private http: HttpClient, private apiFilterService: FilterService,
     public loginService: LoginService){
     router.events.subscribe((val) => {
@@ -233,6 +236,19 @@ export class FilterComponent {
         }
       }
     })
+  }
+
+  onlyLetters(event: KeyboardEvent) {
+    const key = event.key;
+    const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]$/;
+    if (key === 'Enter') {
+      return;
+    }
+    if (!regex.test(key)) {
+      event.preventDefault();
+      this.showError = true;
+      setTimeout(() => { this.showError = false }, 2500);
+    }
   }
 
   toggleFilters(): void {
@@ -548,13 +564,12 @@ toggleCategory(catType: string) {
       this.selectedPlacesCategoriesMap[cat.type] = false;
       this.selectedMapCategoriesMap[cat.type] = false;
     });
-    this.applyEventFilters();
-    this.applyPlaceFilters();
-    this.applyMapFilters();
-
     this.accesibilityOptions.forEach(option => {
       this.selectedAccesibilityCategoriesMap[option.key] = false;
     });
+    this.applyEventFilters();
+    this.applyPlaceFilters();
+    this.applyMapFilters();
   }
 
   saveFilters() {
