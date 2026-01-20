@@ -61,7 +61,7 @@
 .fontFamilyText{
   font-family: 'Inclusive Sans Variable';
   font-weight: 500;
-  margin-bottom: 0;
+  /* margin-bottom: 0; */
   font-size: 1.01rem;
   }
 
@@ -102,6 +102,10 @@
   color:var(--bg-primary);
 }
 
+.small-accessibility{
+  font-size: 0.9rem !important;
+}
+
 @media (max-width: 1200px) {
   .imagen-monumento{
     height: 450px;
@@ -120,22 +124,16 @@
   
   .imagen-monumento{
     height: 300px;
-    max-width: 300px;
   }
 
-  #horario,
-  #contacto,
-  .direccion,
-  .precio,
-  .local,
-  #textPrice {
+  #horario {
     margin-left: auto;
     margin-right: auto;
-    width: 90%; /* o 100% si lo prefieres más ancho */
+    width: 96%;
   }
 
   #access{
-    width: 50%;
+    width: 55%;
     margin-left: auto;
     margin-right: auto;
   }
@@ -146,18 +144,11 @@
     margin-right: auto;
     width: 45%;
   }
-  
-  #descripcion{
-    width: 80%;
-    margin-left: 2.5rem;
-  }
 
   /* Asegura que la imagen no se desborde y esté centrada */
   #imagen-intro {
     display: block;
     margin: 0 auto;
-    width: 100%;
-    max-width: 85%;
   } 
 
   /* Iconos de accesibilidad: alinear al centro */
