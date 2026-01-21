@@ -20,11 +20,11 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 110%;
-  height: 80px;
-  background-size: 100% 80px;
+  width: 140%;
+  height: 120px;
+  background-size: 100% 120px;
   background-position: 60% 0%;
-  background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.28 2.17" preserveAspectRatio="none"><defs><linearGradient id="gradHome" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="%238ee3f7"/><stop offset="100%" stop-color="%23478ed1"/></linearGradient></defs><path d="M0 .5c3.07.55 9.27-.42 16.14 0 6.88.4 13.75.57 19.14-.11V0H0z" fill="url(%23gradHome)"/><path d="M0 1c3.17.8 7.29-.38 10.04-.55 2.75-.17 9.25 1.47 12.67 1.3 3.43-.17 4.65-.84 7.05-.87 2.4-.02 5.52.88 5.52.88V0H0z" opacity=".5" fill="url(%23gradHome)"/><path d="M0 1.9c2.0-.83 7.68-.3 11.79-.42 4.1-.12 6.86-.61 9.58-.28 2.73.33 5.61 1.17 8.61 1 3-.19 4.73-.82 5.3-.84V.1H0z" opacity=".5" fill="url(%23gradHome)"/></svg>');
+  background-image: url("data:image/svg+xml;charset=utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 35.28 2.17' preserveAspectRatio='none'><defs><linearGradient id='gradHome' x1='0%' y1='0%' x2='100%' y2='0%'><stop offset='0%' stop-color='%238ee3f7'/><stop offset='100%' stop-color='%23478ed1'/></linearGradient></defs><path d='M0 .5c3.07.55 9.27-.42 16.14 0 6.88.4 13.75.57 19.14-.11V0H0z' fill='url(%23gradHome)'/><path d='M0 1c3.17.8 7.29-.38 10.04-.55 2.75-.17 9.25 1.47 12.67 1.3 3.43-.17 4.65-.84 7.05-.87 2.4-.02 5.52.88 5.52.88V0H0z' opacity='.3' fill='url(%23gradHome)'/><path d='M0 1.9c2.0-.83 7.68-.3 11.79-.42 4.1-.12 6.86-.61 9.58-.28 2.73.33 5.61 1.17 8.61 1 3-.19 4.73-.82 5.3-.84V.1H0z' opacity='.5' fill='url(%23gradHome)'/></svg>");
   z-index: 2;
 }
 
@@ -42,10 +42,6 @@
   #subtitleHome{ font-size: 45px; }
   #sloganHome  { font-size: 28px; } 
 
-  .shapeHome::before {
-    height: 100px; 
-    background-size: 100% 100px;
-}
 }
 
 @media screen and (min-width: 940px) and (max-width: 1369px) {
@@ -56,12 +52,6 @@
   #titleHome   { font-size: 70px; }
   #subtitleHome{ font-size: 30px; }
   #sloganHome  { font-size: 20px; }
-
-  .shapeHome::before {
-    height: 80px; 
-    background-size: 100% 80px; 
-  }
-  
 }
 
 @media screen and (min-width: 831px) and (max-width: 939px){
@@ -83,7 +73,14 @@
   #titleHome   { font-size: 42px; }
   #subtitleHome{ font-size: 17px; }
   #sloganHome  { font-size: 11px; }
-  
+
+}
+/*Media Query para quelas olas en móviles se vean mejor*/
+@media (max-width:590px){
+  .shapeHome::before {
+  height: 50px;                 
+  background-size: 100% 59px; 
+  }
 }
 
 @media screen and (min-width: 430px) and (max-width: 530px){
@@ -94,7 +91,7 @@
   #titleHome   { font-size: 32px; }
   #subtitleHome{ font-size: 13px; }
   #sloganHome  { font-size: 10px; }
-  
+
 }
 
 @media screen and (max-width: 429px) {
@@ -106,9 +103,7 @@
   #titleHome   { font-size: 26px; }
   #subtitleHome{ font-size: 12px; }
   #sloganHome  { font-size: 9px; }
-}
 
-.shapeHome::before {
-  height: 50px;                 
-  background-size: 100% 50px;   
+ 
 }
+  
