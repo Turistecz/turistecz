@@ -51,7 +51,8 @@
         <div class="col-md-1 d-none d-md-block"></div>
 
         <div id="access" class="col-12 col-md-4 p-4 p-md-5 mt-4 mt-md-0 rounded-4 lastChildText">
-            <h2 class="text-light">Accesibilidad</h2>
+             <ng-container *ngIf="adaptabilityCategories.length > 0; else noAccessibility">
+            <h2 class="text-light text-center">Accesibilidad</h2>
 
             <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 text-start mb-1 mb-md-2 iconsAccessibility">
                 <i [ngClass]="['fas', category.icon, 'text-light']"></i>
@@ -61,7 +62,10 @@
                     <i *ngIf="category.info" class="fas fa-info-circle ms-1" title="Bajo petición"></i>
                 </p>
             </div>
-
+            </ng-container>
+            <ng-template #noAccessibility>
+               <p class="fontFamilyText text-center mb-0"> Accesibilidad no disponible </p>
+            </ng-template>
         </div>
     </div>
        
