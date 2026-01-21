@@ -20,7 +20,7 @@
 
     <!-- Ordenar -->
     <div class="mt-3" *ngIf="showOrder">
-      <h5 for="filterOption">Ordenar:</h5>
+      <h5 for="filterOption" class="titles"> Ordenar:</h5>
       <select id="filterOption" class="form-select" [(ngModel)]="filterOption" (change)="applyEventFilters(); applyPlaceFilters()">
         <option value="future">Cronológicamente</option>
         <option value="alpha">(A-Z)</option>
