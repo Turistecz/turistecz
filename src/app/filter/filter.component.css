@@ -45,13 +45,16 @@
   color: var(--color-primary);
   background-color: rgba(255, 255, 255, 0.856);
   font-family: 'inclusive-sans', sans-serif;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .botonGuardar:hover {
   background-color: var(--color-primary);
   color: white !important;
-  border: 2px solid white;
-
+  outline: 2px solid white;
+  outline-offset: -2px;
 }
 
 .option-sizes{
