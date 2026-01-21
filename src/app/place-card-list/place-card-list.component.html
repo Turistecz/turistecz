@@ -1,6 +1,6 @@
 <h2 class="display-3 fw-bold mb-3" id="tituloSitiosHome">Sitios</h2>
 <div class="container ">
-  <div class="row spacing">
+  <div class="row gx-5">
     <div class="col-12 col-md-6 col-lg-5 col-xl-3">
       <app-filter [places]="cards" [categories]="categories" 
       (filteredCards)="updatePlaces($event)" (noResultsPlacesEvent)="noResultsPlaces = $event"></app-filter>
