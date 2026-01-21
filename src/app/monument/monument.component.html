@@ -28,7 +28,7 @@
             <a id="verMasA" class="verMas contentVerMas fontFamilyText mb-4" (click)="expand()" role="button"></a>
 
             <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
-                <h2> Contacto </h2>
+                <h2 class="mt-4"> Contacto </h2>
                 <p class="fontFamilyText mb-4">{{monumentsFiltered[monumentNumber].phone}}</p>
             </div>
             <div class="direccion mt-4">
