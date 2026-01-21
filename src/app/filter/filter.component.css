@@ -54,6 +54,20 @@
 
 }
 
+.option-sizes{
+  font-size: 1.1rem;
+  font-family: "inclusive", system-ui;
+}
+
+.titles{
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+  font-size: 1.5rem;
+}
+
+.spacing-filter{
+  padding:30px;
+}
+
 /* Media Queries para pantallas pequeñas (tablets y móviles) */
 @media (max-width: 767px) {
   
