@@ -30,36 +30,6 @@
   height: 40px;
 }
 
-/* ---- Iconos de accesibilidad (siempre en DOM, control por opacity) ---- */
-.accessibility-icons-bottom {
-  gap: 0.4rem;
-  white-space: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 3;
-  border-radius: 1rem;
-  transition: opacity 0.25s ease;
-  
-}
-
-/* ocultar scrollbar webkit */
-
-
-.accessibility-icons-bottom i {
-  color: var(--color-secondary);
-  font-size: clamp(1rem, 3vw, 1.4rem);
-  transition: opacity 0.2s, transform 0.2s;
-}
-
-.accessibility-icons-bottom i:hover {
-  opacity: 1;
-  transform: scale(1.2);
-}
-
 /* Breakpoints de card title */
 .site-title {
   font-size: 1.6rem;
@@ -90,11 +60,6 @@
 /* ---- Escritorio (≥ 1200px): iconos visibles solo en hover ---- */
 /* ---- Ajuste estético para portátiles anchos si necesitas ---- */
 @media (min-width: 1200px){
-.accessibility-icons-bottom {
-  opacity: 0;
-  pointer-events: none;
-}
-
 .card-place:hover .accessibility-icons-bottom {
   opacity: 0.8;
   pointer-events: auto;
@@ -109,20 +74,9 @@
    Aquí no forzamos el overlay a 1 por defecto (se mostrará al hacer hover si quieres).
    Evitamos la regla previa que lo mostraba permanentemente en 1024–1366. */
 @media (min-width: 993px) and (max-width: 1199px) {
-  .accessibility-icons-bottom {
-    opacity: 0.8;
-    pointer-events: none;
-    margin-top: 0.2rem;
-  }
-
-  .accessibility-icons-bottom i{
-    font-size: 1.1rem;
-  }
-
-  .card-place:hover .accessibility-icons-bottom {
+  .card-place:hover{
     opacity: 0.8;
     pointer-events: auto;
-    
   }
 
  .card-place .overlay-content {
@@ -134,15 +88,6 @@
 }
 /* ---- Mobile / tablet (≤ 992px): iconos siempre visibles + overlay visible ---- */
 @media (max-width: 992px) {
-  .accessibility-icons-bottom {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .accessibility-icons-bottom i{
-    font-size: 1.2rem;
-  }
-  
   .card-place .overlay-content {
     padding-block: 1.3rem;
     height: max-content;
