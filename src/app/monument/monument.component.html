@@ -6,12 +6,12 @@
             <img [src]="monumento.imagenes[0].url" id="imagen-intro" class="imagen-monumento">
         </div>
         <div class="col-0 col-md-1"></div>
-        <div id="horario" class="col-12 rounded-4 col-md-4 p-3 p-md-5 d-flex text-center align-items-center shadow my-4">
-            <ng-container *ngIf="monumentsFiltered[monumentNumber]?.horario; else elseBlock">
-                <h2 class="mb-0">Horario</h2>
-                <p id="horarioP" class="fontFamilyText mb-0"> {{ cleanHorario }}</p>
-            </ng-container>
-            <ng-template #elseBlock> <p id="horarioP" class="fontFamilyText ">Horario no disponible</p></ng-template>
+        <div id="horario" class="col-12 rounded-4 col-md-4 p-3 p-md-4 d-flex text-center align-items-center shadow">
+         <ng-container *ngIf="monumentsFiltered[monumentNumber]?.horario; else elseBlock">
+          <h2 class="mb-0">Horario</h2>
+           <p id="horarioP" class="fontFamilyText"> {{ cleanHorario }}</p>
+         </ng-container>
+            <ng-template #elseBlock> <p id="horarioP" class="fontFamilyText fs-5">Horario no disponible</p></ng-template>
         </div>
     </div>
 
@@ -55,7 +55,8 @@
         <div class="col-md-1 d-none d-md-block"></div>
 
         <div id="access" class="col-12 col-md-4 p-4 p-md-5 mt-4 mt-md-0 rounded-4 lastChildText">
-            <h2 class="text-light">Accesibilidad</h2>
+             <ng-container *ngIf="adaptabilityCategories.length > 0; else noAccessibility">
+            <h2 class="text-light text-center">Accesibilidad</h2>
 
             <div *ngFor="let category of adaptabilityCategories" class="d-flex column-gap-2 text-start mb-1 mb-md-2 iconsAccessibility">
                 <i [ngClass]="['fas', category.icon, 'text-light']"></i>
@@ -65,7 +66,10 @@
                     <i *ngIf="category.info" class="fas fa-info-circle ms-1" title="Bajo petición"></i>
                 </p>
             </div>
-
+            </ng-container>
+            <ng-template #noAccessibility>
+               <p class="fontFamilyText text-center mb-0 fs-5"> Accesibilidad no disponible </p>
+            </ng-template>
         </div>
     </div>
    
