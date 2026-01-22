@@ -1,7 +1,7 @@
 <div class="container">
-    <h1 class="title-pag m-0">{{monumentsFiltered[monumentNumber]?.title}}</h1>
+    <h1 class="title-pag">{{monumentsFiltered[monumentNumber]?.title}}</h1>
 
-    <div class="row pt-4 align-items-center">
+    <div class="row align-items-center">
         <div  class="col-12 col-md-7">
             <img [src]="monumento.imagenes[0].url" id="imagen-intro" class="imagen-monumento">
         </div>
@@ -15,22 +15,21 @@
         </div>
     </div>
 
-    <div class="row pt-md-5 mt-3">
+    <div class="row mt-md-5">
 
         <div id="descripcion" class="col-12 col-md-7">
             <h2>Descripción</h2>
 
             <div class="wrapper" id="textWrapper">
-                <p class="collapseText">
+                <p class="collapseText fontFamilyText">
                     {{cleanDescription}}
                 </p>
             </div>
-            <a class="verMas contentVerMas" id="verMasA" (click)="expand()" role="button"></a>
+            <a id="verMasA" class="verMas contentVerMas fontFamilyText mb-4" (click)="expand()" role="button"></a>
 
             <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
                 <h2 class="mt-4"> Contacto </h2>
                 <p class="fontFamilyText mb-4">{{monumentsFiltered[monumentNumber].phone}}</p>
-                <!-- <br> -->
             </div>
             <div class="direccion mt-4">
                 <h2> Dirección </h2>
@@ -41,11 +40,16 @@
                 <h2 class="precio"> Precio </h2>
                 <p class="fontFamilyText mb-4" id="textPrice">{{cleanPrice}}</p>
             </div>
-
-            <div class="text-center text-md-start mb-4">
-                <a class="btn btn-primary"  href="{{monumentsFiltered[monumentNumber]?.uri}}" role="button">Más información</a>
-            </div>
-
+            <div class="col-12 col-md-6">
+            <div class="text-center text-md-start mt-4">
+                <a class="btn btn-primary btn-personalizado"
+                    role="button"
+                    (click)="abrirEnlace(monumentsFiltered[monumentNumber]?.uri)"
+                    (keydown.enter)="abrirEnlace(monumentsFiltered[monumentNumber]?.uri)">
+                    Más información
+                </a>
+            </div> 
+        </div>
         </div>
 
         <div class="col-md-1 d-none d-md-block"></div>
@@ -68,40 +72,10 @@
             </ng-template>
         </div>
     </div>
-       
-    <div  class="row pt-3">
-        <div class="col-12 col-md-6">
-            <div class="text-center text-md-start mt-4">
-            <a class="btn btn-primary btn-personalizado"
-                role="button"
-                (click)="abrirEnlace(monumentsFiltered[monumentNumber]?.uri)"
-                (keydown.enter)="abrirEnlace(monumentsFiltered[monumentNumber]?.uri)">
-                Más información
-            </a>
- <!--id="boton-info" -->
-            </div> 
-           
-            <br><br><br>
-            <div *ngIf="monumentsFiltered[monumentNumber]?.phone" id="contacto"> <!-- Este ngIF es para que no se muestre un titulo de contacto vacío si no hay tlf por parte de la api-->
-                <h2 class="mb-0"> Contacto </h2>
-                <p class="fontFamilyText ">{{monumentsFiltered[monumentNumber].phone}}</p>
-                <!-- <br> -->
-            </div>
-            <div class="direccion">
-                <h2 class="mb-0"> Dirección </h2>
-                <p class="fontFamilyText ">{{monumentsFiltered[monumentNumber]?.address}}</p>
-            </div>
-
-            <div *ngIf="monumentsFiltered[monumentNumber]?.price">
-                <h2 class="precio mb-0 "> Precio </h2>
-                <p class="fontFamilyText  " id="textPrice">{{cleanPrice}}</p>
-            </div>
-        </div>
-    </div>
    
     <div class="row pt-6">
         <div class="local col-12 col-md-12">
-            <h2 class="mb-4">Localización</h2>
+            <h2 class="mt-4 mb-3">Localización</h2>
             <app-map [data]="coords" [name]="monumentsFiltered[monumentNumber]?.title || ''"  [parent]="name"></app-map>
         </div>
     </div>

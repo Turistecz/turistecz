@@ -44,5 +44,5 @@
 /* Contenedor del título: siempre misma altura */
 .title-wrap{
   height: 6rem;
-  background-color: var(--color-secondary);
+  background: linear-gradient(90deg, #0e3d89, #1e6bf5);
 }
