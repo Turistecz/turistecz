@@ -7,9 +7,9 @@
         <p class="fw-bold mb-3 h4">{{ group.key }}</p>
          <div class="d-flex flex-wrap gap-2">
              <span
-                class="badge rounded px-2 p-2 botonBg fs-6 text-white"
+                class="badge rounded p-2 botonBg fs-6 text-white"
                 *ngFor="let filter of group.value">{{ filter.label }}
-                <i class="bi bi-x-circle ms-2" role="button" title="Quitar filtro" (click)="removeFilter(filter.key)">
+                <i class="bi bi-x-circle ms-1" role="button" title="Quitar filtro" (click)="removeFilter(filter.key)">
                  </i>
              </span>
         </div>
