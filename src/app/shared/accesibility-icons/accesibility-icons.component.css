@@ -1,5 +1,22 @@
 .accessibility-icons-bottom i {
   font-size: 1.2rem;
   color: var(--color-secondary);
-  margin: 0 2px;
+}
+
+@media (max-width: 1399px) {
+  .accessibility-icons-bottom i {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .accessibility-icons-bottom i {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .accessibility-icons-bottom i {
+    font-size: 1.2rem;
+  }
 }
