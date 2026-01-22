@@ -3,8 +3,8 @@
   <p *ngIf="datoMostrarRuta.id===0" class="text-center mt-4">Todavía no has creado ninguna ruta ¡Anímate a crear la primera!</p>
   <!-- Cuando el usuario ha creado rutas -->
   <!-- Cuando hay solo hay una tarjeta -->
-  <div class="row mb-3 justify-content-center" *ngIf="datosMostrarRutas.length===1">
-    <div class="col-12 col-md-7 col-lg-5 col-xl-5 mb-4"  *ngFor="let dato of datosMostrarRutas">
+  <div class="row justify-content-center" *ngIf="datosMostrarRutas.length===1">
+    <div class="col-12 col-md-7 col-lg-5 col-xl-5 mb-4 px-0"  *ngFor="let dato of datosMostrarRutas">
       <div class="card border-0 shadow h-100 d-flex flex-column">
         <div class="card-title bg-titulo p-4 d-flex justify-content-center align-items-center text-center text-white flex-grow-1">
           <div class="">
@@ -27,7 +27,7 @@
     </div>
   </div>
   <!-- Cuando hay más de una tarjeta -->
-  <div class="row mb-3 justify-content-center" *ngIf="datosMostrarRutas.length>1">
+  <div class="row justify-content-center" *ngIf="datosMostrarRutas.length>1">
     <div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-4" *ngFor="let dato of datosMostrarRutas">
       <div class="card border-0 shadow h-100 d-flex flex-column" >
         <div class="card-title bg-titulo p-4 d-flex justify-content-center align-items-center text-center text-white flex-grow-1">
@@ -116,7 +116,7 @@
 
   <!-- CREAR NUEVA RUTA -->
   <div class="row justify-content-center">
-    <button class="btn btn-primary mb-1 col-6 col-md-4 col-lg-4 col-xl-2 px-2 " data-bs-toggle="collapse" data-bs-target="#collapseFormNewRoute" aria-expanded="false" aria-controls="collapseExample">
+    <button class="btn btn-primary mb-1 col-9 col-md-5 col-lg-3" data-bs-toggle="collapse" data-bs-target="#collapseFormNewRoute" aria-expanded="false" aria-controls="collapseExample">
       Crear Nueva Ruta
     </button>
   </div>
