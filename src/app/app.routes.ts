@@ -95,6 +95,10 @@ export const routes: Routes = [
      loadComponent: () => import('./reset-password/reset-password.component').then(m => m.ResetPasswordComponent)   
     },
     {
+      path: 'save-filter',
+      loadComponent: () => import('./save-filter/save-filter.component').then(m => m.SaveFilterComponent)
+    },
+    {
     path: 'calendar',
     loadComponent: () => import('./calendar/calendar.component').then(m => m.CalendarComponent)
     },

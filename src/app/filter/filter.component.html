@@ -4,7 +4,7 @@
     {{ filtersExpanded ? 'Ocultar filtros' : 'Mostrar filtros' }}
   </button>
 <div class="row" >
-<div id="buscador" class="text-white" [class.expanded]="filtersExpanded">
+ <div id="buscador" class="text-white" [class.expanded]="filtersExpanded">
   <!-- Contenedor colapsable de filtros -->
   <div class="filters-collapsible p-3" [class.expanded]="filtersExpanded">
 
@@ -42,7 +42,6 @@
         </label>
       </div>
 
-
       <!-- Filtros de accesibilidad -->
       <ng-container *ngIf="showAdaptability">
         <div *ngFor="let group of groups" class="adaptability-group my-4">
@@ -60,8 +59,6 @@
             </label>
           </div>
         </div>
-
-        
       </ng-container>
 
       <div class="align-content-center d-flex justify-content-center justify-content-lg-around my-2" *ngIf="logueado && parentSitios">
@@ -70,4 +67,4 @@
     </div>
     
 </div>
-  </div>
+</div>

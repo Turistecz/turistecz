@@ -33,9 +33,7 @@
 
         <!-- Mi Filtro -->
         <div class="tab-pane fade" id="v-pills-filter" role="tabpanel" aria-labelledby="v-pills-filter-tab">
-          <div class="col-5 offset-3 mt-3">
-            <app-filter [categories]="categories" [categoryKeywords]="categorySitesKeywords" [userFavFilter]="userFavFilter"></app-filter>
-          </div>
+            <app-save-filter [categories]="categories"[userFavFilter]="userFavFilter" (draftChanged)="onDraftChanged($event)" (saveClicked)="guardarCambios()"></app-save-filter>
         </div>
 
         <div class="tab-pane fade" id="v-pills-agenda" role="tabpanel" aria-labelledby="v-pills-agenda-tab">
