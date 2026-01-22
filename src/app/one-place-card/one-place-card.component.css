@@ -21,7 +21,6 @@
 .card-title {
   font-family: "Baloo Bhaijaan 2 variable", system-ui;
   color: var(--color-primary);
-  margin-bottom: 15px;
 }
 
 .favorito-btn {
@@ -61,6 +60,33 @@
   transform: scale(1.2);
 }
 
+/* Breakpoints de card title */
+.site-title {
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+}
+
+@media (max-width: 1399px) {
+  .site-title {
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+  }
+}
+
+@media (max-width: 1199px) {
+  .site-title {
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-title {
+    font-size: 1.5rem;
+    line-height: 1.5rem;
+  }
+}
+
 /* ---- Escritorio (≥ 1200px): iconos visibles solo en hover ---- */
 /* ---- Ajuste estético para portátiles anchos si necesitas ---- */
 @media (min-width: 1200px){
@@ -77,11 +103,8 @@
 .card-place:hover .overlay-content {
   opacity: 1;
 }
+}
 
-.card-title {
-  font-size: 1.4rem;
-}
-}
 /* ---- Pantallas intermedias (993px – 1199px): mantener comportamiento coherente ----
    Aquí no forzamos el overlay a 1 por defecto (se mostrará al hacer hover si quieres).
    Evitamos la regla previa que lo mostraba permanentemente en 1024–1366. */
@@ -95,8 +118,6 @@
   .accessibility-icons-bottom i{
     font-size: 1.1rem;
   }
-  /* opcional: ajustar tamaño de título si quieres */
-  .card-title { font-size: 1.6rem; }
 
   .card-place:hover .accessibility-icons-bottom {
     opacity: 0.8;
@@ -132,8 +153,5 @@
   .card-place {
     border-radius: 30px;
     max-height: 430px;
-  }
-  .card-title{
-    font-size: 1.4rem;
   }
 }
