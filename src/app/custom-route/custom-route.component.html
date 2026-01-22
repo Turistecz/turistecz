@@ -2,10 +2,10 @@
   <!-- Cuando el usuario no ha creado ninguna ruta -->
   <p *ngIf="datoMostrarRuta.id===0" class="text-center mt-4">Todavía no has creado ninguna ruta ¡Anímate a crear la primera!</p>
   <!-- Cuando el usuario ha creado rutas -->
-  <div class="row mb-3 justify-content-center">
-    <!-- Cuando hay solo hay una tarjeta -->
-    <div class="col-12 col-md-7 col-lg-6 col-xl-6 mb-4" *ngIf="datosMostrarRutas.length===1">
-      <div class="card border-0 shadow h-100 d-flex flex-column" *ngFor="let dato of datosMostrarRutas">
+  <!-- Cuando hay solo hay una tarjeta -->
+  <div class="row mb-3 justify-content-center" *ngIf="datosMostrarRutas.length===1">
+    <div class="col-12 col-md-7 col-lg-6 col-xl-6 mb-4"  *ngFor="let dato of datosMostrarRutas">
+      <div class="card border-0 shadow h-100 d-flex flex-column">
         <div class="card-title bg-titulo p-4 d-flex justify-content-center align-items-center text-center text-white flex-grow-1">
           <div class="">
             <h3 class="fw-bold"> {{ dato.titulo_ruta }} </h3>
@@ -25,9 +25,11 @@
         </div>
       </div>
     </div>
-    <!-- Cuando hay más de una tarjeta -->
-    <div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-4" *ngIf="datosMostrarRutas.length>1">
-      <div class="card border-0 shadow h-100 d-flex flex-column" *ngFor="let dato of datosMostrarRutas">
+  </div>
+  <!-- Cuando hay más de una tarjeta -->
+  <div class="row mb-3 justify-content-center" *ngIf="datosMostrarRutas.length>1">
+    <div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-4" *ngFor="let dato of datosMostrarRutas">
+      <div class="card border-0 shadow h-100 d-flex flex-column" >
         <div class="card-title bg-titulo p-4 d-flex justify-content-center align-items-center text-center text-white flex-grow-1">
           <div class="">
             <h3 class="fw-bold"> {{ dato.titulo_ruta }} </h3>
@@ -47,8 +49,7 @@
         </div>
       </div>
     </div>
-    </div>
-
+  </div>
   <!-- MODAL EDITAR RUTA -->
   <div class="modal fade" id="editRoute" tabindex="-1" aria-labelledby="editRoute" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
