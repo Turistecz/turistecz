@@ -8,11 +8,14 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { CustomRouteComponent } from "../custom-route/custom-route.component";
 import { CalendarComponent } from "../calendar/calendar.component";
+import { Category, FilterItem } from '../models/filter.model';
+import { categories } from '../models/filter.data';
+import { FilterComponent } from '../filter/filter.component';
 
 @Component({
   selector: 'app-mi-perfil',
   standalone: true,
-  imports: [CommonModule, RouterModule, OnePlaceCardComponent, CalendarComponent, CustomRouteComponent],
+  imports: [CommonModule, RouterModule, OnePlaceCardComponent, CalendarComponent, CustomRouteComponent, FilterComponent],
   templateUrl: './mi-perfil.component.html',
   styleUrls: ['./mi-perfil.component.css']
 })
@@ -20,6 +23,78 @@ export class MiPerfilComponent implements OnInit {
 
   favoritos: Sitio[] = [];
   usuario: any;
+
+  categories: Category[] = categories;
+
+  categoriesSites: string[] = [
+    'Museos/Exposiciones',
+    'Monumentos/Esculturas',
+    'Zonas verdes',
+    'Arquitectura',
+    'Arte mudéjar',
+    'Arte romano',
+  ];
+
+  // Palabras clave asociadas a cada categoria
+  categorySitesKeywords: { [key: string]: string[] } = {
+    'Museos/Exposiciones': [
+      'museo',  'museum', 'lonja',
+      'caixaforum', 'infanta', 'historias', 'acuario'
+    ],
+    'Monumentos/Esculturas': [
+      'puerta', 'estatua', 'monumento', 'murallas',
+      'escultura'
+    ],
+    'Zonas verdes': [
+      'parque', 'canal'
+    ],
+    'Arquitectura': [
+      'basilica', 'iglesia', 'palacio', 'casa',
+      'catedral', 'puente', 'zuda', 'mercado'
+    ],
+    'Arte mudéjar': [
+      'aljaferia', 'la seo', 'san pablo', 'magdalena'
+    ],
+    'Arte romano':[
+      'murallas', 'caesaraugusta',
+    ]
+  };
+
+  favFilters: FilterItem[] = [];
+  userFavFilter: FilterItem = {
+    features: [
+      {id: false},
+      {museosExposiciones: false},
+      {monumentosEsculturas: false},
+      {zonasVerdes: false},
+      {arquitectura: false},
+      {arteMudejar: false},
+      {arteRomano: false},
+      {rampas: false},
+      {ascensores: false},
+      {puertasAutomaticas: false},
+      {escalerasMecanicas: false},
+      {serviciosAdaptados: false},
+      {parkingAdaptado: false},
+      {mostradorAdaptado: false},
+      {sinBarrerasArquitectonicas: false},
+      {braille: false},
+      {interpreteLenguaSignos: false},
+      {videosSubtitulados: false},
+      {ayudasVisuales: false},
+      {bancos: false},
+      {ayudaMovilidad: false},
+      {lenguajeSimple: false},
+      {accesoPerrosGuias: false},
+      {accesoPerrosAsistencia: false},
+      {salaLactancia: false},
+      {cambiador: false},
+      {visitasGrupales: false},
+      {guiasTuristicosMultiidioma: false},
+      {elementosAudiovisualesMultiidioma: false},
+      {documentacionMultiidioma: false},
+    ]
+  }
 
   constructor(
     private loginService: LoginService,

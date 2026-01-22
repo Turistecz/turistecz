@@ -1,7 +1,7 @@
 /* Shape que aparece al final del footer */
 .textFooter{
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-  color: var(--color-primary);
+  color: black;
 }
 
 .footer-shape-bottom {
@@ -29,11 +29,6 @@
 }
 .logoInaem img{
   max-width: 130px;
-}
-
-.blog i, p{
-  color:#296dad;
-  
 }
 
 .blog p{
@@ -71,10 +66,7 @@
   }
 
   .blog p{
-
     padding-right: 0.1rem;
   }
 
 }
-
-
