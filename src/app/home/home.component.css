@@ -1,14 +1,12 @@
 #titleHome, #subtitleHome, #sloganHome {
-  font-family: "Baloo Bhaijaan 2 Variable", system-ui; 
+  font-family: "Baloo Bhaijaan 2 Variable", system-ui;
 }
 
-#titleHome {
-  margin-bottom: -5px;   
-} 
 
-#subtitleHome {
-  margin-bottom: 5px;  
+#titleHome, #subtitleHome, #sloganHome {
+  margin: 0;
 }
+
 
 .shapeHome {
   overflow: hidden;
@@ -28,53 +26,51 @@
   z-index: 2;
 }
 
+
+.shapeHome::before {
+  height: 50px;
+  background-size: 100% 50px;
+}
+
+
 .shapeHome .text-box {
-  transform: translateY(-50%);
-  text-align: right;  
-}
+  position: absolute;
+  text-align: right;
+  color: #fff;
 
-@media screen and (min-width: 1370px) {
-  .shapeHome .text-box {
-    right: 10%;
-    top: 40%;
-  }
-  #titleHome   { font-size: 90px; }
-  #subtitleHome{ font-size: 45px; }
-  #sloganHome  { font-size: 28px; } 
-
-}
-
-@media screen and (min-width: 940px) and (max-width: 1369px) {
-  .shapeHome .text-box {
-    right: 5%;
-    top: 45%;
-  }
-  #titleHome   { font-size: 70px; }
-  #subtitleHome{ font-size: 30px; }
-  #sloganHome  { font-size: 20px; }
-}
-
-@media screen and (min-width: 831px) and (max-width: 939px){
-  .shapeHome .text-box {
-    right: 5%;
-    top: 50%;
-  }
-  #titleHome   { font-size: 55px; }
-  #subtitleHome{ font-size: 25px; }
-  #sloganHome  { font-size: 15px; }
   
+  transform: translateY(-50%);
+
+  
+  top: clamp(40%, 46vw, 52%);
+  right: clamp(1rem, 5vw, 10%);
+
+  
+  max-width: min(90vw, 40rem);
 }
 
-@media screen and (min-width: 531px) and (max-width: 830px){
-  .shapeHome .text-box {
-    right: 20px;
-    top: 50%;
-  }
-  #titleHome   { font-size: 42px; }
-  #subtitleHome{ font-size: 17px; }
-  #sloganHome  { font-size: 11px; }
 
+#titleHome {
+  font-size: clamp(1.6rem, 4.5vw, 5.6rem);   
+  line-height: 0.95;                        
 }
+
+#subtitleHome {
+  font-size: clamp(0.75rem, 2.2vw, 2.8rem); 
+  line-height: 1.05;
+  
+  
+  margin-top: clamp(0.10rem, 0.6vw, 0.35rem);
+}
+
+#sloganHome {
+  font-size: clamp(0.55rem, 1.3vw, 1.75rem); 
+  line-height: 1.25;
+
+  
+  margin-top: clamp(0.35rem, 1vw, 0.9rem);
+}
+
 /*Media Query para quelas olas en móviles se vean mejor*/
 @media (max-width:590px){
   .shapeHome::before {
@@ -82,28 +78,3 @@
   background-size: 100% 59px; 
   }
 }
-
-@media screen and (min-width: 430px) and (max-width: 530px){
-  .shapeHome .text-box {
-    right: 20px;
-    top: 50%;
-  }
-  #titleHome   { font-size: 32px; }
-  #subtitleHome{ font-size: 13px; }
-  #sloganHome  { font-size: 10px; }
-
-}
-
-@media screen and (max-width: 429px) {
-  .shapeHome .text-box  {
-    right: 15px;  
-    top: 52%;
-  }
-
-  #titleHome   { font-size: 26px; }
-  #subtitleHome{ font-size: 12px; }
-  #sloganHome  { font-size: 9px; }
-
- 
-}
-  
