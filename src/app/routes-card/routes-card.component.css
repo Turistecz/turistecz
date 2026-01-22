@@ -6,6 +6,10 @@ img{
     object-fit: cover;      
 }
 
+.pSpace{
+    text-box-trim:trim-start;
+}
+
 .card-title {
     color: var(--color-primary);
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
@@ -35,38 +39,21 @@ img{
     .card-title{
         font-size: 2rem;
     }
-
-    .card-subtitle{
-        font-size: 1.5rem;
-    }
 } 
 
 @media (min-width:768px) and (max-width: 992px) {
     .card-title{
-        font-size: 1.9rem;
-    }
-
-    .card-subtitle{
-        font-size: 1.4rem;
-     
+        font-size: 1.5rem;
     }
 
     .card-body-r{
-        padding-block: 0.8rem;
+        padding-block: 0.5rem;
         padding-inline: 0;
-        
     }
-}
 
-
-@media (max-width: 767px){ 
-    .card-title{
-        font-size: 2.2rem; 
-    } 
     .card-subtitle{
-        font-size: 1.4rem; 
+        font-size: 1rem !important;
+        padding-left: 5% ;
+        padding-right: 5% ;
     }
-
-
-   
 }
