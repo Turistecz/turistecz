@@ -4,7 +4,7 @@
   <!-- Cuando el usuario ha creado rutas -->
   <!-- Cuando hay solo hay una tarjeta -->
   <div class="row mb-3 justify-content-center" *ngIf="datosMostrarRutas.length===1">
-    <div class="col-12 col-md-7 col-lg-6 col-xl-6 mb-4"  *ngFor="let dato of datosMostrarRutas">
+    <div class="col-12 col-md-7 col-lg-5 col-xl-5 mb-4"  *ngFor="let dato of datosMostrarRutas">
       <div class="card border-0 shadow h-100 d-flex flex-column">
         <div class="card-title bg-titulo p-4 d-flex justify-content-center align-items-center text-center text-white flex-grow-1">
           <div class="">
@@ -20,8 +20,8 @@
           </ol>
         </div>
         <div class="m-4 mt-0 btn-group">
-          <button type="button" class="btn btn-secondary border-0 btn-editar d-inline col-6 me-3 rounded-2" data-bs-toggle="modal" data-bs-target="#editRoute" (click)="copiarDatosRuta(dato.id,dato.titulo_ruta,dato.descripcion_ruta)">Editar ruta</button>
-          <button type="button" class="btn btn-danger btn-eliminar d-inline col-6 rounded-2" data-bs-toggle="modal" data-bs-target="#deleteRoute" (click)="copiarIdRuta(dato.id)">Eliminar ruta</button>
+          <button type="button" class="btn btn-secondary border-0 btn-editar d-inline col-6 me-3 rounded-2" data-bs-toggle="modal" data-bs-target="#editRoute" (click)="copiarDatosRuta(dato.id,dato.titulo_ruta,dato.descripcion_ruta)">Editar</button>
+          <button type="button" class="btn btn-danger btn-eliminar d-inline col-6 rounded-2" data-bs-toggle="modal" data-bs-target="#deleteRoute" (click)="copiarIdRuta(dato.id)">Eliminar</button>
         </div>
       </div>
     </div>
