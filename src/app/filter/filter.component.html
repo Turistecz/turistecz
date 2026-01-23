@@ -1,12 +1,12 @@
 
-  <button class="filter-toggle-btn show-button d-lg-none ms-auto" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
+  <button class="filter-toggle-btn show-button d-lg-none ms-auto mb-2" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
     <i class="bi" [ngClass]="filtersExpanded ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
     {{ filtersExpanded ? 'Ocultar filtros' : 'Mostrar filtros' }}
   </button>
-<div class="row" >
- <div id="buscador" class="text-white" [class.expanded]="filtersExpanded">
+<div class="row mx-2 mx-md-0" >
+<div id="buscador" class="text-white rounded-4" [class.expanded]="filtersExpanded">
   <!-- Contenedor colapsable de filtros -->
-  <div class="filters-collapsible p-3" [class.expanded]="filtersExpanded">
+  <div class="filters-collapsible spacing-filter " [class.expanded]="filtersExpanded">
 
     <!-- Buscador -->
     <div class="d-flex align-items-center">
@@ -20,7 +20,7 @@
 
     <!-- Ordenar -->
     <div class="mt-3" *ngIf="showOrder">
-      <h5 for="filterOption">Ordenar:</h5>
+      <h5 for="filterOption" class="titles"> Ordenar:</h5>
       <select id="filterOption" class="form-select" [(ngModel)]="filterOption" (change)="applyEventFilters(); applyPlaceFilters()">
         <option value="future">Cronológicamente</option>
         <option value="alpha">(A-Z)</option>
@@ -29,7 +29,8 @@
     </div>
 
     <!-- Filtros de categorías -->
-      <div class="form-check mb-1 mt-2" *ngFor="let cat of categories">
+      <h5 class="mt-4 titles">Categorías</h5>
+      <div class="form-check mb-1" *ngFor="let cat of categories">
         <input
           class="form-check-input"
           type="checkbox"
@@ -37,7 +38,7 @@
           (change)="toggleCategory(cat.type)"
           id="check-{{ cat.type }}"
         />
-        <label class="form-check-label fs-5" [for]="'check-' + cat.type">
+        <label class="form-check-label option-sizes" [for]="'check-' + cat.type">
           {{ cat.name }}
         </label>
       </div>
@@ -45,7 +46,7 @@
       <!-- Filtros de accesibilidad -->
       <ng-container *ngIf="showAdaptability">
         <div *ngFor="let group of groups" class="adaptability-group my-4">
-          <h5>{{ group | titlecase }}</h5>
+          <h5 class="mt-4 titles">{{ group | titlecase }}</h5>
           <div class="form-check mb-1" *ngFor="let option of getOptionsByGroup(group)">
             <input
               class="form-check-input"
@@ -54,7 +55,7 @@
               (change)="toggleAccessibility(option.key)"
               id="acc-{{ option.key }}"
             />
-            <label class="form-check-label fs-5" [for]="'acc-' + option.key">
+            <label class="form-check-label option-sizes" [for]="'acc-' + option.key">
               {{ option.label }}
             </label>
           </div>
