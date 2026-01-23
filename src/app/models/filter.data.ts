@@ -3,12 +3,12 @@ import { Category } from "./filter.model";
 export const categories: Category[] = [
     {
         type: 'museosExposiciones',
-        name: 'Museos/Exposiciones',
+        name: 'Museos, exposiciones',
         keywords: ['museo', 'museum', 'lonja'],
     },
     {
         type: 'monumentosEsculturas',
-        name: 'Monumentos/Esculturas',
+        name: 'Monumentos, esculturas',
         keywords: ['puerta', 'estatua', 'murallas'],
     },
     {

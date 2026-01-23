@@ -64,7 +64,7 @@ export class FilterComponent {
     { key: 'sala_lactancia', label: 'Sala de lactancia', groups: ['familiar'] },
     { key: 'cambiador', label: 'Cambiador', groups: ['familiar'] },
     { key: 'parking_adaptado', label: 'Parking adaptado', groups: ['accesibilidad'] },
-    { key: 'bancos', label: 'Bancos/asientos', groups: ['servicios'] },
+    { key: 'bancos', label: 'Bancos, asientos', groups: ['servicios'] },
     { key: 'mostrador_adaptado', label: 'Mostrador adaptado', groups: ['accesibilidad'] },
     { key: 'sin_barreras_arquitectonicas', label: 'Sin barreras arquitectónicas', groups: ['accesibilidad'] },
     { key: 'braille', label: 'Braille', groups: ['accesibilidad' ] },
