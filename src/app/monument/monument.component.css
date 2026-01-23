@@ -27,14 +27,9 @@
   color: var(--color-primary);
 }
 
-#descripcion{
-  font-size: large;
-}
-
 .wrapper {
   max-height: 100px;
   overflow: hidden;
-
   transition: max-height 0.7s ease-in-out;
 }
 
@@ -56,12 +51,12 @@
   text-decoration: none; 
   display: inline;
   color: var(--color-primary);
-  }
+}
 
 .fontFamilyText{
   font-family: 'Inclusive Sans Variable';
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 1rem !important;
 }
 
 .lastChildText > div:last-child{
@@ -162,6 +157,5 @@
   
   #text-description, #textPrice{
     font-size: large;
-    text-align: justify;
   }
 }
