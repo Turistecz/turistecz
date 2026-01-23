@@ -13,11 +13,12 @@ img{
 .card-title {
     color: var(--color-primary);
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
-    text-align: center; 
 }
 
 .card-subtitle{
     font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+    text-align: center;
+    font-size: 25px;
 }
 
 .container-routes:hover{
@@ -34,7 +35,6 @@ img{
     background-color: var(--color-primary);
 }
 
-
 @media (min-width: 993px)  {
     .card-title{
         font-size: 2rem;
@@ -43,16 +43,11 @@ img{
 
 @media (min-width:768px) and (max-width: 992px) {
     .card-title{
-        font-size: 1.5rem;
-    }
-
-    .card-body-r{
-        padding-block: 0.5rem;
-        padding-inline: 0;
+        font-size: 1.6rem;
     }
 
     .card-subtitle{
-        font-size: 17px;
+        font-size: 18px;
+        padding: 2%;
     }
-
 }
