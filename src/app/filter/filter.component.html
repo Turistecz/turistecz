@@ -9,9 +9,9 @@
   <div class="filters-collapsible spacing-filter " [class.expanded]="filtersExpanded">
 
     <!-- Buscador -->
-    <div class="d-flex align-items-center">
-      <input type="text" class="form-control" placeholder="Buscar" [(ngModel)]="searchText" (keypress)="onlyLetters($event)" (keyup.enter)="onSearch()"/>
-      <button class="btn btn-outline-light mx-2 my-1" (click)="onSearch()"><i class="bi bi-search"></i></button>
+    <div class=" buscadorBox d-flex align-items-center">
+      <input type="text" class=" barraBuscar form-control" placeholder="Buscar" [(ngModel)]="searchText" (keypress)="onlyLetters($event)" (keyup.enter)="onSearch()"/>
+      <button class="btn btn-outline-light me-2 my-2" (click)="onSearch()"><i class="bi bi-search"></i></button>
       <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i></button>
     </div>
 
