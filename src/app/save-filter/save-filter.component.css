@@ -1,0 +1,19 @@
+*{
+  font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
+}
+
+h3{
+  color: var(--color-primary);
+}
+
+.botonBg{
+  background-color: #1e5cbe;
+}
+
+p{
+  color: #333131;
+}
+
+hr{
+  color: rgba(83, 75, 192, 0.671);
+}

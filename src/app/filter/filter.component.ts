@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { cardsHome } from '../place-card/place-card.model';
 import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
 import { Category, CleanFilter, FilterItem } from '../models/filter.model';
-import { firstValueFrom, map, Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { MonumentItem } from '../models/monument.model';
 import { FilterService } from '../services/filter.service';
 import { LoginService } from '../services/login.service';
@@ -347,12 +347,14 @@ ngOnChanges(changes: SimpleChanges) {
   }
 
   async loadUserFilter() {
-    const usuarioStr = localStorage.getItem('usuario');
-    if (usuarioStr){
-      const usuario = JSON.parse(usuarioStr);
-      this.newUserFavFilter = await firstValueFrom(this.apiFilterService.getFilter(Number(usuario.id)));
-    }
+  const usuarioStr = localStorage.getItem('usuario');
+  if (usuarioStr){
+    const usuario = JSON.parse(usuarioStr);
+    this.newUserFavFilter = await firstValueFrom(
+      this.apiFilterService.getFilter(Number(usuario.id))
+    );
   }
+}
 
   camelToUnderscore(key: String) {
     return key.replace( /([A-Z])/g, "_$1").toLowerCase();
@@ -594,7 +596,7 @@ toggleCategory(catType: string) {
 
       this.apiFilterService.addNewFilter(this.newUserFavFilter).subscribe({
         next: res => {
-          alert("Los filtros se han guardado correctamente.");
+          alert("Los filtros se han guardado correctamente en tu perfil.");
         },
         error: (error: any) => {
           alert("Ocurrió un error al intentar guardar los filtros, vuelve a intentarlo más adelante.");

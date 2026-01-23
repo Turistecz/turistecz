@@ -5,17 +5,19 @@ import { OnePlaceCardComponent } from '../one-place-card/one-place-card.componen
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { forkJoin } from 'rxjs';
+import { firstValueFrom, forkJoin } from 'rxjs';
 import { CustomRouteComponent } from "../custom-route/custom-route.component";
 import { CalendarComponent } from "../calendar/calendar.component";
-import { Category, FilterItem } from '../models/filter.model';
+import { Category, CleanFilter, FilterItem } from '../models/filter.model';
 import { categories } from '../models/filter.data';
-import { FilterComponent } from '../filter/filter.component';
+import { SaveFilterComponent } from "../save-filter/save-filter.component";
+import { FilterService } from '../services/filter.service';
 
 @Component({
   selector: 'app-mi-perfil',
   standalone: true,
-  imports: [CommonModule, RouterModule, OnePlaceCardComponent, CalendarComponent, CustomRouteComponent, FilterComponent],
+  imports: [CommonModule, RouterModule, OnePlaceCardComponent, CalendarComponent, CustomRouteComponent, SaveFilterComponent],
+  providers: [FilterService],
   templateUrl: './mi-perfil.component.html',
   styleUrls: ['./mi-perfil.component.css']
 })
@@ -25,6 +27,9 @@ export class MiPerfilComponent implements OnInit {
   usuario: any;
 
   categories: Category[] = categories;
+
+  draftFilter!: CleanFilter;
+  userFavFilter!: CleanFilter;
 
   categoriesSites: string[] = [
     'Museos/Exposiciones',
@@ -60,51 +65,13 @@ export class MiPerfilComponent implements OnInit {
     ]
   };
 
-  favFilters: FilterItem[] = [];
-  userFavFilter: FilterItem = {
-    features: [
-      {id: false},
-      {museosExposiciones: false},
-      {monumentosEsculturas: false},
-      {zonasVerdes: false},
-      {arquitectura: false},
-      {arteMudejar: false},
-      {arteRomano: false},
-      {rampas: false},
-      {ascensores: false},
-      {puertasAutomaticas: false},
-      {escalerasMecanicas: false},
-      {serviciosAdaptados: false},
-      {parkingAdaptado: false},
-      {mostradorAdaptado: false},
-      {sinBarrerasArquitectonicas: false},
-      {braille: false},
-      {interpreteLenguaSignos: false},
-      {videosSubtitulados: false},
-      {ayudasVisuales: false},
-      {bancos: false},
-      {ayudaMovilidad: false},
-      {lenguajeSimple: false},
-      {accesoPerrosGuias: false},
-      {accesoPerrosAsistencia: false},
-      {salaLactancia: false},
-      {cambiador: false},
-      {visitasGrupales: false},
-      {guiasTuristicosMultiidioma: false},
-      {elementosAudiovisualesMultiidioma: false},
-      {documentacionMultiidioma: false},
-    ]
-  }
-
   constructor(
     private loginService: LoginService,
     private favoritosService: FavoritosService,
-    private http: HttpClient
+    private http: HttpClient, private filterService: FilterService
   ) {}
 
-  
-
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const usuarioLS = localStorage.getItem('usuario');
     if (usuarioLS) {
       this.usuario = JSON.parse(usuarioLS);
@@ -114,6 +81,7 @@ export class MiPerfilComponent implements OnInit {
     }
 
     this.cargarFavoritosConImagen();
+    await this.cargarFiltroUsuario();
 
     const chatbotTab = document.getElementById('v-pills-chatbot-tab');
 
@@ -175,7 +143,30 @@ export class MiPerfilComponent implements OnInit {
     this.favoritos = this.favoritos.filter(f => f.id !== favoritoId);
   }
 
-  
+  async cargarFiltroUsuario() {
+  try {
+    this.userFavFilter = await firstValueFrom(
+    this.filterService.getFilter(this.usuario.id)
+    );
+    console.log('Filtro usuario:', this.userFavFilter);
+  } catch (err) {
+    console.error('Error cargando filtro', err);
+  }
+}
+
+  onDraftChanged(filter: CleanFilter) {
+    this.draftFilter = { ...filter }; // copia
+  }
+
+  guardarCambios() {
+    if (!this.draftFilter) return;
+
+    this.filterService.addNewFilter(this.draftFilter).subscribe({
+      next: () => alert('Filtros actualizados correctamente'),
+      error: () => alert('Error al guardar')
+    });
+  }
+
   ngOnDestroy(): void {
     this.loginService.destroyLandbot();
   }
