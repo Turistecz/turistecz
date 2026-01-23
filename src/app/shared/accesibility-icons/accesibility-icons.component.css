@@ -1,17 +1,5 @@
-.accessibility-icons-bottom i {
+.accessibility-icons {
   font-size: 1.2rem;
   color: var(--color-secondary);
   margin: 0 2px;
-}
-
-.icons-bottom{
-  bottom: 15px;
-  left: 8%;
-  right: 8%;
-}
-
-@media (min-width: 1200px) {
-  .icons-bottom{
-    position: absolute;
-  }
 }
