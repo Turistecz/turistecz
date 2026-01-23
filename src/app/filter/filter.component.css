@@ -73,10 +73,11 @@
 
 /* Media Queries para pantallas pequeñas (tablets y móviles) */
 @media (max-width: 767px) {
-  
+
   /* Mostrar el botón toggle */
   .filter-toggle-btn {
     display: block;
+
   }
 
   #buscador {
@@ -91,6 +92,7 @@
       opacity 0.25s ease-out,
       transform 0.45s ease-out;
   }
+ 
 
   #buscador.expanded {
     max-height: 100vh;
@@ -127,5 +129,18 @@
   .show-button{
     font-size: 1rem;
   }
-
+  
+}
+@media (min-width:768px){
+  .buscadorBox{
+    flex-wrap: wrap;
+  }
+    .spacing-filter{
+  padding: 1rem;
+}
+@media(min-width: 768px) and (max-width: 1000px){
+  .spacing-filter{
+    padding: 1.5rem;
+  }
+} 
 }

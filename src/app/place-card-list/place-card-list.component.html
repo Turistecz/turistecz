@@ -1,12 +1,12 @@
 <h2 class="display-3 fw-bold mb-3" id="tituloSitiosHome">Sitios</h2>
 <div class="container ">
   <div class="row gx-5">
-    <div class="col-12 col-md-6 col-lg-5 col-xl-3">
+    <div class="col-12 col-md-5 col-lg-5 col-xl-3">
       <app-filter [places]="cards" [categories]="categories" 
       (filteredCards)="updatePlaces($event)" (noResultsPlacesEvent)="noResultsPlaces = $event"></app-filter>
     </div>
 
-    <div class="containerCard col-12 col-md-6 col-lg-7 col-xl-9 justify-content-center" *ngIf="sortedCards.length > 0; else noResultsTpl">
+    <div class="containerCard col-12 col-md-7 col-lg-7 col-xl-9 justify-content-center" *ngIf="sortedCards.length > 0; else noResultsTpl">
       <div *ngFor="let cardHome of pagedPlaces">
         <app-one-place-card [data]="cardHome"></app-one-place-card>
       </div>
