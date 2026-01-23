@@ -84,8 +84,8 @@
     opacity: 1;
     top: auto;
   }
-
 }
+
 /* ---- Mobile / tablet (≤ 992px): iconos siempre visibles + overlay visible ---- */
 @media (max-width: 992px) {
   .card-place .overlay-content {
