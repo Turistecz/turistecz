@@ -83,7 +83,8 @@
 #horarioP{
   font-size:1rem;
   text-align: left;
-  color: var(--text-primary)
+  color: var(--text-primary);
+  overflow-wrap: break-word;
 }
 
 #descripcion{
