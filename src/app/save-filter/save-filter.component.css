@@ -17,3 +17,7 @@ p{
 hr{
   color: rgba(83, 75, 192, 0.671);
 }
+
+.saved-filters-container > .filterGroupWrapper > .filter-group:last-child > hr  {
+  display:none;
+}
