@@ -39,6 +39,7 @@
 .filters-collapsible {
   transition: all 0.3s ease-out;
   overflow: hidden;
+  margin-top: 0.25rem;
 }
 
 .botonGuardar{
@@ -56,11 +57,31 @@
   outline: 2px solid white;
   outline-offset: -2px;
 }
+.buscadorBox{
+  gap: 0.5rem;              
+}
+
+.barraBuscar{
+  flex: 1 1 auto;
+  min-width: 0;           
+}
 
 .option-sizes{
   font-size: 1.1rem;
   font-family: "inclusive", system-ui;
 }
+/* Separación estándar debajo del panel de filtros */
+#buscador{
+  margin-bottom: 0.75rem;
+}
+
+/* En móvil tú ya metes margin-block: 1rem cuando expanded; eso quizá “infla” */
+@media (max-width: 767px){
+  #buscador.expanded{
+    margin-bottom: 0.75rem;   /* en vez de margin-block (o reduce ese valor) */
+  }
+}
+
 
 .titles{
   font-family: 'Baloo Bhaijaan 2 Variable', system-ui;
@@ -68,8 +89,18 @@
 }
 
 .spacing-filter{
-  padding: 2rem;
+  padding: 1.25rem 1.25rem;      
+  padding-block: 1.5rem;          
 }
+
+
+@media (min-width: 992px){
+  .spacing-filter{
+    padding: 1rem 1.25rem;
+    padding-block: 1.25rem;
+  }
+}
+
 
 /* Media Queries para pantallas pequeñas (tablets y móviles) */
 @media (max-width: 767px) {
@@ -138,9 +169,10 @@
     .spacing-filter{
   padding: 1rem;
 }
+}
 @media(min-width: 768px) and (max-width: 1000px){
   .spacing-filter{
-    padding: 1.5rem;
+    padding: 1rem;
   }
 } 
-}
+
