@@ -21,9 +21,9 @@ h3{
     margin-bottom: 0;
 }
 
-.btn-routes:hover {
+/* .btn-routes:hover {
   transform: scale(1.05);
-}
+} */
 
 @media (max-width: 767px) {
     .cardito {
