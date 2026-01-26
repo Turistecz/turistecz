@@ -1,5 +1,5 @@
 
-  <button class="filter-toggle-btn show-button d-lg-none ms-auto mb-2" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
+  <button class="filter-toggle-btn show-button d-lg-none ms-auto" [class.expanded]="filtersExpanded" (click)="toggleFilters()">
     <i class="bi" [ngClass]="filtersExpanded ? 'bi-chevron-up' : 'bi-chevron-down'"></i>
     {{ filtersExpanded ? 'Ocultar filtros' : 'Mostrar filtros' }}
   </button>
@@ -11,7 +11,7 @@
     <!-- Buscador -->
     <div class=" buscadorBox d-flex align-items-center">
       <input type="text" class=" barraBuscar form-control" placeholder="Buscar" [(ngModel)]="searchText" (keypress)="onlyLetters($event)" (keyup.enter)="onSearch()"/>
-      <button class="btn btn-outline-light me-2 my-2" (click)="onSearch()"><i class="bi bi-search"></i></button>
+      <button class="btn btn-outline-light my-2" (click)="onSearch()"><i class="bi bi-search"></i></button>
       <button class="btn btn-outline-light" (click)="resetFilters()"><i class="bi bi-arrow-counterclockwise"></i></button>
     </div>
 

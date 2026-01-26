@@ -1,10 +1,10 @@
 <div class="container">
   <div><h2 class="titleMapPage mb-3">Mapa</h2></div>
-  <div class="row gx-5">
-    <div class="col-12 col-md-3 mb-3">
+  <div class="row gx-4 gx-xl-5">
+    <div class="col-12 col-md-4 col-lg-3 mb-3">
       <app-filter [datos]="sitios" [categories]="globalCategories" (filteredCards)="updatePlaces($event)"></app-filter>
     </div>
-    <div class="col-12 col-md-9">
+    <div class="col-12 col-md-8 col-lg-9">
         <app-map [datos]="sitiosFiltrados" [parent]="name"></app-map>
     </div>
   </div>
