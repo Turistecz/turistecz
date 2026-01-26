@@ -62,10 +62,7 @@
   font-size: 1.1rem;
   font-family: "inclusive", system-ui;
 }
-/* Separación estándar debajo del panel de filtros */
-#buscador{
-  margin-bottom: 0.75rem;
-}
+
 
 /* En móvil tú ya metes margin-block: 1rem cuando expanded; eso quizá “infla” */
 @media (max-width: 767px){
@@ -81,7 +78,7 @@
 }
 
 /* Media Queries para pantallas pequeñas (tablets y móviles) */
-@media (max-width: 767px) {
+@media (max-width: 768px) {
 
   /* Mostrar el botón toggle */
   .filter-toggle-btn {
