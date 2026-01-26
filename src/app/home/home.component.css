@@ -2,11 +2,12 @@
   font-family: "Baloo Bhaijaan 2 Variable", system-ui;
 }
 
-
 #titleHome, #subtitleHome, #sloganHome {
   margin: 0;
+  color: var(--color-primary);
+  /* text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
+             1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;  */
 }
-
 
 .shapeHome {
   overflow: hidden;
@@ -26,52 +27,34 @@
   z-index: 2;
 }
 
-
-.shapeHome::before {
-  height: 50px;
-  background-size: 100% 50px;
-}
-
-
 .shapeHome .text-box {
   position: absolute;
   text-align: right;
-  color: #fff;
 
-  
   transform: translateY(-50%);
-
-  
-  top: clamp(40%, 46vw, 52%);
+  top: clamp(43%, 46vw, 38%);
   right: clamp(1rem, 5vw, 10%);
-
-  
   max-width: min(90vw, 40rem);
 }
 
-
 #titleHome {
   font-size: clamp(1.6rem, 4.5vw, 5.6rem);   
-  line-height: 0.95;                        
+  line-height: 0.95;                   
 }
 
 #subtitleHome {
   font-size: clamp(0.75rem, 2.2vw, 2.8rem); 
   line-height: 1.05;
-  
-  
   margin-top: clamp(0.10rem, 0.6vw, 0.35rem);
 }
 
 #sloganHome {
   font-size: clamp(0.55rem, 1.3vw, 1.75rem); 
   line-height: 1.25;
-
-  
   margin-top: clamp(0.35rem, 1vw, 0.9rem);
 }
 
-/*Media Query para quelas olas en móviles se vean mejor*/
+/*Media Query para que las olas en móviles se vean mejor*/
 @media (max-width:590px){
   .shapeHome::before {
   height: 50px;                 
