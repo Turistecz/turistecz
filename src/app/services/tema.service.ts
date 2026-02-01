@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TemaService {
-  private apiUrl = 'http://localhost/api/tema.php';
+  private apiUrl = `${environment.apiBaseUrl}/api/tema.php`;
   private tema$ = new BehaviorSubject<any>(null);
 
   constructor(private http: HttpClient) {
