@@ -4,15 +4,23 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
+import org.springframework.beans.factory.annotation.Value;
+import java.nio.charset.StandardCharsets;
+
 import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private static final String SECRET_KEY = "una_clave_secreta_larga_y_segura_para_firmar_los_tokens_12345";
+    private final String jwtSecret;
     private static final long EXPIRATION_TIME = 86400000; // 1 día en ms
 
-    private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    private final Key key;
+
+    public JwtUtil(@Value("${JWT_SECRET}") String jwtSecret) {
+        this.jwtSecret = jwtSecret;
+        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
+    }
 
     public String generateToken(String email, Integer userId) {
         return Jwts.builder()

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.turistecz.turisteczbackend.dto.*;
 import org.turistecz.turisteczbackend.model.Usuario;
 import org.turistecz.turisteczbackend.model.VerificationToken;
@@ -30,6 +31,9 @@ public class AuthController {
 
     @Autowired
     private VerificationTokenService verificationTokenService;
+
+    @Value("${FRONTEND_BASE_URL}")
+    private String frontendBaseUrl;
 
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UsuarioDto usuarioDto) {
@@ -123,7 +127,8 @@ public class AuthController {
         VerificationToken token = verificationTokenService.crearToken(usuario, "RECOVERY");
         System.out.println("Token creado: " + token.getToken());
 
-        String enlace = "http://localhost:4200/reset-password?token=" + token.getToken();
+        String base = frontendBaseUrl.endsWith("/") ? frontendBaseUrl.substring(0, frontendBaseUrl.length() - 1) : frontendBaseUrl;
+        String enlace = base + "/reset-password?token=" + token.getToken();
         System.out.println("Enlace generado: " + enlace);
 
         usuarioService.enviarCorreoRecuperacion(usuario.getEmail(), enlace);
@@ -131,8 +136,7 @@ public class AuthController {
 
         // 🔹 DEV: devolver el enlace en la respuesta para pruebas locales
         return ResponseEntity.ok(Map.of(
-            "mensaje", "Se ha enviado un enlace de recuperación a tu correo",
-            "enlace", enlace
+            "mensaje", "Se ha enviado un enlace de recuperación a tu correo"
         ));
     }
 
