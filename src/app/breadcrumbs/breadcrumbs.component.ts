@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {  ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter,firstValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -74,7 +75,7 @@ breadcrumbs: Array<{ label: string; url: string }> = [];
   private async loadSitioName(id: string): Promise<string> {
     try {
       const sitio = await firstValueFrom(
-        this.http.get<any>(`http://localhost:8080/api/sitioCorrespondienteALaImagen?id=${id}`)
+        this.http.get<any>(`${environment.apiBaseUrl}/api/sitioCorrespondienteALaImagen?id=${id}`)
       );
       return sitio?.nombre ?? 'Detalle del sitio';
     } catch (e) {
@@ -86,7 +87,7 @@ breadcrumbs: Array<{ label: string; url: string }> = [];
   private async loadRutaName(id: string): Promise<string> {
   try {
     const rutas = await firstValueFrom(
-      this.http.get<any[]>(`http://localhost:8080/api/rutas`) 
+      this.http.get<any[]>(`${environment.apiBaseUrl}/api/rutas`) 
     );
 
     const ruta = rutas.find(r => String(r.id) === id);

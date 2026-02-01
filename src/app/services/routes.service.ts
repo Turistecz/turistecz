@@ -2,16 +2,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError, of, tap } from 'rxjs';
 import { RoutesPage } from '../models/routes.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoutesService {
 
-  private routesURL = 'http://localhost:8080/api/rutas';
-  private routeIdURL = 'http://localhost:8080/api/rutaPorID?id=';
-  private routesLikeByNameURL = 'http://localhost:8080/api/rutasParecidas?nombre=';
-  private routeSitesURL = 'http://localhost:8080/api/sitiosRutaID?id='
+  private routesURL = `${environment.apiBaseUrl}/api/rutas`;
+  private routeIdURL = `${environment.apiBaseUrl}/api/rutaPorID?id=`;
+  private routesLikeByNameURL = `${environment.apiBaseUrl}/api/rutasParecidas?nombre=`;
+  private routeSitesURL = `${environment.apiBaseUrl}/api/sitiosRutaID?id=`
 
   routesCache: RoutesPage[] = [];
   

@@ -5,6 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { RouterModule } from '@angular/router';
 import { OnePlaceCardComponent } from '../one-place-card/one-place-card.component';
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-place-card',
@@ -35,7 +37,7 @@ export class PlaceCardComponent implements OnInit {
 
       // 🔹 Llamada HTTP con headers
       const datos = await firstValueFrom(this.http.get<any[]>(
-        'http://localhost:8080/api/sitios', { headers }
+        `${environment.apiBaseUrl}/api/sitios`, { headers }
       ));
 
       // 🔹 Mapear imágenes de cada sitio

@@ -8,6 +8,7 @@ import { inject } from '@angular/core';
 import { MonumentServiceService } from '../services/monument-service.service';
 import { MapComponent } from "../map/map.component";
 import { EnumServiciosAdaptabilidad } from '../place-card-list/EnumServiciosAdaptabilidad';
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -103,7 +104,7 @@ export class MonumentComponent implements OnInit {
     const variableNumero = this.route.snapshot.paramMap.get('id'); 
     try {
       const datos = await firstValueFrom(this.http.get<any>(
-        `http://localhost:8080/api/sitioCorrespondienteALaImagen?id=${variableNumero}`
+        `${environment.apiBaseUrl}/api/sitioCorrespondienteALaImagen?id=${variableNumero}`
       ));
 
       this.monumento = datos;

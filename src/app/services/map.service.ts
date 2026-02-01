@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as L from 'leaflet';
 import { mapRoute } from '../models/details-routes';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -86,7 +87,7 @@ export class MapService {
     const service = 'route';
     const version = 'v1';
     const profile = 'foot';
-    const host = 'http://localhost:5000';
+    const host = environment.osrmBaseUrl;
   
     const siteCoords = [L.latLng(latLng).lng, L.latLng(latLng).lat];
     const userCoords = [L.latLng(userLatLong).lng, L.latLng(userLatLong).lat];

@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { CrearRuta, MostrarRuta, MostrarSitioRuta, SitioRutaSeleccionado } from '../models/custom-route.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -21,16 +22,16 @@ export class CustomRouteService {
   }
 
   /* ----- URLs RUTA USUARIO ----- */
-  private newRouteURL = 'http://localhost:8080/auth/nuevaRutaUsuario';
-  private allRoutesURL = 'http://localhost:8080/auth/rutasUsuario?id_usuario=';
+  private newRouteURL = `${environment.apiBaseUrl}/auth/nuevaRutaUsuario`;
+  private allRoutesURL = `${environment.apiBaseUrl}/auth/rutasUsuario?id_usuario=`;
 
   /* ----- URLs SITIO RUTA USUARIO ----- */
-  private newSitioRutaURL = 'http://localhost:8080/auth/nuevoSitioRutaUsuario';
-  private allSitiosRutaURL = 'http://localhost:8080/auth/sitiosRutaUsuario?id_ruta=';
-  private deleteRutaURL = 'http://localhost:8080/auth/eliminarRutaUsuario?id_ruta=';
-  private editTituloRutaURL = 'http://localhost:8080/auth/editarTituloRutaUsuario';
-  private editDescripcionRutaURL = 'http://localhost:8080/auth/editarDescripcionRutaUsuario';
-  private deleteSitiosRutaURL = 'http://localhost:8080/auth/eliminarSitiosRuta?id=';
+  private newSitioRutaURL = `${environment.apiBaseUrl}/auth/nuevoSitioRutaUsuario`;
+  private allSitiosRutaURL = `${environment.apiBaseUrl}/auth/sitiosRutaUsuario?id_ruta=`;
+  private deleteRutaURL = `${environment.apiBaseUrl}/auth/eliminarRutaUsuario?id_ruta=`;
+  private editTituloRutaURL = `${environment.apiBaseUrl}/auth/editarTituloRutaUsuario`;
+  private editDescripcionRutaURL = `${environment.apiBaseUrl}/auth/editarDescripcionRutaUsuario`;
+  private deleteSitiosRutaURL = `${environment.apiBaseUrl}/auth/eliminarSitiosRuta?id=`;
 
   /* ----- MÉTODOS RUTA USUARIO ----- */
   postNuevaRutaUsuario(usuario:number, titulo: string, descripcion:string): Observable<any> {

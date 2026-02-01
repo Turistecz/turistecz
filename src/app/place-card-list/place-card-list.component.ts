@@ -10,7 +10,7 @@ import { FilterComponent } from '../filter/filter.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { Category } from '../models/filter.model';
 import { categories } from '../models/filter.data';
-
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -55,7 +55,7 @@ export class PlaceCardListComponent {
  async loadImages(): Promise<void> {
   try {
       const datos = await firstValueFrom(this.http.get<MonumentItem[]>(
-        'http://localhost:8080/api/sitios'
+        `${environment.apiBaseUrl}/api/sitios`
       ));
 
       // Guardamos todos los monumentos en el array

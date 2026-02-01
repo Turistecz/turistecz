@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { MonumentItem, MonumentResponse } from '../models/monument.model';
 import { map } from 'rxjs/operators';
 import { firstValueFrom, Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class MonumentServiceService {
 
   //devuelve el observable para que pueda ser utilizado en un componente
   getMonumentsNames(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:8080/api/sitios');
+    return this.http.get<any[]>(`${environment.apiBaseUrl}/api/sitios`);
 
   }
 

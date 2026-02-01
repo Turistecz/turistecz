@@ -2,14 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CleanFilter, FilterItem, FilterUser } from '../models/filter.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilterService {
 
-  private apiUrl = 'http://localhost:8080/api/filtrosUser';
-  private filtroUrl = 'http://localhost:8080/api/filtros';
+  private apiUrl = `${environment.apiBaseUrl}/api/filtrosUser`;
+  private filtroUrl = `${environment.apiBaseUrl}/api/filtros`;
 
   constructor(private http: HttpClient) { }
 

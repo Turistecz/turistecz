@@ -12,6 +12,7 @@ import { Category, CleanFilter, FilterItem } from '../models/filter.model';
 import { categories } from '../models/filter.data';
 import { SaveFilterComponent } from "../save-filter/save-filter.component";
 import { FilterService } from '../services/filter.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-mi-perfil',
@@ -96,7 +97,7 @@ export class MiPerfilComponent implements OnInit {
   async cargarFavoritosConImagen(): Promise<void> {
     forkJoin({
       favoritosData: this.favoritosService.getMisFavoritos(this.usuario.id),
-      sitiosConImagenes: this.http.get<any[]>('http://localhost:8080/api/sitios')
+      sitiosConImagenes: this.http.get<any[]>(`${environment.apiBaseUrl}/api/sitios`)
     }).subscribe({
       next: ({ favoritosData, sitiosConImagenes }) => {
         this.favoritos = favoritosData.map(sitio => {

@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { BreadcrumbsComponent } from "../breadcrumbs/breadcrumbs.component";
+import { environment } from '../../environments/environment';
+
 
 @Component({
   selector: 'app-recuperar-contrasena',
@@ -18,7 +20,7 @@ export class RecuperarContrasenaComponent {
   constructor(private http: HttpClient, private router: Router) {}
 
   onForgotPassword() {
-    this.http.post('http://localhost:8080/auth/forgot-password', { email: this.email }, { responseType: 'text' }).subscribe({
+    this.http.post(`${environment.apiBaseUrl}/auth/forgot-password`, { email: this.email }, { responseType: 'text' }).subscribe({
       next: () => alert("Si el correo está registrado, recibirás un enlace para restablecer tu contraseña"),
       error: () => alert("Error al procesar la solicitud")
     });
