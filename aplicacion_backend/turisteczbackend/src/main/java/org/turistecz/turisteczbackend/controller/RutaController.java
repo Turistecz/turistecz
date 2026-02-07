@@ -19,20 +19,16 @@ public class RutaController {
     @Autowired	   
     private RutaService rutaService;
 
-
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/rutas")
     public List<Ruta> listarRutas() {
         return rutaService.buscarTodasRutas();
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/rutasParecidas")
     public List<Ruta> listarRutasParecidas(@RequestParam String nombre) {
         return rutaService.buscarRutasParecidas(nombre);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/rutaPorID")
     public Ruta mostrarRutaPorID(@RequestParam Number id) {
         return rutaService.buscarNombrePorId(id);

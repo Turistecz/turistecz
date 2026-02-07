@@ -28,7 +28,6 @@ public class SitioController {
     //vengan desde ahi (es la direccion donde esta publicado el frontend)
     //Como estamos usando la anotacion "@GetMapping", las peticiones que vengan al endpoint 
     //tendran que ser de tipo GET.
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/sitios")
     public List<Sitio> listar() {
         return sitioService.buscarTodosSitios();
@@ -49,7 +48,6 @@ public class SitioController {
     //vengan desde ahi (es la direccion donde esta publicado el frontend).
     //Como estamos usando la anotacion "@GetMapping", las peticiones que vengan al endpoint 
     //tendran que ser de tipo GET.
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/sitiosDeNombreIgual")
     public List<Sitio> listarSitiosDeNombreIgual(@RequestParam String nombre) {
         return sitioService.buscarTodosSitiosDeNombreIgual(nombre);
@@ -70,7 +68,6 @@ public class SitioController {
     //vengan desde ahi (es la direccion donde esta publicado el frontend).
     //Como estamos usando la anotacion "@GetMapping", las peticiones que vengan al endpoint 
     //tendran que ser de tipo GET.
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/sitiosDeNombreParecido")
     public List<Sitio> listarSitiosDeNombreParecido(@RequestParam String nombre) {
         return sitioService.buscarTodosSitiosDeNombreParecido(nombre);
@@ -91,7 +88,6 @@ public class SitioController {
     //vengan desde ahi (es la direccion donde esta publicado el frontend).
     //Como estamos usando la anotacion "@PostMapping", las peticiones que vengan al endpoint 
     //tendran que ser de tipo POST.
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/sitios/crear")
     public String crearSitio(@RequestParam String nombre) {
     	Sitio s = new Sitio();
@@ -116,13 +112,11 @@ public class SitioController {
     //vengan desde ahi (es la direccion donde esta publicado el frontend).
     //Como estamos usando la anotacion "@GetMapping", las peticiones que vengan al endpoint 
     //tendran que ser de tipo GET.
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/sitioCorrespondienteALaImagen")
     public Sitio mostrarSitioCorrespondienteALaImagen(@RequestParam String id) {
         return sitioService.buscarSitioCorrespondienteALaImagen(id);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/sitiosRuta")
     public List<Sitio> mostrarSitiosRuta(@RequestParam Integer id) {
         return sitioService.buscarSitiosRuta(id);

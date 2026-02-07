@@ -14,7 +14,6 @@ public class SitioRutaViewController {
     @Autowired	   
     private SitioRutaViewService sitioRutaViewService;
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/sitiosRutaID")
     public List<SitioRutaView> getById(@RequestParam Integer id) {
         return sitioRutaViewService.buscarSitiosRutaPorId(id);

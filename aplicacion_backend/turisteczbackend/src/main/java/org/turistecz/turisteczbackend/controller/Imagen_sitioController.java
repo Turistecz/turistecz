@@ -28,7 +28,6 @@ public class Imagen_sitioController {
     //vengan desde ahi (es la direccion donde esta publicado el frontend)
     //Como estamos usando la anotacion "@GetMapping", las peticiones que vengan al endpoint 
     //tendran que ser de tipo GET.
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/imagen_sitios")
     public List<Imagen_sitio> listar() {
         return imagen_sitioService.buscarTodosImagen_sitios();

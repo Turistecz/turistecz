@@ -24,14 +24,11 @@ public class Sitios_RutaController {
     // public Sitios_Ruta mostrarSitiosRutaPorID(@RequestParam Integer id_sitio, @RequestParam Integer id_ruta ) {
     //     return sitios_rutaService.buscarNombrePorId(id_sitio, id_ruta);
     
-
-    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/textoRutaPorId")
     public List<SitiosRuta> mostrarTextoRutaPorID(@RequestParam Integer id_ruta) {
         return sitios_rutaService.buscarTextoRutaPorId(id_ruta);
     }
 
-    
     // @CrossOrigin(origins = "http://localhost:4200")
     // @GetMapping("/textoRutaPorId")
     // public Sitios_Ruta mostrarTextoRutaPorID(@RequestParam String id_ruta ) {

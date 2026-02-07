@@ -16,7 +16,6 @@ import org.turistecz.turisteczbackend.service.FavoritosService;
 
 @RestController
 @RequestMapping("/api/favoritos")
-@CrossOrigin(origins = "http://localhost:4200")
 public class FavoritosController {
 
     @Autowired
