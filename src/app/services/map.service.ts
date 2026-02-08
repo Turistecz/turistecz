@@ -101,7 +101,7 @@ export class MapService {
     const service = 'route';
     const version = 'v1';
     const profile = 'foot';
-    const host = 'http://localhost:5000';
+    const host = environment.osrmBaseUrl;
   
     const userCoords = [L.latLng(userLatLong).lng, L.latLng(userLatLong).lat];
     let arrayR:[[number, number]]=[[0,0]]

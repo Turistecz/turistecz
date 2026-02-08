@@ -22,15 +22,14 @@ export class AuthService {
   }
 
   forgotPassword(email: string) {
-  return this.http.post(
-    'http://localhost:8080/auth/forgot-password',
-    { email },
-    { responseType: 'text' }
-  );
-}
+    return this.http.post(
+      `${this.apiUrl}/forgot-password`,
+      { email },
+      { responseType: 'text' }
+    );
+  }
 
   resetPassword(token: string, nuevaPassword: string): Observable<any>{
     return this.http.post(`${this.apiUrl}/reset-password?token=${token}&nuevaPassword=${nuevaPassword}`, {});
   }
-
 }
