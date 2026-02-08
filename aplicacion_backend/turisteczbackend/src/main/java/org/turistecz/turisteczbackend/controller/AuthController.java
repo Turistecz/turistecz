@@ -32,7 +32,7 @@ public class AuthController {
     @Autowired
     private VerificationTokenService verificationTokenService;
 
-    @Value("${FRONTEND_BASE_URL}")
+    @Value("${frontend.base-url}")
     private String frontendBaseUrl;
 
     @PostMapping("/register")
