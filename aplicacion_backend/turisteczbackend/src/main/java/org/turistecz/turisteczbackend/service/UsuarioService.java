@@ -3,6 +3,7 @@ package org.turistecz.turisteczbackend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 import org.turistecz.turisteczbackend.dto.UsuarioDto;
 import org.turistecz.turisteczbackend.model.Usuario;
 import org.turistecz.turisteczbackend.model.VerificationToken;
@@ -26,6 +27,10 @@ public class UsuarioService {
     @Autowired
     private VerificationTokenService verificationTokenService;
 
+    @Value("${app.public-url:http://localhost:8080}")
+    private String publicUrl;
+
+
     // 🔹 Registrar usuario
     public Usuario registrarUsuarioDesdeDto(UsuarioDto dto) {
         Usuario usuario = new Usuario();
@@ -38,7 +43,8 @@ public class UsuarioService {
 
         // Generar token de activación
         VerificationToken token = verificationTokenService.crearToken(guardado, "ACTIVACION");
-        String enlace = "http://localhost:8080/auth/verify?token=" + token.getToken();
+        String baseUrl = publicUrl.endsWith("/") ? publicUrl.substring(0, publicUrl.length() - 1) : publicUrl;
+        String enlace = baseUrl + "/auth/verify?token=" + token.getToken();
 
         emailService.enviarCorreo(
                 guardado.getEmail(),
