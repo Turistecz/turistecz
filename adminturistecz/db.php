@@ -1,27 +1,37 @@
 <?php
-$host = "localhost";
-$user = "root"; // el usuario por defecto en XAMPP
-$pass = "";     // en XAMPP normalmente no hay contraseña
-$db   = "adminturistecz";
 
-$conn = new mysqli($host, $user, $pass, $db, 3307);
+// Lee variable de entorno y aplica default si no existe
+function env_or_default(string $key, string $default = ''): string {
+    $val = getenv($key);
+    return ($val === false || $val === '') ? $default : $val;
+}
 
-$host1 = "localhost" ; 
-$user1 = "rooteador" ;
-$pass1 = "msTrky2obX1TpYc";
-$db1 = "turistecz";
+/**
+ * Conexión 1: Admin DB  -> $conn
+ */
+$adminHost = env_or_default('ADMIN_DB_HOST', '127.0.0.1');
+$adminPort = env_or_default('ADMIN_DB_PORT', '3306');
+$adminDb   = env_or_default('ADMIN_DB_NAME', 'adminturistecz');
+$adminUser = env_or_default('ADMIN_DB_USER', 'root');
+$adminPass = env_or_default('ADMIN_DB_PASS', '');
 
-$conn1 = new mysqli($host1, $user1, $pass1, $db1, 3306);
+$conn = new mysqli($adminHost, $adminUser, $adminPass, $adminDb, (int)$adminPort);
 
-    // Verificar conexión
-    if ($conn->connect_error) {
-        die("Conexión fallida: " . $conn->connect_error);
-    }
-    if ($conn1->connect_error) {
-        die("Conexión BD2 fallida: " . $conn1->connect_error);
-  
-        echo "Conexión exitosa"; 
-    }
-?>
+if ($conn->connect_error) {
+    die("Error conexión Admin DB: " . $conn->connect_error);
+}
 
-    
+/**
+ * Conexión 2: App DB -> $conn1
+ */
+$appHost = env_or_default('APP_DB_HOST', '127.0.0.1');
+$appPort = env_or_default('APP_DB_PORT', '3306');
+$appDb   = env_or_default('APP_DB_NAME', 'turistecz');
+$appUser = env_or_default('APP_DB_USER', 'root');
+$appPass = env_or_default('APP_DB_PASS', '');
+
+$conn1 = new mysqli($appHost, $appUser, $appPass, $appDb, (int)$appPort);
+
+if ($conn1->connect_error) {
+    die("Error conexión App DB: " . $conn1->connect_error);
+}
