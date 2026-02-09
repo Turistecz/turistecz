@@ -25,7 +25,8 @@ public class SitiosRuta {
     @Column
     private Integer orden;
 
-    @Column
+    @Lob
+    @Column(columnDefinition = "TEXT")
     private String texto;
 
     public int getId() {
